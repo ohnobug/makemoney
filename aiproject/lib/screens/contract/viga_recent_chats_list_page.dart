@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/api_manager/api.dart';
@@ -15,6 +16,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:vigaviga/tools/dialog/viga_dialog_service.dart';
 import 'package:vigaviga/widgets/viga_appbar.dart';
+import 'package:vigaviga/screens/contract/viga_contact_search_page.dart';
 
 class VigaRecentChatsListPage extends StatefulWidget {
   const VigaRecentChatsListPage({super.key});
@@ -104,6 +106,23 @@ class _VigaRecentChatsListPage extends State<VigaRecentChatsListPage>
   Size screenSize = Size(0, 0);
   double statusHeight = 0;
   double _homescrollpixels = 0;
+
+  // 从聊天列表项中提取联系人数据
+  List<ContactItem> _extractContactsFromChatItems() {
+    return chatItems.map((chatItem) {
+      return ContactItem(
+        id: chatItem.friendName, // 使用friendName作为ID
+        name: chatItem.friendName,
+        avatar: chatItem.avatar,
+        lastMessage: chatItem.message,
+        time: chatItem.lastedTime.toString(),
+        isOnline: Random().nextBool(), // 随机设置在线状态
+        status: Random().nextBool()
+            ? ['在线', '忙碌', '离开'][Random().nextInt(3)]
+            : null,
+      );
+    }).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -366,7 +385,19 @@ class _VigaRecentChatsListPage extends State<VigaRecentChatsListPage>
                       ],
                       // 搜索
                       leading: GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          if (_homescrollpixels == 0) {
+                            final contacts = _extractContactsFromChatItems();
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => VigaContactSearchPage(
+                                  recentContacts: contacts,
+                                ),
+                              ),
+                            );
+                          }
+                        },
                         child: Container(
                           color: Colors.transparent,
                           height: 90.w,

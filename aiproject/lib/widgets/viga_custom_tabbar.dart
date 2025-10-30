@@ -115,7 +115,7 @@ class _VigaCustomTabbarState extends State<VigaCustomTabbar>
     if (_tabController.indexIsChanging == false) {
       final index = _tabController.index;
 
-      if (index == 0 && index == 4) {
+      if (index == 0 || index == 4) {
         SystemChrome.setSystemUIOverlayStyle(
           const SystemUiOverlayStyle(
             statusBarColor: Colors.transparent,

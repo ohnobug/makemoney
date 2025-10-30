@@ -123,29 +123,47 @@ class _VigaHomeSearchResultsPageState extends State<VigaHomeSearchResultsPage> {
   List<SearchSource> _buildSearchSources() {
     final sources = <SearchSource>[];
 
-    // 作品搜索源
-    sources.add(SearchSource(
-      id: 'works',
-      name: '作品',
-      items: _generateWorksData(),
-      suggestionsBuilder: () => ['风景', '人像', '街拍', '建筑', '美食', '旅行', '艺术', '黑白', '夜景', '微距'],
-    ));
+    switch (widget.initialSearchType) {
+      case 'contact_search':
+        // 联系人搜索场景
+        sources.add(SearchSource(
+          id: 'contacts',
+          name: '联系人',
+          items: _generateContactsData(),
+          suggestionsBuilder: () => ['好友', '同事', '同学', '家人', '群组', '标签', '备注', '电话'],
+        ));
+        sources.add(SearchSource(
+          id: 'groups',
+          name: '群组',
+          items: _generateGroupsData(),
+          suggestionsBuilder: () => ['工作群', '同学群', '兴趣群', '家庭群', '项目群', '游戏群', '学习群', '交流群'],
+        ));
+        break;
 
-    // 作者搜索源
-    sources.add(SearchSource(
-      id: 'authors',
-      name: '作者',
-      items: _generateAuthorsData(),
-      suggestionsBuilder: () => ['摄影师', '美食博主', '旅行达人', '健身教练', '音乐人', '游戏主播', '时尚达人', '手工艺人'],
-    ));
+      default:
+        // 默认搜索场景（首页等）
+        sources.add(SearchSource(
+          id: 'works',
+          name: '作品',
+          items: _generateWorksData(),
+          suggestionsBuilder: () => ['风景', '人像', '街拍', '建筑', '美食', '旅行', '艺术', '黑白', '夜景', '微距'],
+        ));
 
-    // 小程序搜索源
-    sources.add(SearchSource(
-      id: 'miniprograms',
-      name: '小程序',
-      items: _generateMiniprogramsData(),
-      suggestionsBuilder: () => ['工具类', '游戏类', '教育类', '生活类', '娱乐类', '购物类', '社交类', '新闻类'],
-    ));
+        sources.add(SearchSource(
+          id: 'authors',
+          name: '作者',
+          items: _generateAuthorsData(),
+          suggestionsBuilder: () => ['摄影师', '美食博主', '旅行达人', '健身教练', '音乐人', '游戏主播', '时尚达人', '手工艺人'],
+        ));
+
+        sources.add(SearchSource(
+          id: 'miniprograms',
+          name: '小程序',
+          items: _generateMiniprogramsData(),
+          suggestionsBuilder: () => ['工具类', '游戏类', '教育类', '生活类', '娱乐类', '购物类', '社交类', '新闻类'],
+        ));
+        break;
+    }
 
     return sources;
   }
@@ -156,6 +174,8 @@ class _VigaHomeSearchResultsPageState extends State<VigaHomeSearchResultsPage> {
         return '搜索作品、作者或小程序';
       case 'author_search':
         return '搜索该作者的作品';
+      case 'contact_search':
+        return '搜索联系人或群组';
       default:
         return '搜索作品、作者或小程序';
     }
@@ -252,5 +272,50 @@ class _VigaHomeSearchResultsPageState extends State<VigaHomeSearchResultsPage> {
       '科技创新工作室', '数字产品设计', '应用开发公司', '技术工作室'
     ];
     return developers[index % developers.length];
+  }
+
+  // 生成联系人数据
+  List<WorkItem> _generateContactsData() {
+    return List.generate(100, (i) => WorkItem(
+      id: 'contact_$i',
+      imageUrl: 'https://picsum.photos/100/100?random=${i + 50000}',
+      viewCount: Random().nextInt(1000) + 100,
+      title: _getRandomContactName(i),
+      author: _getRandomContactName(i),
+      createTime: DateTime.now().subtract(Duration(days: Random().nextInt(365))),
+    ));
+  }
+
+  // 生成群组数据
+  List<WorkItem> _generateGroupsData() {
+    return List.generate(50, (i) => WorkItem(
+      id: 'group_$i',
+      imageUrl: 'https://picsum.photos/150/150?random=${i + 60000}',
+      viewCount: Random().nextInt(500) + 50,
+      title: _getRandomGroupName(i),
+      author: _getRandomGroupName(i),
+      createTime: DateTime.now().subtract(Duration(days: Random().nextInt(180))),
+    ));
+  }
+
+  String _getRandomContactName(int index) {
+    final surnames = [
+      '张', '王', '李', '赵', '刘', '陈', '杨', '黄', '周', '吴',
+      '徐', '孙', '马', '朱', '胡', '郭', '何', '高', '林', '罗'
+    ];
+    final names = [
+      '伟', '芳', '娜', '秀英', '敏', '静', '丽', '强', '磊', '军',
+      '洋', '勇', '艳', '杰', '娟', '涛', '明', '超', '秀兰', '霞'
+    ];
+
+    return '${surnames[index % surnames.length]}${names[index % names.length]}';
+  }
+
+  String _getRandomGroupName(int index) {
+    final prefixes = ['技术', '设计', '产品', '市场', '运营', '人事', '行政', '财务'];
+    final types = ['交流群', '讨论组', '分享会', '学习班', '工作群', '兴趣组', '项目组', '亲友群'];
+    final suffixes = ['2024', 'V2.0', 'Beta', 'Alpha', 'Official', 'Community', 'Team', 'Group'];
+
+    return '${prefixes[index % prefixes.length]}${types[index % types.length]}${suffixes[index % suffixes.length]}';
   }
 }
