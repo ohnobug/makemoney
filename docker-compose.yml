@@ -45,11 +45,19 @@ services:
       - "80:80"
       - "443:443"
     volumes:
+      # 官网 及 配置
       - ./nginx/wwwroot/official:/usr/share/nginx/html/official
+      - ./nginx/vigaviga.com.conf:/etc/nginx/conf.d/default.conf
+
+      # 帮助中心页面 及 配置
+      - ./nginx/help.vigaviga.com.conf:/etc/nginx/conf.d/help.conf
       - ./nginx/wwwroot/help:/usr/share/nginx/html/help
 
-      - ./nginx/vigaviga.com.conf:/etc/nginx/conf.d/default.conf
-      - ./nginx/help.vigaviga.com.conf:/etc/nginx/conf.d/help.conf
+      # 学院页面 及 配置
+      - ./nginx/course.vigaviga.com.conf:/etc/nginx/conf.d/course.conf
+      - ./nginx/wwwroot/course:/usr/share/nginx/html/course
+  
+      # 证书
       - /root/.acme.sh/vigaviga.com_ecc/vigaviga.com.key:/home/vigaviga.com.key
       - /root/.acme.sh/vigaviga.com_ecc/fullchain.cer:/home/fullchain.cer
     networks:
