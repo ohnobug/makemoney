@@ -160,7 +160,7 @@ class _VigaSearch extends State<VigaSearchPage> with TickerProviderStateMixin {
       return Scaffold(
         primary: false,
         resizeToAvoidBottomInset: false,
-        backgroundColor: theme.colorScheme.surfaceContainer,
+        backgroundColor: theme.colorScheme.surface,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(90.0.w + systemState.statusHeight),
           child: Container(
@@ -222,7 +222,7 @@ class _VigaSearch extends State<VigaSearchPage> with TickerProviderStateMixin {
             ),
           ),
         ),
-        // [MODIFIED] 使用 NestedScrollView 来创建可滚动的 Sliver 头部和固定的 TabBar
+        // 使用 NestedScrollView 来创建可滚动的 Sliver 头部和固定的 TabBar
         body: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             return [
@@ -405,7 +405,8 @@ class _VigaSearch extends State<VigaSearchPage> with TickerProviderStateMixin {
                             style: TextStyle(
                               fontSize: 32.w,
                               height: 1.08,
-                              color: item.isHot ? AppColors.accentRedPure : null,
+                              color:
+                                  item.isHot ? AppColors.accentRedPure : null,
                             ),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
@@ -487,7 +488,8 @@ class _VigaSearch extends State<VigaSearchPage> with TickerProviderStateMixin {
                             children: [
                               if (e.key < 3)
                                 Icon(
-                                  const IconData(0xe649, fontFamily: 'Iconfont'),
+                                  const IconData(0xe649,
+                                      fontFamily: 'Iconfont'),
                                   color: AppColors.accentYellowDark2,
                                   size: 37.w,
                                 ),

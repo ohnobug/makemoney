@@ -136,7 +136,7 @@ class _VigaDiscoveryPageState extends State<VigaDiscoveryPage> {
     AppLocalizations l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      backgroundColor: theme.scaffoldBackgroundColor,
+      backgroundColor: theme.colorScheme.surface,
       primary: false,
       appBar: VigaAppBar(
         title: l10n.tabbar_label_discover,
