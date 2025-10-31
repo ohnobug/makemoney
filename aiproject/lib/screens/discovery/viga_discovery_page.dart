@@ -151,7 +151,6 @@ class _VigaDiscoveryPageState extends State<VigaDiscoveryPage> {
           ),
         ],
       ),
-      // 使用 SafeArea 来确保内容不会被系统UI（如状态栏）遮挡
       body: ListView(
         physics: BouncingScrollPhysics(),
         padding: EdgeInsets.only(

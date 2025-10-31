@@ -2,7 +2,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/widgets/viga_app_network_image.dart';
-import 'package:vigaviga/screens/user/photo_viewer/viga_photo_viewer_page.dart';
+import 'package:vigaviga/features/viewer/viga_photo_viewer_page.dart';
 
 // 作品数据模型
 class WorkItem {
@@ -193,7 +193,8 @@ class _VigaWorkSearchWidgetState extends State<VigaWorkSearchWidget>
         onTap: (index) {
           // 切换标签时，如果有搜索词，自动搜索
           if (_searchController.text.isNotEmpty) {
-            _performSearch(widget.searchSources[index].id, _searchController.text);
+            _performSearch(
+                widget.searchSources[index].id, _searchController.text);
           }
         },
         labelColor: theme.colorScheme.primary,
@@ -285,7 +286,8 @@ class _VigaWorkSearchWidgetState extends State<VigaWorkSearchWidget>
   }
 
   Widget _buildSearchSuggestions(ThemeData theme, SearchSource source) {
-    final suggestions = source.suggestionsBuilder?.call() ?? _getDefaultSuggestions(source);
+    final suggestions =
+        source.suggestionsBuilder?.call() ?? _getDefaultSuggestions(source);
 
     return Padding(
       padding: EdgeInsets.all(20.w),
@@ -311,7 +313,8 @@ class _VigaWorkSearchWidgetState extends State<VigaWorkSearchWidget>
                   _performSearch(source.id, suggestion);
                 },
                 child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.w),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 20.w, vertical: 12.w),
                   decoration: BoxDecoration(
                     color: theme.colorScheme.surface,
                     borderRadius: BorderRadius.circular(20.w),
@@ -345,7 +348,8 @@ class _VigaWorkSearchWidgetState extends State<VigaWorkSearchWidget>
         children: [
           CircularProgressIndicator(
             strokeWidth: 3.w,
-            valueColor: AlwaysStoppedAnimation<Color>(theme.colorScheme.primary),
+            valueColor:
+                AlwaysStoppedAnimation<Color>(theme.colorScheme.primary),
           ),
           SizedBox(height: 20.w),
           Text(
@@ -473,17 +477,16 @@ class _VigaWorkSearchWidgetState extends State<VigaWorkSearchWidget>
                       Text(
                         '${workItem.viewCount}',
                         style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 22.w,
-                          fontWeight: FontWeight.bold,
-                          shadows: [
-                            Shadow(
-                              blurRadius: 4.0,
-                              color: Colors.black.withAlpha(128),
-                              offset: const Offset(0, 1),
-                            ),
-                          ]
-                        ),
+                            color: Colors.white,
+                            fontSize: 22.w,
+                            fontWeight: FontWeight.bold,
+                            shadows: [
+                              Shadow(
+                                blurRadius: 4.0,
+                                color: Colors.black.withAlpha(128),
+                                offset: const Offset(0, 1),
+                              ),
+                            ]),
                       ),
                     ],
                   ),
@@ -554,7 +557,8 @@ class _VigaWorkSearchWidgetState extends State<VigaWorkSearchWidget>
     }
 
     // 匹配作者
-    if (item.author != null && item.author!.toLowerCase().contains(lowerQuery)) {
+    if (item.author != null &&
+        item.author!.toLowerCase().contains(lowerQuery)) {
       return true;
     }
 

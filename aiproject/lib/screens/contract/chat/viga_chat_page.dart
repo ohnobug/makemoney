@@ -21,8 +21,138 @@ import 'package:path_provider/path_provider.dart';
 import 'package:uuid/uuid.dart';
 import 'package:vibration/vibration.dart';
 import 'widgets/viga_my_message.dart';
+import 'widgets/viga_receive_message.dart';
+import 'widgets/viga_video_message.dart';
+import 'widgets/viga_receive_video_message.dart';
 import 'package:vigaviga/store/viga_system_cubit.dart';
 import 'package:vigaviga/tools/viga_tools.dart';
+import 'package:vigaviga/features/viewer/viga_video_viewer_page.dart';
+
+// 消息数据模型
+class ChatMessage {
+  final String id;
+  final String type; // 'text', 'voice', 'receive', 'video', 'receive_video'
+  final String content;
+  final String? voicePath;
+  final String? name;
+  final bool showName;
+  final String? friendAvatar;
+  final Uri? video;
+  final int? videoWidth;
+  final int? videoHeight;
+  final DateTime timestamp;
+
+  ChatMessage({
+    required this.id,
+    required this.type,
+    required this.content,
+    this.voicePath,
+    this.name,
+    this.showName = false,
+    this.friendAvatar,
+    this.video,
+    this.videoWidth,
+    this.videoHeight,
+    DateTime? timestamp,
+  }) : timestamp = timestamp ?? DateTime.now();
+
+  // 从文本消息创建
+  factory ChatMessage.text({
+    required String content,
+    String? name,
+    bool showName = false,
+    DateTime? timestamp,
+  }) {
+    return ChatMessage(
+      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      type: 'text',
+      content: content,
+      name: name,
+      showName: showName,
+      timestamp: timestamp,
+    );
+  }
+
+  // 从语音消息创建
+  factory ChatMessage.voice({
+    required String content,
+    required String voicePath,
+    bool showName = false,
+    DateTime? timestamp,
+  }) {
+    return ChatMessage(
+      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      type: 'voice',
+      content: content,
+      voicePath: voicePath,
+      showName: showName,
+      timestamp: timestamp,
+    );
+  }
+
+  // 从接收消息创建
+  factory ChatMessage.receive({
+    required String content,
+    required String friendAvatar,
+    required String name,
+    bool showName = false,
+    DateTime? timestamp,
+  }) {
+    return ChatMessage(
+      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      type: 'receive',
+      content: content,
+      name: name,
+      showName: showName,
+      friendAvatar: friendAvatar,
+      timestamp: timestamp,
+    );
+  }
+
+  // 从我发送的视频消息创建
+  factory ChatMessage.video({
+    required Uri video,
+    required int width,
+    required int height,
+    bool showName = false,
+    DateTime? timestamp,
+  }) {
+    return ChatMessage(
+      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      type: 'video',
+      content: '视频消息',
+      video: video,
+      videoWidth: width,
+      videoHeight: height,
+      showName: showName,
+      timestamp: timestamp,
+    );
+  }
+
+  // 从对方发送的视频消息创建
+  factory ChatMessage.receiveVideo({
+    required Uri video,
+    required int width,
+    required int height,
+    required String friendAvatar,
+    required String name,
+    bool showName = false,
+    DateTime? timestamp,
+  }) {
+    return ChatMessage(
+      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      type: 'receive_video',
+      content: '视频消息',
+      video: video,
+      videoWidth: width,
+      videoHeight: height,
+      friendAvatar: friendAvatar,
+      name: name,
+      showName: showName,
+      timestamp: timestamp,
+    );
+  }
+}
 
 enum PannelType {
   none,
@@ -78,7 +208,7 @@ class _VigaChat extends State<VigaChat>
   late final Animation<double> _voiceTextBoxWidthAnimation;
   late final Animation<double> _voiceTextBoxBottomIconRightAnimation;
 
-  List<Widget> messageList = [];
+  List<ChatMessage> messageList = [];
 
   // 取消按钮变大效果
   late AnimationController _voiceLeftButtonScaleController;
@@ -241,7 +371,52 @@ class _VigaChat extends State<VigaChat>
     );
 
     setState(() {
-      messageList = mockMessages(context, widget.icon, widget.title);
+      // 将模拟消息转换为数据模型
+      final mockWidgets = mockMessages(context, widget.icon, widget.title);
+      messageList = mockWidgets.map((widget) {
+        if (widget is VigaMyMessage) {
+          return ChatMessage.text(
+            content: widget.message,
+            name: widget.name,
+            showName: widget.showName,
+          );
+        } else if (widget is VigaMyVoiceMessage) {
+          return ChatMessage.voice(
+            content: widget.message,
+            voicePath: widget.voicePath,
+            showName: widget.showName,
+          );
+        } else if (widget is VigaReceiveMessage) {
+          return ChatMessage.receive(
+            content: widget.message,
+            friendAvatar: widget.friendAvatar,
+            name: widget.name,
+            showName: widget.showName,
+          );
+        } else if (widget is VigaVideoMessage) {
+          return ChatMessage.video(
+            video: widget.video,
+            width: widget.width.toInt(),
+            height: widget.height.toInt(),
+            showName: widget.showName,
+          );
+        } else if (widget is VigaReceiveVideoMessage) {
+          return ChatMessage.receiveVideo(
+            video: widget.video,
+            width: widget.width.toInt(),
+            height: widget.height.toInt(),
+            friendAvatar: widget.friendAvatar,
+            name: widget.name,
+            showName: widget.showName,
+          );
+        } else {
+          // 处理其他类型的消息组件
+          return ChatMessage.text(
+            content: '未知消息类型',
+            showName: false,
+          );
+        }
+      }).toList();
     });
 
     WidgetsBinding.instance.addObserver(this);
@@ -694,13 +869,14 @@ class _VigaChat extends State<VigaChat>
       logger.info("停止录音 $path");
 
       setState(() {
-        messageList.add(
-          VigaMyVoiceMessage(
-            message: '${formatDuration(difference)}"',
+        messageList = [
+          ...messageList,
+          ChatMessage.voice(
+            content: '${formatDuration(difference)}"',
             voicePath: wmaPath!,
             showName: false,
           ),
-        );
+        ];
       });
 
       _scrollToEnd();
@@ -826,22 +1002,24 @@ class _VigaChat extends State<VigaChat>
                                       _hideKeyboardFunc();
                                     }
                                   },
-                                  child: SingleChildScrollView(
-                                    padding: EdgeInsets.only(
-                                      top: 30.w,
-                                      bottom: 30.w,
-                                    ),
-                                    controller: _scrollController,
-                                    physics:
-                                        const AlwaysScrollableScrollPhysics(
-                                      parent: BouncingScrollPhysics(),
-                                    ),
-                                    child: messageList.isEmpty
-                                        ? Container()
-                                        : Column(
-                                            children: messageList,
-                                          ),
-                                  ),
+                                  child: messageList.isEmpty
+                                    ? Container()
+                                    : ListView.builder(
+                                        padding: EdgeInsets.only(
+                                          top: 30.w,
+                                          bottom: 30.w,
+                                        ),
+                                        controller: _scrollController,
+                                        physics:
+                                            const AlwaysScrollableScrollPhysics(
+                                          parent: BouncingScrollPhysics(),
+                                        ),
+                                        itemCount: messageList.length,
+                                        itemBuilder: (context, index) {
+                                          final message = messageList[index];
+                                          return _buildMessageWidget(message);
+                                        },
+                                      ),
                                 ),
                               ),
                             ),
@@ -1276,17 +1454,18 @@ class _VigaChat extends State<VigaChat>
                                               var message =
                                                   inputController.text;
 
-                                              // 发送消息
-                                              messageList.add(
-                                                VigaMyMessage(
-                                                  message: message.trimRight(),
+                                              // 发送消息 - 使用不可变操作
+                                              messageList = [
+                                                ...messageList,
+                                                ChatMessage.text(
+                                                  content: message.trimRight(),
                                                   name: context
                                                       .read<VigaUserCubit>()
                                                       .state
                                                       .userinfoName as String,
                                                   showName: false,
                                                 ),
-                                              );
+                                              ];
                                               inputController.text = "";
 
                                               // 发送消息后滚动到底部
@@ -1428,6 +1607,118 @@ class _VigaChat extends State<VigaChat>
         },
       ),
     );
+  }
+
+  // 构建消息组件
+  Widget _buildMessageWidget(ChatMessage message) {
+    switch (message.type) {
+      case 'text':
+        return _CachedMessageWidget(
+          key: Key(message.id),
+          child: VigaMyMessage(
+            key: Key(message.id), // 添加唯一key
+            message: message.content,
+            name: message.name ?? '',
+            showName: message.showName,
+          ),
+        );
+      case 'voice':
+        return _CachedMessageWidget(
+          key: Key(message.id),
+          child: VigaMyVoiceMessage(
+            key: Key(message.id), // 添加唯一key
+            message: message.content,
+            voicePath: message.voicePath ?? '',
+            showName: message.showName,
+          ),
+        );
+      case 'receive':
+        return _CachedMessageWidget(
+          key: Key(message.id),
+          child: VigaReceiveMessage(
+            key: Key(message.id), // 添加唯一key
+            message: message.content,
+            friendAvatar: message.friendAvatar ?? '',
+            name: message.name ?? '',
+            showName: message.showName,
+          ),
+        );
+      case 'video':
+        return _CachedMessageWidget(
+          key: Key(message.id),
+          child: VigaVideoMessage(
+            key: Key(message.id),
+            video: message.video!,
+            width: message.videoWidth!.toDouble(),
+            height: message.videoHeight!.toDouble(),
+            showName: message.showName,
+            onTap: (position, size) {
+              // 关闭键盘
+              SystemChannels.textInput.invokeMethod('TextInput.hide');
+              Navigator.of(context).push(
+                PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) {
+                    return VigaVideoViewerPage(
+                      videoSources: [message.video!.toString()],
+                      initialIndex: 0,
+                      initialRect: Rect.fromLTWH(
+                        position.dx,
+                        position.dy,
+                        size.width,
+                        size.height,
+                      ),
+                    );
+                  },
+                  transitionDuration: Duration.zero,
+                ),
+              );
+            },
+          ),
+        );
+      case 'receive_video':
+        return _CachedMessageWidget(
+          key: Key(message.id),
+          child: VigaReceiveVideoMessage(
+            key: Key(message.id),
+            video: message.video!,
+            width: message.videoWidth!.toDouble(),
+            height: message.videoHeight!.toDouble(),
+            friendAvatar: message.friendAvatar ?? '',
+            name: message.name ?? '',
+            showName: message.showName,
+            onTap: (position, size) {
+              // 关闭键盘
+              SystemChannels.textInput.invokeMethod('TextInput.hide');
+              Navigator.of(context).push(
+                PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) {
+                    return VigaVideoViewerPage(
+                      videoSources: [message.video!.toString()],
+                      initialIndex: 0,
+                      initialRect: Rect.fromLTWH(
+                        position.dx,
+                        position.dy,
+                        size.width,
+                        size.height,
+                      ),
+                    );
+                  },
+                  transitionDuration: Duration.zero,
+                ),
+              );
+            },
+          ),
+        );
+      default:
+        return _CachedMessageWidget(
+          key: Key(message.id),
+          child: VigaMyMessage(
+            key: Key(message.id),
+            message: '未知消息类型',
+            showName: false,
+          ),
+        );
+    }
   }
 
   // 功能选择器组件
@@ -1875,6 +2166,31 @@ class _VigaChat extends State<VigaChat>
         },
       ),
     );
+  }
+}
+
+// 缓存消息组件，避免不必要的重建
+class _CachedMessageWidget extends StatefulWidget {
+  final Widget child;
+
+  const _CachedMessageWidget({
+    super.key,
+    required this.child,
+  });
+
+  @override
+  State<_CachedMessageWidget> createState() => _CachedMessageWidgetState();
+}
+
+class _CachedMessageWidgetState extends State<_CachedMessageWidget>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context); // 必须调用
+    return widget.child;
   }
 }
 

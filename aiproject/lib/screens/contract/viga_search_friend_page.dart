@@ -249,7 +249,7 @@ class _VigaSearchFriend extends State<VigaSearchFriendPage> {
           friendName: originalItem.friendName,
           message: originalItem.message,
           notice: originalItem.notice,
-          underline: originalItem.underline,
+          underline: index < _searchResults.length - 1, // 只有最后一项不显示下划线
           lastedTime: originalItem.lastedTime,
           badge: originalItem.badge,
           onPressed: () {

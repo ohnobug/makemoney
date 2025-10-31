@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'viga_photo_viewer_page.dart';
+import '../../../features/viewer/viga_photo_viewer_page.dart';
 
 class VigaPhotoGridPage extends StatefulWidget {
   const VigaPhotoGridPage({super.key});

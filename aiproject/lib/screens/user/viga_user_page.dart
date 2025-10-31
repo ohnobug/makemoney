@@ -14,7 +14,7 @@ import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/tools/viga_logger.dart';
 import 'package:vigaviga/widgets/viga_page_loading.dart';
 import 'package:vigaviga/widgets/viga_app_network_image.dart';
-import 'package:vigaviga/screens/user/photo_viewer/viga_photo_viewer_page.dart';
+import 'package:vigaviga/features/viewer/viga_photo_viewer_page.dart';
 import 'package:vigaviga/screens/discovery/search/viga_user_search_results_page.dart';
 
 class VigaUserPage extends StatefulWidget {
