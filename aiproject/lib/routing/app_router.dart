@@ -246,11 +246,19 @@ class AppRouter {
       case '/chat':
         final args = settings.arguments as Map<String, String>;
         return pageRouteBuilderAnimation(
-            VigaChat(title: args['title']!, icon: args['icon']!)); // 聊天页面
+            VigaChat(
+              title: args['title']!,
+              icon: args['icon']!,
+              fromTabIndex: args['fromTabIndex'],
+            )); // 聊天页面
       case '/group_chat':
         final args = settings.arguments as Map<String, String>;
         return pageRouteBuilderAnimation(
-            VigaGroupChat(title: args['title']!, icon: args['icon']!)); // 群聊页面
+            VigaGroupChat(
+              title: args['title']!,
+              icon: args['icon']!,
+              fromTabIndex: args['fromTabIndex'],
+            )); // 群聊页面
       case '/chat/friend_profile':
         final args = settings.arguments as Map<String, String>? ?? {};
         return pageRouteBuilderAnimation(VigaFriendProfilePage(

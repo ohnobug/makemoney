@@ -1,0 +1,10 @@
+AI服务         ai_service
+通知中心     announcement_center
+艺术品服务  arts_service
+区块链服务  blockchain_service
+聊天服务     im_service
+奖励模式     reward_mode_service
+搜索中心     search_center
+工单服务     ticket_center
+用户服务     user_service   
+钱包服务    wallet_service

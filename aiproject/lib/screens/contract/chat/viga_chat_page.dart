@@ -33,10 +33,12 @@ enum PannelType {
 }
 
 class VigaChat extends StatefulWidget {
-  const VigaChat({super.key, required this.title, required this.icon});
+  const VigaChat(
+      {super.key, required this.title, required this.icon, this.fromTabIndex});
 
   final String title;
   final String icon;
+  final String? fromTabIndex;
 
   @override
   State<VigaChat> createState() => _VigaChat();
@@ -738,6 +740,14 @@ class _VigaChat extends State<VigaChat>
             context.read<VigaPopupCubit>().state.showFullScreenImage == true) {
           context.read<VigaPopupCubit>().updateReturnButtonEvent(true);
         } else {
+          // 如果是从其他标签页进入的，返回时恢复原来的标签页
+          if (widget.fromTabIndex != null && widget.fromTabIndex != '3') {
+            // 从其他标签页进入，返回时切换到原来的标签页
+            final fromTabIndex = int.tryParse(widget.fromTabIndex!);
+            if (fromTabIndex != null && fromTabIndex != 3) {
+              context.read<VigaSystemCubit>().updateMainTabIndex(fromTabIndex);
+            }
+          }
           Navigator.of(context).pop();
         }
       },
@@ -757,7 +767,8 @@ class _VigaChat extends State<VigaChat>
                       title: widget.title,
                       actions: [
                         VigaAppBarActionIconButton(
-                          iconData: const IconData(0xe659, fontFamily: 'Iconfont'),
+                          iconData:
+                              const IconData(0xe659, fontFamily: 'Iconfont'),
                           onTap: () {
                             Navigator.pushNamed(
                               context,
@@ -766,6 +777,27 @@ class _VigaChat extends State<VigaChat>
                           },
                         ),
                       ],
+                      leading: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context)
+                              .popUntil((route) => route.isFirst);
+                        },
+                        child: Container(
+                          color: Colors.transparent,
+                          height: 90.w,
+                          alignment: Alignment.centerLeft,
+                          padding: EdgeInsets.only(left: 35.w),
+                          child: Icon(
+                            const IconData(
+                              0xed9e,
+                              fontFamily: 'Iconfont',
+                            ), // 使用的图标
+                            color:
+                                theme.appBarTheme.titleTextStyle!.color, // 图标颜色
+                            size: 36.w, // 图标大小
+                          ),
+                        ),
+                      ),
                     ),
 
                     // 主体
