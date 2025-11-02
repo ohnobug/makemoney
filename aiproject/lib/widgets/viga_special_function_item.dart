@@ -99,7 +99,7 @@ class _VigaSpecialFunctionItemState extends State<VigaSpecialFunctionItem> {
                     overflow: TextOverflow.ellipsis,
                   ),
                   if (widget.subTitle != null) ...[
-                    SizedBox(height: 14.w),
+                    SizedBox(height: 4.w),
                     // 副标题不需要再用 Flexible，因为 Column 已经有了有限高度
                     widget.subTitle!,
                   ]

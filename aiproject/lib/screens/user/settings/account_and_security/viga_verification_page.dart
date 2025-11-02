@@ -117,6 +117,8 @@ class _VigaVerificationPageState extends State<VigaVerificationPage> {
                       onTap: () {
                         // 在这里处理“忘记密码”的点击事件
                         logger.info('“忘记密码”被点击了');
+                        Navigator.pushNamed(
+                                  context, '/user/auth/forgot_password');
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('“忘记密码”被点击了')),
                         );

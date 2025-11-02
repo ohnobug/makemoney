@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vigaviga/themes.dart';
+import 'package:vigaviga/themes.dart'; // 假设 AppColors 在这里定义
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/viga_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,16 +15,14 @@ class VigaSetPasswordPage extends StatefulWidget {
 }
 
 class _VigaSetPasswordPageState extends State<VigaSetPasswordPage> {
-  // 仅需要为需要获取其值的输入框创建 Controller
-  final TextEditingController originPasswordController =
-      TextEditingController();
+  // 为需要获取其值的输入框创建 Controller
+  final TextEditingController originPasswordController = TextEditingController();
   final TextEditingController newPasswordController = TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
 
   @override
   void dispose() {
-    // 记得 dispose 控制器以释放资源
+    // 释放资源，防止内存泄漏
     originPasswordController.dispose();
     newPasswordController.dispose();
     confirmPasswordController.dispose();
@@ -33,147 +31,135 @@ class _VigaSetPasswordPageState extends State<VigaSetPasswordPage> {
 
   @override
   Widget build(BuildContext context) {
-    // 使用 aotolocations 的 context extension，让代码更简洁
-    AppLocalizations l10n = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context)!;
     final userState = context.read<VigaUserCubit>().state;
     final systemState = context.read<VigaSystemCubit>().state;
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
 
     return Scaffold(
-      primary: false,
+      // 1. 设置页面背景为白色
+      backgroundColor: Colors.white,
       appBar: VigaAppBar(
         title: l10n.setPassword,
         actions: [
           VigaAppBarActionTextButton(
-            onTap: () {},
+            onTap: () {
+              // TODO: 实现 "完成" 按钮的逻辑
+            },
             title: l10n.done,
           ),
         ],
       ),
-      // 使用通用的页面布局，避免每次都写复杂的约束和滚动配置
-      body: _buildPageBody(context, l10n, userState, systemState),
-    );
-  }
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Container(
+          // 2. 容器颜色也设置为白色，确保一致性
+          color: Colors.white,
+          padding: EdgeInsets.symmetric(horizontal: 48.w, vertical: 40.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                l10n.setVigavigaPasswordDescription,
+                style: textTheme.bodyMedium?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+              ),
+              SizedBox(height: 30.h),
 
-  Widget _buildPageBody(BuildContext context, AppLocalizations l10n,
-      UserState userState, SystemState systemState) {
-    ThemeData theme = Theme.of(context);
+              // --- 表单内容 ---
+              _InfoRow(
+                label: l10n.vigavigaID,
+                value: userState.userinfoAccount ?? '',
+              ),
+              SizedBox(height: 20.h),
 
-    return ScrollConfiguration(
-      behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-      child: Container(
-        color: theme.colorScheme.surfaceContainer,
-        // 使用 ListView 代替 SingleChildScrollView + Column，代码更简洁
-        child: ListView(
-          physics: const AlwaysScrollableScrollPhysics(
-            parent: BouncingScrollPhysics(),
+              // 3. 使用新的 _FormInputRow 组件
+              _FormInputRow(
+                label: l10n.originalPassword,
+                hintText: l10n.enterOriginalPassword,
+                controller: originPasswordController,
+              ),
+              SizedBox(height: 20.h),
+
+              _FormInputRow(
+                label: l10n.newPassword,
+                hintText: l10n.enterNewPassword,
+                controller: newPasswordController,
+              ),
+              SizedBox(height: 20.h),
+
+              _FormInputRow(
+                label: l10n.confirmPassword,
+                hintText: l10n.enterToConfirm,
+                controller: confirmPasswordController,
+              ),
+              // --- 表单内容结束 ---
+
+              SizedBox(height: 30.h),
+              Text(
+                l10n.passwordValidationRule(8, 16),
+                style: textTheme.bodySmall?.copyWith(
+                  color: theme.colorScheme.onSurface,
+                ),
+              ),
+              SizedBox(height: 10.h),
+              InkWell(
+                onTap: () {
+                  // TODO: 实现忘记密码逻辑
+                  Navigator.pushNamed(context, '/user/auth/forgot_password');
+                },
+                child: Text(
+                  l10n.forgotOriginalPassword,
+                  style: textTheme.bodySmall?.copyWith(
+                    color: theme.colorScheme.primary,
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+              ),
+            ],
           ),
-          padding: EdgeInsets.all(30.w),
-          children: [
-            Text(
-              l10n.setVigavigaPasswordDescription,
-              style: TextStyle(
-                fontSize: 27.w,
-                color: AppColors.neutralGrey60,
-              ),
-            ),
-            SizedBox(height: 30.w),
-
-            // --- 使用提取的公共组件 ---
-            _InfoRow(
-              label: l10n.vigavigaID,
-              value: userState.userinfoAccount ?? '', // 使用 ?? '' 避免null错误
-            ),
-            SizedBox(height: 20.w),
-
-            _FormInputRow(
-              label: l10n.originalPassword,
-              hintText: l10n.enterOriginalPassword,
-              controller: originPasswordController,
-            ),
-            SizedBox(height: 20.w),
-
-            _FormInputRow(
-              label: l10n.newPassword,
-              hintText: l10n.enterNewPassword,
-              controller: newPasswordController,
-            ),
-            SizedBox(height: 20.w),
-
-            _FormInputRow(
-              label: l10n.confirmPassword,
-              hintText: l10n.enterToConfirm,
-              controller: confirmPasswordController,
-            ),
-            // --- 公共组件使用结束 ---
-
-            SizedBox(height: 30.w),
-            Text(
-              l10n.passwordValidationRule(8, 16),
-              style: TextStyle(
-                fontSize: 26.w,
-                height: 1.08,
-                color: theme.colorScheme.onSurface,
-              ),
-            ),
-            SizedBox(height: 10.w),
-            Text(
-              l10n.forgotOriginalPassword,
-              style: TextStyle(
-                fontSize: 26.w,
-                height: 1.08,
-                color: AppColors.neutralDarkGrey8,
-              ),
-            ),
-          ],
         ),
       ),
     );
   }
 }
 
-// 提取的公共组件 1: 用于展示 "标签: 信息" 的行
+// 公共组件 1: 用于展示 "标签: 信息" 的行 (样式微调)
 class _InfoRow extends StatelessWidget {
   final String label;
   final String value;
 
-  const _InfoRow({
-    required this.label,
-    required this.value,
-  });
+  const _InfoRow({required this.label, required this.value});
 
   @override
   Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+
     return Container(
-      height: 100.w,
+      height: 56.h,
+      padding: EdgeInsets.symmetric(horizontal: 12.w),
+      // 调整背景色和边框色以适应白色主题
       decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            width: 1.w,
-            color: theme.dividerColor,
-          ),
-        ),
+        color: const Color(0xFFF7F7F7), // 使用一个非常浅的灰色作为背景
+        borderRadius: BorderRadius.circular(8.r),
       ),
       child: Row(
         children: [
           SizedBox(
             width: 160.w,
-            child: Text(
-              label,
-              style: TextStyle(
-                height: 1.08,
-                fontSize: 32.w,
-                color: AppColors.neutralGrey59,
-              ),
-            ),
+            child: Text(label, style: textTheme.titleMedium),
           ),
-          SizedBox(width: 10.w),
-          Text(
-            value,
-            style: TextStyle(
-              height: 1.08,
-              fontSize: 32.w,
-              color: AppColors.neutralGrey59,
+          SizedBox(width: 16.w),
+          Expanded(
+            child: Text(
+              value,
+              style: textTheme.bodyLarge?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+              overflow: TextOverflow.ellipsis,
             ),
           ),
         ],
@@ -182,11 +168,11 @@ class _InfoRow extends StatelessWidget {
   }
 }
 
-// 提取的公共组件 2: 带标签的输入框行
-class _FormInputRow extends StatelessWidget {
+// 公共组件 2: 已重构为 StatefulWidget 以实现清除按钮的动态显示
+class _FormInputRow extends StatefulWidget {
   final String label;
   final String hintText;
-  final TextEditingController? controller; // Controller是可选的
+  final TextEditingController? controller;
 
   const _FormInputRow({
     required this.label,
@@ -195,70 +181,65 @@ class _FormInputRow extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
+  State<_FormInputRow> createState() => _FormInputRowState();
+}
 
-    return SizedBox(
-      height: 75.w,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center, // 确保垂直居中
-        children: [
-          SizedBox(
-            width: 160.w,
-            child: Text(
-              label,
-              style: TextStyle(
-                height: 1.08,
-                fontSize: 30.w,
-                color: theme.colorScheme.onSurface,
-              ),
-            ),
-          ),
-          SizedBox(width: 10.w),
-          Expanded(
-            child: TextField(
-              controller: controller,
-              autofocus: false,
-              obscureText: true, // 密码输入框应隐藏文本
-              style: TextStyle(fontSize: 30.w),
-              cursorColor: AppColors.brandGreenDarker4,
-              cursorWidth: 1.w,
-              onTapOutside: (event) {
-                FocusScope.of(context).unfocus();
-              },
-              decoration: InputDecoration(
-                hintText: hintText,
-                hintStyle: TextStyle(
-                  fontSize: 30.w,
-                  color: AppColors.neutralGrey61,
+class _FormInputRowState extends State<_FormInputRow> {
+  @override
+  void initState() {
+    super.initState();
+    // 添加监听器，当文本内容变化时，调用 setState 刷新 UI
+    widget.controller?.addListener(() {
+      setState(() {});
+    });
+  }
+
+  // 注意：由于 controller 是在父组件中创建和销毁的，
+  // 这里可以不移除监听器，但最佳实践是移除。
+  // 但如果在这里移除，父组件的 controller dispose 时会出问题。
+  // 所以让父组件管理 controller 的生命周期即可。
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+
+    return TextField(
+      controller: widget.controller,
+      obscureText: true, // 密码设为隐藏
+      style: textTheme.bodyLarge,
+      cursorColor: theme.colorScheme.primary,
+      decoration: InputDecoration(
+        // 使用 labelText 作为浮动标签
+        labelText: widget.label,
+        labelStyle: const TextStyle(color: Colors.grey),
+        hintText: widget.hintText,
+        hintStyle: textTheme.bodyLarge?.copyWith(
+          color: theme.colorScheme.onSurface.withOpacity(0.4),
+        ),
+        // 设置下划线边框
+        enabledBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: Color.fromARGB(255, 224, 224, 224)),
+        ),
+        focusedBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey),
+        ),
+        // 根据输入框是否有内容，动态显示或隐藏清除按钮
+        suffixIcon: widget.controller != null && widget.controller!.text.isNotEmpty
+            ? IconButton(
+                icon: const Icon(
+                  Icons.cancel,
+                  color: Colors.grey,
+                  size: 20, // 调整图标大小
                 ),
-                isDense: true,
-                border: UnderlineInputBorder(
-                  // 统一样式
-                  borderSide: BorderSide(
-                    width: 1.0.w,
-                    color: theme.dividerColor,
-                  ),
-                ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    width: 1.0.w,
-                    color: theme.dividerColor,
-                  ),
-                ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    width: 1.0.w,
-                    color: theme.dividerColor,
-                  ),
-                ),
-                // 调整 contentPadding 使文本和下划线对齐更佳
-                contentPadding: EdgeInsets.only(bottom: 15.w),
-              ),
-            ),
-          ),
-        ],
+                onPressed: () {
+                  // 点击时清空文本
+                  widget.controller!.clear();
+                },
+              )
+            : null, // 如果没有文本则不显示图标
       ),
+      onTapOutside: (_) => FocusScope.of(context).unfocus(),
     );
   }
 }
