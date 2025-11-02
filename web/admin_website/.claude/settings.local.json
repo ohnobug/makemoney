@@ -1,0 +1,24 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git checkout .)",
+      "Bash(git reset --hard HEAD)",
+      "Bash(git ls-tree -r HEAD)",
+      "Bash(git config --list)",
+      "Bash(git checkout HEAD -- .)",
+      "Bash(git ls-tree -r HEAD --name-only)",
+      "Bash(git submodule status)",
+      "Bash(npm create vite@latest . -- --template react-ts)",
+      "Bash(npx create-vite@latest . --template react-ts)",
+      "Bash(npm init vite@latest . -- --template react-ts)",
+      "Bash(npm --version)",
+      "Bash(node --version)",
+      "Bash(npm install)",
+      "Bash(npm run dev)",
+      "Bash(npm run build)",
+      "Bash(tree -I node_modules)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

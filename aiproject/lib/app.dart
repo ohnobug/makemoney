@@ -4,14 +4,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_in_app_pip/flutter_in_app_pip.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vigaviga/store/ljn_user_cubit.dart';
+import 'package:vigaviga/store/viga_user_cubit.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/widgets/ljn_image_draggable_box.dart';
-import 'package:vigaviga/screens/contract/chat/widgets/ljn_video_draggable_box.dart';
+import 'package:vigaviga/widgets/viga_image_draggable_box.dart';
+import 'package:vigaviga/screens/contract/chat/widgets/viga_video_draggable_box.dart';
 import 'package:vigaviga/routing/app_router.dart';
-import 'package:vigaviga/store/ljn_popup_cubit.dart';
-import 'package:vigaviga/store/ljn_system_cubit.dart';
+import 'package:vigaviga/store/viga_popup_cubit.dart';
+import 'package:vigaviga/store/viga_system_cubit.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -26,7 +26,7 @@ class _AppState extends State<App> {
     SystemChannels.textInput.invokeMethod('TextInput.hide');
     super.initState();
 
-    var systemCubit = context.read<LJNSystemCubit>();
+    var systemCubit = context.read<VigaSystemCubit>();
 
     systemCubit.updateCdnBase('https://cdn.vigaviga.com');
 
@@ -37,7 +37,7 @@ class _AppState extends State<App> {
       }
     });
 
-    var userCubit = context.read<LJNUserCubit>();
+    var userCubit = context.read<VigaUserCubit>();
     userCubit.updateName('李俊杰');
     userCubit.updateAccount('TheMonsterClub');
     userCubit.updatePhone('+8618825130917');
@@ -54,7 +54,7 @@ class _AppState extends State<App> {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return BlocBuilder<LJNSystemCubit, SystemState>(
+        return BlocBuilder<VigaSystemCubit, SystemState>(
             builder: (context, systemState) {
           return PiPMaterialApp(
             // 1. 设置浅色主题
@@ -84,29 +84,29 @@ class _AppState extends State<App> {
                     children: [
                       child!,
                       // Video/Image viewer
-                      BlocBuilder<LJNPopupCubit, PopupState>(
+                      BlocBuilder<VigaPopupCubit, PopupState>(
                         builder: (context, popupState) {
                           if (popupState.showFullScreenVideo) {
-                            return LJNVideoDraggableBox(
+                            return VigaVideoDraggableBox(
                               openBoxSize: popupState.openBoxSize,
                               openPosition: popupState.openPosition,
                               videoPath: popupState.sourcePath!,
                               // 当关闭时，通知 Cubit 隐藏视频
                               onClose: () {
                                 context
-                                    .read<LJNPopupCubit>()
+                                    .read<VigaPopupCubit>()
                                     .updateShowFullScreenVideo(false);
                               },
                             );
                           }
                           if (popupState.showFullScreenImage) {
-                            return LJNImaeDraggableBox(
+                            return VigaImaeDraggableBox(
                               openBoxSize: popupState.openBoxSize,
                               openPosition: popupState.openPosition,
                               imagePath: popupState.sourcePath!,
                               onClose: () {
                                 context
-                                    .read<LJNPopupCubit>()
+                                    .read<VigaPopupCubit>()
                                     .updateShowFullScreenImage(false);
                               },
                             );

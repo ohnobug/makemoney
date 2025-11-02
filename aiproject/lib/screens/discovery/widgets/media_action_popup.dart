@@ -6,8 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:vigaviga/store/ljn_system_cubit.dart';
-import 'package:vigaviga/widgets/ljn_app_network_image.dart';
+import 'package:vigaviga/store/viga_system_cubit.dart';
+import 'package:vigaviga/widgets/viga_app_network_image.dart';
 
 // 枚举保持不变
 enum MediaAction { like, speed, favorite, download, share, viewHomepage, none }
@@ -173,7 +173,7 @@ class MediaActionPopupState extends State<MediaActionPopup> {
     final popupWidth = 750.w - (horizontalPadding * 2);
     final imageDisplayHeight = popupWidth / widget.aspectRatio;
 
-    return BlocBuilder<LJNSystemCubit, SystemState>(
+    return BlocBuilder<VigaSystemCubit, SystemState>(
         builder: (context, systemState) {
       final maxHeight = systemState.screenSize.height -
           systemState.appbarHeight -
@@ -348,7 +348,7 @@ class MediaActionPopupState extends State<MediaActionPopup> {
         fit: BoxFit.cover,
         errorBuilder: (context, error, stackTrace) {
           // 如果缓存文件有问题，回退到网络图片
-          return LJNAppNetworkImage(
+          return VigaAppNetworkImage(
             imageUrl: widget.mediaUrl,
             fit: BoxFit.cover,
           );
@@ -364,7 +364,7 @@ class MediaActionPopupState extends State<MediaActionPopup> {
     }
 
     // 最后回退到网络图片
-    return LJNAppNetworkImage(
+    return VigaAppNetworkImage(
       imageUrl: widget.mediaUrl,
       fit: BoxFit.cover,
     );

@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vigaviga/tools/ljn_logger.dart';
-import 'package:vigaviga/widgets/ljn_app_network_image.dart';
+import 'package:vigaviga/tools/viga_logger.dart';
+import 'package:vigaviga/widgets/viga_app_network_image.dart';
 import 'media_action_popup.dart';
 
 // 新的数据模型
@@ -297,7 +297,7 @@ class _MediaTileState extends State<_MediaTile> {
                   canPlay: widget.canPlay,
                   isCommentPanelOpen: widget.isCommentPanelOpen,
                 )
-              : LJNAppNetworkImage(
+              : VigaAppNetworkImage(
                   imageUrl: widget.item.thumbnailUrl,
                   fit: widget.isCommentPanelOpen ? BoxFit.contain : BoxFit.cover,
                 )
@@ -388,7 +388,7 @@ class _VideoTilePreviewState extends State<_VideoTilePreview> {
       );
     }
     // 视频未加载时显示封面图片
-    return LJNAppNetworkImage(
+    return VigaAppNetworkImage(
       imageUrl: widget.thumbnailUrl,
       fit: widget.isCommentPanelOpen ? BoxFit.contain : BoxFit.cover,
     );

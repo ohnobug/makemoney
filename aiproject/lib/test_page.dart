@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_in_app_pip/picture_in_picture.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class LJNTest extends StatelessWidget {
-  const LJNTest({super.key});
+class VigaTest extends StatelessWidget {
+  const VigaTest({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,7 @@
 <template>
   <div class="help-feedback-page">
     <!-- App Bar -->
-    <div class="app-bar">
+    <div class="app-bar" :style="{ paddingTop: statusBarHeight }">
       <div class="app-bar-content">
         <h1 class="app-title">帮助与反馈</h1>
       </div>
@@ -154,6 +154,18 @@ const initialTabIndex = computed(() => {
 
 const activeQuestions = computed(() => {
   return questionsData[activeTab.value] || []
+})
+
+// Status bar height handling
+const statusBarHeight = ref('0px')
+
+onMounted(() => {
+  // Listen for Flutter status bar height event
+  window.addEventListener('flutterStatusBarHeightReady', function (event) {
+    const statusBarHeightPx = event.detail.statusBarHeightPx
+    console.log('状态栏高度:', statusBarHeightPx)
+    statusBarHeight.value = `${statusBarHeightPx}px`
+  })
 })
 
 // Swiper Methods

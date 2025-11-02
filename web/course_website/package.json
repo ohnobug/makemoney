@@ -1,0 +1,22 @@
+{
+  "name": "course_website",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@minko-fe/postcss-pxtoviewport": "^1.5.0",
+    "swiper": "^8.4.7",
+    "vue": "^3.5.22",
+    "vue-awesome-swiper": "^5.0.1",
+    "vue-router": "^4.6.3"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.1",
+    "sass-embedded": "^1.93.2",
+    "vite": "^7.1.11"
+  }
+}

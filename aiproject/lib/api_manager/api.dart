@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/store/ljn_popup_cubit.dart';
-import 'package:vigaviga/store/ljn_system_cubit.dart';
-import 'package:vigaviga/tools/ljn_logger.dart';
-import 'package:vigaviga/tools/ljn_tools.dart';
-import 'package:vigaviga/widgets/ljn_chatlist_item.dart';
-import 'package:vigaviga/widgets/ljn_contact_item.dart';
-import 'package:vigaviga/screens/contract/chat/widgets/ljn_my_message.dart';
-import 'package:vigaviga/screens/contract/chat/widgets/ljn_receive_message.dart';
-import 'package:vigaviga/screens/contract/chat/widgets/ljn_receive_video_message.dart';
-import 'package:vigaviga/screens/contract/chat/widgets/ljn_video_message.dart';
+import 'package:vigaviga/store/viga_popup_cubit.dart';
+import 'package:vigaviga/store/viga_system_cubit.dart';
+import 'package:vigaviga/tools/viga_logger.dart';
+import 'package:vigaviga/tools/viga_tools.dart';
+import 'package:vigaviga/widgets/viga_chatlist_item.dart';
+import 'package:vigaviga/widgets/viga_contact_item.dart';
+import 'package:vigaviga/screens/contract/chat/widgets/viga_my_message.dart';
+import 'package:vigaviga/screens/contract/chat/widgets/viga_receive_message.dart';
+import 'package:vigaviga/screens/contract/chat/widgets/viga_receive_video_message.dart';
+import 'package:vigaviga/screens/contract/chat/widgets/viga_video_message.dart';
 
 // 得到最近聊天的列表
 List<ChatListItem> getChatItems(BuildContext context) {
-  String cdnBase = context.read<LJNSystemCubit>().state.cdnBase;
+  String cdnBase = context.read<VigaSystemCubit>().state.cdnBase;
 
   return [
     ChatListItem(
@@ -478,7 +478,7 @@ List<ChatListItem> getChatItems(BuildContext context) {
 
 // 返回联系人信息
 List<dynamic> getContactDataList(BuildContext context) {
-  String cdnBase = context.read<LJNSystemCubit>().state.cdnBase;
+  String cdnBase = context.read<VigaSystemCubit>().state.cdnBase;
 
   return [
     FunctionItemData(
@@ -547,135 +547,135 @@ List<dynamic> getContactDataList(BuildContext context) {
 
 // 聊天消息
 List<Widget> mockMessages(BuildContext context, String icon, String title) {
-  var systemCubit = context.read<LJNSystemCubit>();
+  var systemCubit = context.read<VigaSystemCubit>();
   String cdnBase = systemCubit.state.cdnBase;
 
   final List<Widget> mockMessages = [
-    const LJNMyMessage(
+    const VigaMyMessage(
       message: '今晚，我们开始吧，准备好了吗？',
       showName: false,
     ),
-    LJNReceiveMessage(
+    VigaReceiveMessage(
       message: '嗯，准备好了。虽然有点紧张，但我知道我们已经决定了。',
       showName: false,
       friendAvatar: icon,
       name: title,
     ),
-    const LJNMyMessage(
+    const VigaMyMessage(
       message: '我也是。虽然我们之前谈了很多次，但真的要开始时，心里还是有些忐忑。',
       showName: false,
     ),
-    LJNReceiveMessage(
+    VigaReceiveMessage(
       message: '我也是。突然想到，万一不能顺利怀上怎么办？',
       showName: false,
       friendAvatar: icon,
       name: title,
     ),
-    const LJNMyMessage(
+    const VigaMyMessage(
       message: '别担心，慢慢来。就算不顺利，我们也会一起面对，不急的。最重要的是我们愿意一起尝试，给自己一个机会。',
       showName: false,
     ),
-    LJNReceiveMessage(
+    VigaReceiveMessage(
       message: '你说得对，我只是怕自己压力太大，万一做不到怎么办。',
       showName: false,
       friendAvatar: icon,
       name: title,
     ),
-    const LJNMyMessage(
+    const VigaMyMessage(
       message: '我们做不到的事很少，我相信我们能行。而且，压力大了，放轻松点，别太给自己太多负担。',
       showName: false,
     ),
-    LJNReceiveMessage(
+    VigaReceiveMessage(
       message: '嗯，我知道。你也知道，我的身体不是那么好，可能会有点麻烦。',
       showName: false,
       friendAvatar: icon,
       name: title,
     ),
-    const LJNMyMessage(
+    const VigaMyMessage(
       message: '我知道，但我们一起走这条路，不管怎么样，我们都有彼此支持。我会陪着你，咱们不会有任何困难是过不去的。',
       showName: false,
     ),
-    LJNReceiveMessage(
+    VigaReceiveMessage(
       message: '有你在我身边，我就不怕了。你觉得，如果不顺利，我们也不应该急对吧？',
       showName: false,
       friendAvatar: icon,
       name: title,
     ),
-    const LJNMyMessage(
+    const VigaMyMessage(
       message: '对，别急，顺其自然。如果真有问题，我们可以一起去看医生，解决的办法总有的。',
       showName: false,
     ),
-    LJNReceiveMessage(
+    VigaReceiveMessage(
       message: '嗯，既然你这么说，我也放心了。',
       showName: false,
       friendAvatar: icon,
       name: title,
     ),
-    LJNReceiveMessage(
+    VigaReceiveMessage(
       message: '其实，我一直很期待有个孩子，能有一个属于我们的家庭。',
       showName: false,
       friendAvatar: icon,
       name: title,
     ),
-    const LJNMyMessage(
+    const VigaMyMessage(
       message: '我也是。我们将来可以一起看他成长，一起陪着他做作业、玩游戏，甚至一起教他做事。',
       showName: false,
     ),
-    LJNReceiveMessage(
+    VigaReceiveMessage(
       message: '你觉得我们的孩子会是什么样的？像你，还是像我？',
       showName: false,
       friendAvatar: icon,
       name: title,
     ),
-    const LJNMyMessage(
+    const VigaMyMessage(
       message: '不管像谁，都一定是最棒的。',
       showName: false,
     ),
-    const LJNMyMessage(
+    const VigaMyMessage(
       message: '但我想，他应该会有你的聪明和我的耐心，能很好地适应生活中的挑战。',
       showName: false,
     ),
-    LJNReceiveMessage(
+    VigaReceiveMessage(
       message: '那也太完美了吧。希望他能继承我们的优点，少一些缺点。',
       showName: false,
       friendAvatar: icon,
       name: title,
     ),
-    const LJNMyMessage(
+    const VigaMyMessage(
       message: '无论如何，我们都得给他一个充满爱的家庭，这才是最重要的。',
       showName: false,
     ),
-    const LJNMyMessage(
+    const VigaMyMessage(
       message: '今晚，就是我们的开始了。',
       showName: false,
     ),
-    LJNReceiveMessage(
+    VigaReceiveMessage(
       message: '是的，今晚开始。未来的路我们一起走。',
       showName: false,
       friendAvatar: icon,
       name: title,
     ),
-    const LJNMyMessage(
+    const VigaMyMessage(
       message: '今晚，我们做的每一步，都是为了未来的孩子，都是为了我们共同的未来。',
       showName: false,
     ),
-    LJNReceiveMessage(
+    VigaReceiveMessage(
       message: '嗯，今晚我们就开始，未来的一切，交给时间。',
       showName: false,
       friendAvatar: icon,
       name: title,
     ),
-    LJNReceiveMessage(
+    VigaReceiveMessage(
       message: '你准备好了吗？',
       showName: false,
       friendAvatar: icon,
       name: title,
     ),
-    const LJNMyMessage(
+    const VigaMyMessage(
       message: '准备好了，永远准备好。',
       showName: false,
     ),
-    LJNVideoMessage(
+    VigaVideoMessage(
       video: Uri.parse(
         '$cdnBase/ins/test.mp4',
       ),
@@ -685,7 +685,7 @@ List<Widget> mockMessages(BuildContext context, String icon, String title) {
       onTap: (Offset position, Size size) {
         // 关闭键盘
         SystemChannels.textInput.invokeMethod('TextInput.hide');
-        context.read<LJNPopupCubit>().updateVideoPopup(
+        context.read<VigaPopupCubit>().updateVideoPopup(
               openBoxSize: size,
               openPosition: position,
               sourcePath: '$cdnBase/ins/test.mp4',
@@ -693,7 +693,7 @@ List<Widget> mockMessages(BuildContext context, String icon, String title) {
             );
       },
     ),
-    LJNVideoMessage(
+    VigaVideoMessage(
       video: Uri.parse(
         '$cdnBase/ins/video2.mp4',
       ),
@@ -703,7 +703,7 @@ List<Widget> mockMessages(BuildContext context, String icon, String title) {
       onTap: (Offset position, Size size) {
         // 关闭键盘
         SystemChannels.textInput.invokeMethod('TextInput.hide');
-        context.read<LJNPopupCubit>().updateVideoPopup(
+        context.read<VigaPopupCubit>().updateVideoPopup(
               openBoxSize: size,
               openPosition: position,
               sourcePath: '$cdnBase/ins/video2.mp4',
@@ -711,7 +711,7 @@ List<Widget> mockMessages(BuildContext context, String icon, String title) {
             );
       },
     ),
-    LJNReceiveVideoMessage(
+    VigaReceiveVideoMessage(
       video: Uri.parse(
         '$cdnBase/ins/test.mp4',
       ),
@@ -723,7 +723,7 @@ List<Widget> mockMessages(BuildContext context, String icon, String title) {
       onTap: (Offset position, Size size) {
         // 关闭键盘
         SystemChannels.textInput.invokeMethod('TextInput.hide');
-        context.read<LJNPopupCubit>().updateVideoPopup(
+        context.read<VigaPopupCubit>().updateVideoPopup(
               openBoxSize: size,
               openPosition: position,
               sourcePath: '$cdnBase/ins/test.mp4',
@@ -750,7 +750,7 @@ class TagInfoData {
 }
 
 List<TagInfoData> getTagInfoData(BuildContext context) {
-  var systemCubit = context.read<LJNSystemCubit>();
+  var systemCubit = context.read<VigaSystemCubit>();
   String cdnBase = systemCubit.state.cdnBase;
 
   return [
@@ -789,7 +789,7 @@ List<TagInfoData> getTagInfoData(BuildContext context) {
 }
 
 List getTweetList(BuildContext context) {
-  var systemCubit = context.read<LJNSystemCubit>();
+  var systemCubit = context.read<VigaSystemCubit>();
   String cdnBase = systemCubit.state.cdnBase;
 
   return [
