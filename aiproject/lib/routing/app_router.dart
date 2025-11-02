@@ -90,10 +90,10 @@ import 'package:vigaviga/screens/publisher/ai_publisher_page.dart';
 import 'package:vigaviga/screens/publisher/ljn_resource_publisher_page.dart';
 import 'package:vigaviga/features/payment/screens/ljn_alipay_success_page.dart';
 import 'package:vigaviga/features/payment/screens/ljn_payment_demo_page.dart';
-import 'package:vigaviga/screens/user/settings/account_and_security/verification_page.dart';
-import 'package:vigaviga/screens/user/settings/account_and_security/change_account.dart';
-import 'package:vigaviga/screens/user/settings/account_and_security/change_phone.dart';
-import 'package:vigaviga/screens/user/settings/account_and_security/country.dart';
+// import 'package:vigaviga/screens/user/settings/account_and_security/verification_page.dart';
+// import 'package:vigaviga/screens/user/settings/account_and_security/change_account.dart';
+// import 'package:vigaviga/screens/user/settings/account_and_security/change_phone.dart';
+// import 'package:vigaviga/screens/user/settings/account_and_security/country.dart';
 
 
 class AppRouter {
@@ -125,18 +125,18 @@ class AppRouter {
       case '/resource_publisher':
         return pageRouteBuilderNotAnimation(
             const LJNResourceSearchPage()); // 资源发布搜索页面
-      case '/verification':
-        return pageRouteBuilderNotAnimation(
-            const VerificationPage());
-      case '/change_phone':
-        return pageRouteBuilderNotAnimation(
-            const ChangePhoneNumberScreen());
-      case '/change_account':
-        return pageRouteBuilderNotAnimation(
-            const ChangeAccount());
-      case '/country':
-        return pageRouteBuilderNotAnimation(
-            const SelectCountryPage());
+      // case '/verification':
+      //   return pageRouteBuilderNotAnimation(
+      //       const VerificationPage());
+      // case '/change_phone':
+      //   return pageRouteBuilderNotAnimation(
+      //       const ChangePhoneNumberScreen());
+      // case '/change_account':
+      //   return pageRouteBuilderNotAnimation(
+      //       const ChangeAccount());
+      // case '/country':
+      //   return pageRouteBuilderNotAnimation(
+      //       const SelectCountryPage());
       case '/discovery/qrcode_scanner':
         return pageRouteBuilderNotAnimation(
             const LJNQRCodeScanner()); // 二维码扫描页面
