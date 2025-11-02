@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/store/viga_system_cubit.dart';
 import 'package:vigaviga/store/viga_user_cubit.dart';
@@ -88,10 +87,6 @@ class _VigaSignInPageState extends State<VigaSignInPage> {
                   _buildOptionsRow(),
                   SizedBox(height: 60.w),
                   _buildSignInButton(),
-                  SizedBox(height: 80.w),
-                  _buildDivider(),
-                  SizedBox(height: 40.w),
-                  _buildSocialLoginButtons(),
                   SizedBox(height: 100.w),
                   _buildSignUpLink(),
                   SizedBox(height: 40.w),
@@ -260,51 +255,6 @@ class _VigaSignInPageState extends State<VigaSignInPage> {
     );
   }
 
-  Widget _buildDivider() {
-    return Row(
-      children: [
-        const Expanded(
-            child: Divider(color: AppColors.inputBackground, thickness: 1)),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 32.w),
-          child: Text(
-            '或使用以下方式登录',
-            style: TextStyle(color: AppColors.fontSecondary, fontSize: 28.w),
-          ),
-        ),
-        const Expanded(
-            child: Divider(color: AppColors.inputBackground, thickness: 1)),
-      ],
-    );
-  }
-
-  Widget _buildSocialLoginButtons() {
-    return Row(
-      children: [
-        Expanded(
-            child: _buildSocialButton(FontAwesomeIcons.facebook, 'Facebook')),
-        SizedBox(width: 32.w),
-        Expanded(child: _buildSocialButton(FontAwesomeIcons.google, 'Google')),
-      ],
-    );
-  }
-
-  Widget _buildSocialButton(IconData icon, String text) {
-    return TextButton.icon(
-      onPressed: () {
-        // Handle social login
-      },
-      icon: FaIcon(icon, size: 40.w),
-      label: Text(text, style: TextStyle(fontSize: 28.w)),
-      style: TextButton.styleFrom(
-        foregroundColor: AppColors.fontPrimary,
-        backgroundColor: AppColors.inputBackground,
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(28.w)),
-        padding: EdgeInsets.symmetric(vertical: 32.w),
-      ),
-    );
-  }
 
   Widget _buildSignUpLink() {
     return Row(

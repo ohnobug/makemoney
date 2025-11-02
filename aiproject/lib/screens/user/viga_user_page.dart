@@ -14,7 +14,8 @@ import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/tools/viga_logger.dart';
 import 'package:vigaviga/widgets/viga_page_loading.dart';
 import 'package:vigaviga/widgets/viga_app_network_image.dart';
-import 'package:vigaviga/screens/user/photo_viewer/viga_photo_viewer_page.dart';
+import 'package:vigaviga/features/viewer/viga_photo_viewer_page.dart';
+import 'package:vigaviga/screens/discovery/search/viga_user_search_results_page.dart';
 
 class VigaUserPage extends StatefulWidget {
   const VigaUserPage({super.key});
@@ -65,7 +66,8 @@ class _VigaUserPageState extends State<VigaUserPage>
     return BlocBuilder<VigaSystemCubit, SystemState>(
         builder: (context, systemState) {
       return systemState.mainpage5isload!
-          ? BlocBuilder<VigaUserCubit, UserState>(builder: (context, userState) {
+          ? BlocBuilder<VigaUserCubit, UserState>(
+              builder: (context, userState) {
               return _buildPage(systemState, userState);
             })
           : const VigaPageLoading();
@@ -172,7 +174,7 @@ class _VigaUserPageState extends State<VigaUserPage>
                           ),
                         ),
                         child: IconButton(
-                          onPressed: () => logger.info("搜索按钮被点击"),
+                          onPressed: () => _navigateToSearchPage(context),
                           icon: Icon(
                             Icons.search,
                             size: 44.w,
@@ -280,7 +282,13 @@ class _VigaUserPageState extends State<VigaUserPage>
         icon: "$cdnBase/icon/server_icon14.png",
         title: "学院",
         onPressed: () {
-          Navigator.pushNamed(context, '/user/course_list');
+          Navigator.of(context).pushNamed(
+            '/webview',
+            arguments: {
+              'url': 'https://course.vigaviga.com',
+              'title': "学院",
+            },
+          );
         },
       ),
     ];
@@ -382,8 +390,8 @@ class _VigaUserPageState extends State<VigaUserPage>
                                   const Spacer(),
                                   GestureDetector(
                                     onTap: () {
-                                      Navigator.pushNamed(context,
-                                          '/user/user_info');
+                                      Navigator.pushNamed(
+                                          context, '/user/user_info');
                                     },
                                     child: Icon(
                                       Icons.qr_code_2_outlined,
@@ -644,6 +652,36 @@ class _VigaUserPageState extends State<VigaUserPage>
       ),
     );
   }
+
+  // 导航到搜索结果页面
+  void _navigateToSearchPage(BuildContext context) {
+    String searchType;
+    switch (_tabController.index) {
+      case 0:
+        searchType = 'works';
+        break;
+      case 1:
+        searchType = 'collections';
+        break;
+      case 2:
+        searchType = 'praised';
+        break;
+      default:
+        searchType = 'works';
+    }
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => VigaSearchResultsPage(
+          initialSearchType: searchType,
+          works: _works,
+          collections: _collections,
+          praised: _praised,
+        ),
+      ),
+    );
+  }
 }
 
 class _UserWorksGrid extends StatefulWidget {
@@ -857,60 +895,60 @@ class __UserWorksGridState extends State<_UserWorksGrid> {
                     fit: BoxFit.cover,
                   ),
                 ),
-              Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: Container(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.topCenter,
-                      colors: [
-                        Colors.black.withAlpha(156),
-                        Colors.transparent,
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                        colors: [
+                          Colors.black.withAlpha(156),
+                          Colors.transparent,
+                        ],
+                      ),
+                    ),
+                    padding: EdgeInsets.fromLTRB(
+                      10.w,
+                      20.w,
+                      10.w,
+                      8.w,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Icon(
+                          const IconData(
+                            0xe643,
+                            fontFamily: 'Iconfont',
+                          ),
+                          color: Colors.white,
+                          size: 32.w,
+                        ),
+                        SizedBox(width: 4.w),
+                        Text(
+                          '${(Random().nextInt(10) * 1.2 * 1000).toInt()}',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 22.w,
+                              fontWeight: FontWeight.bold,
+                              shadows: [
+                                Shadow(
+                                  blurRadius: 4.0,
+                                  color: Colors.black.withAlpha(128),
+                                  offset: const Offset(0, 1),
+                                ),
+                              ]),
+                        ),
                       ],
                     ),
                   ),
-                  padding: EdgeInsets.fromLTRB(
-                    10.w,
-                    20.w,
-                    10.w,
-                    8.w,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Icon(
-                        const IconData(
-                          0xe643,
-                          fontFamily: 'Iconfont',
-                        ),
-                        color: Colors.white,
-                        size: 32.w,
-                      ),
-                      SizedBox(width: 4.w),
-                      Text(
-                        '${(Random().nextInt(10) * 1.2 * 1000).toInt()}',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 22.w,
-                            fontWeight: FontWeight.bold,
-                            shadows: [
-                              Shadow(
-                                blurRadius: 4.0,
-                                color: Colors.black.withAlpha(128),
-                                offset: const Offset(0, 1),
-                              ),
-                            ]),
-                      ),
-                    ],
-                  ),
                 ),
-              ),
-            ],
-          ),
-        );
+              ],
+            ),
+          );
         },
       ),
     );

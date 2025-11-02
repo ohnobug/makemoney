@@ -97,8 +97,10 @@ class _PopupMenuDialog extends StatelessWidget {
                               // 添加好友
                               VigaPopupMenuItem(
                                 title: l10n.addFriend,
-                                icon: const IconData(0xe61f,
-                                    fontFamily: "iconfont"),
+                                icon: const IconData(
+                                  0xe645,
+                                  fontFamily: "iconfont",
+                                ),
                                 onTap: () {
                                   Navigator.of(context).pop();
                                   Navigator.pushNamed(
@@ -110,8 +112,10 @@ class _PopupMenuDialog extends StatelessWidget {
                               // 扫一扫
                               VigaPopupMenuItem(
                                 title: l10n.scan,
-                                icon: const IconData(0xe69a,
-                                    fontFamily: "iconfont"),
+                                icon: const IconData(
+                                  0xe635,
+                                  fontFamily: "iconfont",
+                                ),
                                 onTap: () {
                                   Navigator.of(context).pop();
                                   Navigator.pushNamed(

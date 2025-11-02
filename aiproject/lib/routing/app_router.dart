@@ -16,7 +16,7 @@ import 'package:vigaviga/screens/discovery/viga_miniprogram_list_page.dart';
 import 'package:vigaviga/features/webview/viga_webview_page.dart';
 import 'package:vigaviga/screens/discovery/viga_post_detail_page.dart';
 import 'package:vigaviga/screens/discovery/viga_qrcode_scanner_page.dart';
-import 'package:vigaviga/screens/discovery/viga_search_page.dart';
+import 'package:vigaviga/screens/discovery/search/viga_search_page.dart';
 import 'package:vigaviga/screens/publisher/viga_publisher_page.dart';
 import 'package:vigaviga/screens/contract/chat/friend/viga_add_friends_page.dart';
 import 'package:vigaviga/screens/contract/chat/friend/viga_friend_data_setting_page.dart';
@@ -30,9 +30,6 @@ import 'package:vigaviga/screens/contract/chat/friend/viga_set_friend_tags_page.
 import 'package:vigaviga/screens/contract/chat/friend/viga_set_notes_and_labels_page.dart';
 import 'package:vigaviga/screens/contract/chat/group/viga_group_chat_page.dart';
 import 'package:vigaviga/screens/contract/chat/group/viga_group_message_record_page.dart';
-import 'package:vigaviga/screens/user/course/viga_course_detail_page.dart';
-import 'package:vigaviga/screens/user/course/viga_course_list_page.dart';
-import 'package:vigaviga/screens/user/course/viga_lesson_content_page.dart';
 import 'package:vigaviga/screens/user/settings/viga_about_page.dart';
 import 'package:vigaviga/screens/user/settings/viga_feature_introduction_page.dart';
 import 'package:vigaviga/screens/user/settings/viga_complain_page.dart';
@@ -85,8 +82,8 @@ import 'package:vigaviga/tools/viga_logger.dart';
 import 'package:vigaviga/videoplayer.dart';
 import 'package:vigaviga/widgets/viga_custom_tabbar.dart';
 import 'package:vigaviga/screens/publisher/viga_publish_work_page.dart';
-import 'package:vigaviga/screens/publisher/geolocator_page.dart';
-import 'package:vigaviga/screens/publisher/ai_publisher_page.dart';
+import 'package:vigaviga/screens/publisher/viga_geolocator_page.dart';
+import 'package:vigaviga/screens/publisher/viga_ai_publisher_page.dart';
 import 'package:vigaviga/screens/user/viga_user_info_page.dart';
 import 'package:vigaviga/screens/publisher/viga_resource_publisher_page.dart';
 import 'package:vigaviga/features/payment/screens/viga_alipay_success_page.dart';
@@ -118,17 +115,19 @@ class AppRouter {
         return pageRouteBuilderNotAnimation(
             const VigaVideoPublishPageState()); // 发布作品页面
       case '/locationPage':
-        return pageRouteBuilderNotAnimation(const AddLocationPage()); // 添加位置页面
+        return pageRouteBuilderNotAnimation(
+            const VigaGeolocatorPage()); // 添加位置页面
       case '/ai_publisher':
         return pageRouteBuilderNotAnimation(
-            const LoRASettingsPage()); // AI发布设置页面
+            const VigaAiPublisherPage()); // AI发布设置页面
       case '/resource_publisher':
         return pageRouteBuilderNotAnimation(
             const VigaResourceSearchPage()); // 资源发布搜索页面
       case '/verification':
         return pageRouteBuilderNotAnimation(const VigaVerificationPage());
       case '/change_phone':
-        return pageRouteBuilderNotAnimation(const VigaChangePhoneNumberScreen());
+        return pageRouteBuilderNotAnimation(
+            const VigaChangePhoneNumberScreen());
       case '/change_account':
         return pageRouteBuilderNotAnimation(const VigaChangeAccount());
       case '/country':
@@ -186,7 +185,8 @@ class AppRouter {
         return pageRouteBuilderAnimation(
             const VigaLoggedDevicesPage()); // 已登录设备页面
       case '/settings/device_detail':
-        return pageRouteBuilderAnimation(const VigaDeviceDetailPage()); // 设备详情页面
+        return pageRouteBuilderAnimation(
+            const VigaDeviceDetailPage()); // 设备详情页面
       case '/settings/emergency_contact':
         return pageRouteBuilderAnimation(
             const VigaEmergencyContactPage()); // 紧急联系人页面
@@ -215,7 +215,8 @@ class AppRouter {
         return pageRouteBuilderAnimation(
             const VigaLanguageSettingPage()); // 语言设置页面
       case '/settings/theme_setting':
-        return pageRouteBuilderAnimation(const VigaThemeSettingPage()); // 主题设置页面
+        return pageRouteBuilderAnimation(
+            const VigaThemeSettingPage()); // 主题设置页面
 
       // 通讯录相关路由
       case '/contact':
@@ -236,7 +237,8 @@ class AppRouter {
       case '/contact/new_friends':
         return pageRouteBuilderAnimation(const VigaNewFriendsPage()); // 新朋友页面
       case '/contact/search_friend':
-        return pageRouteBuilderAnimation(const VigaSearchFriendPage()); // 搜索朋友页面
+        return pageRouteBuilderAnimation(
+            const VigaSearchFriendPage()); // 搜索朋友页面
       case '/contact/add_friends':
         return pageRouteBuilderAnimation(const VigaAddFriendsPage()); // 添加朋友页面
 
@@ -244,11 +246,19 @@ class AppRouter {
       case '/chat':
         final args = settings.arguments as Map<String, String>;
         return pageRouteBuilderAnimation(
-            VigaChat(title: args['title']!, icon: args['icon']!)); // 聊天页面
+            VigaChat(
+              title: args['title']!,
+              icon: args['icon']!,
+              fromTabIndex: args['fromTabIndex'],
+            )); // 聊天页面
       case '/group_chat':
         final args = settings.arguments as Map<String, String>;
         return pageRouteBuilderAnimation(
-            VigaGroupChat(title: args['title']!, icon: args['icon']!)); // 群聊页面
+            VigaGroupChat(
+              title: args['title']!,
+              icon: args['icon']!,
+              fromTabIndex: args['fromTabIndex'],
+            )); // 群聊页面
       case '/chat/friend_profile':
         final args = settings.arguments as Map<String, String>? ?? {};
         return pageRouteBuilderAnimation(VigaFriendProfilePage(
@@ -327,7 +337,8 @@ class AppRouter {
       case '/user/info':
         return pageRouteBuilderAnimation(const VigaUserinfoPage()); // 用户信息页面
       case '/user/photo_viewer':
-        return pageRouteBuilderAnimation(const VigaPhotoGridPage()); // 图片查看器测试页面
+        return pageRouteBuilderAnimation(
+            const VigaPhotoGridPage()); // 图片查看器测试页面
       case '/user/pocketmoney':
         return pageRouteBuilderAnimation(const VigaPocketMoneyPage()); // 零钱页面
       case '/user/services':
@@ -344,19 +355,7 @@ class AppRouter {
       case '/user/more_info':
         return pageRouteBuilderAnimation(
             const VigaUserMoreInfoPage()); // 用户更多信息页面
-      case '/user/course_list':
-        return pageRouteBuilderAnimation(const VigaCourseListPage()); // 课程列表页面
-      case '/user/course_detail':
-        final args = settings.arguments as Map<String, String>? ?? {};
-        return pageRouteBuilderAnimation(VigaCourseDetailPage(
-          courseId: args['course_id'] ?? "",
-        )); // 课程详情页面
-      case '/user/lesson_content':
-        final args = settings.arguments as Map<String, String>? ?? {};
-        return pageRouteBuilderAnimation(VigaLessonContentPage(
-          lessonId: args['lesson_id'] ?? "",
-        )); // 课程内容页面
-
+  
       // 作者详情页面
       case '/author/detail':
         final args = settings.arguments as Map<String, String>? ?? {};
@@ -368,7 +367,7 @@ class AppRouter {
 
       // 用户认证相关路由
       case '/user/auth/login':
-        return pageRouteBuilderNotAnimation(const VigaSignInPage()); // 用户登录页面
+        return pageRouteBuilderAnimation(const VigaSignInPage()); // 用户登录页面
       case '/user/auth/register':
         return pageRouteBuilderAnimation(const VigaSignUpPage()); // 用户注册页面
       case '/user/auth/forgot_password':

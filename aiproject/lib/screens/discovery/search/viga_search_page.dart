@@ -7,6 +7,7 @@ import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/viga_system_cubit.dart';
+import 'package:vigaviga/screens/discovery/search/viga_home_search_results_page.dart';
 
 class _SearchItemData {
   final String text;
@@ -159,7 +160,7 @@ class _VigaSearch extends State<VigaSearchPage> with TickerProviderStateMixin {
       return Scaffold(
         primary: false,
         resizeToAvoidBottomInset: false,
-        backgroundColor: theme.colorScheme.surfaceContainer,
+        backgroundColor: theme.colorScheme.surface,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(90.0.w + systemState.statusHeight),
           child: Container(
@@ -221,7 +222,7 @@ class _VigaSearch extends State<VigaSearchPage> with TickerProviderStateMixin {
             ),
           ),
         ),
-        // [MODIFIED] 使用 NestedScrollView 来创建可滚动的 Sliver 头部和固定的 TabBar
+        // 使用 NestedScrollView 来创建可滚动的 Sliver 头部和固定的 TabBar
         body: NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             return [
@@ -375,26 +376,44 @@ class _VigaSearch extends State<VigaSearchPage> with TickerProviderStateMixin {
             width: 750.w,
             child: Wrap(
               children: data.map((item) {
-                return SizedBox(
-                  width: 345.w,
-                  height: 70.w,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          item.text,
-                          style: TextStyle(
-                            fontSize: 32.w,
-                            height: 1.08,
-                            color: item.isHot ? AppColors.accentRedPure : null,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
+                return GestureDetector(
+                  onTap: () {
+                    // 点击搜索项跳转到搜索结果页面
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => VigaHomeSearchResultsPage(
+                          initialSearchType: 'home_search',
+                          works: [], // 传入空的works列表，让搜索结果页面生成模拟数据
+                          collections: [],
+                          praised: [],
+                          searchKeyword: item.text, // 传递搜索关键词
                         ),
-                      )
-                    ],
+                      ),
+                    );
+                  },
+                  child: SizedBox(
+                    width: 345.w,
+                    height: 70.w,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            item.text,
+                            style: TextStyle(
+                              fontSize: 32.w,
+                              height: 1.08,
+                              color:
+                                  item.isHot ? AppColors.accentRedPure : null,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 );
               }).toList(),
@@ -426,101 +445,118 @@ class _VigaSearch extends State<VigaSearchPage> with TickerProviderStateMixin {
             ...hotData.asMap().entries.map(
               (e) {
                 final item = e.value;
-                return Container(
-                  height: 72.w,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(10.w)),
-                    gradient: LinearGradient(
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                      colors: [
-                        e.key < 3
-                            ? AppColors.redTransparent76
-                            : AppColors.neutralGrey4,
-                        AppColors.neutralWhite
-                      ],
-                    ),
-                  ),
-                  padding: EdgeInsets.symmetric(horizontal: 24.w),
-                  margin: EdgeInsets.only(bottom: 15.w),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        height: 37.w,
-                        width: 37.w,
-                        child: Stack(
-                          alignment: Alignment.center,
-                          children: [
-                            if (e.key < 3)
-                              Icon(
-                                const IconData(0xe649, fontFamily: 'Iconfont'),
-                                color: AppColors.accentYellowDark2,
-                                size: 37.w,
-                              ),
-                            Text(
-                              (e.key + 1).toString(),
-                              style: TextStyle(
-                                fontSize: e.key < 3 ? 24.w : 28.w,
-                                height: 1.08,
-                                fontWeight: FontWeight.bold,
-                                fontStyle: e.key < 3
-                                    ? FontStyle.italic
-                                    : FontStyle.normal,
-                                color: e.key < 3
-                                    ? AppColors.neutralWhite
-                                    : AppColors.neutralGrey62,
-                              ),
-                            ),
-                          ],
+                return GestureDetector(
+                  onTap: () {
+                    // 点击热门搜索项跳转到搜索结果页面
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => VigaHomeSearchResultsPage(
+                          initialSearchType: 'home_search',
+                          works: [], // 传入空的works列表，让搜索结果页面生成模拟数据
+                          collections: [],
+                          praised: [],
                         ),
                       ),
-                      SizedBox(width: 12.w),
-                      Expanded(
-                        child: item.isHot
-                            ? Text.rich(
-                                TextSpan(children: [
-                                  TextSpan(
-                                    text: item.text,
-                                    style: TextStyle(
-                                      fontSize: 32.w,
-                                      height: 1.08,
-                                    ),
-                                  ),
-                                  WidgetSpan(
-                                    alignment: PlaceholderAlignment.middle,
-                                    child: Padding(
-                                      padding: EdgeInsets.only(left: 4.w),
-                                      child: Icon(
-                                        const IconData(0xe71e,
-                                            fontFamily: 'Iconfont'),
-                                        color: AppColors.accentRedPure,
-                                        size: 30.w,
+                    );
+                  },
+                  child: Container(
+                    height: 72.w,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10.w)),
+                      gradient: LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: [
+                          e.key < 3
+                              ? AppColors.redTransparent76
+                              : AppColors.neutralGrey4,
+                          AppColors.neutralWhite
+                        ],
+                      ),
+                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 24.w),
+                    margin: EdgeInsets.only(bottom: 15.w),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          height: 37.w,
+                          width: 37.w,
+                          child: Stack(
+                            alignment: Alignment.center,
+                            children: [
+                              if (e.key < 3)
+                                Icon(
+                                  const IconData(0xe649,
+                                      fontFamily: 'Iconfont'),
+                                  color: AppColors.accentYellowDark2,
+                                  size: 37.w,
+                                ),
+                              Text(
+                                (e.key + 1).toString(),
+                                style: TextStyle(
+                                  fontSize: e.key < 3 ? 24.w : 28.w,
+                                  height: 1.08,
+                                  fontWeight: FontWeight.bold,
+                                  fontStyle: e.key < 3
+                                      ? FontStyle.italic
+                                      : FontStyle.normal,
+                                  color: e.key < 3
+                                      ? AppColors.neutralWhite
+                                      : AppColors.neutralGrey62,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        SizedBox(width: 12.w),
+                        Expanded(
+                          child: item.isHot
+                              ? Text.rich(
+                                  TextSpan(children: [
+                                    TextSpan(
+                                      text: item.text,
+                                      style: TextStyle(
+                                        fontSize: 32.w,
+                                        height: 1.08,
                                       ),
                                     ),
+                                    WidgetSpan(
+                                      alignment: PlaceholderAlignment.middle,
+                                      child: Padding(
+                                        padding: EdgeInsets.only(left: 4.w),
+                                        child: Icon(
+                                          const IconData(0xe71e,
+                                              fontFamily: 'Iconfont'),
+                                          color: AppColors.accentRedPure,
+                                          size: 30.w,
+                                        ),
+                                      ),
+                                    ),
+                                  ]),
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                )
+                              : Text(
+                                  item.text,
+                                  style: TextStyle(
+                                    fontSize: 32.w,
+                                    height: 1.08,
                                   ),
-                                ]),
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                              )
-                            : Text(
-                                item.text,
-                                style: TextStyle(
-                                  fontSize: 32.w,
-                                  height: 1.08,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
                                 ),
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                              ),
-                      ),
-                      Text(
-                        formattedNumber,
-                        style: TextStyle(
-                          fontSize: 25.w,
-                          color: AppColors.neutralGrey56,
                         ),
-                      ),
-                    ],
+                        Text(
+                          formattedNumber,
+                          style: TextStyle(
+                            fontSize: 25.w,
+                            color: AppColors.neutralGrey56,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 );
               },

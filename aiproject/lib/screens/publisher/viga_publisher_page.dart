@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/store/viga_system_cubit.dart';
+import 'package:vigaviga/tools/dialog/viga_dialog_service.dart';
 import 'package:vigaviga/widgets/viga_appbar.dart';
 import 'package:vigaviga/widgets/viga_page_loading.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:vigaviga/tools/dialog/viga_dialog_service.dart';
 
 class VigaPublisherPage extends StatefulWidget {
   const VigaPublisherPage({super.key});
@@ -48,7 +48,7 @@ class _VigaPublisherState extends State<VigaPublisherPage> {
       backgroundColor: theme.colorScheme.surface,
       appBar: VigaAppBar(
           title: l10n.tabbar_label_publisher,
-          leading: SizedBox(),
+          leading: const SizedBox(),
           actions: [
             // 点击出来弹窗
             VigaAppBarActionIconButton(
@@ -60,7 +60,7 @@ class _VigaPublisherState extends State<VigaPublisherPage> {
           ]),
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 24.w),
+          padding: EdgeInsets.symmetric(horizontal: 48.w), // 24 * 2
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -77,10 +77,9 @@ class _VigaPublisherState extends State<VigaPublisherPage> {
                           'AI将为你生成独特的NFT艺术品。费用包含AI生成服务及链上铸造，发布后即可赚取打赏。',
                       onTap: () {
                         Navigator.pushNamed(context, '/ai_publisher');
-                        // print('即将进入 AI 创作流程...');
                       },
                     ),
-                    SizedBox(height: 20.h),
+                    SizedBox(height: 20.w), // 20 * 2
                     // 下半部分: 用户上传入口
                     _buildFlatOption(
                       context: context,
@@ -103,7 +102,7 @@ class _VigaPublisherState extends State<VigaPublisherPage> {
               ),
               // 底部成本说明
               _buildCostDisclaimer(context),
-              SizedBox(height: 50.h),
+              SizedBox(height: 100.w), // 50 * 2
             ],
           ),
         ),
@@ -122,51 +121,98 @@ class _VigaPublisherState extends State<VigaPublisherPage> {
 
     return InkWell(
       onTap: onTap,
-      borderRadius: BorderRadius.circular(
-        12.r,
-      ),
+      borderRadius: BorderRadius.circular(24.w),
       child: Container(
-        padding: EdgeInsets.symmetric(
-          horizontal: 20.w,
-          vertical: 24.h,
-        ),
+        width: double.infinity,
+        padding: EdgeInsets.all(32.w),
         decoration: BoxDecoration(
-          color: theme.colorScheme.surfaceContainerHighest.withAlpha(128),
-          borderRadius: BorderRadius.circular(12.r),
+          color: theme.colorScheme.surface,
+          borderRadius: BorderRadius.circular(24.w),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withAlpha((0.05 * 255).toInt()),
+              blurRadius: 15.w,
+              offset: Offset(0, 4.w),
+            ),
+          ],
           border: Border.all(
-            color: theme.dividerColor,
+            color: theme.dividerColor.withAlpha((0.3 * 255).toInt()),
             width: 1.w,
           ),
         ),
-        child: Row(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(
-              icon,
-              size: 100.w,
-              color: theme.colorScheme.primary,
-            ),
-            SizedBox(width: 30.w),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: theme.textTheme.titleLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: theme.colorScheme.onSurface,
-                    ),
-                  ),
-                  SizedBox(height: 5.h),
-                  Text(
-                    description,
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      color: theme.colorScheme.onSurfaceVariant,
-                      height: 1.6, // 使用相对行高而不是固定值
-                    ),
-                  ),
-                ],
+            // 图标区域
+            Container(
+              width: 120.w,
+              height: 120.w,
+              decoration: BoxDecoration(
+                color: theme.colorScheme.primaryContainer,
+                borderRadius: BorderRadius.circular(24.w),
               ),
+              child: Icon(
+                icon,
+                size: 60.w,
+                color: theme.colorScheme.primary,
+              ),
+            ),
+            SizedBox(height: 24.w),
+
+            // 标题和描述
+            Text(
+              title,
+              style: theme.textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.w700,
+                color: theme.colorScheme.onSurface,
+                fontSize: 34.w,
+                height: 1.2,
+              ),
+            ),
+            SizedBox(height: 16.w),
+            Text(
+              description,
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+                height: 1.5,
+                fontSize: 26.w,
+              ),
+            ),
+
+            // 底部箭头
+            SizedBox(height: 16.w),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.w),
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.primaryContainer
+                        .withAlpha((0.3 * 255).toInt()),
+                    borderRadius: BorderRadius.circular(20.w),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        '开始创作',
+                        style: TextStyle(
+                          color: theme.colorScheme.primary,
+                          fontSize: 24.w,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      SizedBox(width: 8.w),
+                      Icon(
+                        Icons.arrow_forward,
+                        color: theme.colorScheme.primary,
+                        size: 20.w,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -177,36 +223,67 @@ class _VigaPublisherState extends State<VigaPublisherPage> {
   Widget _buildCostDisclaimer(BuildContext context) {
     ThemeData theme = Theme.of(context);
 
-    final regularStyle = theme.textTheme.bodySmall
-        ?.copyWith(color: theme.colorScheme.onSurfaceVariant);
-
-    final boldStyle = regularStyle?.copyWith(
-      fontWeight: FontWeight.bold,
-      color: theme.colorScheme.primary,
-    );
-
-    return RichText(
-      textAlign: TextAlign.center,
-      text: TextSpan(
-        style: regularStyle,
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.all(32.w),
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surfaceContainerHighest
+            .withAlpha((0.5 * 255).toInt()),
+        borderRadius: BorderRadius.circular(20.w),
+        border: Border.all(
+          color: theme.dividerColor.withAlpha((0.3 * 255).toInt()),
+          width: 1.w,
+        ),
+      ),
+      child: Column(
         children: [
-          const TextSpan(text: '发布作品即铸造为链上NFT，基础费用为 '),
-          TextSpan(
-            text: '2 钻石',
-            style: boldStyle,
+          Row(
+            children: [
+              Icon(
+                Icons.info_outline,
+                color: theme.colorScheme.primary,
+                size: 28.w,
+              ),
+              SizedBox(width: 12.w),
+              Text(
+                '费用说明',
+                style: TextStyle(
+                  color: theme.colorScheme.onSurface,
+                  fontSize: 28.w,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
           ),
-          const TextSpan(text: '。\n'),
-          TextSpan(
-            text: '（若选择AI创作，需额外支付 ',
-            style: regularStyle?.copyWith(fontSize: 20.w),
-          ),
-          TextSpan(
-            text: '3 钻石',
-            style: boldStyle?.copyWith(fontSize: 20.w),
-          ),
-          TextSpan(
-            text: ' 的AI生成服务费）',
-            style: regularStyle?.copyWith(fontSize: 20.w),
+          SizedBox(height: 16.w),
+          RichText(
+            textAlign: TextAlign.left,
+            text: TextSpan(
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+                fontSize: 24.w,
+                height: 1.4,
+              ),
+              children: [
+                const TextSpan(text: '• 发布作品即铸造为链上NFT，基础费用为 '),
+                TextSpan(
+                  text: '2 钻石',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: theme.colorScheme.primary,
+                  ),
+                ),
+                const TextSpan(text: '\n• 若选择AI创作，需额外支付 '),
+                TextSpan(
+                  text: '3 钻石',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: theme.colorScheme.primary,
+                  ),
+                ),
+                const TextSpan(text: ' 的AI生成服务费'),
+              ],
+            ),
           ),
         ],
       ),

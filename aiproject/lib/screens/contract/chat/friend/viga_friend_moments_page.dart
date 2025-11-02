@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/api_manager/api.dart';
-import 'package:vigaviga/screens/user/photo_viewer/viga_photo_viewer_page.dart';
+import 'package:vigaviga/features/viewer/viga_photo_viewer_page.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/viga_custom_physics.dart';
@@ -914,15 +914,15 @@ class VigaTweenImage extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         // 点击图片
-        final RenderBox? renderBox = imageContainerKey.currentContext
-            ?.findRenderObject() as RenderBox?;
+        final RenderBox? renderBox =
+            imageContainerKey.currentContext?.findRenderObject() as RenderBox?;
         if (renderBox == null) return;
 
         // 获取图片在屏幕上的绝对位置和大小
         final position = renderBox.localToGlobal(Offset.zero);
         final size = renderBox.size;
-        final initialRect = Rect.fromLTWH(
-            position.dx, position.dy, size.width, size.height);
+        final initialRect =
+            Rect.fromLTWH(position.dx, position.dy, size.width, size.height);
 
         // 获取所有图片列表，如果没有提供则使用当前图片
         final imageSources = allImages ?? [imagePath];

@@ -49,9 +49,10 @@ class _VigaDiscoveryPageState extends State<VigaDiscoveryPage> {
   // Mock data for trending topics
   final List<TrendItem> trendingTopics = [
     TrendItem(
-        title: "#夏日Vlog",
-        views: "1.2亿次播放",
-        icon: Icons.local_fire_department_rounded),
+      title: "#夏日Vlog",
+      views: "1.2亿次播放",
+      icon: Icons.local_fire_department_rounded,
+    ),
     TrendItem(
       title: "#美食探店",
       views: "8876万次播放",
@@ -135,7 +136,7 @@ class _VigaDiscoveryPageState extends State<VigaDiscoveryPage> {
     AppLocalizations l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      backgroundColor: theme.scaffoldBackgroundColor,
+      backgroundColor: theme.colorScheme.surface,
       primary: false,
       appBar: VigaAppBar(
         title: l10n.tabbar_label_discover,
@@ -150,7 +151,6 @@ class _VigaDiscoveryPageState extends State<VigaDiscoveryPage> {
           ),
         ],
       ),
-      // 使用 SafeArea 来确保内容不会被系统UI（如状态栏）遮挡
       body: ListView(
         physics: BouncingScrollPhysics(),
         padding: EdgeInsets.only(
@@ -232,21 +232,21 @@ class _VigaDiscoveryPageState extends State<VigaDiscoveryPage> {
               icon: "$cdnBase/icon/discovery_icon1.png",
               link: '/chat/friend_moments',
               underline: true,
-              size: 48,
+              size: 42,
             ),
             VigaFunctionItem(
               title: "图片墙",
               icon: "$cdnBase/icon/discovery_icon2.png",
               link: '/discovery/ins',
               underline: true,
-              size: 48,
+              size: 42,
             ),
             VigaFunctionItem(
               title: "小程序",
               icon: "$cdnBase/icon/discovery_icon5.png",
               link: '/discovery/miniprogram_list',
               underline: false,
-              size: 48,
+              size: 42,
             ),
           ],
         ),

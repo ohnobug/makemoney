@@ -15,6 +15,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:vigaviga/tools/dialog/viga_dialog_service.dart';
 import 'package:vigaviga/widgets/viga_appbar.dart';
+import 'package:vigaviga/screens/contract/viga_search_friend_page.dart';
 
 class VigaRecentChatsListPage extends StatefulWidget {
   const VigaRecentChatsListPage({super.key});
@@ -105,6 +106,8 @@ class _VigaRecentChatsListPage extends State<VigaRecentChatsListPage>
   double statusHeight = 0;
   double _homescrollpixels = 0;
 
+  
+  
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<VigaSystemCubit, SystemState>(
@@ -206,7 +209,8 @@ class _VigaRecentChatsListPage extends State<VigaRecentChatsListPage>
             top: 0,
             left: 0,
             // 需要增高一点, 因为Transform.scale缩小后, SingleChildScrollView的高度不能自动适配.
-            height: _homescrollpixels + (90.w + statusHeight + 200.w),
+            height: _homescrollpixels +
+                (systemState.appbarHeight + statusHeight + 200.w),
             width: screenSize.width,
             child: VigaChatMiniProgram(
               reverse: reverse,
@@ -343,7 +347,8 @@ class _VigaRecentChatsListPage extends State<VigaRecentChatsListPage>
                       actions: [
                         // 联系人
                         VigaAppBarActionIconButton(
-                          iconData: const IconData(0xe608, fontFamily: 'Iconfont'),
+                          iconData:
+                              const IconData(0xe608, fontFamily: 'Iconfont'),
                           onTap: () {
                             if (_homescrollpixels == 0) {
                               Navigator.pushNamed(context, '/contact');
@@ -353,7 +358,8 @@ class _VigaRecentChatsListPage extends State<VigaRecentChatsListPage>
 
                         // 点击出来弹窗
                         VigaAppBarActionIconButton(
-                          iconData: const IconData(0xe726, fontFamily: 'Iconfont'),
+                          iconData:
+                              const IconData(0xe726, fontFamily: 'Iconfont'),
                           onTap: () {
                             if (_homescrollpixels == 0) {
                               showPopupMenu(context);
@@ -363,7 +369,18 @@ class _VigaRecentChatsListPage extends State<VigaRecentChatsListPage>
                       ],
                       // 搜索
                       leading: GestureDetector(
-                        onTap: () {},
+                        onTap: () async {
+                          if (_homescrollpixels == 0) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => VigaSearchFriendPage(
+                                  recentContacts: chatItems,
+                                ),
+                              ),
+                            );
+                          }
+                        },
                         child: Container(
                           color: Colors.transparent,
                           height: 90.w,

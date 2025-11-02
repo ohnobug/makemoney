@@ -25,10 +25,11 @@ import 'package:vigaviga/tools/viga_tools.dart';
 import 'package:vigaviga/tools/viga_logger.dart';
 
 class VigaGroupChat extends StatefulWidget {
-  const VigaGroupChat({super.key, required this.title, required this.icon});
+  const VigaGroupChat({super.key, required this.title, required this.icon, this.fromTabIndex});
 
   final String title;
   final String icon;
+  final String? fromTabIndex;
 
   @override
   State<VigaGroupChat> createState() => _VigaGroupChat();

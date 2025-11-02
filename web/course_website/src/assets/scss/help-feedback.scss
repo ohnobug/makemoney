@@ -1,0 +1,258 @@
+// HelpAndFeedback 页面样式
+// 使用 SCSS 变量和嵌套语法
+
+// 使用全局变量
+@use 'variables' as *;
+
+// 主页面容器
+.help-feedback-page {
+  min-height: 100vh;
+  background-color: $background-secondary;
+  display: flex;
+  flex-direction: column;
+}
+
+// App Bar
+.app-bar {
+  background-color: $background-primary;
+  padding: $spacing-sm $spacing-md;
+  border-bottom: 1px solid $border-color;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+  .app-bar-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .app-title {
+    font-size: $font-lg;
+    font-weight: 600;
+    color: $text-primary;
+    margin: 0;
+  }
+}
+
+// 内容区域
+.content {
+  flex: 1;
+  padding: $spacing-md;
+  padding-bottom: calc($spacing-md + 60px); // 添加底部内边距，避免内容被底部导航遮挡
+}
+
+// 区块样式
+.section {
+  margin-bottom: $spacing-lg;
+
+  .section-header {
+    margin-bottom: $spacing-sm;
+  }
+
+  .section-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: $text-primary;
+    margin: 0;
+  }
+}
+
+// 工具网格
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: $spacing-md;
+}
+
+.tool-item {
+  background-color: $background-primary;
+  border-radius: $radius-sm;
+  padding: $spacing-md $spacing-sm;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: $shadow-sm;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+
+  .tool-icon {
+    font-size: $font-2xl;
+    margin-bottom: $spacing-sm;
+  }
+
+  .tool-title {
+    font-size: $font-xs;
+    color: $text-primary;
+    font-weight: 500;
+  }
+}
+
+// 网页浏览器测试
+.web-browser-test {
+  background-color: $background-primary;
+  border-radius: $radius-sm;
+  overflow: hidden;
+  box-shadow: $shadow-sm;
+}
+
+.browser-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-md;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: $hover-background;
+  }
+
+  .browser-icon {
+    margin-right: $spacing-sm;
+    font-size: $font-xl;
+  }
+
+  .browser-text {
+    flex: 1;
+    font-size: $font-md;
+    color: $text-primary;
+  }
+}
+
+// 问题容器
+.questions-container {
+  background-color: $background-primary;
+  border-radius: $radius-sm;
+  overflow: hidden;
+  box-shadow: $shadow-sm;
+}
+
+// 标签页 Swiper
+.tabs-container {
+  border-bottom: 1px solid $border-color;
+  overflow: hidden;
+  height: 52px; // 增大高度
+}
+
+.tabs-swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.tab-slide {
+  width: auto !important;
+  height: 100%;
+  cursor: pointer;
+  user-select: none;
+  display: flex;
+  align-items: center;
+
+  .tab-content {
+    padding: $spacing-sm $spacing-lg;
+    font-size: $font-md;
+    color: $text-secondary;
+    white-space: nowrap;
+    transition: all 0.2s;
+    border-bottom: 2px solid transparent;
+  }
+
+  &.active .tab-content {
+    color: $primary-color;
+    font-weight: 600;
+    border-bottom-color: $primary-color;
+  }
+}
+
+// 问题列表 Swiper
+.questions-list {
+  height: 260px; // 固定高度，确保内容不会溢出
+  overflow: hidden;
+}
+
+.questions-swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.questions-slide {
+  height: 100%;
+  overflow-y: auto; // 允许内容滚动
+}
+
+.question-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $spacing-sm $spacing-md;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: $hover-background;
+  }
+
+  .question-text {
+    font-size: 14px;
+    color: $text-primary;
+    flex: 1;
+  }
+
+  .arrow {
+    color: $text-muted;
+    font-size: 16px;
+    font-weight: bold;
+  }
+}
+
+// 底部导航
+.bottom-nav {
+  background-color: $background-primary;
+  border-top: 1px solid $border-color;
+  display: flex;
+  align-items: center;
+  padding: $spacing-sm 0;
+  position: sticky;
+  bottom: 0;
+  z-index: 1000; // 确保底部导航在最上层
+  backdrop-filter: blur(10px); // 添加毛玻璃效果增强视觉分离
+
+  .nav-item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-sm;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: $hover-background;
+    }
+
+    .nav-icon {
+      margin-right: $spacing-xs;
+    }
+  }
+
+  .nav-divider {
+    width: 1px;
+    height: 20px;
+    background-color: $border-color;
+  }
+}
+
+// 响应式设计
+@media (max-width: 480px) {
+  .tools-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .tab-content {
+    padding: 12px 16px;
+    font-size: 13px;
+  }
+}

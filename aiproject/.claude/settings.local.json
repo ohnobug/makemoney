@@ -56,7 +56,8 @@
       "Bash(flutter analyze lib/routing/app_router.dart lib/screens/user/settings/ljn_setting_page.dart)",
       "Bash(flutter analyze lib/screens/user/photo_viewer/viga_photo_viewer_page.dart)",
       "Bash(flutter analyze lib/screens/user/photo_viewer/viga_photo_grid_page.dart)",
-      "Bash(flutter build apk --debug --no-tree-shake-icons)"
+      "Bash(flutter build apk --debug --no-tree-shake-icons)",
+      "Bash(flutter analyze:*)"
     ],
     "deny": [],
     "ask": []

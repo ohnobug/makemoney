@@ -58,6 +58,9 @@ class _VigaAddFriends extends State<VigaAddFriendsPage> {
             ),
             child: Column(
               children: [
+                SizedBox(
+                  height: 20.w,
+                ),
                 // 搜索框
                 VigaSearch(
                   link: '/contact/search_friend',

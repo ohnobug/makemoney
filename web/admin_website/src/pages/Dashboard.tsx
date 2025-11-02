@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import './Dashboard.scss';
 import UserList from './UserList';
+import InstituteManagement from './InstituteManagement';
+import HelpFeedbackManagement from './HelpFeedbackManagement';
 
 interface SubMenuItem {
   id: string;
@@ -136,6 +138,29 @@ export default function Dashboard() {
         { id: 'fraud-detection', name: '欺诈检测' },
         { id: 'access-control', name: '访问控制' },
         { id: 'security-audit', name: '安全审计' }
+      ]
+    },
+    {
+      id: 'institute-management',
+      name: '学院管理',
+      icon: '🏛️',
+      expanded: false,
+      subItems: [
+        { id: 'institute-list', name: '学院列表' },
+        { id: 'institute-stats', name: '学院统计' },
+        { id: 'institute-settings', name: '学院设置' }
+      ]
+    },
+    {
+      id: 'help-feedback-management',
+      name: '帮助与反馈',
+      icon: '💬',
+      expanded: false,
+      subItems: [
+        { id: 'help-articles', name: '帮助文章' },
+        { id: 'user-feedback', name: '用户反馈' },
+        { id: 'faq-management', name: 'FAQ管理' },
+        { id: 'feedback-analytics', name: '反馈分析' }
       ]
     },
     {
@@ -350,6 +375,13 @@ export default function Dashboard() {
       switch (subMenuId) {
         case 'user-list':
           component = <UserList />;
+          break;
+        case 'institute-list':
+          component = <InstituteManagement />;
+          break;
+        case 'help-articles':
+        case 'user-feedback':
+          component = <HelpFeedbackManagement />;
           break;
         default:
           component = renderDevelopingPage(subMenuName);

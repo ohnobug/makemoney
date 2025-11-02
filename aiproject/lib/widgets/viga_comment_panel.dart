@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/viga_system_cubit.dart';
 import 'package:vigaviga/widgets/viga_appbar_inner.dart';
+import 'package:vigaviga/features/viewer/viga_photo_viewer_page.dart';
 import 'viga_comment_input_page.dart';
 
 // 数据模型
@@ -147,6 +148,26 @@ class _VigaCommentPanelState extends State<VigaCommentPanel> {
     );
   }
 
+  void _showImageViewer(String imageUrl) {
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) {
+          return VigaPhotoViewerPage(
+            imageSources: [imageUrl],
+            initialIndex: 0,
+            initialRect: Rect.fromLTWH(
+              0,
+              0,
+              150.w,
+              150.w,
+            ),
+          );
+        },
+        transitionDuration: Duration.zero,
+      ),
+    );
+  }
+
   Widget _buildCommentInput() {
     return Container(
       padding: EdgeInsets.fromLTRB(25.w, 15.w, 25.w, 25.w),
@@ -222,10 +243,15 @@ class _VigaCommentPanelState extends State<VigaCommentPanel> {
                 if (data.imageUrl != null)
                   Padding(
                     padding: EdgeInsets.only(top: 12.w),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(8.w),
-                      child: Image.network(data.imageUrl!,
-                          height: 150.w, width: 150.w, fit: BoxFit.cover),
+                    child: GestureDetector(
+                      onTap: () {
+                        _showImageViewer(data.imageUrl!);
+                      },
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8.w),
+                        child: Image.network(data.imageUrl!,
+                            height: 150.w, width: 150.w, fit: BoxFit.cover),
+                      ),
                     ),
                   ),
                 SizedBox(height: 12.w),
