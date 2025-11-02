@@ -53,18 +53,18 @@ class _VigaAaccountAndSecure extends State<VigaMoreSecureSettingPage> {
                     VigaFunctionList(
                       children: [
                         // QQ号
-                        VigaFunctionItem(
+                       /*  VigaFunctionItem(
                           icon: "$cdnBase/avatar/02.png",
                           title: l10n.qqId,
                           link: '/',
                           showStyle: "2281551151",
                           underline: true,
-                        ),
+                        ), */
                         // 邮箱地址
                         VigaFunctionItem(
                           icon: "$cdnBase/avatar/02.png",
                           title: l10n.emailAddress,
-                          link: '/',
+                          link: '/settings/change_email',
                           showStyle: l10n.notBound,
                           underline: false,
                         ),
@@ -72,7 +72,7 @@ class _VigaAaccountAndSecure extends State<VigaMoreSecureSettingPage> {
                     ),
 
                     // 手机安全保护
-                    VigaFunctionList(children: [
+                    /* VigaFunctionList(children: [
                       // 手机安全保护
                       VigaFunctionItem(
                         icon: "$cdnBase/avatar/02.png",
@@ -80,7 +80,7 @@ class _VigaAaccountAndSecure extends State<VigaMoreSecureSettingPage> {
                         link: '/',
                         underline: false,
                       ),
-                    ]),
+                    ]), */
 
                     SizedBox(height: 100.w)
                   ],

@@ -123,7 +123,7 @@ class _VigaAaccountAndSecure extends State<VigaAccountAndSecurePage> {
                         ),
 
                         // Vigaviga安全中心
-                        VigaFunctionList(children: [
+                        /* VigaFunctionList(children: [
                           VigaSpecialFunctionItem(
                             title: l10n.vigavigaSecurityCenter,
                             height: null,
@@ -140,7 +140,7 @@ class _VigaAaccountAndSecure extends State<VigaAccountAndSecurePage> {
                             ),
                             underline: false,
                           ),
-                        ]),
+                        ]), */
 
                         SizedBox(height: 100.w)
                       ],

@@ -92,6 +92,9 @@ import 'package:vigaviga/screens/user/settings/account_and_security/viga_verific
 import 'package:vigaviga/screens/user/settings/account_and_security/viga_change_account.dart';
 import 'package:vigaviga/screens/user/settings/account_and_security/viga_change_phone.dart';
 import 'package:vigaviga/screens/user/settings/account_and_security/viga_select_country.dart';
+import 'package:vigaviga/screens/user/settings/account_and_security/viga_change_email.dart';
+import 'package:vigaviga/screens/user/settings/account_and_security/viga_verify_email_screen.dart';
+
 
 class AppRouter {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
@@ -143,6 +146,12 @@ class AppRouter {
       // 设置相关路由
       case '/settings':
         return pageRouteBuilderAnimation(const VigaSettingPage()); // 设置主页面
+      case '/settings/change_email':
+        return pageRouteBuilderAnimation(
+            const VigaModifyEmailPage());
+      case '/settings/verify_email_screen':
+        return pageRouteBuilderAnimation(
+            const VigaVerifyEmailScreen());
       case '/settings/account_and_secure':
         return pageRouteBuilderAnimation(
             const VigaAccountAndSecurePage()); // 账号与安全页面
