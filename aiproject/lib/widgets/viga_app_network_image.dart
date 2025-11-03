@@ -26,6 +26,10 @@ class VigaAppNetworkImage extends StatelessWidget {
       width: width,
       height: height,
       fit: fit,
+      //       loadingBuilder: (context, child, loadingProgress) {
+      //   if (loadingProgress == null) return child;
+      //   return const Center(child: CircularProgressIndicator());
+      // },
       placeholder: (context, url) => Container(
         width: width,
         height: height,

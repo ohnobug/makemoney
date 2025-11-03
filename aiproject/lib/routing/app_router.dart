@@ -34,6 +34,7 @@ import 'package:vigaviga/screens/contract/chat/friend/viga_set_friend_tags_page.
 import 'package:vigaviga/screens/contract/chat/friend/viga_set_notes_and_labels_page.dart';
 import 'package:vigaviga/screens/contract/chat/group/viga_group_chat_page.dart';
 import 'package:vigaviga/screens/contract/chat/group/viga_group_message_record_page.dart';
+import 'package:vigaviga/screens/user/photo_viewer/viga_photo_grid_page.dart';
 import 'package:vigaviga/screens/user/settings/viga_about_page.dart';
 import 'package:vigaviga/screens/user/settings/viga_feature_introduction_page.dart';
 import 'package:vigaviga/screens/user/settings/viga_complain_page.dart';
@@ -78,9 +79,6 @@ import 'package:vigaviga/screens/user/auth/viga_switch_account_page.dart';
 import 'package:vigaviga/screens/user/auth/viga_sign_in_page.dart';
 import 'package:vigaviga/screens/user/auth/viga_sign_up_page.dart';
 import 'package:vigaviga/screens/user/auth/viga_forgot_password_page.dart';
-import 'package:vigaviga/screens/user/photo_viewer/viga_photo_grid_page.dart';
-import 'package:vigaviga/features/viewer/viga_photo_viewer_page.dart';
-import 'package:vigaviga/features/viewer/viga_video_viewer_page.dart';
 import 'package:vigaviga/screens/contract/chat/viga_dial_page.dart';
 import 'package:vigaviga/screens/contract/chat/viga_friend_profile_page.dart';
 import 'package:vigaviga/tools/viga_logger.dart';
@@ -395,169 +393,169 @@ final GoRouter appRouter = GoRouter(
 
     // --- 通讯录模块 (Contact Module) ---
     GoRoute(
-        path: '/contact',
-        pageBuilder: (c, s) => buildPageWithAnimation(
-              child: const VigaContactPage(),
-            ),
-        routes: [
-          GoRoute(
-            path: 'tags',
-            pageBuilder: (c, s) => buildPageWithAnimation(
-              child: const VigaContactTagsPage(),
-            ),
+      path: '/contact',
+      pageBuilder: (c, s) => buildPageWithAnimation(
+        child: const VigaContactPage(),
+      ),
+      routes: [
+        GoRoute(
+          path: 'tags',
+          pageBuilder: (c, s) => buildPageWithAnimation(
+            child: const VigaContactTagsPage(),
           ),
-          GoRoute(
-            path: 'tag_group',
-            pageBuilder: (c, s) => buildPageWithAnimation(
-              child: const VigaContactTagGroupPage(),
-            ),
+        ),
+        GoRoute(
+          path: 'tag_group',
+          pageBuilder: (c, s) => buildPageWithAnimation(
+            child: const VigaContactTagGroupPage(),
           ),
-          GoRoute(
-            path: 'official_accounts',
-            pageBuilder: (c, s) => buildPageWithAnimation(
-              child: const VigaOfficialAccountsPage(),
-            ),
+        ),
+        GoRoute(
+          path: 'official_accounts',
+          pageBuilder: (c, s) => buildPageWithAnimation(
+            child: const VigaOfficialAccountsPage(),
           ),
-          GoRoute(
-            path: 'group',
-            pageBuilder: (c, s) => buildPageWithAnimation(
-              child: const VigaContactGroupPage(),
-            ),
+        ),
+        GoRoute(
+          path: 'group',
+          pageBuilder: (c, s) => buildPageWithAnimation(
+            child: const VigaContactGroupPage(),
           ),
-          GoRoute(
-            path: 'friends_who_only_chat',
-            pageBuilder: (c, s) => buildPageWithAnimation(
-              child: const VigaFriendsWhoOnlyChatPage(),
-            ),
+        ),
+        GoRoute(
+          path: 'friends_who_only_chat',
+          pageBuilder: (c, s) => buildPageWithAnimation(
+            child: const VigaFriendsWhoOnlyChatPage(),
           ),
-          GoRoute(
-            path: 'new_friends',
-            pageBuilder: (c, s) => buildPageWithAnimation(
-              child: const VigaNewFriendsPage(),
-            ),
+        ),
+        GoRoute(
+          path: 'new_friends',
+          pageBuilder: (c, s) => buildPageWithAnimation(
+            child: const VigaNewFriendsPage(),
           ),
-          GoRoute(
-            path: 'search_friend',
-            pageBuilder: (context, state) {
-              final args = state.extra as Map<String, dynamic>? ?? {};
-              return buildPageWithAnimation(
-                child: VigaSearchFriendPage(
-                  recentContacts: args['recentContacts'],
-                ),
-              );
-            },
+        ),
+        GoRoute(
+          path: 'search_friend',
+          pageBuilder: (context, state) {
+            final args = state.extra as Map<String, dynamic>? ?? {};
+            return buildPageWithAnimation(
+              child: VigaSearchFriendPage(
+                recentContacts: args['recentContacts'],
+              ),
+            );
+          },
+        ),
+        GoRoute(
+          path: 'add_friends',
+          pageBuilder: (c, s) => buildPageWithAnimation(
+            child: const VigaAddFriendsPage(),
           ),
-          GoRoute(
-            path: 'add_friends',
-            pageBuilder: (c, s) => buildPageWithAnimation(
-              child: const VigaAddFriendsPage(),
-            ),
-          ),
-        ],
+        ),
+      ],
     ),
 
     // --- 聊天模块 (Chat Module) ---
     GoRoute(
-        path: '/chat',
-        pageBuilder: (context, state) {
-          final args = state.extra as Map<String, String>;
-          return buildPageWithAnimation(
-            child: VigaChat(
-              title: args['title']!,
-              icon: args['icon']!,
-              fromTabIndex: args['fromTabIndex'],
-            ),
-          );
-        },
-        routes: [
-          GoRoute(
-            path: 'friend_profile',
-            pageBuilder: (context, state) {
-              final args = state.extra as Map<String, String>? ?? {};
-              return buildPageWithAnimation(
-                child: VigaFriendProfilePage(
-                  name: args['name'] ?? "",
-                  nickname: args['nickname'] ?? "",
-                  account: args['account'] ?? "",
-                  avatar: args['avatar'] ?? "",
-                ),
-              );
-            },
+      path: '/chat',
+      pageBuilder: (context, state) {
+        final args = state.extra as Map<String, String>;
+        return buildPageWithAnimation(
+          child: VigaChat(
+            title: args['title']!,
+            icon: args['icon']!,
+            fromTabIndex: args['fromTabIndex'],
           ),
-          GoRoute(
-            path: 'friend_moments',
-            pageBuilder: (c, s) => buildPageWithAnimation(
-              child: const VigaFriendmomentsPage(),
-            ),
+        );
+      },
+      routes: [
+        GoRoute(
+          path: 'friend_profile',
+          pageBuilder: (context, state) {
+            final args = state.extra as Map<String, String>? ?? {};
+            return buildPageWithAnimation(
+              child: VigaFriendProfilePage(
+                name: args['name'] ?? "",
+                nickname: args['nickname'] ?? "",
+                account: args['account'] ?? "",
+                avatar: args['avatar'] ?? "",
+              ),
+            );
+          },
+        ),
+        GoRoute(
+          path: 'friend_moments',
+          pageBuilder: (c, s) => buildPageWithAnimation(
+            child: const VigaFriendmomentsPage(),
           ),
-          GoRoute(
-            path: 'friend_message_record',
-            pageBuilder: (c, s) => buildPageWithAnimation(
-              child: const VigaFriendMessageRecordPage(),
-            ),
+        ),
+        GoRoute(
+          path: 'friend_message_record',
+          pageBuilder: (c, s) => buildPageWithAnimation(
+            child: const VigaFriendMessageRecordPage(),
           ),
-          GoRoute(
-            path: 'friend_data_setting',
-            pageBuilder: (c, s) => buildPageWithAnimation(
-              child: const VigaFriendDataSettingPage(),
-            ),
+        ),
+        GoRoute(
+          path: 'friend_data_setting',
+          pageBuilder: (c, s) => buildPageWithAnimation(
+            child: const VigaFriendDataSettingPage(),
           ),
-          GoRoute(
-            path: 'friend_more_info',
-            pageBuilder: (c, s) => buildPageWithAnimation(
-              child: const VigaFriendMoreInfoPage(),
-            ),
+        ),
+        GoRoute(
+          path: 'friend_more_info',
+          pageBuilder: (c, s) => buildPageWithAnimation(
+            child: const VigaFriendMoreInfoPage(),
           ),
-          GoRoute(
-            path: 'group_message_record',
-            pageBuilder: (c, s) => buildPageWithAnimation(
-              child: const VigaGroupMessageRecordPage(),
-            ),
+        ),
+        GoRoute(
+          path: 'group_message_record',
+          pageBuilder: (c, s) => buildPageWithAnimation(
+            child: const VigaGroupMessageRecordPage(),
           ),
-          GoRoute(
-            path: 'set_notes_and_labels',
-            pageBuilder: (c, s) => buildPageWithAnimation(
-              child: const VigaSetNotesAndLabelsPage(),
-            ),
+        ),
+        GoRoute(
+          path: 'set_notes_and_labels',
+          pageBuilder: (c, s) => buildPageWithAnimation(
+            child: const VigaSetNotesAndLabelsPage(),
           ),
-          GoRoute(
-            path: 'friend_permissions',
-            pageBuilder: (c, s) => buildPageWithAnimation(
-              child: const VigaFriendPermissionsPage(),
-            ),
+        ),
+        GoRoute(
+          path: 'friend_permissions',
+          pageBuilder: (c, s) => buildPageWithAnimation(
+            child: const VigaFriendPermissionsPage(),
           ),
-          GoRoute(
-            path: 'friend_information',
-            pageBuilder: (c, s) => buildPageWithAnimation(
-              child: const VigaFriendInformationPage(),
-            ),
+        ),
+        GoRoute(
+          path: 'friend_information',
+          pageBuilder: (c, s) => buildPageWithAnimation(
+            child: const VigaFriendInformationPage(),
           ),
-          GoRoute(
-            path: 'set_friend_tags',
-            pageBuilder: (c, s) => buildPageWithAnimation(
-              child: const VigaSetFriendTagsPage(),
-            ),
+        ),
+        GoRoute(
+          path: 'set_friend_tags',
+          pageBuilder: (c, s) => buildPageWithAnimation(
+            child: const VigaSetFriendTagsPage(),
           ),
-          GoRoute(
-            path: 'friend_moments_cover_setting',
-            pageBuilder: (c, s) => buildPageWithAnimation(
-              child: const VigaFriendMomentsCoverSettingPage(),
-            ),
+        ),
+        GoRoute(
+          path: 'friend_moments_cover_setting',
+          pageBuilder: (c, s) => buildPageWithAnimation(
+            child: const VigaFriendMomentsCoverSettingPage(),
           ),
-        ],
+        ),
+      ],
     ),
     GoRoute(
-        path: '/group_chat',
-        pageBuilder: (context, state) {
-          final args = state.extra as Map<String, String>;
-          return buildPageWithAnimation(
-            child: VigaGroupChat(
-              title: args['title']!,
-              icon: args['icon']!,
-              fromTabIndex: args['fromTabIndex'],
-            ),
-          );
-        },
+      path: '/group_chat',
+      pageBuilder: (context, state) {
+        final args = state.extra as Map<String, String>;
+        return buildPageWithAnimation(
+          child: VigaGroupChat(
+            title: args['title']!,
+            icon: args['icon']!,
+            fromTabIndex: args['fromTabIndex'],
+          ),
+        );
+      },
     ),
     GoRoute(
       path: '/chat/dial',
@@ -649,128 +647,132 @@ final GoRouter appRouter = GoRouter(
 
     // --- 用户模块 (User Module) ---
     GoRoute(
-      path: '/user',
-      redirect: (context, state) => '/user/user_info',
-      builder: (context, state) => const SizedBox.shrink(),
-      routes: [
-      GoRoute(
-        path: 'user_info',
+        path: '/user',
         pageBuilder: (c, s) => buildPageWithoutAnimation(
           child: const UserInfoPage(),
         ),
-      ),
-      GoRoute(
-        path: 'like',
-        pageBuilder: (c, s) => buildPageWithoutAnimation(
-          child: const LikedVideosPage(),
-        ),
-      ),
-      GoRoute(
-        path: 'follow_and_fans',
-        pageBuilder: (c, s) => buildPageWithAnimation(
-          child: const VigaFollowPage(),
-        ),
-      ),
-      GoRoute(
-        path: 'info',
-        pageBuilder: (c, s) => buildPageWithAnimation(
-          child: const VigaUserinfoPage(),
-        ),
-      ),
-      GoRoute(
-        path: 'photo_viewer',
-        pageBuilder: (c, s) => buildPageWithAnimation(
-          child: const VigaPhotoGridPage(),
-        ),
-      ),
-      GoRoute(
-        path: 'pocketmoney',
-        pageBuilder: (c, s) => buildPageWithAnimation(
-          child: const VigaPocketMoneyPage(),
-        ),
-      ),
-      GoRoute(
-        path: 'services',
-        pageBuilder: (c, s) => buildPageWithAnimation(
-          child: const VigaServicesPage(),
-        ),
-      ),
-      GoRoute(
-        path: 'services_manager',
-        pageBuilder: (c, s) => buildPageWithAnimation(
-          child: const VigaServicesManagerPage(),
-        ),
-      ),
-      GoRoute(
-        path: 'camera',
-        pageBuilder: (c, s) => buildPageWithAnimation(
-          child: const VigaCameraViewPage(),
-        ),
-      ),
-      GoRoute(
-        path: 'collection_and_payment',
-        pageBuilder: (c, s) => buildPageWithoutAnimation(
-          child: const VigaCollectionAndPaymentPage(),
-        ),
-      ),
-      GoRoute(
-        path: 'more_info',
-        pageBuilder: (c, s) => buildPageWithAnimation(
-          child: const VigaUserMoreInfoPage(),
-        ),
-      ),
-      GoRoute(
-        path: 'auth',
-        redirect: (context, state) => '/user/auth/login',
-        builder: (context, state) => const SizedBox.shrink(),
         routes: [
-        GoRoute(
-          path: 'login',
-          pageBuilder: (c, s) => buildPageWithAnimation(
-            child: const VigaSignInPage(),
-          ),
-        ),
-        GoRoute(
-          path: 'register',
-          pageBuilder: (c, s) => buildPageWithAnimation(
-            child: const VigaSignUpPage(),
-          ),
-        ),
-        GoRoute(
-          path: 'forgot_password',
-          pageBuilder: (c, s) => buildPageWithAnimation(
-            child: const VigaForgotPasswordPage(),
-          ),
-        ),
-        GoRoute(
-          path: 'switch_account',
-          pageBuilder: (c, s) => buildPageWithAnimation(
-            child: const VigaSwitchAccountPage(),
-          ),
-        ),
-      ]),
-      GoRoute(
-          path: 'wallet',
-          pageBuilder: (c, s) => buildPageWithAnimation(
-                child: const VigaWalletPage(),
-              ),
-          routes: [
-            GoRoute(
-              path: 'change_details',
-              pageBuilder: (c, s) => buildPageWithAnimation(
-                child: const VigaChangeDetailsPage(),
-              ),
+          GoRoute(
+            path: 'user_info',
+            pageBuilder: (c, s) => buildPageWithoutAnimation(
+              child: const UserInfoPage(),
             ),
-            GoRoute(
-              path: 'bill_details',
-              pageBuilder: (c, s) => buildPageWithAnimation(
-                child: const VigaBillDetailsPage(),
-              ),
+          ),
+          GoRoute(
+            path: 'like',
+            pageBuilder: (c, s) => buildPageWithoutAnimation(
+              child: const LikedVideosPage(),
             ),
-          ]),
-    ]),
+          ),
+          GoRoute(
+            path: 'follow_and_fans',
+            pageBuilder: (c, s) => buildPageWithAnimation(
+              child: const VigaFollowPage(),
+            ),
+          ),
+          GoRoute(
+            path: 'info',
+            pageBuilder: (c, s) => buildPageWithAnimation(
+              child: const VigaUserinfoPage(),
+            ),
+          ),
+          GoRoute(
+            path: 'pocketmoney',
+            pageBuilder: (c, s) => buildPageWithAnimation(
+              child: const VigaPocketMoneyPage(),
+            ),
+          ),
+          GoRoute(
+            path: 'services',
+            pageBuilder: (c, s) => buildPageWithAnimation(
+              child: const VigaServicesPage(),
+            ),
+          ),
+          GoRoute(
+            path: 'services_manager',
+            pageBuilder: (c, s) => buildPageWithAnimation(
+              child: const VigaServicesManagerPage(),
+            ),
+          ),
+          GoRoute(
+            path: 'camera',
+            pageBuilder: (c, s) => buildPageWithAnimation(
+              child: const VigaCameraViewPage(),
+            ),
+          ),
+          GoRoute(
+            path: 'collection_and_payment',
+            pageBuilder: (c, s) => buildPageWithoutAnimation(
+              child: const VigaCollectionAndPaymentPage(),
+            ),
+          ),
+          GoRoute(
+            path: 'more_info',
+            pageBuilder: (c, s) => buildPageWithAnimation(
+              child: const VigaUserMoreInfoPage(),
+            ),
+          ),
+          GoRoute(
+              path: 'auth',
+              redirect: (context, state) => '/user/auth/login',
+              builder: (context, state) => const SizedBox.shrink(),
+              routes: [
+                GoRoute(
+                  path: 'login',
+                  pageBuilder: (c, s) => buildPageWithAnimation(
+                    child: const VigaSignInPage(),
+                  ),
+                ),
+                GoRoute(
+                  path: 'register',
+                  pageBuilder: (c, s) => buildPageWithAnimation(
+                    child: const VigaSignUpPage(),
+                  ),
+                ),
+                GoRoute(
+                  path: 'forgot_password',
+                  pageBuilder: (c, s) => buildPageWithAnimation(
+                    child: const VigaForgotPasswordPage(),
+                  ),
+                ),
+                GoRoute(
+                  path: 'switch_account',
+                  pageBuilder: (c, s) => buildPageWithAnimation(
+                    child: const VigaSwitchAccountPage(),
+                  ),
+                ),
+              ]),
+          GoRoute(
+              path: 'wallet',
+              pageBuilder: (c, s) => buildPageWithAnimation(
+                    child: const VigaWalletPage(),
+                  ),
+              routes: [
+                GoRoute(
+                  path: 'change_details',
+                  pageBuilder: (c, s) => buildPageWithAnimation(
+                    child: const VigaChangeDetailsPage(),
+                  ),
+                ),
+                GoRoute(
+                  path: 'bill_details',
+                  pageBuilder: (c, s) => buildPageWithAnimation(
+                    child: const VigaBillDetailsPage(),
+                  ),
+                ),
+              ]),
+        ]),
 
     // --- 其他顶层模块 (Other Top-Level Modules) ---
+    GoRoute(
+      path: '/photo_grid',
+      pageBuilder: (context, state) {
+        return buildPageWithAnimation(
+          child: VigaPhotoGridPage(),
+        );
+      },
+    ),
+
     GoRoute(
       path: '/author/detail', // 保持原始路径，通过 extra 传递 ID
       pageBuilder: (context, state) {
@@ -780,37 +782,6 @@ final GoRouter appRouter = GoRouter(
             authorId: args['author_id'] ?? "",
             authorName: args['author_name'] ?? "",
             authorAvatar: args['author_avatar'] ?? "",
-          ),
-        );
-      },
-    ),
-
-    // 图片查看器
-    GoRoute(
-      path: '/photo_viewer',
-      pageBuilder: (context, state) {
-        final args = state.extra as Map<String, dynamic>? ?? {};
-        return buildPageWithAnimation(
-          child: VigaPhotoViewerPage(
-            imageSources: args['imageSources'] ?? [],
-            initialIndex: args['initialIndex'] ?? 0,
-            initialRect: args['initialRect'],
-            heroTagPrefix: args['heroTagPrefix'],
-          ),
-        );
-      },
-    ),
-
-    // 视频查看器
-    GoRoute(
-      path: '/video_viewer',
-      pageBuilder: (context, state) {
-        final args = state.extra as Map<String, dynamic>? ?? {};
-        return buildPageWithAnimation(
-          child: VigaVideoViewerPage(
-            videoSources: args['videoSources'] ?? [],
-            initialIndex: args['initialIndex'] ?? 0,
-            initialRect: args['initialRect'],
           ),
         );
       },

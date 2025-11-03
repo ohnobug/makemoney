@@ -15,13 +15,14 @@ enum VideoViewerState {
 class VigaVideoViewerPage extends StatefulWidget {
   final List<String> videoSources;
   final int initialIndex;
-  final Rect initialRect;
+  final String? heroTagPrefix;
 
   const VigaVideoViewerPage({
     super.key,
     required this.videoSources,
     required this.initialIndex,
-    required this.initialRect,
+    Rect? initialRect,
+    this.heroTagPrefix,
   });
 
   @override
@@ -34,9 +35,12 @@ class _VigaVideoViewerPageState extends State<VigaVideoViewerPage>
   late PageController _pageController;
   late AnimationController _dragAnimationController;
   late AnimationController _zoomAnimationController;
+  // ADDED: Controller for smooth background fade-in.
+  late AnimationController _backgroundAnimationController;
 
   // --- 视频播放器 ---
-  late VideoPlayerController _videoController;
+  // CHANGED: Made nullable for safer lifecycle management.
+  VideoPlayerController? _videoController;
   bool _isVideoInitialized = false;
   bool _showVideoControls = false;
 
@@ -65,8 +69,6 @@ class _VigaVideoViewerPageState extends State<VigaVideoViewerPage>
   final double _maxZoomScale = 2.0;
   final double _zoomPadding = 30.0;
 
-  final GlobalKey _pageViewKey = GlobalKey();
-
   @override
   void initState() {
     super.initState();
@@ -76,33 +78,54 @@ class _VigaVideoViewerPageState extends State<VigaVideoViewerPage>
         vsync: this, duration: const Duration(milliseconds: 50));
     _zoomAnimationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 80));
+    // ADDED: Initialize background controller.
+    _backgroundAnimationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 300));
     _pageController.addListener(_onPageScroll);
 
-    // 初始化视频播放器
-    _initializeVideoPlayer();
+    // ADDED: Start the background fade-in animation.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _backgroundAnimationController.forward();
+    });
+
+    _initializeVideoPlayer(_currentIndex);
   }
 
-  void _initializeVideoPlayer() {
-    _videoController = VideoPlayerController.networkUrl(
-      Uri.parse(widget.videoSources[_currentIndex]),
-    );
+  // CHANGED: Improved video player lifecycle management.
+  void _initializeVideoPlayer(int index) {
+    // Ensure the old controller is disposed before creating a new one.
+    _disposeVideoController();
 
-    _videoController.initialize().then((_) {
-      if (mounted) {
+    final controller = VideoPlayerController.networkUrl(
+      Uri.parse(widget.videoSources[index]),
+    );
+    _videoController = controller;
+
+    controller.initialize().then((_) {
+      // Check if the widget is still mounted and if this is still the current controller.
+      if (mounted && _videoController == controller) {
         setState(() {
           _isVideoInitialized = true;
         });
-        _videoController.play();
-        _videoController.setLooping(true);
+        controller.play();
+        controller.setLooping(true);
       }
     }).catchError((error) {
-      // Video initialization error handling
+      if (mounted && _videoController == controller) {
+        setState(() {
+          _isVideoInitialized = false;
+        });
+      }
     });
   }
 
   void _disposeVideoController() {
-    _videoController.pause();
-    _videoController.dispose();
+    if (_videoController != null) {
+      _videoController!.pause();
+      _videoController!.dispose();
+      _videoController = null;
+      _isVideoInitialized = false;
+    }
   }
 
   void _onPageScroll() {
@@ -121,11 +144,12 @@ class _VigaVideoViewerPageState extends State<VigaVideoViewerPage>
     _pageController.dispose();
     _dragAnimationController.dispose();
     _zoomAnimationController.dispose();
+    _backgroundAnimationController.dispose(); // ADDED
     _disposeVideoController();
     super.dispose();
   }
 
-  // --- 手势处理 ---
+  // --- 手势处理 (逻辑基本保持不变) ---
   void _onScaleStart(ScaleStartDetails details) {
     _dragAnimationController.stop();
     _zoomAnimationController.stop();
@@ -169,7 +193,9 @@ class _VigaVideoViewerPageState extends State<VigaVideoViewerPage>
     } else if (_currentState == VideoViewerState.zooming) {
       if (_zoomScale < 1.0) {
         _runZoomAnimation(
-            toScale: 1.0, toOffset: Offset.zero, finalState: VideoViewerState.idle);
+            toScale: 1.0,
+            toOffset: Offset.zero,
+            finalState: VideoViewerState.idle);
       } else if (_zoomScale > _maxZoomScale) {
         final clampedOffset = _getClampedOffset(_zoomOffset, _maxZoomScale);
         _runZoomAnimation(toScale: _maxZoomScale, toOffset: clampedOffset);
@@ -181,12 +207,15 @@ class _VigaVideoViewerPageState extends State<VigaVideoViewerPage>
   }
 
   void _onDoubleTap() {
-    if (_doubleTapDetails == null || _currentState == VideoViewerState.dragging) {
+    if (_doubleTapDetails == null ||
+        _currentState == VideoViewerState.dragging) {
       return;
     }
     if (_zoomScale > 1.0) {
       _runZoomAnimation(
-          toScale: 1.0, toOffset: Offset.zero, finalState: VideoViewerState.idle);
+          toScale: 1.0,
+          toOffset: Offset.zero,
+          finalState: VideoViewerState.idle);
     } else {
       final tapPosition = _doubleTapDetails!.localPosition;
       final screenSize = MediaQuery.of(context).size;
@@ -201,26 +230,24 @@ class _VigaVideoViewerPageState extends State<VigaVideoViewerPage>
   }
 
   Offset _getClampedOffset(Offset offset, double scale) {
+    if (_videoController == null || !_videoController!.value.isInitialized) {
+      return offset;
+    }
     final screenSize = MediaQuery.of(context).size;
     final screenCenter = Offset(screenSize.width / 2, screenSize.height / 2);
     final viewport = Rect.fromLTRB(_zoomPadding, _zoomPadding,
         screenSize.width - _zoomPadding, screenSize.height - _zoomPadding);
-
-    // 获取视频的实际宽高比
-    final videoAspectRatio = _videoController.value.aspectRatio;
+    final videoAspectRatio = _videoController!.value.aspectRatio;
     final imageRenderSize = videoAspectRatio > 1.0
         ? Size(screenSize.width, screenSize.width / videoAspectRatio)
         : Size(screenSize.height * videoAspectRatio, screenSize.height);
-
     double dxCorrection = 0.0;
     double dyCorrection = 0.0;
-
     final imageCenter = screenCenter + offset;
     final imageRect = Rect.fromCenter(
         center: imageCenter,
         width: imageRenderSize.width * scale,
         height: imageRenderSize.height * scale);
-
     if (imageRenderSize.width * scale > viewport.width) {
       if (imageRect.left > viewport.left) {
         dxCorrection = viewport.left - imageRect.left;
@@ -230,7 +257,6 @@ class _VigaVideoViewerPageState extends State<VigaVideoViewerPage>
     } else {
       dxCorrection = screenCenter.dx - imageCenter.dx;
     }
-
     if (imageRenderSize.height * scale > viewport.height) {
       if (imageRect.top > viewport.top) {
         dyCorrection = viewport.top - imageRect.top;
@@ -240,11 +266,10 @@ class _VigaVideoViewerPageState extends State<VigaVideoViewerPage>
     } else {
       dyCorrection = screenCenter.dy - imageCenter.dy;
     }
-
     return offset + Offset(dxCorrection, dyCorrection);
   }
 
-  // --- 动画 ---
+  // --- 动画 (逻辑基本保持不变) ---
   void _runZoomAnimation(
       {required double toScale,
       required Offset toOffset,
@@ -256,9 +281,7 @@ class _VigaVideoViewerPageState extends State<VigaVideoViewerPage>
       }
       return;
     }
-    setState(() {
-      _currentState = VideoViewerState.animating;
-    });
+    setState(() => _currentState = VideoViewerState.animating);
     _zoomAnimationOffset = Tween<Offset>(begin: _zoomOffset, end: toOffset)
         .animate(CurvedAnimation(
             parent: _zoomAnimationController, curve: Curves.easeOut));
@@ -276,9 +299,7 @@ class _VigaVideoViewerPageState extends State<VigaVideoViewerPage>
   }
 
   void _runDragSnapBackAnimation() {
-    setState(() {
-      _currentState = VideoViewerState.animating;
-    });
+    setState(() => _currentState = VideoViewerState.animating);
     _dragAnimationOffset = Tween<Offset>(begin: _dragOffset, end: Offset.zero)
         .animate(CurvedAnimation(
             parent: _dragAnimationController, curve: Curves.easeOut));
@@ -307,76 +328,84 @@ class _VigaVideoViewerPageState extends State<VigaVideoViewerPage>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: Stack(
-        children: [
-          Container(
-              color: Colors.black
-                  .withAlpha((_dragScale.clamp(0.4, 1.0) * 255).toInt())),
-          Listener(
-            onPointerDown: (_) => setState(() => _pointerCount++),
-            onPointerUp: (_) => setState(() => _pointerCount = 0),
-            child: GestureDetector(
-              onTapUp: (details) {
-                if (_currentState == VideoViewerState.animating) return;
-
-                // 在 idle 状态下，任何单击都应立即关闭
-                if (_currentState == VideoViewerState.idle) {
-                  context.pop();
-                  return;
-                }
-
-                // 在 zooming 状态下，单击图片恢复
-                if (_currentState == VideoViewerState.zooming) {
-                  _runZoomAnimation(
-                    toScale: 1.0,
-                    toOffset: Offset.zero,
-                    finalState: VideoViewerState.idle,
-                  );
-                }
-              },
-              onDoubleTapDown: (details) {
-                _doubleTapDetails = details;
-              },
-              onDoubleTap: _onDoubleTap,
-              onScaleStart: _onScaleStart,
-              onScaleUpdate: _onScaleUpdate,
-              onScaleEnd: _onScaleEnd,
-              child: AnimatedBuilder(
-                animation: Listenable.merge(
-                    [_dragAnimationController, _zoomAnimationController]),
-                builder: (context, child) {
-                  final currentDragOffset = _dragAnimationController.isAnimating
-                      ? _dragAnimationOffset.value
-                      : _dragOffset;
-                  final currentDragScale = _dragAnimationController.isAnimating
-                      ? _dragAnimationScale.value
-                      : _dragScale;
-                  final currentZoomOffset = _zoomAnimationController.isAnimating
-                      ? _zoomAnimationOffset.value
-                      : _zoomOffset;
-                  final currentZoomScale = _zoomAnimationController.isAnimating
-                      ? _zoomAnimationScale.value
-                      : _zoomScale;
-                  return Transform.translate(
-                    offset: currentDragOffset,
-                    child: Transform.scale(
-                      scale: currentDragScale,
-                      child: Transform.translate(
-                        offset: currentZoomOffset,
-                        child: Transform.scale(
-                          scale: currentZoomScale,
-                          alignment: Alignment.center,
-                          child: child,
-                        ),
+      body: AnimatedBuilder(
+        animation: _backgroundAnimationController,
+        builder: (context, child) {
+          return Stack(
+            children: [
+              Container(
+                color: Color.fromRGBO(
+                  0,
+                  0,
+                  0,
+                  _currentState == VideoViewerState.dragging
+                      ? _dragScale
+                      : _backgroundAnimationController.value.clamp(0.0, 1.0),
+                ),
+              ),
+              child!,
+            ],
+          );
+        },
+        child: Listener(
+          onPointerDown: (_) => setState(() => _pointerCount++),
+          onPointerUp: (_) => setState(() => _pointerCount = 0),
+          child: GestureDetector(
+            onTapUp: (details) {
+              if (_currentState == VideoViewerState.animating) return;
+              // CHANGED: Single tap now toggles controls, not dismisses.
+              if (_currentState == VideoViewerState.idle) {
+                _toggleVideoControls();
+                return;
+              }
+              if (_currentState == VideoViewerState.zooming) {
+                _runZoomAnimation(
+                  toScale: 1.0,
+                  toOffset: Offset.zero,
+                  finalState: VideoViewerState.idle,
+                );
+              }
+            },
+            onDoubleTapDown: (details) => _doubleTapDetails = details,
+            onDoubleTap: _onDoubleTap,
+            onScaleStart: _onScaleStart,
+            onScaleUpdate: _onScaleUpdate,
+            onScaleEnd: _onScaleEnd,
+            child: AnimatedBuilder(
+              animation: Listenable.merge(
+                  [_dragAnimationController, _zoomAnimationController]),
+              builder: (context, child) {
+                final currentDragOffset = _dragAnimationController.isAnimating
+                    ? _dragAnimationOffset.value
+                    : _dragOffset;
+                final currentDragScale = _dragAnimationController.isAnimating
+                    ? _dragAnimationScale.value
+                    : _dragScale;
+                final currentZoomOffset = _zoomAnimationController.isAnimating
+                    ? _zoomAnimationOffset.value
+                    : _zoomOffset;
+                final currentZoomScale = _zoomAnimationController.isAnimating
+                    ? _zoomAnimationScale.value
+                    : _zoomScale;
+                return Transform.translate(
+                  offset: currentDragOffset,
+                  child: Transform.scale(
+                    scale: currentDragScale,
+                    child: Transform.translate(
+                      offset: currentZoomOffset,
+                      child: Transform.scale(
+                        scale: currentZoomScale,
+                        alignment: Alignment.center,
+                        child: child,
                       ),
                     ),
-                  );
-                },
-                child: _buildPageView(),
-              ),
+                  ),
+                );
+              },
+              child: _buildPageView(),
             ),
           ),
-        ],
+        ),
       ),
     );
   }
@@ -387,7 +416,7 @@ class _VigaVideoViewerPageState extends State<VigaVideoViewerPage>
     return Stack(
       children: [
         PageView.builder(
-          key: _pageViewKey,
+          // REMOVED: Key is not strictly necessary here.
           controller: _pageController,
           physics: isPageViewLocked
               ? const NeverScrollableScrollPhysics()
@@ -396,56 +425,31 @@ class _VigaVideoViewerPageState extends State<VigaVideoViewerPage>
           onPageChanged: (index) {
             setState(() {
               _currentIndex = index;
+              _isVideoInitialized = false; // Reset to show loading indicator
             });
-            _disposeVideoController();
-            _initializeVideoPlayer();
+            _initializeVideoPlayer(index);
           },
           itemBuilder: (context, index) {
-            final Widget videoWidget = _VideoPlayerWidget(
-              videoController: _videoController,
-              isInitialized: _isVideoInitialized,
+            final videoUrl = widget.videoSources[index];
+
+            final videoWidget = _VideoPlayerWidget(
+              // Only pass the controller if it's for the current page
+              videoController: _currentIndex == index ? _videoController : null,
+              isInitialized:
+                  _currentIndex == index ? _isVideoInitialized : false,
               showControls: _showVideoControls,
               onTap: _toggleVideoControls,
             );
 
-            final bool isHeroActive = !_isPageScrolling &&
-                ((_currentState == VideoViewerState.idle &&
-                        index == _currentIndex) ||
-                    (_currentState == VideoViewerState.dragging &&
-                        index == _currentIndex));
+            // *** 关键修正：使用与起始页完全相同的方式生成 tag ***
+            final heroTag = '${widget.heroTagPrefix ?? ''}_$videoUrl';
 
-            if (isHeroActive) {
-              return Hero(
-                tag: widget.videoSources[index],
-                flightShuttleBuilder: (
-                  flightContext,
-                  animation,
-                  flightDirection,
-                  fromHeroContext,
-                  toHeroContext,
-                ) {
-                  final toHero = toHeroContext.widget as Hero;
-                  if (flightDirection == HeroFlightDirection.pop) {
-                    return Container(
-                      width: widget.initialRect.width,
-                      height: widget.initialRect.height,
-                      color: Colors.black,
-                      child: Center(
-                        child: Icon(
-                          Icons.play_arrow,
-                          color: Colors.white,
-                          size: widget.initialRect.width / 4,
-                        ),
-                      ),
-                    );
-                  }
-                  return toHero.child;
-                },
-                child: videoWidget,
-              );
-            } else {
-              return videoWidget;
-            }
+            // CHANGED: Simplified Hero logic.
+            // It's now always present to handle entry and exit animations.
+            return Hero(
+              tag: heroTag,
+              child: videoWidget,
+            );
           },
         ),
         Positioned(
@@ -473,8 +477,8 @@ class _VigaVideoViewerPageState extends State<VigaVideoViewerPage>
   }
 }
 
-class _VideoPlayerWidget extends StatefulWidget {
-  final VideoPlayerController videoController;
+class _VideoPlayerWidget extends StatelessWidget {
+  final VideoPlayerController? videoController;
   final bool isInitialized;
   final bool showControls;
   final VoidCallback onTap;
@@ -487,34 +491,31 @@ class _VideoPlayerWidget extends StatefulWidget {
   });
 
   @override
-  _VideoPlayerWidgetState createState() => _VideoPlayerWidgetState();
-}
-
-class _VideoPlayerWidgetState extends State<_VideoPlayerWidget> {
-  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: widget.onTap,
+      onTap: onTap,
       child: Stack(
+        alignment: Alignment.center,
         children: [
-          Center(
-            child: widget.isInitialized
-                ? AspectRatio(
-                    aspectRatio: widget.videoController.value.aspectRatio,
-                    child: VideoPlayer(widget.videoController),
-                  )
-                : const Center(
-                    child: CircularProgressIndicator(color: Colors.white),
-                  ),
-          ),
-          if (widget.showControls && widget.isInitialized)
+          if (videoController != null && isInitialized)
+            Center(
+              child: AspectRatio(
+                aspectRatio: videoController!.value.aspectRatio,
+                child: VideoPlayer(videoController!),
+              ),
+            )
+          else
+            const Center(
+              child: CircularProgressIndicator(color: Colors.white),
+            ),
+          if (showControls && isInitialized && videoController != null)
             Positioned.fill(
               child: Container(
-                color: Colors.black54,
+                color: Colors.black45,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    _VideoProgressBar(widget.videoController),
+                    _VideoProgressBar(videoController!),
                     const SizedBox(height: 10),
                   ],
                 ),
@@ -526,30 +527,22 @@ class _VideoPlayerWidgetState extends State<_VideoPlayerWidget> {
   }
 }
 
+// _VideoProgressBar remains unchanged
 class _VideoProgressBar extends StatefulWidget {
   final VideoPlayerController controller;
-
   const _VideoProgressBar(this.controller);
-
   @override
   _VideoProgressBarState createState() => _VideoProgressBarState();
 }
 
 class _VideoProgressBarState extends State<_VideoProgressBar> {
   bool _controllerWasPlaying = false;
-
   VideoPlayerController get controller => widget.controller;
 
   @override
   void initState() {
     super.initState();
     controller.addListener(_updateState);
-  }
-
-  @override
-  void deactivate() {
-    controller.removeListener(_updateState);
-    super.deactivate();
   }
 
   @override
@@ -573,80 +566,67 @@ class _VideoProgressBarState extends State<_VideoProgressBar> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTapDown: (TapDownDetails details) {
+      behavior: HitTestBehavior.opaque,
+      onHorizontalDragStart: (details) {
         if (!controller.value.isInitialized) return;
         _controllerWasPlaying = controller.value.isPlaying;
-        if (_controllerWasPlaying) {
-          controller.pause();
-        }
+        if (_controllerWasPlaying) controller.pause();
       },
-      onTapUp: (TapUpDetails details) {
-        if (!controller.value.isInitialized) return;
-        if (_controllerWasPlaying) {
-          controller.play();
-        }
-      },
-      onTapCancel: () {
-        if (!controller.value.isInitialized) return;
-        if (_controllerWasPlaying) {
-          controller.play();
-        }
-      },
-      onHorizontalDragStart: (DragStartDetails details) {
-        if (!controller.value.isInitialized) return;
-        _controllerWasPlaying = controller.value.isPlaying;
-        controller.pause();
-      },
-      onHorizontalDragUpdate: (DragUpdateDetails details) {
+      onHorizontalDragUpdate: (details) {
         if (!controller.value.isInitialized) return;
         _seekToRelativePosition(details.globalPosition);
       },
-      onHorizontalDragEnd: (DragEndDetails details) {
-        if (_controllerWasPlaying) {
-          controller.play();
-        }
-        _controllerWasPlaying = false;
+      onHorizontalDragEnd: (details) {
+        if (_controllerWasPlaying) controller.play();
       },
       child: Container(
-        height: 20,
+        height: 40,
+        alignment: Alignment.center,
         margin: const EdgeInsets.symmetric(horizontal: 20),
         child: Stack(
+          alignment: Alignment.centerLeft,
           children: [
             Container(
               height: 4,
               decoration: BoxDecoration(
-                color: Colors.white.withAlpha(77), // ~30% opacity
+                color: Colors.white.withAlpha(77),
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
+            if (controller.value.isInitialized &&
+                controller.value.duration.inMilliseconds > 0)
+              FractionallySizedBox(
+                widthFactor: (controller.value.position.inMilliseconds /
+                        controller.value.duration.inMilliseconds)
+                    .clamp(0.0, 1.0),
+                child: Container(
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+              ),
             if (controller.value.isInitialized)
-              Container(
-                height: 4,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(2),
+              Padding(
+                padding: EdgeInsets.only(
+                  left: controller.value.duration.inMilliseconds > 0
+                      ? ((controller.value.position.inMilliseconds /
+                                  controller.value.duration.inMilliseconds) *
+                              (MediaQuery.of(context).size.width - 40))
+                          .clamp(
+                              0.0, MediaQuery.of(context).size.width - 40 - 12)
+                      : 0,
                 ),
-                width: controller.value.duration.inMilliseconds > 0
-                    ? (controller.value.position.inMilliseconds /
-                            controller.value.duration.inMilliseconds) *
-                        (MediaQuery.of(context).size.width - 40)
-                    : 0,
-              ),
-            Positioned(
-              left: controller.value.duration.inMilliseconds > 0
-                  ? (controller.value.position.inMilliseconds /
-                          controller.value.duration.inMilliseconds) *
-                      (MediaQuery.of(context).size.width - 40)
-                  : 0,
-              child: Container(
-                width: 12,
-                height: 12,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.circle,
+                child: Container(
+                  width: 12,
+                  height: 12,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                  ),
                 ),
               ),
-            ),
           ],
         ),
       ),

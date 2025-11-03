@@ -15,6 +15,7 @@ import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/tools/viga_logger.dart';
 import 'package:vigaviga/widgets/viga_page_loading.dart';
 import 'package:vigaviga/widgets/viga_app_network_image.dart';
+import 'package:vigaviga/tools/viewer/viga_viewer_service.dart';
 
 class VigaUserPage extends StatefulWidget {
   const VigaUserPage({super.key});
@@ -270,7 +271,7 @@ class _VigaUserPageState extends State<VigaUserPage>
         icon: "$cdnBase/icon/server_icon13.png",
         title: "创作中心",
         onPressed: () {
-          context.push('/user/photo_viewer');
+          context.push('/photo_grid');
         },
       ),
       VigaUserFunctionButton(
@@ -696,7 +697,26 @@ class _UserWorksGrid extends StatefulWidget {
 
 class __UserWorksGridState extends State<_UserWorksGrid> {
   // 使用 GlobalKey 来更精确地获取每个图片的位置和大小
-  final Map<int, GlobalKey> _imageKeys = {};
+  Map<int, GlobalKey> _imageKeys = {};
+
+  @override
+  void didUpdateWidget(covariant _UserWorksGrid oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // 这个生命周期方法会在父组件重建并传递新的widget实例时被调用
+    // （例如，当你在TabBar中切换Tab时）
+
+    // 我们检查新的图片列表是否和旧的图片列表不是同一个实例。
+    // 这能有效地检测到数据源的变化。
+    if (widget.items != oldWidget.items) {
+      // 如果数据源变了，说明我们现在显示的是一个全新的Grid。
+      // 此时，旧的 _imageKeys 已经无效，必须被清空。
+      // 这样，在下一次 build 时，GridView.builder 就会为新的图片
+      // 重新生成和关联全新的 GlobalKey。
+      setState(() {
+        _imageKeys = {};
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -847,23 +867,20 @@ class __UserWorksGridState extends State<_UserWorksGrid> {
               final initialRect = Rect.fromLTWH(
                   position.dx, position.dy, size.width, size.height);
 
-              context.push(
-                '/photo_viewer',
-                extra: {
-                  'imageSources': widget.items,
-                  'initialIndex': index,
-                  'initialRect': initialRect,
-                  'heroTagPrefix': 'user_page_${widget.emptyMessage}',
-                },
+              VigaViewerService.openMultiplePhotos(
+                context: context,
+                imageUrls: widget.items,
+                initialIndex: index,
+                initialRect: initialRect,
+                heroTagPrefix: 'user_page',
               );
             },
             child: Stack(
               fit: StackFit.expand,
               children: [
                 Hero(
-                  tag: 'user_page_${widget.emptyMessage}_$imageUrl',
+                  tag: 'user_page_$imageUrl',
                   child: VigaAppNetworkImage(
-                    // 将 key 绑定到 Image 组件上
                     key: _imageKeys[index],
                     imageUrl: imageUrl,
                     fit: BoxFit.cover,

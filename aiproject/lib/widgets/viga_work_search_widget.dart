@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vigaviga/widgets/viga_app_network_image.dart';
+import 'package:vigaviga/tools/viewer/viga_viewer_service.dart';
 
 // 作品数据模型
 class WorkItem {
@@ -594,11 +595,20 @@ class _VigaWorkSearchWidgetState extends State<VigaWorkSearchWidget>
   void _defaultWorkTap(WorkItem workItem, int index, List<WorkItem> results) {
     final imageUrls = results.map((item) => item.imageUrl).toList();
 
-    context.push('/photo_viewer', extra: {
-      'imageSources': imageUrls,
-      'initialIndex': index,
-      'initialRect': Rect.zero,
-    });
+    // 由于无法获取点击图片的精确位置，使用默认位置
+    final screenSize = MediaQuery.of(context).size;
+    final initialRect = Rect.fromCenter(
+      center: Offset(screenSize.width / 2, screenSize.height / 2),
+      width: 100,
+      height: 100,
+    );
+
+    VigaViewerService.openMultiplePhotos(
+      context: context,
+      imageUrls: imageUrls,
+      initialIndex: index,
+      initialRect: initialRect,
+    );
   }
 
   void _showFilterDialog() {

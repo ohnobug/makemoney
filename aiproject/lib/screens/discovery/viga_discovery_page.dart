@@ -13,7 +13,7 @@ import 'package:vigaviga/widgets/viga_function_list.dart';
 import 'package:vigaviga/widgets/viga_page_loading.dart';
 import 'package:vigaviga/widgets/viga_app_network_image.dart';
 import 'package:vigaviga/widgets/viga_section_header.dart';
-import 'package:vigaviga/tools/dialog/viga_dialog_service.dart';
+import 'package:vigaviga/tools/viga_dialog_service.dart';
 
 // Data model for trend items
 class TrendItem {

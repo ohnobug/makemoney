@@ -15,6 +15,7 @@ import 'package:vigaviga/widgets/viga_spans.dart';
 import 'package:vigaviga/widgets/viga_text_spans.dart';
 import 'package:vigaviga/tools/viga_logger.dart';
 import 'package:vigaviga/widgets/viga_app_network_image.dart';
+import 'package:vigaviga/tools/viewer/viga_viewer_service.dart';
 
 // 将背景动画控制器提升为全局变量，以便子组件在需要时可以访问。
 // 注意：虽然这样做可以解决问题，但在大型应用中通常建议通过更优雅的状态管理方式（如Provider或Bloc）来传递控制器。
@@ -928,13 +929,11 @@ class VigaTweenImage extends StatelessWidget {
         final imageSources = allImages ?? [imagePath];
         final currentIndex = allImages != null ? imageIndex : 0;
 
-        context.push(
-          '/photo_viewer',
-          extra: {
-            'imageSources': imageSources,
-            'initialIndex': currentIndex,
-            'initialRect': initialRect,
-          },
+        VigaViewerService.openMultiplePhotos(
+          context: context,
+          imageUrls: imageSources,
+          initialIndex: currentIndex,
+          initialRect: initialRect,
         );
       },
       child: SizedBox(

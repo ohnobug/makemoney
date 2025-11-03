@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:vigaviga/store/viga_system_cubit.dart';
 import 'package:vigaviga/widgets/viga_appbar_inner.dart';
+import 'package:vigaviga/tools/viewer/viga_viewer_service.dart';
 import 'viga_comment_input_page.dart';
 
 // 数据模型
@@ -159,11 +159,11 @@ class _VigaCommentPanelState extends State<VigaCommentPanel> {
     final initialRect =
         Rect.fromLTWH(position.dx, position.dy, size.width, size.height);
 
-    context.push('/photo_viewer', extra: {
-      'imageSources': [imageUrl],
-      'initialIndex': 0,
-      'initialRect': initialRect, // 传递精确的初始位置
-    });
+    VigaViewerService.openSinglePhoto(
+      context: context,
+      imageUrl: imageUrl,
+      initialRect: initialRect,
+    );
   }
 
   Widget _buildCommentInput() {

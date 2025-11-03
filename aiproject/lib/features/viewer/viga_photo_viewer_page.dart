@@ -2,8 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
-
 import 'package:go_router/go_router.dart';
+import 'package:vigaviga/widgets/viga_app_network_image.dart';
 
 enum ViewerState {
   idle,
@@ -15,14 +15,13 @@ enum ViewerState {
 class VigaPhotoViewerPage extends StatefulWidget {
   final List<String> imageSources;
   final int initialIndex;
-  final Rect initialRect;
+  // *** 关键修正：恢复 heroTagPrefix 参数 ***
   final String? heroTagPrefix;
 
   const VigaPhotoViewerPage({
     super.key,
     required this.imageSources,
     required this.initialIndex,
-    required this.initialRect,
     this.heroTagPrefix,
   });
 
@@ -32,10 +31,13 @@ class VigaPhotoViewerPage extends StatefulWidget {
 
 class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
     with TickerProviderStateMixin {
+  // ... (所有其他代码，如控制器、状态、手势处理等，都与上一轮的最终版本完全相同) ...
+  // ... (为避免重复，此处省略) ...
   // --- 控制器 ---
   late PageController _pageController;
   late AnimationController _dragAnimationController;
   late AnimationController _zoomAnimationController;
+  late AnimationController _backgroundAnimationController;
 
   // --- 状态 ---
   late int _currentIndex;
@@ -74,7 +76,13 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
         vsync: this, duration: const Duration(milliseconds: 50));
     _zoomAnimationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 80));
+    _backgroundAnimationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 300));
     _pageController.addListener(_onPageScroll);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _backgroundAnimationController.forward();
+    });
   }
 
   void _onPageScroll() {
@@ -93,10 +101,11 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
     _pageController.dispose();
     _dragAnimationController.dispose();
     _zoomAnimationController.dispose();
+    _backgroundAnimationController.dispose();
     super.dispose();
   }
 
-  // --- 手势处理 ---
+  // --- 手势处理 (逻辑保持不变) ---
   void _onScaleStart(ScaleStartDetails details) {
     _dragAnimationController.stop();
     _zoomAnimationController.stop();
@@ -210,7 +219,7 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
     return offset + Offset(dxCorrection, dyCorrection);
   }
 
-  // --- 动画 ---
+  // --- 动画 (逻辑保持不变) ---
   void _runZoomAnimation(
       {required double toScale,
       required Offset toOffset,
@@ -267,76 +276,83 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: Stack(
-        children: [
-          Container(
-              color: Colors.black
-                  .withAlpha((_dragScale.clamp(0.4, 1.0) * 255).toInt())),
-          Listener(
-            onPointerDown: (_) => setState(() => _pointerCount++),
-            onPointerUp: (_) => setState(() => _pointerCount = 0),
-            child: GestureDetector(
-              onTapUp: (details) {
-                if (_currentState == ViewerState.animating) return;
-
-                // 在 idle 状态下，任何单击都应立即关闭
-                if (_currentState == ViewerState.idle) {
-                  context.pop();
-                  return;
-                }
-
-                // 在 zooming 状态下，单击图片恢复
-                if (_currentState == ViewerState.zooming) {
-                  _runZoomAnimation(
-                    toScale: 1.0,
-                    toOffset: Offset.zero,
-                    finalState: ViewerState.idle,
-                  );
-                }
-              },
-              onDoubleTapDown: (details) {
-                _doubleTapDetails = details;
-              },
-              onDoubleTap: _onDoubleTap,
-              onScaleStart: _onScaleStart,
-              onScaleUpdate: _onScaleUpdate,
-              onScaleEnd: _onScaleEnd,
-              child: AnimatedBuilder(
-                animation: Listenable.merge(
-                    [_dragAnimationController, _zoomAnimationController]),
-                builder: (context, child) {
-                  final currentDragOffset = _dragAnimationController.isAnimating
-                      ? _dragAnimationOffset.value
-                      : _dragOffset;
-                  final currentDragScale = _dragAnimationController.isAnimating
-                      ? _dragAnimationScale.value
-                      : _dragScale;
-                  final currentZoomOffset = _zoomAnimationController.isAnimating
-                      ? _zoomAnimationOffset.value
-                      : _zoomOffset;
-                  final currentZoomScale = _zoomAnimationController.isAnimating
-                      ? _zoomAnimationScale.value
-                      : _zoomScale;
-                  return Transform.translate(
-                    offset: currentDragOffset,
-                    child: Transform.scale(
-                      scale: currentDragScale,
-                      child: Transform.translate(
-                        offset: currentZoomOffset,
-                        child: Transform.scale(
-                          scale: currentZoomScale,
-                          alignment: Alignment.center,
-                          child: child,
-                        ),
+      body: AnimatedBuilder(
+        animation: _backgroundAnimationController,
+        builder: (context, child) {
+          return Stack(
+            children: [
+              Container(
+                color: Color.fromRGBO(
+                  0,
+                  0,
+                  0,
+                  _currentState == ViewerState.dragging
+                      ? _dragScale
+                      : _backgroundAnimationController.value.clamp(0.0, 1.0),
+                ),
+              ),
+              child!,
+            ],
+          );
+        },
+        child: Listener(
+          onPointerDown: (_) => setState(() => _pointerCount++),
+          onPointerUp: (_) => setState(() => _pointerCount = 0),
+          child: GestureDetector(
+            onTapUp: (details) {
+              if (_currentState == ViewerState.animating) return;
+              if (_currentState == ViewerState.idle) {
+                context.pop();
+                return;
+              }
+              if (_currentState == ViewerState.zooming) {
+                _runZoomAnimation(
+                  toScale: 1.0,
+                  toOffset: Offset.zero,
+                  finalState: ViewerState.idle,
+                );
+              }
+            },
+            onDoubleTapDown: (details) => _doubleTapDetails = details,
+            onDoubleTap: _onDoubleTap,
+            onScaleStart: _onScaleStart,
+            onScaleUpdate: _onScaleUpdate,
+            onScaleEnd: _onScaleEnd,
+            child: AnimatedBuilder(
+              animation: Listenable.merge(
+                  [_dragAnimationController, _zoomAnimationController]),
+              builder: (context, child) {
+                final currentDragOffset = _dragAnimationController.isAnimating
+                    ? _dragAnimationOffset.value
+                    : _dragOffset;
+                final currentDragScale = _dragAnimationController.isAnimating
+                    ? _dragAnimationScale.value
+                    : _dragScale;
+                final currentZoomOffset = _zoomAnimationController.isAnimating
+                    ? _zoomAnimationOffset.value
+                    : _zoomOffset;
+                final currentZoomScale = _zoomAnimationController.isAnimating
+                    ? _zoomAnimationScale.value
+                    : _zoomScale;
+                return Transform.translate(
+                  offset: currentDragOffset,
+                  child: Transform.scale(
+                    scale: currentDragScale,
+                    child: Transform.translate(
+                      offset: currentZoomOffset,
+                      child: Transform.scale(
+                        scale: currentZoomScale,
+                        alignment: Alignment.center,
+                        child: child,
                       ),
                     ),
-                  );
-                },
-                child: _buildPageView(),
-              ),
+                  ),
+                );
+              },
+              child: _buildPageView(),
             ),
           ),
-        ],
+        ),
       ),
     );
   }
@@ -347,7 +363,7 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
     return Stack(
       children: [
         PageView.builder(
-          key: _pageViewKey, // 使用 Key
+          key: _pageViewKey,
           controller: _pageController,
           physics: isPageViewLocked
               ? const NeverScrollableScrollPhysics()
@@ -359,8 +375,9 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
             });
           },
           itemBuilder: (context, index) {
-            final Widget imageWidget = _ImageWithSizeProvider(
-              imageUrl: widget.imageSources[index],
+            final imageUrl = widget.imageSources[index];
+            final imageWidget = _ImageWithSizeProvider(
+              imageUrl: imageUrl,
               onSizeAvailable: (size) {
                 if (mounted && _imageSizes[index] != size) {
                   setState(() {
@@ -370,38 +387,12 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
               },
             );
 
-            final bool isHeroActive = !_isPageScrolling &&
-                ((_currentState == ViewerState.idle &&
-                        index == _currentIndex) ||
-                    (_currentState == ViewerState.dragging &&
-                        index == _currentIndex));
+            final heroTag = '${widget.heroTagPrefix ?? ''}_$imageUrl';
 
-            if (isHeroActive) {
-              return Hero(
-                tag: '${widget.heroTagPrefix ?? ''}_${widget.imageSources[index]}',
-                flightShuttleBuilder: (
-                  flightContext,
-                  animation,
-                  flightDirection,
-                  fromHeroContext,
-                  toHeroContext,
-                ) {
-                  final toHero = toHeroContext.widget as Hero;
-                  if (flightDirection == HeroFlightDirection.pop) {
-                    return Image.network(
-                      widget.imageSources[index],
-                      width: widget.initialRect.width,
-                      height: widget.initialRect.height,
-                      fit: BoxFit.contain,
-                    );
-                  }
-                  return toHero.child;
-                },
-                child: imageWidget,
-              );
-            } else {
-              return imageWidget;
-            }
+            return Hero(
+              tag: heroTag,
+              child: imageWidget,
+            );
           },
         ),
         Positioned(
@@ -429,6 +420,7 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
   }
 }
 
+// _ImageWithSizeProvider 保持不变
 class _ImageWithSizeProvider extends StatefulWidget {
   final String imageUrl;
   final ValueChanged<Size> onSizeAvailable;
@@ -471,23 +463,20 @@ class _ImageWithSizeProviderState extends State<_ImageWithSizeProvider> {
     final size = Size(
         imageInfo.image.width.toDouble(), imageInfo.image.height.toDouble());
 
-    // 使用 addPostFrameCallback 确保 setState 在构建完成后调用
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      widget.onSizeAvailable(size);
+      if (mounted) {
+        widget.onSizeAvailable(size);
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Image.network(
-        widget.imageUrl,
+      child: VigaAppNetworkImage(
+        imageUrl: widget.imageUrl,
         width: double.infinity,
-        fit: BoxFit.fitWidth,
-        loadingBuilder: (context, child, loadingProgress) {
-          if (loadingProgress == null) return child;
-          return const Center(child: CircularProgressIndicator());
-        },
+        fit: BoxFit.cover,
       ),
     );
   }

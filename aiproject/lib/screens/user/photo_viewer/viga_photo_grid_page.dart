@@ -2,7 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
+import 'package:vigaviga/tools/viewer/viga_viewer_service.dart';
+import 'package:vigaviga/widgets/viga_app_network_image.dart';
 
 class VigaPhotoGridPage extends StatefulWidget {
   const VigaPhotoGridPage({super.key});
@@ -12,11 +13,19 @@ class VigaPhotoGridPage extends StatefulWidget {
 }
 
 class _VigaPhotoGridPageState extends State<VigaPhotoGridPage> {
-  final List<String> imageSources = List.generate(
-      90, (i) => 'https://picsum.photos/400/400?random=${i + 50000}');
+  List<String> imageSources = [];
 
   // 使用 GlobalKey 来更精确地获取每个图片的位置和大小
   final Map<int, GlobalKey> _imageKeys = {};
+
+  final String heroTagPrefix = 'photo_grid_page';
+
+  @override
+  void initState() {
+    super.initState();
+    imageSources = List.generate(
+        90, (i) => 'https://picsum.photos/400/400?random=${i + 50000}');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +45,7 @@ class _VigaPhotoGridPageState extends State<VigaPhotoGridPage> {
           // 为每个图片生成一个唯一的 key
           _imageKeys.putIfAbsent(index, () => GlobalKey());
           final imageUrl = imageSources[index];
+          final heroTag = '${heroTagPrefix}_$imageUrl';
 
           return GestureDetector(
             onTap: () {
@@ -49,29 +59,20 @@ class _VigaPhotoGridPageState extends State<VigaPhotoGridPage> {
               final initialRect = Rect.fromLTWH(
                   position.dx, position.dy, size.width, size.height);
 
-              context.push(
-                '/photo_viewer',
-                extra: {
-                  'imageSources': imageSources,
-                  'initialIndex': index,
-                  'initialRect': initialRect,
-                },
+              VigaViewerService.openMultiplePhotos(
+                context: context,
+                imageUrls: imageSources,
+                initialIndex: index,
+                initialRect: initialRect,
+                heroTagPrefix: heroTagPrefix,
               );
             },
             child: Hero(
-              tag: imageUrl,
-              child: Image.network(
-                // 将 key 绑定到 Image 组件上
+              tag: heroTag,
+              child: VigaAppNetworkImage(
                 key: _imageKeys[index],
-                imageUrl,
-                fit: BoxFit.cover, // 网格中用 cover 填充
-                loadingBuilder: (context, child, loadingProgress) {
-                  if (loadingProgress == null) return child;
-                  return const Center(child: CircularProgressIndicator());
-                },
-                errorBuilder: (context, error, stackTrace) {
-                  return const Icon(Icons.error);
-                },
+                imageUrl: imageUrl,
+                fit: BoxFit.cover,
               ),
             ),
           );

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/tools/dialog/viga_popup_menu_item.dart';
+import 'package:vigaviga/tools/viga_popup_menu_item.dart';
 
 void showPopupMenu(BuildContext context) {
   showGeneralDialog(
