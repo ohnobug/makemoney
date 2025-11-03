@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:vigaviga/tools/viga_tools.dart';
 
 class VigaPhotoGridPage extends StatefulWidget {
   const VigaPhotoGridPage({super.key});
@@ -17,6 +18,19 @@ class _VigaPhotoGridPageState extends State<VigaPhotoGridPage> {
 
   // 使用 GlobalKey 来更精确地获取每个图片的位置和大小
   final Map<int, GlobalKey> _imageKeys = {};
+
+  // 打开图片查看器的函数
+  void _openPhotoViewer(BuildContext context, int index) {
+    final initialRect = getInitialRectFromKey(_imageKeys[index]!);
+    context.push(
+      '/photo_viewer',
+      extra: {
+        'imageSources': imageSources,
+        'initialIndex': index,
+        'initialRect': initialRect,
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,26 +52,7 @@ class _VigaPhotoGridPageState extends State<VigaPhotoGridPage> {
           final imageUrl = imageSources[index];
 
           return GestureDetector(
-            onTap: () {
-              // 通过 key 获取图片在屏幕中的精确位置和大小
-              final RenderBox? renderBox = _imageKeys[index]
-                  ?.currentContext
-                  ?.findRenderObject() as RenderBox?;
-              if (renderBox == null) return;
-              final position = renderBox.localToGlobal(Offset.zero);
-              final size = renderBox.size;
-              final initialRect = Rect.fromLTWH(
-                  position.dx, position.dy, size.width, size.height);
-
-              context.push(
-                '/photo_viewer',
-                extra: {
-                  'imageSources': imageSources,
-                  'initialIndex': index,
-                  'initialRect': initialRect,
-                },
-              );
-            },
+            onTap: () => _openPhotoViewer(context, index),
             child: Hero(
               tag: imageUrl,
               child: Image.network(

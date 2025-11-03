@@ -14,7 +14,7 @@ import 'package:vigaviga/store/viga_system_cubit.dart';
 import 'package:vigaviga/tools/viga_tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
-import 'package:vigaviga/tools/dialog/viga_dialog_service.dart';
+import 'package:vigaviga/tools/viga_dialog_service.dart';
 import 'package:vigaviga/widgets/viga_appbar.dart';
 
 class VigaRecentChatsListPage extends StatefulWidget {

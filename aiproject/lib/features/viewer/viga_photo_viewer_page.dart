@@ -36,6 +36,7 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
   late PageController _pageController;
   late AnimationController _dragAnimationController;
   late AnimationController _zoomAnimationController;
+  late AnimationController _backgroundAnimationController;
 
   // --- 状态 ---
   late int _currentIndex;
@@ -74,7 +75,14 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
         vsync: this, duration: const Duration(milliseconds: 50));
     _zoomAnimationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 80));
+    _backgroundAnimationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 300));
     _pageController.addListener(_onPageScroll);
+
+    // 启动背景动画
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _backgroundAnimationController.forward();
+    });
   }
 
   void _onPageScroll() {
@@ -93,6 +101,7 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
     _pageController.dispose();
     _dragAnimationController.dispose();
     _zoomAnimationController.dispose();
+    _backgroundAnimationController.dispose();
     super.dispose();
   }
 
@@ -267,76 +276,87 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-      body: Stack(
-        children: [
-          Container(
-              color: Colors.black
-                  .withAlpha((_dragScale.clamp(0.4, 1.0) * 255).toInt())),
-          Listener(
-            onPointerDown: (_) => setState(() => _pointerCount++),
-            onPointerUp: (_) => setState(() => _pointerCount = 0),
-            child: GestureDetector(
-              onTapUp: (details) {
-                if (_currentState == ViewerState.animating) return;
-
-                // 在 idle 状态下，任何单击都应立即关闭
-                if (_currentState == ViewerState.idle) {
-                  context.pop();
-                  return;
-                }
-
-                // 在 zooming 状态下，单击图片恢复
-                if (_currentState == ViewerState.zooming) {
-                  _runZoomAnimation(
-                    toScale: 1.0,
-                    toOffset: Offset.zero,
-                    finalState: ViewerState.idle,
-                  );
-                }
-              },
-              onDoubleTapDown: (details) {
-                _doubleTapDetails = details;
-              },
-              onDoubleTap: _onDoubleTap,
-              onScaleStart: _onScaleStart,
-              onScaleUpdate: _onScaleUpdate,
-              onScaleEnd: _onScaleEnd,
-              child: AnimatedBuilder(
-                animation: Listenable.merge(
-                    [_dragAnimationController, _zoomAnimationController]),
-                builder: (context, child) {
-                  final currentDragOffset = _dragAnimationController.isAnimating
-                      ? _dragAnimationOffset.value
-                      : _dragOffset;
-                  final currentDragScale = _dragAnimationController.isAnimating
-                      ? _dragAnimationScale.value
-                      : _dragScale;
-                  final currentZoomOffset = _zoomAnimationController.isAnimating
-                      ? _zoomAnimationOffset.value
-                      : _zoomOffset;
-                  final currentZoomScale = _zoomAnimationController.isAnimating
-                      ? _zoomAnimationScale.value
-                      : _zoomScale;
-                  return Transform.translate(
-                    offset: currentDragOffset,
-                    child: Transform.scale(
-                      scale: currentDragScale,
-                      child: Transform.translate(
-                        offset: currentZoomOffset,
-                        child: Transform.scale(
-                          scale: currentZoomScale,
-                          alignment: Alignment.center,
-                          child: child,
-                        ),
-                      ),
-                    ),
-                  );
-                },
-                child: _buildPageView(),
+      body: AnimatedBuilder(
+        animation: _backgroundAnimationController,
+        builder: (context, child) {
+          return Stack(
+            children: [
+              // 背景颜色从透明到黑色过渡
+              Container(
+                color: Color.fromRGBO(
+                  0,
+                  0,
+                  0,
+                  _backgroundAnimationController.value.clamp(0.0, 1.0),
+                ),
               ),
-            ),
-          ),
-        ],
+              Listener(
+                onPointerDown: (_) => setState(() => _pointerCount++),
+                onPointerUp: (_) => setState(() => _pointerCount = 0),
+                child: GestureDetector(
+                  onTapUp: (details) {
+                    if (_currentState == ViewerState.animating) return;
+
+                    // 在 idle 状态下，任何单击都应立即关闭
+                    if (_currentState == ViewerState.idle) {
+                      context.pop();
+                      return;
+                    }
+
+                    // 在 zooming 状态下，单击图片恢复
+                    if (_currentState == ViewerState.zooming) {
+                      _runZoomAnimation(
+                        toScale: 1.0,
+                        toOffset: Offset.zero,
+                        finalState: ViewerState.idle,
+                      );
+                    }
+                  },
+                  onDoubleTapDown: (details) {
+                    _doubleTapDetails = details;
+                  },
+                  onDoubleTap: _onDoubleTap,
+                  onScaleStart: _onScaleStart,
+                  onScaleUpdate: _onScaleUpdate,
+                  onScaleEnd: _onScaleEnd,
+                  child: AnimatedBuilder(
+                    animation: Listenable.merge(
+                        [_dragAnimationController, _zoomAnimationController]),
+                    builder: (context, child) {
+                      final currentDragOffset = _dragAnimationController.isAnimating
+                          ? _dragAnimationOffset.value
+                          : _dragOffset;
+                      final currentDragScale = _dragAnimationController.isAnimating
+                          ? _dragAnimationScale.value
+                          : _dragScale;
+                      final currentZoomOffset = _zoomAnimationController.isAnimating
+                          ? _zoomAnimationOffset.value
+                          : _zoomOffset;
+                      final currentZoomScale = _zoomAnimationController.isAnimating
+                          ? _zoomAnimationScale.value
+                          : _zoomScale;
+                      return Transform.translate(
+                        offset: currentDragOffset,
+                        child: Transform.scale(
+                          scale: currentDragScale,
+                          child: Transform.translate(
+                            offset: currentZoomOffset,
+                            child: Transform.scale(
+                              scale: currentZoomScale,
+                              alignment: Alignment.center,
+                              child: child,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                    child: _buildPageView(),
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
@@ -370,38 +390,31 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
               },
             );
 
-            final bool isHeroActive = !_isPageScrolling &&
-                ((_currentState == ViewerState.idle &&
-                        index == _currentIndex) ||
-                    (_currentState == ViewerState.dragging &&
-                        index == _currentIndex));
-
-            if (isHeroActive) {
-              return Hero(
-                tag: '${widget.heroTagPrefix ?? ''}_${widget.imageSources[index]}',
-                flightShuttleBuilder: (
-                  flightContext,
-                  animation,
-                  flightDirection,
-                  fromHeroContext,
-                  toHeroContext,
-                ) {
-                  final toHero = toHeroContext.widget as Hero;
-                  if (flightDirection == HeroFlightDirection.pop) {
-                    return Image.network(
-                      widget.imageSources[index],
-                      width: widget.initialRect.width,
-                      height: widget.initialRect.height,
-                      fit: BoxFit.contain,
-                    );
-                  }
-                  return toHero.child;
-                },
-                child: imageWidget,
-              );
-            } else {
-              return imageWidget;
-            }
+            // 始终使用Hero动画，确保平滑过渡
+            return Hero(
+              tag: widget.imageSources[index],
+              flightShuttleBuilder: (
+                flightContext,
+                animation,
+                flightDirection,
+                fromHeroContext,
+                toHeroContext,
+              ) {
+                final toHero = toHeroContext.widget as Hero;
+                if (flightDirection == HeroFlightDirection.pop) {
+                  // 返回时使用原始尺寸
+                  return Image.network(
+                    widget.imageSources[index],
+                    width: widget.initialRect.width,
+                    height: widget.initialRect.height,
+                    fit: BoxFit.cover,
+                  );
+                }
+                // 进入时使用全屏尺寸
+                return toHero.child;
+              },
+              child: imageWidget,
+            );
           },
         ),
         Positioned(

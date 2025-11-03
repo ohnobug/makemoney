@@ -270,7 +270,7 @@ class _VigaUserPageState extends State<VigaUserPage>
         icon: "$cdnBase/icon/server_icon13.png",
         title: "创作中心",
         onPressed: () {
-          context.push('/user/photo_viewer');
+          context.push('/user/photo_grid');
         },
       ),
       VigaUserFunctionButton(
@@ -591,7 +591,6 @@ class _VigaUserPageState extends State<VigaUserPage>
                 ElevatedButton(
                   onPressed: () {
                     context.push('/user/auth/login');
-                    logger.info("跳转到登录注册页");
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: AppColors.accentRedVibrant1, // 使用醒目的颜色

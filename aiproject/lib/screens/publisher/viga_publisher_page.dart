@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/store/viga_system_cubit.dart';
-import 'package:vigaviga/tools/dialog/viga_dialog_service.dart';
+import 'package:vigaviga/tools/viga_dialog_service.dart';
 import 'package:vigaviga/widgets/viga_appbar.dart';
 import 'package:vigaviga/widgets/viga_page_loading.dart';
 import 'package:image_picker/image_picker.dart';

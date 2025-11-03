@@ -15,13 +15,11 @@ enum VideoViewerState {
 class VigaVideoViewerPage extends StatefulWidget {
   final List<String> videoSources;
   final int initialIndex;
-  final Rect initialRect;
 
   const VigaVideoViewerPage({
     super.key,
     required this.videoSources,
     required this.initialIndex,
-    required this.initialRect,
   });
 
   @override
@@ -34,9 +32,10 @@ class _VigaVideoViewerPageState extends State<VigaVideoViewerPage>
   late PageController _pageController;
   late AnimationController _dragAnimationController;
   late AnimationController _zoomAnimationController;
+  late AnimationController _backgroundAnimationController; // 新增：用于背景渐变
 
   // --- 视频播放器 ---
-  late VideoPlayerController _videoController;
+  VideoPlayerController? _videoController;
   bool _isVideoInitialized = false;
   bool _showVideoControls = false;
 
@@ -65,8 +64,6 @@ class _VigaVideoViewerPageState extends State<VigaVideoViewerPage>
   final double _maxZoomScale = 2.0;
   final double _zoomPadding = 30.0;
 
-  final GlobalKey _pageViewKey = GlobalKey();
-
   @override
   void initState() {
     super.initState();
@@ -76,33 +73,52 @@ class _VigaVideoViewerPageState extends State<VigaVideoViewerPage>
         vsync: this, duration: const Duration(milliseconds: 50));
     _zoomAnimationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 80));
+    _backgroundAnimationController = AnimationController(
+        // 初始化背景动画控制器
+        vsync: this,
+        duration: const Duration(milliseconds: 300));
     _pageController.addListener(_onPageScroll);
 
-    // 初始化视频播放器
-    _initializeVideoPlayer();
+    // 启动背景动画
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _backgroundAnimationController.forward();
+    });
+
+    _initializeVideoPlayer(_currentIndex);
   }
 
-  void _initializeVideoPlayer() {
+  void _initializeVideoPlayer(int index) {
+    // 确保在初始化新控制器之前处理旧的
+    _disposeVideoController();
+
     _videoController = VideoPlayerController.networkUrl(
-      Uri.parse(widget.videoSources[_currentIndex]),
+      Uri.parse(widget.videoSources[index]),
     );
 
-    _videoController.initialize().then((_) {
+    _videoController!.initialize().then((_) {
+      if (!mounted) return;
+      setState(() {
+        _isVideoInitialized = true;
+      });
+      _videoController!.play();
+      _videoController!.setLooping(true);
+    }).catchError((error) {
+      // 视频初始化错误处理
       if (mounted) {
         setState(() {
-          _isVideoInitialized = true;
+          _isVideoInitialized = false;
         });
-        _videoController.play();
-        _videoController.setLooping(true);
       }
-    }).catchError((error) {
-      // Video initialization error handling
     });
   }
 
   void _disposeVideoController() {
-    _videoController.pause();
-    _videoController.dispose();
+    if (_videoController != null) {
+      _videoController!.pause();
+      _videoController!.dispose();
+      _videoController = null;
+      _isVideoInitialized = false;
+    }
   }
 
   void _onPageScroll() {
@@ -121,11 +137,12 @@ class _VigaVideoViewerPageState extends State<VigaVideoViewerPage>
     _pageController.dispose();
     _dragAnimationController.dispose();
     _zoomAnimationController.dispose();
+    _backgroundAnimationController.dispose();
     _disposeVideoController();
     super.dispose();
   }
 
-  // --- 手势处理 ---
+  // --- 手势处理 (与图片查看器逻辑保持一致) ---
   void _onScaleStart(ScaleStartDetails details) {
     _dragAnimationController.stop();
     _zoomAnimationController.stop();
@@ -169,7 +186,9 @@ class _VigaVideoViewerPageState extends State<VigaVideoViewerPage>
     } else if (_currentState == VideoViewerState.zooming) {
       if (_zoomScale < 1.0) {
         _runZoomAnimation(
-            toScale: 1.0, toOffset: Offset.zero, finalState: VideoViewerState.idle);
+            toScale: 1.0,
+            toOffset: Offset.zero,
+            finalState: VideoViewerState.idle);
       } else if (_zoomScale > _maxZoomScale) {
         final clampedOffset = _getClampedOffset(_zoomOffset, _maxZoomScale);
         _runZoomAnimation(toScale: _maxZoomScale, toOffset: clampedOffset);
@@ -181,12 +200,15 @@ class _VigaVideoViewerPageState extends State<VigaVideoViewerPage>
   }
 
   void _onDoubleTap() {
-    if (_doubleTapDetails == null || _currentState == VideoViewerState.dragging) {
+    if (_doubleTapDetails == null ||
+        _currentState == VideoViewerState.dragging) {
       return;
     }
     if (_zoomScale > 1.0) {
       _runZoomAnimation(
-          toScale: 1.0, toOffset: Offset.zero, finalState: VideoViewerState.idle);
+          toScale: 1.0,
+          toOffset: Offset.zero,
+          finalState: VideoViewerState.idle);
     } else {
       final tapPosition = _doubleTapDetails!.localPosition;
       final screenSize = MediaQuery.of(context).size;
@@ -207,7 +229,10 @@ class _VigaVideoViewerPageState extends State<VigaVideoViewerPage>
         screenSize.width - _zoomPadding, screenSize.height - _zoomPadding);
 
     // 获取视频的实际宽高比
-    final videoAspectRatio = _videoController.value.aspectRatio;
+    if (_videoController == null || !_videoController!.value.isInitialized) {
+      return offset;
+    }
+    final videoAspectRatio = _videoController!.value.aspectRatio;
     final imageRenderSize = videoAspectRatio > 1.0
         ? Size(screenSize.width, screenSize.width / videoAspectRatio)
         : Size(screenSize.height * videoAspectRatio, screenSize.height);
@@ -244,7 +269,7 @@ class _VigaVideoViewerPageState extends State<VigaVideoViewerPage>
     return offset + Offset(dxCorrection, dyCorrection);
   }
 
-  // --- 动画 ---
+  // --- 动画 (与图片查看器逻辑保持一致) ---
   void _runZoomAnimation(
       {required double toScale,
       required Offset toOffset,
@@ -306,77 +331,92 @@ class _VigaVideoViewerPageState extends State<VigaVideoViewerPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
-      body: Stack(
-        children: [
-          Container(
-              color: Colors.black
-                  .withAlpha((_dragScale.clamp(0.4, 1.0) * 255).toInt())),
-          Listener(
-            onPointerDown: (_) => setState(() => _pointerCount++),
-            onPointerUp: (_) => setState(() => _pointerCount = 0),
-            child: GestureDetector(
-              onTapUp: (details) {
-                if (_currentState == VideoViewerState.animating) return;
+      backgroundColor: Colors.transparent, // 页面背景透明，由路由动画控制
+      body: AnimatedBuilder(
+        animation: _backgroundAnimationController,
+        builder: (context, child) {
+          return Stack(
+            children: [
+              // 统一的背景层，其透明度由动画控制器控制
+              Container(
+                color: Color.fromRGBO(
+                  0,
+                  0,
+                  0,
+                  // 拖拽时，优先使用拖拽比例控制透明度
+                  _currentState == VideoViewerState.dragging
+                      ? _dragScale
+                      : _backgroundAnimationController.value.clamp(0.0, 1.0),
+                ),
+              ),
+              child!, // 主内容
+            ],
+          );
+        },
+        child: Listener(
+          onPointerDown: (_) => setState(() => _pointerCount++),
+          onPointerUp: (_) => setState(() => _pointerCount = 0),
+          child: GestureDetector(
+            onTapUp: (details) {
+              if (_currentState == VideoViewerState.animating) return;
 
-                // 在 idle 状态下，任何单击都应立即关闭
-                if (_currentState == VideoViewerState.idle) {
-                  context.pop();
-                  return;
-                }
+              // 在 idle 状态下，单击用于切换视频控件，而非关闭
+              if (_currentState == VideoViewerState.idle) {
+                _toggleVideoControls();
+                return;
+              }
 
-                // 在 zooming 状态下，单击图片恢复
-                if (_currentState == VideoViewerState.zooming) {
-                  _runZoomAnimation(
-                    toScale: 1.0,
-                    toOffset: Offset.zero,
-                    finalState: VideoViewerState.idle,
-                  );
-                }
-              },
-              onDoubleTapDown: (details) {
-                _doubleTapDetails = details;
-              },
-              onDoubleTap: _onDoubleTap,
-              onScaleStart: _onScaleStart,
-              onScaleUpdate: _onScaleUpdate,
-              onScaleEnd: _onScaleEnd,
-              child: AnimatedBuilder(
-                animation: Listenable.merge(
-                    [_dragAnimationController, _zoomAnimationController]),
-                builder: (context, child) {
-                  final currentDragOffset = _dragAnimationController.isAnimating
-                      ? _dragAnimationOffset.value
-                      : _dragOffset;
-                  final currentDragScale = _dragAnimationController.isAnimating
-                      ? _dragAnimationScale.value
-                      : _dragScale;
-                  final currentZoomOffset = _zoomAnimationController.isAnimating
-                      ? _zoomAnimationOffset.value
-                      : _zoomOffset;
-                  final currentZoomScale = _zoomAnimationController.isAnimating
-                      ? _zoomAnimationScale.value
-                      : _zoomScale;
-                  return Transform.translate(
-                    offset: currentDragOffset,
-                    child: Transform.scale(
-                      scale: currentDragScale,
-                      child: Transform.translate(
-                        offset: currentZoomOffset,
-                        child: Transform.scale(
-                          scale: currentZoomScale,
-                          alignment: Alignment.center,
-                          child: child,
-                        ),
+              // 在 zooming 状态下，单击图片恢复
+              if (_currentState == VideoViewerState.zooming) {
+                _runZoomAnimation(
+                  toScale: 1.0,
+                  toOffset: Offset.zero,
+                  finalState: VideoViewerState.idle,
+                );
+              }
+            },
+            onDoubleTapDown: (details) {
+              _doubleTapDetails = details;
+            },
+            onDoubleTap: _onDoubleTap,
+            onScaleStart: _onScaleStart,
+            onScaleUpdate: _onScaleUpdate,
+            onScaleEnd: _onScaleEnd,
+            child: AnimatedBuilder(
+              animation: Listenable.merge(
+                  [_dragAnimationController, _zoomAnimationController]),
+              builder: (context, child) {
+                final currentDragOffset = _dragAnimationController.isAnimating
+                    ? _dragAnimationOffset.value
+                    : _dragOffset;
+                final currentDragScale = _dragAnimationController.isAnimating
+                    ? _dragAnimationScale.value
+                    : _dragScale;
+                final currentZoomOffset = _zoomAnimationController.isAnimating
+                    ? _zoomAnimationOffset.value
+                    : _zoomOffset;
+                final currentZoomScale = _zoomAnimationController.isAnimating
+                    ? _zoomAnimationScale.value
+                    : _zoomScale;
+                return Transform.translate(
+                  offset: currentDragOffset,
+                  child: Transform.scale(
+                    scale: currentDragScale,
+                    child: Transform.translate(
+                      offset: currentZoomOffset,
+                      child: Transform.scale(
+                        scale: currentZoomScale,
+                        alignment: Alignment.center,
+                        child: child,
                       ),
                     ),
-                  );
-                },
-                child: _buildPageView(),
-              ),
+                  ),
+                );
+              },
+              child: _buildPageView(),
             ),
           ),
-        ],
+        ),
       ),
     );
   }
@@ -387,7 +427,6 @@ class _VigaVideoViewerPageState extends State<VigaVideoViewerPage>
     return Stack(
       children: [
         PageView.builder(
-          key: _pageViewKey,
           controller: _pageController,
           physics: isPageViewLocked
               ? const NeverScrollableScrollPhysics()
@@ -396,56 +435,21 @@ class _VigaVideoViewerPageState extends State<VigaVideoViewerPage>
           onPageChanged: (index) {
             setState(() {
               _currentIndex = index;
+              _isVideoInitialized = false; // 重置状态以显示加载指示器
             });
-            _disposeVideoController();
-            _initializeVideoPlayer();
+            _initializeVideoPlayer(index);
           },
           itemBuilder: (context, index) {
-            final Widget videoWidget = _VideoPlayerWidget(
-              videoController: _videoController,
-              isInitialized: _isVideoInitialized,
+            // **核心修改：移除了 Hero 动画**
+            // 页面只负责构建视频播放器本身
+            return _VideoPlayerWidget(
+              // 仅当视频是当前页面时才传递控制器
+              videoController: _currentIndex == index ? _videoController : null,
+              isInitialized:
+                  _currentIndex == index ? _isVideoInitialized : false,
               showControls: _showVideoControls,
               onTap: _toggleVideoControls,
             );
-
-            final bool isHeroActive = !_isPageScrolling &&
-                ((_currentState == VideoViewerState.idle &&
-                        index == _currentIndex) ||
-                    (_currentState == VideoViewerState.dragging &&
-                        index == _currentIndex));
-
-            if (isHeroActive) {
-              return Hero(
-                tag: widget.videoSources[index],
-                flightShuttleBuilder: (
-                  flightContext,
-                  animation,
-                  flightDirection,
-                  fromHeroContext,
-                  toHeroContext,
-                ) {
-                  final toHero = toHeroContext.widget as Hero;
-                  if (flightDirection == HeroFlightDirection.pop) {
-                    return Container(
-                      width: widget.initialRect.width,
-                      height: widget.initialRect.height,
-                      color: Colors.black,
-                      child: Center(
-                        child: Icon(
-                          Icons.play_arrow,
-                          color: Colors.white,
-                          size: widget.initialRect.width / 4,
-                        ),
-                      ),
-                    );
-                  }
-                  return toHero.child;
-                },
-                child: videoWidget,
-              );
-            } else {
-              return videoWidget;
-            }
           },
         ),
         Positioned(
@@ -473,8 +477,8 @@ class _VigaVideoViewerPageState extends State<VigaVideoViewerPage>
   }
 }
 
-class _VideoPlayerWidget extends StatefulWidget {
-  final VideoPlayerController videoController;
+class _VideoPlayerWidget extends StatelessWidget {
+  final VideoPlayerController? videoController;
   final bool isInitialized;
   final bool showControls;
   final VoidCallback onTap;
@@ -487,34 +491,31 @@ class _VideoPlayerWidget extends StatefulWidget {
   });
 
   @override
-  _VideoPlayerWidgetState createState() => _VideoPlayerWidgetState();
-}
-
-class _VideoPlayerWidgetState extends State<_VideoPlayerWidget> {
-  @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: widget.onTap,
+      onTap: onTap,
       child: Stack(
+        alignment: Alignment.center,
         children: [
-          Center(
-            child: widget.isInitialized
-                ? AspectRatio(
-                    aspectRatio: widget.videoController.value.aspectRatio,
-                    child: VideoPlayer(widget.videoController),
-                  )
-                : const Center(
-                    child: CircularProgressIndicator(color: Colors.white),
-                  ),
-          ),
-          if (widget.showControls && widget.isInitialized)
+          if (videoController != null && isInitialized)
+            Center(
+              child: AspectRatio(
+                aspectRatio: videoController!.value.aspectRatio,
+                child: VideoPlayer(videoController!),
+              ),
+            )
+          else
+            const Center(
+              child: CircularProgressIndicator(color: Colors.white),
+            ),
+          if (showControls && isInitialized && videoController != null)
             Positioned.fill(
               child: Container(
-                color: Colors.black54,
+                color: Colors.black45,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    _VideoProgressBar(widget.videoController),
+                    _VideoProgressBar(videoController!),
                     const SizedBox(height: 10),
                   ],
                 ),
@@ -526,6 +527,7 @@ class _VideoPlayerWidgetState extends State<_VideoPlayerWidget> {
   }
 }
 
+// _VideoProgressBar 保持不变，此处省略
 class _VideoProgressBar extends StatefulWidget {
   final VideoPlayerController controller;
 
@@ -608,9 +610,11 @@ class _VideoProgressBarState extends State<_VideoProgressBar> {
         _controllerWasPlaying = false;
       },
       child: Container(
-        height: 20,
+        height: 40,
+        alignment: Alignment.center,
         margin: const EdgeInsets.symmetric(horizontal: 20),
         child: Stack(
+          alignment: Alignment.centerLeft,
           children: [
             Container(
               height: 4,
@@ -619,34 +623,43 @@ class _VideoProgressBarState extends State<_VideoProgressBar> {
                 borderRadius: BorderRadius.circular(2),
               ),
             ),
+            if (controller.value.isInitialized &&
+                controller.value.duration.inMilliseconds > 0)
+              FractionallySizedBox(
+                widthFactor: (controller.value.position.inMilliseconds /
+                        controller.value.duration.inMilliseconds)
+                    .clamp(0.0, 1.0),
+                child: Container(
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+              ),
             if (controller.value.isInitialized)
-              Container(
-                height: 4,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(2),
+              Padding(
+                padding: EdgeInsets.only(
+                  left: controller.value.duration.inMilliseconds > 0
+                      ? ((controller.value.position.inMilliseconds /
+                                  controller.value.duration.inMilliseconds) *
+                              (MediaQuery.of(context).size.width - 40))
+                          .clamp(
+                              0.0,
+                              MediaQuery.of(context).size.width -
+                                  40 -
+                                  12) // 减去padding和滑块宽度
+                      : 0,
                 ),
-                width: controller.value.duration.inMilliseconds > 0
-                    ? (controller.value.position.inMilliseconds /
-                            controller.value.duration.inMilliseconds) *
-                        (MediaQuery.of(context).size.width - 40)
-                    : 0,
-              ),
-            Positioned(
-              left: controller.value.duration.inMilliseconds > 0
-                  ? (controller.value.position.inMilliseconds /
-                          controller.value.duration.inMilliseconds) *
-                      (MediaQuery.of(context).size.width - 40)
-                  : 0,
-              child: Container(
-                width: 12,
-                height: 12,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.circle,
+                child: Container(
+                  width: 12,
+                  height: 12,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                  ),
                 ),
               ),
-            ),
           ],
         ),
       ),
