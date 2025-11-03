@@ -306,3 +306,14 @@ String formatDuration(Duration duration) {
     return '$seconds';
   }
 }
+
+// 视频查看器辅助方法 - 从GlobalKey获取初始位置
+Rect? getInitialRectFromKey(GlobalKey key) {
+  final RenderBox? renderBox =
+      key.currentContext?.findRenderObject() as RenderBox?;
+  if (renderBox == null) return null;
+
+  final position = renderBox.localToGlobal(Offset.zero);
+  final size = renderBox.size;
+  return Rect.fromLTWH(position.dx, position.dy, size.width, size.height);
+}
