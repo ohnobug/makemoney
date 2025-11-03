@@ -22,7 +22,7 @@ class VigaArtsPage extends StatefulWidget {
 }
 
 class _VigaArtsPageState extends State<VigaArtsPage>
-    with TickerProviderStateMixin {
+    with TickerProviderStateMixin, WidgetsBindingObserver {
   final PageController _pageController = PageController();
   int _currentPage = 0;
   late final Map<int, VideoPlayerController> _videoControllers;
@@ -69,6 +69,7 @@ class _VigaArtsPageState extends State<VigaArtsPage>
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
 
     _scrollableController = DraggableScrollableController();
 
@@ -96,6 +97,16 @@ class _VigaArtsPageState extends State<VigaArtsPage>
         });
       }
     });
+  }
+
+  @override
+  Future<bool> didPopRoute() async {
+    // 当系统返回按钮被按下时，确保评论面板状态正确重置
+    if (_isPanelOpen) {
+      _hideCommentsPanel();
+      return false; // 允许默认返回行为继续处理
+    }
+    return false; // 允许默认返回行为
   }
 
   List<VideoData> _createMockVideoData() {
@@ -167,6 +178,7 @@ class _VigaArtsPageState extends State<VigaArtsPage>
 
   @override
   void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
     _pageController.dispose();
     _videoControllers.forEach((_, controller) {
       controller.removeListener(_onVideoChange);
@@ -187,6 +199,7 @@ class _VigaArtsPageState extends State<VigaArtsPage>
   }
 
   void _showCommentsPanel() {
+    logger.info('_showCommentsPanel called - setting _hideVideoInfo to true');
     _systemCubit.updateVideoProgress(show: false);
     _systemCubit.updateShowHomeTabbar(false);
 
@@ -202,7 +215,7 @@ class _VigaArtsPageState extends State<VigaArtsPage>
       _videoAnimationController.value = 1.0 - transitionAnimation.value;
     }
 
-    showModalBottomSheet<void>(
+    final route = showModalBottomSheet<void>(
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       barrierColor: Colors.transparent,
@@ -254,27 +267,41 @@ class _VigaArtsPageState extends State<VigaArtsPage>
           ],
         );
       },
-    ).then((_) {
+    );
+
+    // 监听路由状态变化，确保在任何情况下都能正确恢复页面状态
+    route.then((_) {
       _scrollableController.removeListener(_onPanelDrag);
       transitionAnimation.removeListener(entryAnimationListener);
 
+      // 确保无论通过什么方式关闭评论面板，都能恢复tabbar状态
       _hideCommentsPanel();
     });
   }
 
   void _hideCommentsPanel() {
-    if (mounted && _isPanelOpen) {
-      _videoAnimationController
-          .animateTo(1.0, curve: Curves.easeOutQuart)
-          .then((_) {
-        setState(() {
-          _isPanelOpen = false;
-          _isCommentPanel = false;
-          _hideVideoInfo = false;
-          _systemCubit.updateVideoProgress(show: true);
-          _systemCubit.updateShowHomeTabbar(true);
-        });
+    logger.info(
+        '_hideCommentsPanel called - _isPanelOpen: $_isPanelOpen, _hideVideoInfo: $_hideVideoInfo');
+
+    // 立即重置所有状态，确保功能正常
+    _systemCubit.updateShowHomeTabbar(true);
+    _systemCubit.updateVideoProgress(show: true);
+
+    // 立即显示作者信息和按钮，不再等待动画
+    if (mounted) {
+      logger.info('Setting _hideVideoInfo to false in setState');
+      setState(() {
+        _isPanelOpen = false;
+        _isCommentPanel = false;
+        _hideVideoInfo = false; // 立即显示作者信息和按钮
       });
+    } else {
+      logger.info('Widget not mounted, cannot call setState');
+    }
+
+    // 如果有动画在进行，继续执行但不影响状态
+    if (mounted && _videoAnimationController.value != 1.0) {
+      _videoAnimationController.animateTo(1.0, curve: Curves.easeOutQuart);
     }
   }
 
@@ -318,7 +345,7 @@ class _VigaArtsPageState extends State<VigaArtsPage>
     });
   }
 
-  // 🚀 [RESTORED] _showArtShareModalSheet
+  // _showArtShareModalSheet
   void _showArtShareModalSheet(BuildContext context) {
     showModalBottomSheet<void>(
       isScrollControlled: true,
@@ -345,6 +372,8 @@ class _VigaArtsPageState extends State<VigaArtsPage>
 
   @override
   Widget build(BuildContext context) {
+    logger.info(
+        'build called - _hideVideoInfo: $_hideVideoInfo, _isPanelOpen: $_isPanelOpen, _isCommentPanel: $_isCommentPanel');
     return BlocBuilder<VigaSystemCubit, SystemState>(
       builder: (context, systemState) {
         final viewPadding = MediaQuery.of(context).padding;
@@ -362,7 +391,8 @@ class _VigaArtsPageState extends State<VigaArtsPage>
                 ? _currentVideoController!.value.aspectRatio
                 : 9.0 / 16.0;
         final shrunkVideoWidth = shrunkVideoHeight * videoAspectRatio;
-        final normalVideoHeight = screenHeight - systemState.bottomNavigationBarHeight;
+        final normalVideoHeight =
+            screenHeight - systemState.bottomNavigationBarHeight;
 
         double interpolate(double start, double end, double progress) {
           return start + (end - start) * progress;

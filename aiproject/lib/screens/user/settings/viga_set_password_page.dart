@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vigaviga/themes.dart'; // 假设 AppColors 在这里定义
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/viga_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vigaviga/store/viga_system_cubit.dart';
 import 'package:vigaviga/store/viga_user_cubit.dart';
 
 class VigaSetPasswordPage extends StatefulWidget {
@@ -33,7 +31,6 @@ class _VigaSetPasswordPageState extends State<VigaSetPasswordPage> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final userState = context.read<VigaUserCubit>().state;
-    final systemState = context.read<VigaSystemCubit>().state;
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
 
@@ -215,7 +212,7 @@ class _FormInputRowState extends State<_FormInputRow> {
         labelStyle: const TextStyle(color: Colors.grey),
         hintText: widget.hintText,
         hintStyle: textTheme.bodyLarge?.copyWith(
-          color: theme.colorScheme.onSurface.withOpacity(0.4),
+          color: theme.colorScheme.onSurface.withAlpha(102),
         ),
         // 设置下划线边框
         enabledBorder: const UnderlineInputBorder(

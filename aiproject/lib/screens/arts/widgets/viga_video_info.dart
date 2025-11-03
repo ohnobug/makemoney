@@ -47,7 +47,7 @@ class VigaVideoInfoSectionState extends State<VigaVideoInfoSection>
               });
             },
             child: Container(
-              padding: EdgeInsets.symmetric(vertical: 8.w, horizontal: 12.w),
+              padding: EdgeInsets.symmetric(vertical: 4.w, horizontal: 5.w),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -68,7 +68,7 @@ class VigaVideoInfoSectionState extends State<VigaVideoInfoSection>
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(width: 16.w),
+                  SizedBox(width: 20.w),
                   GestureDetector(
                     onTap: () => logger.info("点击了关注按钮"),
                     child: Container(
@@ -92,7 +92,7 @@ class VigaVideoInfoSectionState extends State<VigaVideoInfoSection>
               ),
             ),
           ),
-          SizedBox(height: 20.w),
+          SizedBox(height: 10.w),
           AnimatedSize(
             duration: const Duration(milliseconds: 300),
             curve: Curves.easeInOut,
@@ -111,6 +111,7 @@ class VigaVideoInfoSectionState extends State<VigaVideoInfoSection>
     );
   }
 
+  // 更多面板
   Widget _buildCollapsedDescription(
       bool isLongText, TextStyle descriptionStyle) {
     String displayedText = isLongText

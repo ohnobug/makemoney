@@ -2,7 +2,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_in_app_pip/flutter_in_app_pip.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/viga_user_cubit.dart';
 import 'package:vigaviga/themes.dart';
@@ -56,7 +55,7 @@ class _AppState extends State<App> {
       builder: (context, child) {
         return BlocBuilder<VigaSystemCubit, SystemState>(
             builder: (context, systemState) {
-          return PiPMaterialApp(
+          return MaterialApp(
             // 1. 设置浅色主题
             // 将您定义好的 lightTheme 赋值给 theme 属性
             theme: lightTheme,

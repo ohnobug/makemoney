@@ -1,14 +1,10 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:vigaviga/widgets/viga_app_network_image.dart';
-import 'package:floating/floating.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_in_app_pip/flutter_in_app_pip.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
-import 'package:vigaviga/screens/contract/chat/widgets/viga_dial_floating_widget.dart';
 import 'package:vigaviga/screens/contract/chat/widgets/viga_dot_loading_text.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:video_player/video_player.dart';
@@ -39,32 +35,11 @@ class _VigaDial extends State<VigaDialPage> {
   void initState() {
     super.initState();
 
-    // 实例化播放器
-    // if (!Platform.isWindows) {
-    floating = Floating();
-
     _voiceController =
         VideoPlayerController.asset(assetPath("sounds/scan_success.mp3"))
           ..initialize().then((_) {
             setState(() {});
           });
-
-    PictureInPicture.updatePiPParams(
-      pipParams: PiPParams(
-        pipWindowHeight: 400.w,
-        pipWindowWidth: 400.w,
-        bottomSpace: 5,
-        leftSpace: 5,
-        rightSpace: 5,
-        topSpace: 5,
-        maxSize: Size(400, 400),
-        minSize: Size(200, 200),
-        movable: true,
-        resizable: false,
-        initialCorner: PIPViewCorner.bottomRight,
-      ),
-    );
-    // }
 
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
@@ -114,25 +89,6 @@ class _VigaDial extends State<VigaDialPage> {
                   leading: GestureDetector(
                     onTap: () {
                       Navigator.of(context).pop();
-
-                      // if (!Platform.isWindows) {
-                      Future.delayed(Duration(milliseconds: 100), () {
-                        // 应用级画中画
-                        PictureInPicture.startPiP(
-                          pipWidget: PiPWidget(
-                            pipBorderRadius: 5,
-                            elevation: 10,
-                            onPiPClose: () {},
-                            child: VigaDialFloatingWidget(
-                              systemState: systemState,
-                            ),
-                          ),
-                        );
-                      });
-                      // }
-
-                      // 进入系统级画中画
-                      // _enablePip(context);
                     },
                     child: Container(
                       color: Colors.transparent,
@@ -330,17 +286,7 @@ class _VigaDial extends State<VigaDialPage> {
         ),
       );
 
-      return Platform.isWindows
-          ? mainWidget
-          : PiPSwitcher(
-              childWhenEnabled: Container(
-                width: double.infinity,
-                height: double.infinity,
-                color: Colors.blue,
-                child: Text("hello world"),
-              ),
-              childWhenDisabled: mainWidget,
-            );
+      return mainWidget;
     });
   }
 }

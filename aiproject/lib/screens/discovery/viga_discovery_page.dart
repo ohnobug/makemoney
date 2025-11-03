@@ -136,7 +136,7 @@ class _VigaDiscoveryPageState extends State<VigaDiscoveryPage> {
     AppLocalizations l10n = AppLocalizations.of(context)!;
 
     return Scaffold(
-      backgroundColor: theme.colorScheme.surface,
+      backgroundColor: theme.colorScheme.surfaceContainer,
       primary: false,
       appBar: VigaAppBar(
         title: l10n.tabbar_label_discover,
@@ -178,8 +178,7 @@ class _VigaDiscoveryPageState extends State<VigaDiscoveryPage> {
     );
   }
 
-  // --- UI 构建辅助方法 ---
-
+  // 搜索栏
   Widget _buildSearchBar(ThemeData theme) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.w),

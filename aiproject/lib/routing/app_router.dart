@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:vigaviga/features/payment/screens/viga_merchant_success_page.dart';
-import 'package:vigaviga/viga_test_page.dart';
 import 'package:vigaviga/screens/contract/chat/viga_chat_page.dart';
 import 'package:vigaviga/screens/contract/viga_contact_page.dart';
 import 'package:vigaviga/screens/contract/viga_contact_group_page.dart';
@@ -395,9 +394,6 @@ class AppRouter {
         return pageRouteBuilderAnimation(const VigaMerchantSuccessPage());
       case '/payment_demo':
         return pageRouteBuilderAnimation(const VigaPaymentDemoPage());
-
-      case '/test':
-        return pageRouteBuilderAnimation(const VigaTestPage());
 
       default:
         // 可以返回一个统一的404页面

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vigaviga/tools/viga_logger.dart';
 import 'package:vigaviga/widgets/viga_appbar.dart';
 
 class VigaModifyEmailPage extends StatefulWidget {
@@ -106,7 +107,7 @@ class _ModifyEmailPageState extends State<VigaModifyEmailPage> {
                 onPressed: _isEmailValid
                     ? () {
                         // 在这里处理点击事件，例如提交数据
-                        print('下一步，邮箱是: ${_emailController.text}');
+                        logger.info('下一步，邮箱是: ${_emailController.text}');
                         Navigator.pushNamed(context, '/settings/verify_email_screen');
                       }
                     : null,
