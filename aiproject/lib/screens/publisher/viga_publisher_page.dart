@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/store/viga_system_cubit.dart';
 import 'package:vigaviga/tools/dialog/viga_dialog_service.dart';
@@ -76,7 +77,7 @@ class _VigaPublisherState extends State<VigaPublisherPage> {
                       description:
                           'AI将为你生成独特的NFT艺术品。费用包含AI生成服务及链上铸造，发布后即可赚取打赏。',
                       onTap: () {
-                        Navigator.pushNamed(context, '/ai_publisher');
+                        context.push('/ai_publisher');
                       },
                     ),
                     SizedBox(height: 20.w), // 20 * 2
@@ -92,7 +93,7 @@ class _VigaPublisherState extends State<VigaPublisherPage> {
                             await picker.pickImage(source: ImageSource.gallery);
                         if (image != null) {
                           if (context.mounted) {
-                            Navigator.pushNamed(context, '/publish_work');
+                            context.push('/publish_work');
                           }
                         }
                       },

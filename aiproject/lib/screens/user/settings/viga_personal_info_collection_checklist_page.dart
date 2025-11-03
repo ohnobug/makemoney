@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/viga_appbar.dart';
@@ -55,7 +56,8 @@ class _LJPpersonalInfoCollectionChecklist
                     Text(
                       l10n.personalInfoCollectionList,
                       style: TextStyle(
-                          fontSize: 41.w, ),
+                        fontSize: 41.w,
+                      ),
                     ),
                     SizedBox(
                       height: 45.w,
@@ -286,7 +288,6 @@ class _LJPpersonalInfoCollectionChecklist
                                 height: 1.08,
                                 fontWeight: FontWeight.bold,
                                 fontSize: fontSizeScale(32.0.w),
-                                
                               ),
                               maxLines: 1,
                               overflow: TextOverflow.visible,
@@ -448,7 +449,7 @@ class _VigaPCCFunctionItemState extends State<VigaPCCFunctionItem> {
           });
 
           if (context.mounted && widget.link != null) {
-            Navigator.pushNamed(context, widget.link!);
+            context.push(widget.link!);
           }
 
           logger.info("弹起");
@@ -512,7 +513,6 @@ class _VigaPCCFunctionItemState extends State<VigaPCCFunctionItem> {
                             style: TextStyle(
                               height: 1.08,
                               fontSize: fontSizeScale(32.0.w),
-                              
                             ),
                             maxLines: 1,
                             overflow: TextOverflow.visible,

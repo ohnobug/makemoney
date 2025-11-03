@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/viga_alphabet.dart';
@@ -46,13 +47,12 @@ class _VigaContactGroupState extends State<VigaContactGroupPage> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/chat/friend/profile',
-              arguments: <String, String>{
-                'name': "天空飘来五个字那都不是事",
-                'nickname': "天空飘来五个字那都不是事",
-                'account': "天空飘来五个字那都不是事",
-                'avatar': "$cdnBase/avatar/chat_1.jpg",
-              });
+          context.push('/chat/friend/profile', extra: <String, String>{
+            'name': "天空飘来五个字那都不是事",
+            'nickname': "天空飘来五个字那都不是事",
+            'account': "天空飘来五个字那都不是事",
+            'avatar': "$cdnBase/avatar/chat_1.jpg",
+          });
         },
       ),
       ChatListItem(
@@ -63,13 +63,12 @@ class _VigaContactGroupState extends State<VigaContactGroupPage> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/chat/friend/profile',
-              arguments: <String, String>{
-                'name': "本因",
-                'nickname': "本因",
-                'account': "本因",
-                'avatar': "$cdnBase/avatar/chat_10.jpg",
-              });
+          context.push('/chat/friend/profile', extra: <String, String>{
+            'name': "本因",
+            'nickname': "本因",
+            'account': "本因",
+            'avatar': "$cdnBase/avatar/chat_10.jpg",
+          });
         },
       ),
       ChatListItem(
@@ -80,13 +79,12 @@ class _VigaContactGroupState extends State<VigaContactGroupPage> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/chat/friend/profile',
-              arguments: <String, String>{
-                'name': "赵洵",
-                'nickname': "赵洵",
-                'account': "赵洵",
-                'avatar': "$cdnBase/avatar/chat_11.jpg",
-              });
+          context.push('/chat/friend/profile', extra: <String, String>{
+            'name': "赵洵",
+            'nickname': "赵洵",
+            'account': "赵洵",
+            'avatar': "$cdnBase/avatar/chat_11.jpg",
+          });
         },
       ),
       ChatListItem(
@@ -97,13 +95,12 @@ class _VigaContactGroupState extends State<VigaContactGroupPage> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/chat/friend/profile',
-              arguments: <String, String>{
-                'name': "定静师太",
-                'nickname': "定静师太",
-                'account': "定静师太",
-                'avatar': "$cdnBase/avatar/chat_12.jpg",
-              });
+          context.push('/chat/friend/profile', extra: <String, String>{
+            'name': "定静师太",
+            'nickname': "定静师太",
+            'account': "定静师太",
+            'avatar': "$cdnBase/avatar/chat_12.jpg",
+          });
         },
       ),
       ChatListItem(
@@ -114,13 +111,12 @@ class _VigaContactGroupState extends State<VigaContactGroupPage> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/chat/friend/profile',
-              arguments: <String, String>{
-                'name': "李秋水",
-                'nickname': "李秋水",
-                'account': "李秋水",
-                'avatar': "$cdnBase/avatar/chat_13.jpg",
-              });
+          context.push('/chat/friend/profile', extra: <String, String>{
+            'name': "李秋水",
+            'nickname': "李秋水",
+            'account': "李秋水",
+            'avatar': "$cdnBase/avatar/chat_13.jpg",
+          });
         },
       ),
       ChatListItem(
@@ -131,13 +127,12 @@ class _VigaContactGroupState extends State<VigaContactGroupPage> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/chat/friend/profile',
-              arguments: <String, String>{
-                'name': "谭婆",
-                'nickname': "谭婆",
-                'account': "谭婆",
-                'avatar': "$cdnBase/avatar/chat_14.jpg",
-              });
+          context.push('/chat/friend/profile', extra: <String, String>{
+            'name': "谭婆",
+            'nickname': "谭婆",
+            'account': "谭婆",
+            'avatar': "$cdnBase/avatar/chat_14.jpg",
+          });
         },
       ),
       ChatListItem(
@@ -148,13 +143,12 @@ class _VigaContactGroupState extends State<VigaContactGroupPage> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/chat/friend/profile',
-              arguments: <String, String>{
-                'name': "李傀儡",
-                'nickname': "李傀儡",
-                'account': "李傀儡",
-                'avatar': "$cdnBase/avatar/chat_15.jpg",
-              });
+          context.push('/chat/friend/profile', extra: <String, String>{
+            'name': "李傀儡",
+            'nickname': "李傀儡",
+            'account': "李傀儡",
+            'avatar': "$cdnBase/avatar/chat_15.jpg",
+          });
         },
       ),
       ChatListItem(
@@ -165,13 +159,12 @@ class _VigaContactGroupState extends State<VigaContactGroupPage> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/chat/friend/profile',
-              arguments: <String, String>{
-                'name': "貂禅",
-                'nickname': "貂禅",
-                'account': "貂禅",
-                'avatar': "$cdnBase/avatar/chat_16.jpg",
-              });
+          context.push('/chat/friend/profile', extra: <String, String>{
+            'name': "貂禅",
+            'nickname': "貂禅",
+            'account': "貂禅",
+            'avatar': "$cdnBase/avatar/chat_16.jpg",
+          });
         },
       ),
       ChatListItem(
@@ -182,13 +175,12 @@ class _VigaContactGroupState extends State<VigaContactGroupPage> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/chat/friend/profile',
-              arguments: <String, String>{
-                'name': "何三七",
-                'nickname': "何三七",
-                'account': "何三七",
-                'avatar': "$cdnBase/avatar/chat_17.jpg",
-              });
+          context.push('/chat/friend/profile', extra: <String, String>{
+            'name': "何三七",
+            'nickname': "何三七",
+            'account': "何三七",
+            'avatar': "$cdnBase/avatar/chat_17.jpg",
+          });
         },
       ),
       ChatListItem(
@@ -199,13 +191,12 @@ class _VigaContactGroupState extends State<VigaContactGroupPage> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/chat/friend/profile',
-              arguments: <String, String>{
-                'name': "孔融",
-                'nickname': "孔融",
-                'account': "孔融",
-                'avatar': "$cdnBase/avatar/chat_18.jpg",
-              });
+          context.push('/chat/friend/profile', extra: <String, String>{
+            'name': "孔融",
+            'nickname': "孔融",
+            'account': "孔融",
+            'avatar': "$cdnBase/avatar/chat_18.jpg",
+          });
         },
       ),
       ChatListItem(
@@ -216,13 +207,12 @@ class _VigaContactGroupState extends State<VigaContactGroupPage> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/chat/friend/profile',
-              arguments: <String, String>{
-                'name': "齐堂主",
-                'nickname': "齐堂主",
-                'account': "齐堂主",
-                'avatar': "$cdnBase/avatar/chat_19.jpg",
-              });
+          context.push('/chat/friend/profile', extra: <String, String>{
+            'name': "齐堂主",
+            'nickname': "齐堂主",
+            'account': "齐堂主",
+            'avatar': "$cdnBase/avatar/chat_19.jpg",
+          });
         },
       ),
       ChatListItem(
@@ -233,13 +223,12 @@ class _VigaContactGroupState extends State<VigaContactGroupPage> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/chat/friend/profile',
-              arguments: <String, String>{
-                'name': "博尔术",
-                'nickname': "博尔术",
-                'account': "博尔术",
-                'avatar': "$cdnBase/avatar/chat_20.jpg",
-              });
+          context.push('/chat/friend/profile', extra: <String, String>{
+            'name': "博尔术",
+            'nickname': "博尔术",
+            'account': "博尔术",
+            'avatar': "$cdnBase/avatar/chat_20.jpg",
+          });
         },
       ),
       ChatListItem(
@@ -250,13 +239,12 @@ class _VigaContactGroupState extends State<VigaContactGroupPage> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/chat/friend/profile',
-              arguments: <String, String>{
-                'name': "王语嫣",
-                'nickname': "王语嫣",
-                'account': "王语嫣",
-                'avatar': "$cdnBase/avatar/chat_21.jpg",
-              });
+          context.push('/chat/friend/profile', extra: <String, String>{
+            'name': "王语嫣",
+            'nickname': "王语嫣",
+            'account': "王语嫣",
+            'avatar': "$cdnBase/avatar/chat_21.jpg",
+          });
         },
       ),
       ChatListItem(
@@ -267,13 +255,12 @@ class _VigaContactGroupState extends State<VigaContactGroupPage> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/chat/friend/profile',
-              arguments: <String, String>{
-                'name': "秦红棉",
-                'nickname': "秦红棉",
-                'account': "秦红棉",
-                'avatar': "$cdnBase/avatar/chat_22.jpg",
-              });
+          context.push('/chat/friend/profile', extra: <String, String>{
+            'name': "秦红棉",
+            'nickname': "秦红棉",
+            'account': "秦红棉",
+            'avatar': "$cdnBase/avatar/chat_22.jpg",
+          });
         },
       ),
       ChatListItem(
@@ -295,13 +282,12 @@ class _VigaContactGroupState extends State<VigaContactGroupPage> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/chat/friend/profile',
-              arguments: <String, String>{
-                'name': "段延庆",
-                'nickname': "段延庆",
-                'account': "段延庆",
-                'avatar': "$cdnBase/avatar/chat_33.jpg",
-              });
+          context.push('/chat/friend/profile', extra: <String, String>{
+            'name': "段延庆",
+            'nickname': "段延庆",
+            'account': "段延庆",
+            'avatar': "$cdnBase/avatar/chat_33.jpg",
+          });
         },
       ),
       ChatListItem(
@@ -312,13 +298,12 @@ class _VigaContactGroupState extends State<VigaContactGroupPage> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/chat/friend/profile',
-              arguments: <String, String>{
-                'name': "令狐冲",
-                'nickname': "令狐冲",
-                'account': "令狐冲",
-                'avatar': "$cdnBase/avatar/chat_34.jpg",
-              });
+          context.push('/chat/friend/profile', extra: <String, String>{
+            'name': "令狐冲",
+            'nickname': "令狐冲",
+            'account': "令狐冲",
+            'avatar': "$cdnBase/avatar/chat_34.jpg",
+          });
         },
       ),
       ChatListItem(
@@ -329,13 +314,12 @@ class _VigaContactGroupState extends State<VigaContactGroupPage> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/chat/friend/profile',
-              arguments: <String, String>{
-                'name': "英白罗",
-                'nickname': "英白罗",
-                'account': "英白罗",
-                'avatar': "$cdnBase/avatar/chat_35.jpg",
-              });
+          context.push('/chat/friend/profile', extra: <String, String>{
+            'name': "英白罗",
+            'nickname': "英白罗",
+            'account': "英白罗",
+            'avatar': "$cdnBase/avatar/chat_35.jpg",
+          });
         },
       ),
       ChatListItem(
@@ -346,13 +330,12 @@ class _VigaContactGroupState extends State<VigaContactGroupPage> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/chat/friend/profile',
-              arguments: <String, String>{
-                'name': "黄药师",
-                'nickname': "黄药师",
-                'account': "黄药师",
-                'avatar': "$cdnBase/avatar/chat_36.jpg",
-              });
+          context.push('/chat/friend/profile', extra: <String, String>{
+            'name': "黄药师",
+            'nickname': "黄药师",
+            'account': "黄药师",
+            'avatar': "$cdnBase/avatar/chat_36.jpg",
+          });
         },
       ),
       ChatListItem(
@@ -363,13 +346,12 @@ class _VigaContactGroupState extends State<VigaContactGroupPage> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/chat/friend/profile',
-              arguments: <String, String>{
-                'name': "李煜",
-                'nickname': "李煜",
-                'account': "李煜",
-                'avatar': "$cdnBase/avatar/chat_37.jpg",
-              });
+          context.push('/chat/friend/profile', extra: <String, String>{
+            'name': "李煜",
+            'nickname': "李煜",
+            'account': "李煜",
+            'avatar': "$cdnBase/avatar/chat_37.jpg",
+          });
         },
       ),
       ChatListItem(
@@ -380,13 +362,12 @@ class _VigaContactGroupState extends State<VigaContactGroupPage> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/chat/friend/profile',
-              arguments: <String, String>{
-                'name': "云中鹤",
-                'nickname': "云中鹤",
-                'account': "云中鹤",
-                'avatar': "$cdnBase/avatar/chat_38.jpg",
-              });
+          context.push('/chat/friend/profile', extra: <String, String>{
+            'name': "云中鹤",
+            'nickname': "云中鹤",
+            'account': "云中鹤",
+            'avatar': "$cdnBase/avatar/chat_38.jpg",
+          });
         },
       ),
       ChatListItem(
@@ -397,13 +378,12 @@ class _VigaContactGroupState extends State<VigaContactGroupPage> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/chat/friend/profile',
-              arguments: <String, String>{
-                'name': "劳德诺",
-                'nickname': "劳德诺",
-                'account': "劳德诺",
-                'avatar': "$cdnBase/avatar/chat_39.jpg",
-              });
+          context.push('/chat/friend/profile', extra: <String, String>{
+            'name': "劳德诺",
+            'nickname': "劳德诺",
+            'account': "劳德诺",
+            'avatar': "$cdnBase/avatar/chat_39.jpg",
+          });
         },
       ),
       ChatListItem(
@@ -414,13 +394,12 @@ class _VigaContactGroupState extends State<VigaContactGroupPage> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/chat/friend/profile',
-              arguments: <String, String>{
-                'name': "包惜弱",
-                'nickname': "包惜弱",
-                'account': "包惜弱",
-                'avatar': "$cdnBase/avatar/chat_40.jpg",
-              });
+          context.push('/chat/friend/profile', extra: <String, String>{
+            'name': "包惜弱",
+            'nickname': "包惜弱",
+            'account': "包惜弱",
+            'avatar': "$cdnBase/avatar/chat_40.jpg",
+          });
         },
       ),
       ChatListItem(
@@ -431,13 +410,12 @@ class _VigaContactGroupState extends State<VigaContactGroupPage> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/chat/friend/profile',
-              arguments: <String, String>{
-                'name': "游驹",
-                'nickname': "游驹",
-                'account': "游驹",
-                'avatar': "$cdnBase/avatar/chat_41.jpg",
-              });
+          context.push('/chat/friend/profile', extra: <String, String>{
+            'name': "游驹",
+            'nickname': "游驹",
+            'account': "游驹",
+            'avatar': "$cdnBase/avatar/chat_41.jpg",
+          });
         },
       ),
       ChatListItem(
@@ -448,13 +426,12 @@ class _VigaContactGroupState extends State<VigaContactGroupPage> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/chat/friend/profile',
-              arguments: <String, String>{
-                'name': "钟万仇",
-                'nickname': "钟万仇",
-                'account': "钟万仇",
-                'avatar': "$cdnBase/avatar/chat_42.jpg",
-              });
+          context.push('/chat/friend/profile', extra: <String, String>{
+            'name': "钟万仇",
+            'nickname': "钟万仇",
+            'account': "钟万仇",
+            'avatar': "$cdnBase/avatar/chat_42.jpg",
+          });
         },
       ),
       ChatListItem(
@@ -465,13 +442,12 @@ class _VigaContactGroupState extends State<VigaContactGroupPage> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/chat/friend/profile',
-              arguments: <String, String>{
-                'name': "渔人",
-                'nickname': "渔人",
-                'account': "渔人",
-                'avatar': "$cdnBase/avatar/chat_43.jpg",
-              });
+          context.push('/chat/friend/profile', extra: <String, String>{
+            'name': "渔人",
+            'nickname': "渔人",
+            'account': "渔人",
+            'avatar': "$cdnBase/avatar/chat_43.jpg",
+          });
         },
       ),
       ChatListItem(
@@ -482,13 +458,12 @@ class _VigaContactGroupState extends State<VigaContactGroupPage> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/chat/friend/profile',
-              arguments: <String, String>{
-                'name': "单叔山",
-                'nickname': "单叔山",
-                'account': "单叔山",
-                'avatar': "$cdnBase/avatar/chat_44.jpg",
-              });
+          context.push('/chat/friend/profile', extra: <String, String>{
+            'name': "单叔山",
+            'nickname': "单叔山",
+            'account': "单叔山",
+            'avatar': "$cdnBase/avatar/chat_44.jpg",
+          });
         },
       ),
       ChatListItem(
@@ -499,13 +474,12 @@ class _VigaContactGroupState extends State<VigaContactGroupPage> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/chat/friend/profile',
-              arguments: <String, String>{
-                'name': "段誉",
-                'nickname': "段誉",
-                'account': "段誉",
-                'avatar': "$cdnBase/avatar/chat_45.jpg",
-              });
+          context.push('/chat/friend/profile', extra: <String, String>{
+            'name': "段誉",
+            'nickname': "段誉",
+            'account': "段誉",
+            'avatar': "$cdnBase/avatar/chat_45.jpg",
+          });
         },
       ),
       ChatListItem(
@@ -516,13 +490,12 @@ class _VigaContactGroupState extends State<VigaContactGroupPage> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/chat/friend/profile',
-              arguments: <String, String>{
-                'name': "林震南",
-                'nickname': "林震南",
-                'account': "林震南",
-                'avatar': "$cdnBase/avatar/chat_46.jpg",
-              });
+          context.push('/chat/friend/profile', extra: <String, String>{
+            'name': "林震南",
+            'nickname': "林震南",
+            'account': "林震南",
+            'avatar': "$cdnBase/avatar/chat_46.jpg",
+          });
         },
       ),
       ChatListItem(
@@ -533,13 +506,12 @@ class _VigaContactGroupState extends State<VigaContactGroupPage> {
         lastedTime: "",
         underline: true,
         onPressed: () {
-          Navigator.pushNamed(context, '/chat/friend/profile',
-              arguments: <String, String>{
-                'name': "商鞅",
-                'nickname': "商鞅",
-                'account': "商鞅",
-                'avatar': "$cdnBase/avatar/chat_47.jpg",
-              });
+          context.push('/chat/friend/profile', extra: <String, String>{
+            'name': "商鞅",
+            'nickname': "商鞅",
+            'account': "商鞅",
+            'avatar': "$cdnBase/avatar/chat_47.jpg",
+          });
         },
       ),
       Container(

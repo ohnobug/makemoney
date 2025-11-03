@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:go_router/go_router.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/tools/viga_logger.dart';
@@ -55,14 +56,16 @@ class InsStyleRow extends StatelessWidget {
       isCommentPanelOpen: isCommentPanelOpen,
     );
     final smallItems1 = Column(children: [
-      Expanded(child: _MediaTile(
+      Expanded(
+          child: _MediaTile(
         item: items[1],
         canPlay: canPlay,
         onTap: () => onItemTap?.call(items[1]),
         isCommentPanelOpen: isCommentPanelOpen,
       )),
       SizedBox(height: 2.w),
-      Expanded(child: _MediaTile(
+      Expanded(
+          child: _MediaTile(
         item: items[2],
         canPlay: canPlay,
         onTap: () => onItemTap?.call(items[2]),
@@ -70,14 +73,16 @@ class InsStyleRow extends StatelessWidget {
       )),
     ]);
     final smallItems2 = Column(children: [
-      Expanded(child: _MediaTile(
+      Expanded(
+          child: _MediaTile(
         item: items[3],
         canPlay: canPlay,
         onTap: () => onItemTap?.call(items[3]),
         isCommentPanelOpen: isCommentPanelOpen,
       )),
       SizedBox(height: 2.w),
-      Expanded(child: _MediaTile(
+      Expanded(
+          child: _MediaTile(
         item: items[4],
         canPlay: canPlay,
         onTap: () => onItemTap?.call(items[4]),
@@ -229,10 +234,11 @@ class _MediaTileState extends State<_MediaTile> {
     // 生成作者信息（这里使用模拟数据，实际应用中应该从数据源获取）
     final authorId = 'author_${widget.item.thumbnailUrl.hashCode}';
     final authorName = '作者${widget.item.thumbnailUrl.hashCode % 1000}';
-    final authorAvatar = 'https://picsum.photos/seed/author_${widget.item.thumbnailUrl.hashCode}/200/200';
+    final authorAvatar =
+        'https://picsum.photos/seed/author_${widget.item.thumbnailUrl.hashCode}/200/200';
 
     // 导航到作者详情页面
-    Navigator.pushNamed(context, '/author/detail', arguments: {
+    context.push('/author/detail', extra: {
       'author_id': authorId,
       'author_name': authorName,
       'author_avatar': authorAvatar,
@@ -299,7 +305,8 @@ class _MediaTileState extends State<_MediaTile> {
                 )
               : VigaAppNetworkImage(
                   imageUrl: widget.item.thumbnailUrl,
-                  fit: widget.isCommentPanelOpen ? BoxFit.contain : BoxFit.cover,
+                  fit:
+                      widget.isCommentPanelOpen ? BoxFit.contain : BoxFit.cover,
                 )
         ],
       ),

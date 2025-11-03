@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:go_router/go_router.dart';
 import 'package:uuid/uuid.dart';
 import 'package:record/record.dart';
 import 'package:lottie/lottie.dart';
@@ -25,7 +26,8 @@ import 'package:vigaviga/tools/viga_tools.dart';
 import 'package:vigaviga/tools/viga_logger.dart';
 
 class VigaGroupChat extends StatefulWidget {
-  const VigaGroupChat({super.key, required this.title, required this.icon, this.fromTabIndex});
+  const VigaGroupChat(
+      {super.key, required this.title, required this.icon, this.fromTabIndex});
 
   final String title;
   final String icon;
@@ -903,10 +905,10 @@ class _VigaGroupChat extends State<VigaGroupChat>
                     title: widget.title,
                     actions: [
                       VigaAppBarActionIconButton(
-                        iconData: const IconData(0xe659, fontFamily: 'Iconfont'),
+                        iconData:
+                            const IconData(0xe659, fontFamily: 'Iconfont'),
                         onTap: () {
-                          Navigator.pushNamed(
-                            context,
+                          context.push(
                             '/chat/group_message_record',
                           );
                         },

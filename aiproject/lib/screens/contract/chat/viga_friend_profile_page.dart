@@ -1,3 +1,4 @@
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/widgets/viga_app_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -69,8 +70,7 @@ class _VigaFriendProfile extends State<VigaFriendProfilePage>
                 VigaAppBarActionIconButton(
                   iconData: const IconData(0xe659, fontFamily: 'Iconfont'),
                   onTap: () {
-                    Navigator.pushNamed(
-                      context,
+                    context.push(
                       '/chat/friend_data_setting',
                     );
                   },
@@ -492,11 +492,10 @@ class _VigaFriendProfile extends State<VigaFriendProfilePage>
                               ),
                               underline: true,
                               onPressed: () {
-                                Navigator.pushNamed(context, '/chat',
-                                    arguments: <String, String>{
-                                      'title': "何三七",
-                                      'icon': "$cdnBase/avatar/chat_17.jpg",
-                                    });
+                                context.push('/chat', extra: <String, String>{
+                                  'title': "何三七",
+                                  'icon': "$cdnBase/avatar/chat_17.jpg",
+                                });
                               },
                             ),
                           ],
@@ -584,8 +583,7 @@ class _VigaFriendProfile extends State<VigaFriendProfilePage>
                                         ),
                                       ),
                                       onPressed: () {
-                                        Navigator.pushNamed(
-                                            context, '/video_player');
+                                        context.push( '/video_player');
                                       },
                                     ),
                                     VigaActionSheetAction(
@@ -630,8 +628,7 @@ class _VigaFriendProfile extends State<VigaFriendProfilePage>
                                         ]),
                                       ),
                                       onPressed: () {
-                                        Navigator.pushNamed(
-                                            context, '/chat/dial');
+                                        context.push( '/chat/dial');
                                       },
                                     ),
                                   ],

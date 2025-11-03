@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/widgets/viga_app_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -209,13 +210,12 @@ class _VigaVideoMessage extends State<VigaVideoMessage> {
               // 头像
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, '/chat/friend_profile',
-                      arguments: <String, String>{
-                        'name': userState.userinfoName!,
-                        'avatar': userState.userinfoAvatar!,
-                        'nickname': userState.userinfoName!,
-                        'account': userState.userinfoAccount!,
-                      });
+                  context.push('/chat/friend_profile', extra: <String, String>{
+                    'name': userState.userinfoName!,
+                    'avatar': userState.userinfoAvatar!,
+                    'nickname': userState.userinfoName!,
+                    'account': userState.userinfoAccount!,
+                  });
                 },
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8).w,

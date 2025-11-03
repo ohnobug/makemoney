@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/api_manager/api.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
@@ -80,10 +81,9 @@ class _VigaContactTagsState extends State<VigaContactTagsPage> {
                             title: tagData.title,
                             underline: tagData.underline,
                             onPressed: () {
-                              Navigator.pushNamed(
-                                context,
+                              context.push(
                                 '/contact/tag_group',
-                                arguments: <String, String>{
+                                extra: <String, String>{
                                   'title': tagData.title,
                                   'icon': tagData.icon,
                                 },

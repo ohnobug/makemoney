@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/store/viga_system_cubit.dart';
 import 'package:vigaviga/store/viga_user_cubit.dart';
@@ -212,7 +213,7 @@ class _VigaSignInPageState extends State<VigaSignInPage> {
         ),
         TextButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/user/auth/forgot_password');
+            context.push('/user/auth/forgot_password');
           },
           child: Text(
             '忘记密码？',
@@ -255,7 +256,6 @@ class _VigaSignInPageState extends State<VigaSignInPage> {
     );
   }
 
-
   Widget _buildSignUpLink() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -266,7 +266,7 @@ class _VigaSignInPageState extends State<VigaSignInPage> {
         ),
         TextButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/user/auth/register');
+            context.push('/user/auth/register');
           },
           style: TextButton.styleFrom(
               padding: EdgeInsets.zero,

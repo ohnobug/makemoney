@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/tools/viga_logger.dart';
 import 'package:vigaviga/widgets/viga_appbar.dart';
 
@@ -108,7 +109,7 @@ class _ModifyEmailPageState extends State<VigaModifyEmailPage> {
                     ? () {
                         // 在这里处理点击事件，例如提交数据
                         logger.info('下一步，邮箱是: ${_emailController.text}');
-                        Navigator.pushNamed(context, '/settings/verify_email_screen');
+                        context.push('/settings/verify_email_screen');
                       }
                     : null,
                 style: ElevatedButton.styleFrom(

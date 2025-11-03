@@ -1,6 +1,7 @@
 // --- 小程序列表项组 ---
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/tools/viga_tools.dart';
 import 'package:vigaviga/widgets/viga_text_spans.dart';
@@ -56,7 +57,7 @@ class VigaFunctionListSection extends StatelessWidget {
                 ),
                 if (moreUrl.isNotEmpty)
                   GestureDetector(
-                    onTap: () => Navigator.pushNamed(context, moreUrl),
+                    onTap: () => context.push(moreUrl),
                     child: Container(
                       color: Colors.transparent,
                       padding: EdgeInsets.only(right: 33.w),

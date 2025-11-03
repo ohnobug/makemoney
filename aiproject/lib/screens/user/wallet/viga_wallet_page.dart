@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/viga_appbar.dart';
@@ -44,7 +45,7 @@ class _VigaWalletPage extends State<VigaWalletPage> {
         actions: [
           VigaAppBarActionTextButton(
             onTap: () {
-              Navigator.pushNamed(context, '/user/wallet/bill_details');
+              context.push('/user/wallet/bill_details');
             },
             title: l10n.bill,
           ),

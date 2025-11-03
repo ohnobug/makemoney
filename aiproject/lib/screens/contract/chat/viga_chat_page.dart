@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
 import 'package:record/record.dart';
 import 'package:flutter/material.dart';
@@ -946,8 +947,7 @@ class _VigaChat extends State<VigaChat>
                           iconData:
                               const IconData(0xe659, fontFamily: 'Iconfont'),
                           onTap: () {
-                            Navigator.pushNamed(
-                              context,
+                            context.push(
                               '/chat/friend_message_record',
                             );
                           },
@@ -1003,23 +1003,23 @@ class _VigaChat extends State<VigaChat>
                                     }
                                   },
                                   child: messageList.isEmpty
-                                    ? Container()
-                                    : ListView.builder(
-                                        padding: EdgeInsets.only(
-                                          top: 30.w,
-                                          bottom: 30.w,
+                                      ? Container()
+                                      : ListView.builder(
+                                          padding: EdgeInsets.only(
+                                            top: 30.w,
+                                            bottom: 30.w,
+                                          ),
+                                          controller: _scrollController,
+                                          physics:
+                                              const AlwaysScrollableScrollPhysics(
+                                            parent: BouncingScrollPhysics(),
+                                          ),
+                                          itemCount: messageList.length,
+                                          itemBuilder: (context, index) {
+                                            final message = messageList[index];
+                                            return _buildMessageWidget(message);
+                                          },
                                         ),
-                                        controller: _scrollController,
-                                        physics:
-                                            const AlwaysScrollableScrollPhysics(
-                                          parent: BouncingScrollPhysics(),
-                                        ),
-                                        itemCount: messageList.length,
-                                        itemBuilder: (context, index) {
-                                          final message = messageList[index];
-                                          return _buildMessageWidget(message);
-                                        },
-                                      ),
                                 ),
                               ),
                             ),

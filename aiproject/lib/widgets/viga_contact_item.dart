@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/tools/viga_tools.dart';
 import 'package:vigaviga/widgets/viga_app_network_image.dart';
 
@@ -91,7 +92,7 @@ class _ContactInformationState extends State<ContactInformation> {
             widget.onPressed!();
           } else if (widget.link.isNotEmpty) {
             // ignore: use_build_context_synchronously
-            Navigator.pushNamed(context, widget.link);
+            context.push(widget.link);
           }
         });
       },

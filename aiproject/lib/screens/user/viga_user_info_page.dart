@@ -3,6 +3,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:vigaviga/tools/viga_logger.dart';
@@ -138,7 +139,7 @@ class _UserInfoPageState extends State<UserInfoPage> {
                 children: [
                   _buildActionButton('扫一扫', () {
                     logger.info('点击了扫一扫');
-                    Navigator.pushNamed(context, '/discovery/qrcode_scanner');
+                    context.push('/discovery/qrcode_scanner');
                   }),
                   _buildDivider(),
                   _buildActionButton('换个样式', () {

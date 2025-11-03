@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/tools/viga_logger.dart';
 import 'package:vigaviga/tools/viga_tools.dart';
@@ -77,7 +78,7 @@ class _VigaAddButtonState extends State<VigaAddButton> {
             if (widget.link == 'back') {
               Navigator.of(context).pop();
             } else if (widget.link != null) {
-              Navigator.pushNamed(context, widget.link!);
+              context.push(widget.link!);
             }
           }
         });

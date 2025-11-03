@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/store/viga_system_cubit.dart';
 import 'package:vigaviga/tools/viga_logger.dart';
 import 'package:vigaviga/tools/viga_tools.dart';
@@ -68,7 +69,7 @@ class _VigaMaxWidthButtonState extends State<VigaMaxWidthButton> {
 
               if (context.mounted) {
                 if (widget.link != null) {
-                  Navigator.pushNamed(context, widget.link!);
+                  context.push(widget.link!);
                 }
 
                 if (widget.onPressed != null) {
@@ -99,7 +100,6 @@ class _VigaMaxWidthButtonState extends State<VigaMaxWidthButton> {
                       height: 1.08,
                       fontSize: fontSizeScale(32.0.w),
                       decoration: TextDecoration.none,
-                      
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,

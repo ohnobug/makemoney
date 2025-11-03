@@ -2,6 +2,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/viga_appbar.dart';
@@ -12,7 +13,8 @@ class VigaSetNotesAndLabelsPage extends StatefulWidget {
   const VigaSetNotesAndLabelsPage({super.key});
 
   @override
-  State<VigaSetNotesAndLabelsPage> createState() => _VigaSetNotesAndLabelsState();
+  State<VigaSetNotesAndLabelsPage> createState() =>
+      _VigaSetNotesAndLabelsState();
 }
 
 class _VigaSetNotesAndLabelsState extends State<VigaSetNotesAndLabelsPage> {
@@ -66,7 +68,7 @@ class _VigaSetNotesAndLabelsState extends State<VigaSetNotesAndLabelsPage> {
             actions: [
               VigaAppBarActionTextButton(
                 onTap: () {
-                  Navigator.pushNamed(context, '/settings/security/bind_phone');
+                  context.push('/settings/security/bind_phone');
                 },
                 title: l10n.done,
               ),
@@ -242,7 +244,7 @@ class _VigaSetNotesAndLabelsState extends State<VigaSetNotesAndLabelsPage> {
 
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, '/chat/set_friend_tags');
+                          context.push('/chat/set_friend_tags');
                         },
                         child: Container(
                           height: 105.w,

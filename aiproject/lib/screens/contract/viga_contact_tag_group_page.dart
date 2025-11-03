@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/viga_alphabet.dart';
@@ -218,7 +219,8 @@ class _VigaContactTagGroupState extends State<VigaContactTagGroupPage> {
     // 辅助函数，用于根据静态数据构建列表项 Widget
     Widget buildListItem(dynamic itemData) {
       if (itemData is String) {
-        return VigaAlphabet(title: itemData, bgColor: theme.colorScheme.surface);
+        return VigaAlphabet(
+            title: itemData, bgColor: theme.colorScheme.surface);
       }
 
       if (itemData is _ContactListItemData) {
@@ -249,10 +251,9 @@ class _VigaContactTagGroupState extends State<VigaContactTagGroupPage> {
                 )
               : l10n.expired,
           onPressed: () {
-            Navigator.pushNamed(
-              context,
+            context.push(
               '/chat/friend_profile',
-              arguments: <String, String>{
+              extra: <String, String>{
                 'name': itemData.name,
                 'nickname': itemData.name,
                 'account': itemData.name,

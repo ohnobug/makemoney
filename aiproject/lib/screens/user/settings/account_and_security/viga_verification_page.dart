@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/tools/viga_logger.dart';
 import 'package:vigaviga/widgets/viga_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -117,8 +118,7 @@ class _VigaVerificationPageState extends State<VigaVerificationPage> {
                       onTap: () {
                         // 在这里处理“忘记密码”的点击事件
                         logger.info('“忘记密码”被点击了');
-                        Navigator.pushNamed(
-                                  context, '/user/auth/forgot_password');
+                        context.push('/user/auth/forgot_password');
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(content: Text('“忘记密码”被点击了')),
                         );
@@ -142,7 +142,7 @@ class _VigaVerificationPageState extends State<VigaVerificationPage> {
                       // 为 null 时按钮会自动禁用
                       onPressed: _passwordController.text.isNotEmpty
                           ? () {
-                              Navigator.pushNamed(context, '/change_account');
+                              context.push('/change_account');
                               // 在这里处理验证逻辑
                               logger.info('验证密码: ${_passwordController.text}');
                             }

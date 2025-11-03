@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/viga_appbar.dart';
@@ -67,9 +68,9 @@ class _VigaChangeAccountPage extends State<VigaChangeAccountPage> {
                           child: Text(
                             l10n.securityVerification,
                             style: TextStyle(
-                                fontSize: 42.w,
-                                // fontWeight: FontWeight.bold,
-                                ),
+                              fontSize: 42.w,
+                              // fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                         SizedBox(
@@ -78,7 +79,8 @@ class _VigaChangeAccountPage extends State<VigaChangeAccountPage> {
                         Text(
                           l10n.verifyIdentityWithPasswordFull,
                           style: TextStyle(
-                              fontSize: 30.w, ),
+                            fontSize: 30.w,
+                          ),
                         ),
                         SizedBox(
                           height: 60.w,
@@ -153,8 +155,7 @@ class _VigaChangeAccountPage extends State<VigaChangeAccountPage> {
                             onTap: () {
                               // forgot_password
                               logger.info("忘记密码被点击");
-                              Navigator.pushNamed(
-                                  context, '/user/auth/forgot_password');
+                              context.push('/user/auth/forgot_password');
                             },
                             child: Text(
                               l10n.forgotPassword,

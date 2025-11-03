@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/store/viga_system_cubit.dart';
 import 'package:vigaviga/store/viga_user_cubit.dart';
@@ -334,7 +335,7 @@ class _VigaForgotPasswordPageState extends State<VigaForgotPasswordPage> {
         ),
         TextButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/user/auth/login');
+            context.push('/user/auth/login');
           },
           style: TextButton.styleFrom(
               padding: EdgeInsets.zero,

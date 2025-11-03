@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/tools/viga_logger.dart';
 import 'package:vigaviga/tools/viga_tools.dart';
@@ -23,7 +24,8 @@ class VigaChangeAccountButton extends StatefulWidget {
   });
 
   @override
-  State<VigaChangeAccountButton> createState() => _VigaChangeAccountButtonState();
+  State<VigaChangeAccountButton> createState() =>
+      _VigaChangeAccountButtonState();
 }
 
 class _VigaChangeAccountButtonState extends State<VigaChangeAccountButton> {
@@ -94,7 +96,7 @@ class _VigaChangeAccountButtonState extends State<VigaChangeAccountButton> {
               if (widget.link == 'back') {
                 Navigator.of(context).pop();
               } else if (widget.link != null) {
-                Navigator.pushNamed(context, widget.link!);
+                context.push(widget.link!);
               }
             }
           }

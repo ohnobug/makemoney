@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/viga_alphabet.dart';
@@ -182,10 +183,9 @@ class _VigaFriendsWhoOnlyChatState extends State<VigaFriendsWhoOnlyChatPage> {
                               link: '',
                               underline: itemData.underline,
                               onPressed: () {
-                                Navigator.pushNamed(
-                                  context,
+                                context.push(
                                   '/chat',
-                                  arguments: <String, String>{
+                                  extra: <String, String>{
                                     'title': itemData.title,
                                     'icon': itemData.icon,
                                   },

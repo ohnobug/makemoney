@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/store/viga_user_cubit.dart';
 import 'package:vigaviga/widgets/viga_alphabet.dart';
@@ -148,7 +149,6 @@ class _VigaSettingPage extends State<VigaSettingPage> {
                       ],
                     ),
 
-
                     // 关于Vigaviga 与 帮助与反馈
                     VigaFunctionList(
                       children: [
@@ -163,9 +163,9 @@ class _VigaSettingPage extends State<VigaSettingPage> {
                           title: l10n.helpAndFeedback,
                           link: null,
                           onPress: () {
-                            Navigator.of(context).pushNamed(
+                            context.push(
                               '/webview',
-                              arguments: {
+                              extra: {
                                 'url':
                                     'https://help.vigaviga.com', // Vue开发服务器地址
                                 'title': l10n.helpAndFeedback,
@@ -222,8 +222,7 @@ class _VigaSettingPage extends State<VigaSettingPage> {
                                 link: null,
                                 underline: false,
                                 onPressed: () {
-                                  Navigator.pushNamed(
-                                      context, '/user/auth/login');
+                                  context.push('/user/auth/login');
                                 },
                               ),
                             ],

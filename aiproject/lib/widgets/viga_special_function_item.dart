@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/tools/viga_tools.dart';
 
 class VigaSpecialFunctionItem extends StatefulWidget {
@@ -23,7 +24,8 @@ class VigaSpecialFunctionItem extends StatefulWidget {
   });
 
   @override
-  State<VigaSpecialFunctionItem> createState() => _VigaSpecialFunctionItemState();
+  State<VigaSpecialFunctionItem> createState() =>
+      _VigaSpecialFunctionItemState();
 }
 
 class _VigaSpecialFunctionItemState extends State<VigaSpecialFunctionItem> {
@@ -59,7 +61,7 @@ class _VigaSpecialFunctionItemState extends State<VigaSpecialFunctionItem> {
           if (context.mounted) {
             setState(() => _isPressed = false);
             if (widget.link != null) {
-              Navigator.pushNamed(context, widget.link!);
+              context.push(widget.link!);
             }
           }
         });
@@ -93,7 +95,6 @@ class _VigaSpecialFunctionItemState extends State<VigaSpecialFunctionItem> {
                     widget.title,
                     style: TextStyle(
                       fontSize: fontSizeScale(32.0.w),
-                      
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,

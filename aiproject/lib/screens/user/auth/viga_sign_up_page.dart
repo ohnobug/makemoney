@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/store/viga_system_cubit.dart';
 import 'package:vigaviga/store/viga_user_cubit.dart';
@@ -16,7 +17,8 @@ class VigaSignUpPage extends StatefulWidget {
 class _VigaSignUpState extends State<VigaSignUpPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   bool _isLoading = false;
   bool _agreeToTerms = false;
   bool _isPasswordVisible = false;
@@ -209,7 +211,9 @@ class _VigaSignUpState extends State<VigaSignUpPage> {
           decoration: _buildInputDecoration().copyWith(
             suffixIcon: IconButton(
               icon: Icon(
-                _isConfirmPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                _isConfirmPasswordVisible
+                    ? Icons.visibility
+                    : Icons.visibility_off,
                 color: AppColors.fontSecondary,
                 size: 44.w,
               ),
@@ -254,8 +258,7 @@ class _VigaSignUpState extends State<VigaSignUpPage> {
             checkColor: AppColors.darkBackground,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(12.w)),
-            side: const BorderSide(
-                color: AppColors.fontSecondary, width: 2),
+            side: const BorderSide(color: AppColors.fontSecondary, width: 2),
           ),
         ),
         SizedBox(width: 16.w),
@@ -338,7 +341,6 @@ class _VigaSignUpState extends State<VigaSignUpPage> {
     );
   }
 
-
   Widget _buildSignInLink() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -349,7 +351,7 @@ class _VigaSignUpState extends State<VigaSignUpPage> {
         ),
         TextButton(
           onPressed: () {
-            Navigator.pushNamed(context, '/user/auth/login');
+            context.push('/user/auth/login');
           },
           style: TextButton.styleFrom(
               padding: EdgeInsets.zero,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/viga_alphabet.dart';
@@ -272,7 +273,7 @@ class _VigaNewFriendsState extends State<VigaNewFriendsPage> {
         actions: [
           VigaAppBarActionTextButton(
             onTap: () {
-              Navigator.pushNamed(context, '/contact/add_friends');
+              context.push('/contact/add_friends');
             },
             title: l10n.addFriend,
           ),
@@ -385,10 +386,9 @@ class _VigaNewFriendsState extends State<VigaNewFriendsPage> {
                             : l10n.expired,
                         underline: itemData.underline,
                         onPressed: () {
-                          Navigator.pushNamed(
-                            context,
+                          context.push(
                             '/chat/friend_profile',
-                            arguments: <String, String>{
+                            extra: <String, String>{
                               'name': itemData.name,
                               'nickname': itemData.name,
                               'account': itemData.name,

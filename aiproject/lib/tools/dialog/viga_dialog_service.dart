@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/tools/dialog/viga_popup_menu_item.dart';
 
@@ -102,9 +103,7 @@ class _PopupMenuDialog extends StatelessWidget {
                                   fontFamily: "iconfont",
                                 ),
                                 onTap: () {
-                                  Navigator.of(context).pop();
-                                  Navigator.pushNamed(
-                                    context,
+                                  context.push(
                                     '/contact/add_friends',
                                   );
                                 },
@@ -118,8 +117,7 @@ class _PopupMenuDialog extends StatelessWidget {
                                 ),
                                 onTap: () {
                                   Navigator.of(context).pop();
-                                  Navigator.pushNamed(
-                                    context,
+                                  context.push(
                                     '/discovery/qrcode_scanner',
                                   );
                                 },
@@ -133,8 +131,7 @@ class _PopupMenuDialog extends StatelessWidget {
                                 ),
                                 onTap: () {
                                   Navigator.of(context).pop();
-                                  Navigator.pushNamed(
-                                    context,
+                                  context.push(
                                     '/user/collection_and_payment',
                                   );
                                 },

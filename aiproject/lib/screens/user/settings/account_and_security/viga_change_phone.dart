@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 // *** 核心改动 1: 导入 dlibphonenumber 包 ***
 import 'package:dlibphonenumber/dlibphonenumber.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/tools/viga_logger.dart';
 
 class VigaChangePhoneNumberScreen extends StatefulWidget {
@@ -119,7 +120,7 @@ class _VigaChangePhoneNumberScreenState
             GestureDetector(
               onTap: () {
                 logger.info('Navigate to country selection page');
-                Navigator.pushNamed(context, '/country');
+                context.push('/country');
               },
               child: Container(
                 color: Colors.transparent,

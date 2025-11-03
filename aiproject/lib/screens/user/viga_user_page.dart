@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/screens/user/widgets/viga_user_function_button.dart';
 import 'package:vigaviga/store/viga_system_cubit.dart';
@@ -255,36 +256,36 @@ class _VigaUserPageState extends State<VigaUserPage>
       VigaUserFunctionButton(
         icon: "$cdnBase/icon/server_icon11.png",
         title: "钱包",
-        onPressed: () => Navigator.pushNamed(context, '/user/services'),
+        onPressed: () => context.push('/user/services'),
       ),
       VigaUserFunctionButton(
         icon: "$cdnBase/icon/server_icon12.png",
         title: "交易",
         onPressed: () {
-          Navigator.pushNamed(context, '/test');
+          context.push('/test');
         },
       ),
       VigaUserFunctionButton(
         icon: "$cdnBase/icon/server_icon13.png",
         title: "创作中心",
         onPressed: () {
-          Navigator.pushNamed(context, '/user/photo_viewer');
+          context.push('/user/photo_viewer');
         },
       ),
       VigaUserFunctionButton(
         icon: "$cdnBase/icon/server_icon16.png",
         title: "浏览历史",
         onPressed: () {
-          Navigator.pushNamed(context, '/payment_demo');
+          context.push('/payment_demo');
         },
       ),
       VigaUserFunctionButton(
         icon: "$cdnBase/icon/server_icon14.png",
         title: "学院",
         onPressed: () {
-          Navigator.of(context).pushNamed(
+          context.push(
             '/webview',
-            arguments: {
+            extra: {
               'url': 'https://course.vigaviga.com',
               'title': "学院",
             },
@@ -321,15 +322,14 @@ class _VigaUserPageState extends State<VigaUserPage>
                     0xe63d,
                     fontFamily: 'Iconfont',
                   ),
-                  onTap: () => Navigator.pushNamed(context, '/settings'),
+                  onTap: () => context.push('/settings'),
                 ),
                 _buildFloatingIconButton(
                   icon: const IconData(
                     0xe635,
                     fontFamily: 'Iconfont',
                   ),
-                  onTap: () => Navigator.pushNamed(
-                    context,
+                  onTap: () => context.push(
                     '/discovery/qrcode_scanner',
                   ),
                 ),
@@ -347,8 +347,7 @@ class _VigaUserPageState extends State<VigaUserPage>
                     Row(
                       children: [
                         GestureDetector(
-                          onTap: () =>
-                              Navigator.pushNamed(context, '/user/info'),
+                          onTap: () => context.push('/user/info'),
                           child: ClipOval(
                             child: BlocBuilder<VigaUserCubit, UserState>(
                               builder: (context, state) {
@@ -390,8 +389,7 @@ class _VigaUserPageState extends State<VigaUserPage>
                                   const Spacer(),
                                   GestureDetector(
                                     onTap: () {
-                                      Navigator.pushNamed(
-                                          context, '/user/user_info');
+                                      context.push('/user/user_info');
                                     },
                                     child: Icon(
                                       Icons.qr_code_2_outlined,
@@ -444,26 +442,23 @@ class _VigaUserPageState extends State<VigaUserPage>
                         _buildStatsItem(
                           "25",
                           "关注",
-                          () => Navigator.pushNamed(
-                              context, '/user/follow_and_fans'),
+                          () => context.push('/user/follow_and_fans'),
                         ),
                         SizedBox(width: 60.w),
                         _buildStatsItem(
                           "1.2M",
                           "粉丝",
-                          () => Navigator.pushNamed(
-                              context, '/user/follow_and_fans'),
+                          () => context.push('/user/follow_and_fans'),
                         ),
                         SizedBox(width: 60.w),
                         _buildStatsItem(
                           "8.9M",
                           "获赞",
-                          () => Navigator.pushNamed(context, '/user/like'),
+                          () => context.push('/user/like'),
                         ),
                         const Spacer(),
                         ElevatedButton(
-                          onPressed: () =>
-                              Navigator.pushNamed(context, '/user/info'),
+                          onPressed: () => context.push('/user/info'),
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
                             backgroundColor: theme.dividerColor,
@@ -554,15 +549,14 @@ class _VigaUserPageState extends State<VigaUserPage>
                     0xe63d,
                     fontFamily: 'Iconfont',
                   ),
-                  onTap: () => Navigator.pushNamed(context, '/settings'),
+                  onTap: () => context.push('/settings'),
                 ),
                 _buildFloatingIconButton(
                   icon: const IconData(
                     0xe635,
                     fontFamily: 'Iconfont',
                   ),
-                  onTap: () => Navigator.pushNamed(
-                    context,
+                  onTap: () => context.push(
                     '/discovery/qrcode_scanner',
                   ),
                 ),
@@ -595,7 +589,7 @@ class _VigaUserPageState extends State<VigaUserPage>
                 // 登录/注册按钮
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/user/auth/login');
+                    context.push('/user/auth/login');
                     logger.info("跳转到登录注册页");
                   },
                   style: ElevatedButton.styleFrom(

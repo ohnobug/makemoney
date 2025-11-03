@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/api_manager/api.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
@@ -107,8 +108,7 @@ class _VigaContactState extends State<VigaContactPage> {
                             link: itemData.link,
                             underline: itemData.underline,
                             onPressed: itemData.link.isEmpty
-                                ? () => Navigator.pushNamed(
-                                    context, '/contact/new_friends') // 特殊处理
+                                ? () => context.push( '/contact/new_friends') // 特殊处理
                                 : null,
                           );
                         }
@@ -120,11 +120,10 @@ class _VigaContactState extends State<VigaContactPage> {
                             link: '',
                             underline: itemData.underline,
                             onPressed: () {
-                              Navigator.pushNamed(context, '/chat',
-                                  arguments: <String, String>{
-                                    'title': itemData.title,
-                                    'icon': itemData.icon,
-                                  });
+                              context.push('/chat', extra: <String, String>{
+                                'title': itemData.title,
+                                'icon': itemData.icon,
+                              });
                             },
                           );
                         }

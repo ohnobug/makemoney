@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/api_manager/api.dart';
 import 'package:vigaviga/features/viewer/viga_photo_viewer_page.dart';
 import 'package:vigaviga/themes.dart';
@@ -422,7 +423,7 @@ class _VigaFriendmoments extends State<VigaFriendmomentsPage>
                   // 放大时，头像和名字渐变消失
                   opacity: 1 - _bgController.value,
                   child: GestureDetector(
-                    onTap: () => Navigator.pushNamed(context, '/user/info'),
+                    onTap: () => context.push('/user/info'),
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 35.w),
                       width: 750.w,
@@ -466,8 +467,7 @@ class _VigaFriendmoments extends State<VigaFriendmomentsPage>
                   bottom: 30.w,
                   right: 30.w,
                   child: GestureDetector(
-                    onTap: () => Navigator.pushNamed(
-                        context, "/chat/friend_moments_cover_setting"),
+                    onTap: () => context.push( "/chat/friend_moments_cover_setting"),
                     child: Column(
                       children: [
                         Icon(

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/widgets/viga_app_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -180,10 +181,9 @@ class _VigaReceiveVideoMessage extends State<VigaReceiveVideoMessage> {
               // 头像
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(
-                    context,
+                  context.push(
                     '/chat/friend_profile',
-                    arguments: <String, String>{
+                    extra: <String, String>{
                       'name': widget.name,
                       'avatar': widget.friendAvatar,
                       'nickname': widget.name,

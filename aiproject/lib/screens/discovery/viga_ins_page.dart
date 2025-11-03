@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/screens/discovery/viga_post_detail_page.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 import 'widgets/ins_style_row.dart';
@@ -131,10 +132,9 @@ class _VigaInsPageState extends State<VigaInsPage> {
     );
 
     // 导航到详情页
-    Navigator.pushNamed(
-      context,
+    context.push(
       '/discovery/ins/post_detail_page',
-      arguments: postData,
+      extra: postData,
     );
   }
 

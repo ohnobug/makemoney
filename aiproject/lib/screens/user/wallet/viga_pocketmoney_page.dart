@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/viga_appbar.dart';
@@ -38,7 +39,7 @@ class _VigaPocketMoneyPage extends State<VigaPocketMoneyPage> {
             actions: [
               VigaAppBarActionTextButton(
                 onTap: () {
-                  Navigator.pushNamed(context, '/user/wallet/change_details');
+                  context.push('/user/wallet/change_details');
                 },
                 title: l10n.balanceDetails,
               ),
@@ -284,7 +285,7 @@ class _VigaChargeButtonState extends State<VigaChargeButton> {
             if (widget.link == 'back') {
               Navigator.of(context).pop();
             } else if (widget.link != null) {
-              Navigator.pushNamed(context, widget.link!);
+              context.push(widget.link!);
             }
           }
           logger.info("弹起");

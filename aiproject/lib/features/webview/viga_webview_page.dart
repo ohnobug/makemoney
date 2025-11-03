@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/store/viga_system_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -185,11 +186,10 @@ class _VigaWebViewPageState extends State<VigaWebViewPage> {
                     // 处理从网页传来的导航请求
                     if (args.isNotEmpty) {
                       final route = args[0]['route'] ?? '/';
-                      final arguments = args[0]['arguments'] ?? {};
+                      final extra = args[0]['extra'] ?? {};
 
                       // 导航到指定路由
-                      Navigator.of(context)
-                          .pushNamed(route, arguments: arguments);
+                      context.push(route, extra: extra);
                     }
                     return {'success': true};
                   },
@@ -232,11 +232,11 @@ class _VigaWebViewPageState extends State<VigaWebViewPage> {
                         }).then(resolve).catch(reject);
                       });
                     },
-                    navigateTo: function(route, arguments = {}) {
+                    navigateTo: function(route, extra = {}) {
                       return new Promise((resolve, reject) => {
                         window.flutter_inappwebview.callHandler('navigateTo', {
                           route: route,
-                          arguments: arguments
+                          extra: extra
                         }).then(resolve).catch(reject);
                       });
                     },

@@ -1,3 +1,4 @@
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/widgets/viga_app_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,13 +51,12 @@ class _VigaReceiveMessage extends State<VigaReceiveMessage> {
                     widget.onFriendAvatarTap!();
                   }
 
-                  Navigator.pushNamed(context, '/chat/friend_profile',
-                      arguments: <String, String>{
-                        'name': widget.name,
-                        'avatar': widget.friendAvatar,
-                        'nickname': widget.name,
-                        'account': "tathagata_buddha_loveyou",
-                      });
+                  context.push('/chat/friend_profile', extra: <String, String>{
+                    'name': widget.name,
+                    'avatar': widget.friendAvatar,
+                    'nickname': widget.name,
+                    'account': "tathagata_buddha_loveyou",
+                  });
                 },
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8).w,

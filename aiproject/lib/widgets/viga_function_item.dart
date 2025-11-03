@@ -1,6 +1,7 @@
 // 功能列表
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/tools/viga_logger.dart';
 import 'package:vigaviga/tools/viga_tools.dart';
 import 'package:vigaviga/widgets/viga_app_network_image.dart';
@@ -91,7 +92,7 @@ class _VigaFunctionItemState extends State<VigaFunctionItem> {
         // 如果没有点击效果，则直接执行操作
         if (!tapEffect) {
           if (widget.link != null) {
-            Navigator.pushNamed(context, widget.link!);
+            context.push(widget.link!);
           }
           if (widget.onPress != null) {
             widget.onPress!();
@@ -108,7 +109,7 @@ class _VigaFunctionItemState extends State<VigaFunctionItem> {
           // 检查 widget 是否还在树上
           if (context.mounted) {
             if (widget.link != null) {
-              Navigator.pushNamed(context, widget.link!);
+              context.push(widget.link!);
             }
             if (widget.onPress != null) {
               widget.onPress!();

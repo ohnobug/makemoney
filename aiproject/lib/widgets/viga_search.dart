@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/store/viga_system_cubit.dart';
 
 class VigaSearch extends StatefulWidget {
@@ -29,7 +30,7 @@ class _VigaSearch extends State<VigaSearch> {
         return GestureDetector(
           onTap: () {
             if (widget.link is String) {
-              Navigator.pushNamed(context, widget.link!);
+              context.push(widget.link!);
             }
 
             if (widget.onTap is Function) {

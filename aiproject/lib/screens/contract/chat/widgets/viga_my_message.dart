@@ -1,3 +1,4 @@
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/widgets/viga_app_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -115,17 +116,15 @@ class _VigaMyMessage extends State<VigaMyMessage> {
               // 头像
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, '/chat/friend_profile',
-                      arguments: <String, String>{
-                        'name':
-                            context.read<VigaUserCubit>().state.userinfoName!,
-                        'avatar':
-                            context.read<VigaUserCubit>().state.userinfoAvatar!,
-                        'nickname':
-                            context.read<VigaUserCubit>().state.userinfoName!,
-                        'account':
-                            context.read<VigaUserCubit>().state.userinfoAccount!,
-                      });
+                  context.push('/chat/friend_profile', extra: <String, String>{
+                    'name': context.read<VigaUserCubit>().state.userinfoName!,
+                    'avatar':
+                        context.read<VigaUserCubit>().state.userinfoAvatar!,
+                    'nickname':
+                        context.read<VigaUserCubit>().state.userinfoName!,
+                    'account':
+                        context.read<VigaUserCubit>().state.userinfoAccount!,
+                  });
                 },
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(8).w,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/widgets/viga_app_network_image.dart';
 import 'package:vigaviga/themes.dart';
 
@@ -69,7 +70,8 @@ class VigaVideoPublishPage extends State<VigaVideoPublishPageState> {
                           borderRadius: BorderRadius.circular(24.w),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withAlpha((0.05 * 255).toInt()),
+                              color:
+                                  Colors.black.withAlpha((0.05 * 255).toInt()),
                               blurRadius: 10.w,
                               offset: Offset(0, 2.w),
                             ),
@@ -83,7 +85,8 @@ class VigaVideoPublishPage extends State<VigaVideoPublishPageState> {
                               width: double.infinity,
                               height: 400.w,
                               decoration: BoxDecoration(
-                                color: theme.colorScheme.surfaceContainerHighest,
+                                color:
+                                    theme.colorScheme.surfaceContainerHighest,
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(24.w),
                                   topRight: Radius.circular(24.w),
@@ -100,25 +103,29 @@ class VigaVideoPublishPage extends State<VigaVideoPublishPageState> {
                                     child: Container(
                                       width: double.infinity,
                                       height: double.infinity,
-                                      color: theme.colorScheme.surfaceContainerHighest,
+                                      color: theme
+                                          .colorScheme.surfaceContainerHighest,
                                       child: _selectedThumbnail.isNotEmpty
                                           ? VigaAppNetworkImage(
                                               imageUrl: _selectedThumbnail,
                                               fit: BoxFit.cover,
                                             )
                                           : Column(
-                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
                                               children: [
                                                 Icon(
                                                   Icons.image_outlined,
                                                   size: 80.w,
-                                                  color: theme.colorScheme.onSurfaceVariant,
+                                                  color: theme.colorScheme
+                                                      .onSurfaceVariant,
                                                 ),
                                                 SizedBox(height: 16.w),
                                                 Text(
                                                   '选择素材开始创作',
                                                   style: TextStyle(
-                                                    color: theme.colorScheme.onSurfaceVariant,
+                                                    color: theme.colorScheme
+                                                        .onSurfaceVariant,
                                                     fontSize: 28.w,
                                                   ),
                                                 ),
@@ -150,8 +157,8 @@ class VigaVideoPublishPage extends State<VigaVideoPublishPageState> {
                                     child: Row(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        ..._thumbnailImages.map(
-                                            (path) => _buildDraggableThumbnail(path)),
+                                        ..._thumbnailImages.map((path) =>
+                                            _buildDraggableThumbnail(path)),
                                         SizedBox(width: 16.w), // 8 * 2
                                         _buildAddThumbnailButton(theme),
                                       ],
@@ -173,7 +180,8 @@ class VigaVideoPublishPage extends State<VigaVideoPublishPageState> {
                           borderRadius: BorderRadius.circular(24.w),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withAlpha((0.05 * 255).toInt()),
+                              color:
+                                  Colors.black.withAlpha((0.05 * 255).toInt()),
                               blurRadius: 10.w,
                               offset: Offset(0, 2.w),
                             ),
@@ -235,7 +243,8 @@ class VigaVideoPublishPage extends State<VigaVideoPublishPageState> {
                           borderRadius: BorderRadius.circular(24.w),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withAlpha((0.05 * 255).toInt()),
+                              color:
+                                  Colors.black.withAlpha((0.05 * 255).toInt()),
                               blurRadius: 10.w,
                               offset: Offset(0, 2.w),
                             ),
@@ -246,7 +255,7 @@ class VigaVideoPublishPage extends State<VigaVideoPublishPageState> {
                           children: [
                             InkWell(
                               onTap: () {
-                                Navigator.pushNamed(context, '/locationPage');
+                                context.push('/locationPage');
                               },
                               borderRadius: BorderRadius.circular(12.w),
                               child: Padding(
@@ -303,7 +312,8 @@ class VigaVideoPublishPage extends State<VigaVideoPublishPageState> {
                           borderRadius: BorderRadius.circular(24.w),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withAlpha((0.05 * 255).toInt()),
+                              color:
+                                  Colors.black.withAlpha((0.05 * 255).toInt()),
                               blurRadius: 10.w,
                               offset: Offset(0, 2.w),
                             ),
@@ -326,7 +336,8 @@ class VigaVideoPublishPage extends State<VigaVideoPublishPageState> {
                                 SizedBox(width: 16.w),
                                 Expanded(
                                   child: Text(
-                                    _selectedVisibility.replaceFirst(': ', ' · '),
+                                    _selectedVisibility.replaceFirst(
+                                        ': ', ' · '),
                                     style: TextStyle(
                                       fontSize: 32.w,
                                       color: theme.colorScheme.onSurface,
@@ -371,9 +382,11 @@ class VigaVideoPublishPage extends State<VigaVideoPublishPageState> {
                             backgroundColor: theme.colorScheme.primary,
                             foregroundColor: theme.colorScheme.onPrimary,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(50.w), // 25 * 2
+                              borderRadius:
+                                  BorderRadius.circular(50.w), // 25 * 2
                             ),
-                            padding: EdgeInsets.symmetric(vertical: 24.w), // 12 * 2
+                            padding:
+                                EdgeInsets.symmetric(vertical: 24.w), // 12 * 2
                             elevation: 0,
                           ),
                           child: Row(
@@ -595,7 +608,9 @@ class VigaVideoPublishPage extends State<VigaVideoPublishPageState> {
         child: Text(
           text,
           style: TextStyle(
-            color: isSelected ? AppColors.brandGreenVibrant5 : theme.colorScheme.onSurfaceVariant,
+            color: isSelected
+                ? AppColors.brandGreenVibrant5
+                : theme.colorScheme.onSurfaceVariant,
             fontSize: 26.w,
             fontWeight: isSelected ? FontWeight.w500 : FontWeight.normal,
           ),
@@ -669,7 +684,8 @@ class VigaVideoPublishPage extends State<VigaVideoPublishPageState> {
     );
   }
 
-  Widget _buildVisibilityOption(BuildContext context, String title, ThemeData theme) {
+  Widget _buildVisibilityOption(
+      BuildContext context, String title, ThemeData theme) {
     return InkWell(
       onTap: () {
         setState(() {
@@ -693,7 +709,9 @@ class VigaVideoPublishPage extends State<VigaVideoPublishPageState> {
                 title,
                 style: TextStyle(
                   fontSize: 32.w, // 16 * 2
-                  fontWeight: _selectedVisibility == title ? FontWeight.w600 : FontWeight.normal,
+                  fontWeight: _selectedVisibility == title
+                      ? FontWeight.w600
+                      : FontWeight.normal,
                   color: _selectedVisibility == title
                       ? theme.colorScheme.primary
                       : theme.colorScheme.onSurface,

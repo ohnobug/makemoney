@@ -1,6 +1,7 @@
 // 文件路径: /lib/widgets/viga_discovery.dart
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/tools/viga_logger.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -184,7 +185,7 @@ class _VigaDiscoveryPageState extends State<VigaDiscoveryPage> {
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.w),
       child: GestureDetector(
         onTap: () {
-          Navigator.pushNamed(context, '/discovery/search');
+          context.push('/discovery/search');
         },
         child: Container(
           height: 70.w,

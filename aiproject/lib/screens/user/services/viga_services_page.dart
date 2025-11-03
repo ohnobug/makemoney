@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/store/viga_system_cubit.dart';
 import 'package:vigaviga/store/viga_user_cubit.dart';
@@ -45,7 +46,7 @@ class VigaServicesPage extends StatelessWidget {
                     VigaActionSheetAction(
                       text: Text(l10n.serviceManagement),
                       onPressed: () {
-                        Navigator.pushNamed(context, '/user/services_manager');
+                        context.push('/user/services_manager');
                       },
                     ),
                   ],
@@ -175,7 +176,7 @@ class VigaServicesPage extends StatelessWidget {
               title: l10n.payment,
               subTitle: Text('', style: balanceTextStyle),
               onPressed: () {
-                Navigator.pushNamed(context, '/user/collection_and_payment');
+                context.push('/user/collection_and_payment');
                 logger.info('点击了收付款还款按钮~~');
               },
             ),
@@ -214,7 +215,7 @@ class VigaServicesPage extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
               onPressed: () {
-                Navigator.pushNamed(context, '/user/wallet');
+                context.push('/user/wallet');
               },
             ),
           ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/widgets/viga_app_network_image.dart'; // 确保这个路径是正确的
 
 // --- Data Model for LoRA ---
@@ -204,7 +205,8 @@ class _VigaAiPublisherPageState extends State<VigaAiPublisherPage> {
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16.0.w), // 8 * 2
                           borderSide: BorderSide(
-                              color: theme.colorScheme.primary, width: 2.0.w), // 1 * 2
+                              color: theme.colorScheme.primary,
+                              width: 2.0.w), // 1 * 2
                         ),
                       ),
                     ),
@@ -259,7 +261,7 @@ class _VigaAiPublisherPageState extends State<VigaAiPublisherPage> {
   Widget _buildAddLoRAButton(ThemeData theme) {
     return TextButton.icon(
       onPressed: () {
-        Navigator.pushNamed(context, '/resource_publisher');
+        context.push('/resource_publisher');
       },
       icon: Icon(Icons.add_circle_outline, size: 36.0.w), // 18 * 2
       label: Text('添加灵感库'),
@@ -276,7 +278,7 @@ class _VigaAiPublisherPageState extends State<VigaAiPublisherPage> {
   Widget _buildGenerateButton(ThemeData theme) {
     return ElevatedButton(
       onPressed: () {
-        Navigator.pushNamed(context, '/publish_work');
+        context.push('/publish_work');
       },
       style: ElevatedButton.styleFrom(
         minimumSize: Size(double.infinity, 100.0.w), // 50 * 2
@@ -416,7 +418,8 @@ class _LoRAItemState extends State<LoRAItem> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 32.0.w), // 16 * 2
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 32.0.w), // 16 * 2
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -445,9 +448,11 @@ class _LoRAItemState extends State<LoRAItem> {
                               GestureDetector(
                                 onTap: () {},
                                 child: Padding(
-                                  padding: EdgeInsets.symmetric(vertical: 16.0.w), // 8 * 2
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 16.0.w), // 8 * 2
                                   child: Icon(Icons.arrow_forward_ios,
-                                      color: Colors.white, size: 32.0.w), // 16 * 2
+                                      color: Colors.white,
+                                      size: 32.0.w), // 16 * 2
                                 ),
                               ),
                             ],
@@ -509,7 +514,8 @@ class _LoRAItemState extends State<LoRAItem> {
                       divisions: 100,
                       onChanged: (double value) {
                         setState(() {
-                          _currentWeight = double.parse(value.toStringAsFixed(2));
+                          _currentWeight =
+                              double.parse(value.toStringAsFixed(2));
                         });
                         widget.onWeightChanged(_currentWeight);
                       },
@@ -520,7 +526,8 @@ class _LoRAItemState extends State<LoRAItem> {
                 Container(
                   width: 80.0.w, // 40 * 2
                   alignment: Alignment.center,
-                  padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.w),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.w),
                   decoration: BoxDecoration(
                     color: widget.theme.colorScheme.primaryContainer,
                     borderRadius: BorderRadius.circular(12.w),

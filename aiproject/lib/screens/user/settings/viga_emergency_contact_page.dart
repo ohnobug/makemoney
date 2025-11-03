@@ -1,6 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/viga_appbar.dart';
@@ -37,7 +38,7 @@ class _LJEemergencyContact extends State<VigaEmergencyContactPage> {
           actions: [
             VigaAppBarActionTextButton(
               onTap: () {
-                Navigator.pushNamed(context, '/settings/security/bind_phone');
+                context.push('/settings/security/bind_phone');
               },
               title: l10n.done,
             ),

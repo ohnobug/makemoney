@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/store/viga_system_cubit.dart';
@@ -253,10 +254,9 @@ class _VigaSearchFriend extends State<VigaSearchFriendPage> {
           lastedTime: originalItem.lastedTime,
           badge: originalItem.badge,
           onPressed: () {
-            Navigator.pushNamed(
-              context,
+            context.push(
               '/chat',
-              arguments: <String, String>{
+              extra: <String, String>{
                 'title': originalItem.friendName,
                 'icon': originalItem.avatar,
               },

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/widgets/viga_app_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -198,10 +199,9 @@ class _VigaMyMessage extends State<VigaMyVoiceMessage>
               // 头像
               GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(
-                    context,
+                  context.push(
                     '/chat/friend_profile',
-                    arguments: <String, String>{
+                    extra: <String, String>{
                       'name': context.read<VigaUserCubit>().state.userinfoName!,
                       'avatar':
                           context.read<VigaUserCubit>().state.userinfoAvatar!,

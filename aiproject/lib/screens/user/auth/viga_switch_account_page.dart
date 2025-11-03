@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/models/viga_account_model.dart';
 import 'package:vigaviga/store/viga_user_cubit.dart';
@@ -94,8 +95,8 @@ class _VigaSwitchAccountPageState extends State<VigaSwitchAccountPage> {
                 ),
                 Expanded(
                   child: ScrollConfiguration(
-                    behavior:
-                        ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                    behavior: ScrollConfiguration.of(context)
+                        .copyWith(scrollbars: false),
                     child: ListView(
                       physics: const AlwaysScrollableScrollPhysics(
                         parent: BouncingScrollPhysics(),
@@ -279,10 +280,9 @@ class _VigaSwitchAccountPageState extends State<VigaSwitchAccountPage> {
 
   void _navigateToLogin(Account account) {
     // 跳转到登录页面，传递账号信息
-    Navigator.pushNamed(
-      context,
+    context.push(
       '/user/auth/login',
-      arguments: {
+      extra: {
         'account': account.account,
       },
     );

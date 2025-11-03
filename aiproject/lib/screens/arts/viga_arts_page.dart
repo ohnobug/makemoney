@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:video_player/video_player.dart';
 import 'package:vigaviga/screens/arts/widgets/viga_video_info.dart';
 import 'package:vigaviga/screens/arts/widgets/viga_art_info.dart';
@@ -502,8 +503,7 @@ class _VigaArtsPageState extends State<VigaArtsPage>
                               top: 15.w + systemState.statusHeight,
                               right: 28.w,
                               child: GestureDetector(
-                                onTap: () => Navigator.pushNamed(
-                                  context,
+                                onTap: () => context.push(
                                   '/discovery/search',
                                 ),
                                 child: Container(

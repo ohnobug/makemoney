@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/viga_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,9 +15,11 @@ class VigaSetPasswordPage extends StatefulWidget {
 
 class _VigaSetPasswordPageState extends State<VigaSetPasswordPage> {
   // 为需要获取其值的输入框创建 Controller
-  final TextEditingController originPasswordController = TextEditingController();
+  final TextEditingController originPasswordController =
+      TextEditingController();
   final TextEditingController newPasswordController = TextEditingController();
-  final TextEditingController confirmPasswordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   @override
   void dispose() {
@@ -104,8 +107,7 @@ class _VigaSetPasswordPageState extends State<VigaSetPasswordPage> {
               SizedBox(height: 10.h),
               InkWell(
                 onTap: () {
-                  // TODO: 实现忘记密码逻辑
-                  Navigator.pushNamed(context, '/user/auth/forgot_password');
+                  context.push('/user/auth/forgot_password');
                 },
                 child: Text(
                   l10n.forgotOriginalPassword,
@@ -222,19 +224,20 @@ class _FormInputRowState extends State<_FormInputRow> {
           borderSide: BorderSide(color: Colors.grey),
         ),
         // 根据输入框是否有内容，动态显示或隐藏清除按钮
-        suffixIcon: widget.controller != null && widget.controller!.text.isNotEmpty
-            ? IconButton(
-                icon: const Icon(
-                  Icons.cancel,
-                  color: Colors.grey,
-                  size: 20, // 调整图标大小
-                ),
-                onPressed: () {
-                  // 点击时清空文本
-                  widget.controller!.clear();
-                },
-              )
-            : null, // 如果没有文本则不显示图标
+        suffixIcon:
+            widget.controller != null && widget.controller!.text.isNotEmpty
+                ? IconButton(
+                    icon: const Icon(
+                      Icons.cancel,
+                      color: Colors.grey,
+                      size: 20, // 调整图标大小
+                    ),
+                    onPressed: () {
+                      // 点击时清空文本
+                      widget.controller!.clear();
+                    },
+                  )
+                : null, // 如果没有文本则不显示图标
       ),
       onTapOutside: (_) => FocusScope.of(context).unfocus(),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/api_manager/api.dart';
 import 'package:vigaviga/widgets/viga_appbar_inner.dart';
 import 'package:vigaviga/widgets/viga_cloud_animation.dart';
@@ -106,8 +107,6 @@ class _VigaRecentChatsListPage extends State<VigaRecentChatsListPage>
   double statusHeight = 0;
   double _homescrollpixels = 0;
 
-  
-  
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<VigaSystemCubit, SystemState>(
@@ -351,7 +350,7 @@ class _VigaRecentChatsListPage extends State<VigaRecentChatsListPage>
                               const IconData(0xe608, fontFamily: 'Iconfont'),
                           onTap: () {
                             if (_homescrollpixels == 0) {
-                              Navigator.pushNamed(context, '/contact');
+                              context.push('/contact');
                             }
                           },
                         ),

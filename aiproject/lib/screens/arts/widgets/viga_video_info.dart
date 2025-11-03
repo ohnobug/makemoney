@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/tools/viga_logger.dart';
 import 'package:vigaviga/tools/viga_tools.dart';
@@ -40,7 +41,7 @@ class VigaVideoInfoSectionState extends State<VigaVideoInfoSection>
         children: [
           GestureDetector(
             onTap: () {
-              Navigator.pushNamed(context, '/author/detail', arguments: {
+              context.push('/author/detail', extra: {
                 'author_id': widget.userName,
                 'author_name': widget.userName,
                 'author_avatar': widget.avatarUrl,
