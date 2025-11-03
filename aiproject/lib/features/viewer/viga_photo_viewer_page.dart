@@ -276,7 +276,6 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.transparent,
-<<<<<<< .mine
       body: AnimatedBuilder(
         animation: _backgroundAnimationController,
         builder: (context, child) {
@@ -345,108 +344,15 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
                         scale: currentZoomScale,
                         alignment: Alignment.center,
                         child: child,
-
-
-
-
-=======
-      body: AnimatedBuilder(
-        animation: _backgroundAnimationController,
-        builder: (context, child) {
-          return Stack(
-            children: [
-              // 背景颜色从透明到黑色过渡
-              Container(
-                color: Color.fromRGBO(
-                  0,
-                  0,
-                  0,
-                  _backgroundAnimationController.value.clamp(0.0, 1.0),
-                ),
-              ),
-              Listener(
-                onPointerDown: (_) => setState(() => _pointerCount++),
-                onPointerUp: (_) => setState(() => _pointerCount = 0),
-                child: GestureDetector(
-                  onTapUp: (details) {
-                    if (_currentState == ViewerState.animating) return;
-
-                    // 在 idle 状态下，任何单击都应立即关闭
-                    if (_currentState == ViewerState.idle) {
-                      context.pop();
-                      return;
-                    }
-
-                    // 在 zooming 状态下，单击图片恢复
-                    if (_currentState == ViewerState.zooming) {
-                      _runZoomAnimation(
-                        toScale: 1.0,
-                        toOffset: Offset.zero,
-                        finalState: ViewerState.idle,
-                      );
-                    }
-                  },
-                  onDoubleTapDown: (details) {
-                    _doubleTapDetails = details;
-                  },
-                  onDoubleTap: _onDoubleTap,
-                  onScaleStart: _onScaleStart,
-                  onScaleUpdate: _onScaleUpdate,
-                  onScaleEnd: _onScaleEnd,
-                  child: AnimatedBuilder(
-                    animation: Listenable.merge(
-                        [_dragAnimationController, _zoomAnimationController]),
-                    builder: (context, child) {
-                      final currentDragOffset = _dragAnimationController.isAnimating
-                          ? _dragAnimationOffset.value
-                          : _dragOffset;
-                      final currentDragScale = _dragAnimationController.isAnimating
-                          ? _dragAnimationScale.value
-                          : _dragScale;
-                      final currentZoomOffset = _zoomAnimationController.isAnimating
-                          ? _zoomAnimationOffset.value
-                          : _zoomOffset;
-                      final currentZoomScale = _zoomAnimationController.isAnimating
-                          ? _zoomAnimationScale.value
-                          : _zoomScale;
-                      return Transform.translate(
-                        offset: currentDragOffset,
-                        child: Transform.scale(
-                          scale: currentDragScale,
-                          child: Transform.translate(
-                            offset: currentZoomOffset,
-                            child: Transform.scale(
-                              scale: currentZoomScale,
-                              alignment: Alignment.center,
-                              child: child,
-                            ),
-                          ),
-                        ),
->>>>>>> .theirs
-<<<<<<< .mine
                       ),
                     ),
                   ),
                 );
               },
               child: _buildPageView(),
-=======
-                      );
-                    },
-                    child: _buildPageView(),
-                  ),
-                ),
-              ),
->>>>>>> .theirs
-<<<<<<< .mine
             ),
           ),
         ),
-=======
-            ],
-          );
-        },
->>>>>>> .theirs
       ),
     );
   }
@@ -481,59 +387,12 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
               },
             );
 
-<<<<<<< .mine
             final heroTag = '${widget.heroTagPrefix ?? ''}_$imageUrl';
 
             return Hero(
               tag: heroTag,
               child: imageWidget,
             );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-=======
-            // 始终使用Hero动画，确保平滑过渡
-            return Hero(
-              tag: widget.imageSources[index],
-              flightShuttleBuilder: (
-                flightContext,
-                animation,
-                flightDirection,
-                fromHeroContext,
-                toHeroContext,
-              ) {
-                final toHero = toHeroContext.widget as Hero;
-                if (flightDirection == HeroFlightDirection.pop) {
-                  // 返回时使用原始尺寸
-                  return Image.network(
-                    widget.imageSources[index],
-                    width: widget.initialRect.width,
-                    height: widget.initialRect.height,
-                    fit: BoxFit.cover,
-                  );
-                }
-                // 进入时使用全屏尺寸
-                return toHero.child;
-              },
-              child: imageWidget,
-            );
->>>>>>> .theirs
           },
         ),
         Positioned(
