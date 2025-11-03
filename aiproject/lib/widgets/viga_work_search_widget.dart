@@ -1,8 +1,8 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/widgets/viga_app_network_image.dart';
-import 'package:vigaviga/features/viewer/viga_photo_viewer_page.dart';
 
 // 作品数据模型
 class WorkItem {
@@ -594,26 +594,11 @@ class _VigaWorkSearchWidgetState extends State<VigaWorkSearchWidget>
   void _defaultWorkTap(WorkItem workItem, int index, List<WorkItem> results) {
     final imageUrls = results.map((item) => item.imageUrl).toList();
 
-    Navigator.push(
-      context,
-      PageRouteBuilder(
-        opaque: false,
-        barrierColor: Colors.transparent,
-        pageBuilder: (context, animation, secondaryAnimation) {
-          return VigaPhotoViewerPage(
-            imageSources: imageUrls,
-            initialIndex: index,
-            initialRect: Rect.zero,
-          );
-        },
-        transitionsBuilder: (context, animation, secondaryAnimation, child) {
-          return FadeTransition(
-            opacity: animation,
-            child: child,
-          );
-        },
-      ),
-    );
+    context.push('/photo_viewer', extra: {
+      'imageSources': imageUrls,
+      'initialIndex': index,
+      'initialRect': Rect.zero,
+    });
   }
 
   void _showFilterDialog() {
@@ -628,7 +613,7 @@ class _VigaWorkSearchWidgetState extends State<VigaWorkSearchWidget>
               title: Text('按时间排序'),
               leading: Icon(Icons.access_time),
               onTap: () {
-                Navigator.pop(context);
+                context.pop();
                 _sortByDate(_getCurrentSource().id);
               },
             ),
@@ -636,7 +621,7 @@ class _VigaWorkSearchWidgetState extends State<VigaWorkSearchWidget>
               title: Text('按热度排序'),
               leading: Icon(Icons.local_fire_department),
               onTap: () {
-                Navigator.pop(context);
+                context.pop();
                 _sortByPopularity();
               },
             ),
@@ -644,7 +629,7 @@ class _VigaWorkSearchWidgetState extends State<VigaWorkSearchWidget>
               title: Text('只看原创'),
               leading: Icon(Icons.verified),
               onTap: () {
-                Navigator.pop(context);
+                context.pop();
                 _filterOriginal();
               },
             ),
@@ -652,7 +637,7 @@ class _VigaWorkSearchWidgetState extends State<VigaWorkSearchWidget>
         ),
         actions: [
           TextButton(
-            onPressed: () => Navigator.pop(context),
+            onPressed: () => context.pop(),
             child: Text('取消'),
           ),
         ],

@@ -73,7 +73,7 @@ class _VigaInputButtonState extends State<VigaInputButton> {
 
           if (context.mounted) {
             if (widget.link == 'back') {
-              Navigator.of(context).pop();
+              context.pop();
             } else if (widget.link != null) {
               context.push(widget.link!);
             }

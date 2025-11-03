@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/widgets/viga_appbar.dart';
+
 class VigaVerifyEmailScreen extends StatelessWidget {
   const VigaVerifyEmailScreen({super.key});
 
@@ -62,8 +64,8 @@ class VigaVerifyEmailScreen extends StatelessWidget {
                     TextButton(
                       onPressed: () {
                         // 在此处添加"修改邮箱"的逻辑
-                        if (Navigator.of(context).canPop()) {
-                          Navigator.of(context).pop();
+                        if (context.canPop()) {
+                          context.pop();
                         }
                       },
                       child: const Text(

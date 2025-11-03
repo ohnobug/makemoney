@@ -6,12 +6,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/store/viga_system_cubit.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/tools/viga_logger.dart';
 import 'package:vigaviga/widgets/viga_page_loading.dart';
 import 'package:vigaviga/widgets/viga_app_network_image.dart';
-import 'package:vigaviga/screens/discovery/search/viga_home_search_results_page.dart';
 
 // 作品数据模型
 class WorkItem {
@@ -266,7 +266,7 @@ class _VigaAuthorDetailPageState extends State<VigaAuthorDetailPage>
                     0xe628,
                     fontFamily: 'Iconfont',
                   ),
-                  onTap: () => Navigator.pop(context),
+                  onTap: () => context.pop(),
                 ),
               ],
             ),
@@ -431,17 +431,12 @@ class _VigaAuthorDetailPageState extends State<VigaAuthorDetailPage>
   void _navigateToAuthorSearchPage(BuildContext context) {
     final workUrls = _works.map((workItem) => workItem.imageUrl).toList();
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => VigaHomeSearchResultsPage(
-          initialSearchType: 'author_search',
-          works: workUrls,
-          collections: [],
-          praised: [],
-        ),
-      ),
-    );
+    context.push('/home_search_results', extra: {
+      'initialSearchType': 'author_search',
+      'works': workUrls,
+      'collections': [],
+      'praised': [],
+    });
   }
 }
 

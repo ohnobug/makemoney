@@ -36,7 +36,7 @@ class VigaVideoPublishPage extends State<VigaVideoPublishPageState> {
           icon: Icon(Icons.arrow_back_ios,
               color: theme.colorScheme.onSurface, size: 40.w), // 20 * 2
           onPressed: () {
-            Navigator.of(context).pop();
+            context.pop();
           },
         ),
         title: Text(
@@ -255,7 +255,7 @@ class VigaVideoPublishPage extends State<VigaVideoPublishPageState> {
                           children: [
                             InkWell(
                               onTap: () {
-                                context.push('/locationPage');
+                                context.push('/location_page');
                               },
                               borderRadius: BorderRadius.circular(12.w),
                               child: Padding(
@@ -691,7 +691,7 @@ class VigaVideoPublishPage extends State<VigaVideoPublishPageState> {
         setState(() {
           _selectedVisibility = title;
         });
-        Navigator.pop(context);
+        context.pop();
       },
       borderRadius: BorderRadius.circular(12.w),
       child: Container(

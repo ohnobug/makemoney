@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/widgets/viga_app_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -88,7 +89,7 @@ class _VigaDial extends State<VigaDialPage> {
                   title: "",
                   leading: GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pop();
+                      context.pop();
                     },
                     child: Container(
                       color: Colors.transparent,
@@ -202,7 +203,7 @@ class _VigaDial extends State<VigaDialPage> {
                             await Future.delayed(Duration(milliseconds: 600),
                                 () {
                               if (context.mounted) {
-                                Navigator.of(context).pop();
+                                context.pop();
                               }
                             });
                           },

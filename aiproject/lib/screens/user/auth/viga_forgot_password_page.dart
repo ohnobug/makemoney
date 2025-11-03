@@ -95,7 +95,7 @@ class _VigaForgotPasswordPageState extends State<VigaForgotPasswordPage> {
     userCubit.updateAuthToken('token_${DateTime.now().millisecondsSinceEpoch}');
 
     logger.info("密码重置成功");
-    Navigator.pop(context);
+    context.pop();
   }
 
   Widget _buildCurrentStep() {
@@ -172,7 +172,7 @@ class _VigaForgotPasswordPageState extends State<VigaForgotPasswordPage> {
           left: 0,
           child: GestureDetector(
             onTap: () {
-              Navigator.of(context).pop();
+              context.pop();
             },
             child: Container(
               width: 80.w,

@@ -293,7 +293,7 @@
 //                               await Future.delayed(Duration(milliseconds: 600),
 //                                   () {
 //                                 if (context.mounted) {
-//                                   Navigator.of(context).pop();
+//                                   context.pop();
 //                                 }
 //                               });
 //                             },

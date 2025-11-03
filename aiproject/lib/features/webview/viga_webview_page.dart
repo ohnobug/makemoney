@@ -55,7 +55,7 @@ class _VigaWebViewPageState extends State<VigaWebViewPage> {
                         ),
                       ),
                       child: GestureDetector(
-                        onTap: () => Navigator.of(context).pop(),
+                        onTap: () => context.pop(),
                         child: Container(
                           color: Colors.transparent,
                           child: Icon(
@@ -103,7 +103,7 @@ class _VigaWebViewPageState extends State<VigaWebViewPage> {
                       ),
                     ),
                     child: GestureDetector(
-                      onTap: () => Navigator.of(context).pop(),
+                      onTap: () => context.pop(),
                       child: Container(
                         color: Colors.transparent,
                         child: Icon(
@@ -306,7 +306,7 @@ class _VigaWebViewPageState extends State<VigaWebViewPage> {
                     ),
                   ),
                   child: GestureDetector(
-                    onTap: () => Navigator.of(context).pop(),
+                    onTap: () => context.pop(),
                     child: Container(
                       color: Colors.transparent,
                       child: Icon(

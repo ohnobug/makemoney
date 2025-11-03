@@ -235,7 +235,7 @@ class _VigaArtsPageState extends State<VigaArtsPage>
           children: [
             Positioned.fill(
               child: GestureDetector(
-                onTap: () => Navigator.of(modalContext).pop(),
+                onTap: () => modalContext.pop(),
                 child: Container(color: Colors.transparent),
               ),
             ),
@@ -252,7 +252,7 @@ class _VigaArtsPageState extends State<VigaArtsPage>
                     builder: (context, systemState) {
                   return VigaCommentPanel(
                     comments: _comments,
-                    onClose: () => Navigator.pop(context),
+                    onClose: () => context.pop(),
                     showInput: true,
                     scrollController: scrollController,
                     systemState: systemState,
@@ -362,7 +362,7 @@ class _VigaArtsPageState extends State<VigaArtsPage>
               const SizedBox(height: 20),
               ElevatedButton(
                 child: const Text('关闭'),
-                onPressed: () => Navigator.pop(context),
+                onPressed: () => context.pop(),
               )
             ],
           ),

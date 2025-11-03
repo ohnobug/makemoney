@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../../features/viewer/viga_photo_viewer_page.dart';
+import 'package:go_router/go_router.dart';
 
 class VigaPhotoGridPage extends StatefulWidget {
   const VigaPhotoGridPage({super.key});
@@ -49,30 +49,13 @@ class _VigaPhotoGridPageState extends State<VigaPhotoGridPage> {
               final initialRect = Rect.fromLTWH(
                   position.dx, position.dy, size.width, size.height);
 
-              Navigator.push(
-                context,
-                PageRouteBuilder(
-                  // 核心：页面本身不绘制背景，让路由的过渡动画处理
-                  opaque: false,
-                  barrierColor: Colors.transparent,
-                  pageBuilder: (context, animation, secondaryAnimation) {
-                    return VigaPhotoViewerPage(
-                      imageSources: imageSources,
-                      initialIndex: index,
-                      initialRect: initialRect, // 传递精确的初始位置
-                    );
-                  },
-                  // 使用路由自带的动画来实现背景的淡入淡出，这是最稳定可靠的方式
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) {
-                    // animation 由路由管理, push时 0->1, pop时 1->0
-                    // 我们用它来包裹整个查看器页面，实现完美的淡入淡出
-                    return FadeTransition(
-                      opacity: animation,
-                      child: child,
-                    );
-                  },
-                ),
+              context.push(
+                '/photo_viewer',
+                extra: {
+                  'imageSources': imageSources,
+                  'initialIndex': index,
+                  'initialRect': initialRect,
+                },
               );
             },
             child: Hero(

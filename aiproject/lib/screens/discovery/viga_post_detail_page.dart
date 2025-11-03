@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/widgets/viga_app_network_image.dart';
 import 'package:vigaviga/widgets/viga_comment_panel.dart';
 
@@ -32,7 +33,6 @@ class PostDetailData {
     this.isFollowed = false,
   });
 }
-
 
 // 主页面 Widget
 class VigaPostDetailPage extends StatefulWidget {
@@ -94,7 +94,8 @@ class _VigaPostDetailPageState extends State<VigaPostDetailPage> {
         timestamp: '昨天 23:04',
         location: '广东',
         likes: 8,
-        imageUrl: 'https://images.pexels.com/photos/162031/dubai-tower-arab-khalifa-162031.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
+        imageUrl:
+            'https://images.pexels.com/photos/162031/dubai-tower-arab-khalifa-162031.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
       ),
       CommentData(
         username: '烟熏威士忌',
@@ -129,7 +130,8 @@ class _VigaPostDetailPageState extends State<VigaPostDetailPage> {
     final newComments = [
       CommentData(
         username: '用户${_comments.length + 1}',
-        avatarUrl: 'https://picsum.photos/seed/user${_comments.length + 1}/100/100',
+        avatarUrl:
+            'https://picsum.photos/seed/user${_comments.length + 1}/100/100',
         content: '这是第${_comments.length + 1}条评论，测试异步加载功能',
         timestamp: '刚刚',
         location: '北京',
@@ -137,7 +139,8 @@ class _VigaPostDetailPageState extends State<VigaPostDetailPage> {
       ),
       CommentData(
         username: '用户${_comments.length + 2}',
-        avatarUrl: 'https://picsum.photos/seed/user${_comments.length + 2}/100/100',
+        avatarUrl:
+            'https://picsum.photos/seed/user${_comments.length + 2}/100/100',
         content: '这是第${_comments.length + 2}条评论，测试异步加载功能',
         timestamp: '刚刚',
         location: '上海',
@@ -172,7 +175,7 @@ class _VigaPostDetailPageState extends State<VigaPostDetailPage> {
       elevation: 0,
       leading: IconButton(
         icon: const Icon(Icons.arrow_back_ios, color: Colors.black, size: 20),
-        onPressed: () => Navigator.of(context).pop(),
+        onPressed: () => context.pop(),
       ),
       title: Row(
         children: [
@@ -202,8 +205,11 @@ class _VigaPostDetailPageState extends State<VigaPostDetailPage> {
               });
             },
             style: TextButton.styleFrom(
-              foregroundColor: widget.postData.isFollowed ? Colors.grey : Colors.red,
-              backgroundColor: widget.postData.isFollowed ? Colors.grey.shade200 : Colors.red.shade50,
+              foregroundColor:
+                  widget.postData.isFollowed ? Colors.grey : Colors.red,
+              backgroundColor: widget.postData.isFollowed
+                  ? Colors.grey.shade200
+                  : Colors.red.shade50,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
@@ -324,13 +330,15 @@ class _VigaPostDetailPageState extends State<VigaPostDetailPage> {
         Wrap(
           spacing: 8.0,
           runSpacing: 4.0,
-          children: widget.postData.tags.map((tag) => Text(
-            tag,
-            style: TextStyle(
-              color: Colors.blue.shade700,
-              fontSize: 15,
-            ),
-          )).toList(),
+          children: widget.postData.tags
+              .map((tag) => Text(
+                    tag,
+                    style: TextStyle(
+                      color: Colors.blue.shade700,
+                      fontSize: 15,
+                    ),
+                  ))
+              .toList(),
         ),
         const SizedBox(height: 10),
         Text(
@@ -363,12 +371,14 @@ class _VigaPostDetailPageState extends State<VigaPostDetailPage> {
           children: [
             const CircleAvatar(
               radius: 16,
-              backgroundImage: NetworkImage('https://picsum.photos/seed/myuser/100/100'),
+              backgroundImage:
+                  NetworkImage('https://picsum.photos/seed/myuser/100/100'),
             ),
             const SizedBox(width: 12),
             Expanded(
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 decoration: BoxDecoration(
                   color: Colors.grey.shade100,
                   borderRadius: BorderRadius.circular(20),
@@ -384,7 +394,8 @@ class _VigaPostDetailPageState extends State<VigaPostDetailPage> {
         const SizedBox(height: 20),
         // 在详情页直接显示评论列表，跟随页面滚动
         Column(
-          children: _comments.map((comment) => _buildCommentItem(comment)).toList(),
+          children:
+              _comments.map((comment) => _buildCommentItem(comment)).toList(),
         ),
       ],
     );
@@ -468,7 +479,6 @@ class _VigaPostDetailPageState extends State<VigaPostDetailPage> {
     );
   }
 
-
   // 构建底部操作栏
   Widget _buildBottomActionBar() {
     return Container(
@@ -487,7 +497,8 @@ class _VigaPostDetailPageState extends State<VigaPostDetailPage> {
           children: [
             Expanded(
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                 decoration: BoxDecoration(
                   color: Colors.grey.shade100,
                   borderRadius: BorderRadius.circular(20),
@@ -498,9 +509,12 @@ class _VigaPostDetailPageState extends State<VigaPostDetailPage> {
                 ),
               ),
             ),
-            _buildActionBarIcon(Icons.favorite_border, widget.postData.likes.toString()),
-            _buildActionBarIcon(Icons.star_border, widget.postData.favorites.toString()),
-            _buildActionBarIcon(Icons.chat_bubble_outline, widget.postData.comments.toString()),
+            _buildActionBarIcon(
+                Icons.favorite_border, widget.postData.likes.toString()),
+            _buildActionBarIcon(
+                Icons.star_border, widget.postData.favorites.toString()),
+            _buildActionBarIcon(
+                Icons.chat_bubble_outline, widget.postData.comments.toString()),
           ],
         ),
       ),

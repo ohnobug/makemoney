@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/store/viga_payment_cubit.dart';
 import 'viga_custom_numpad.dart';
 import 'viga_pincode_field.dart';
@@ -10,7 +11,8 @@ class VigaPasswordInputDialog extends StatefulWidget {
   const VigaPasswordInputDialog({super.key});
 
   @override
-  State<VigaPasswordInputDialog> createState() => _VigaPasswordInputDialogState();
+  State<VigaPasswordInputDialog> createState() =>
+      _VigaPasswordInputDialogState();
 }
 
 class _VigaPasswordInputDialogState extends State<VigaPasswordInputDialog> {
@@ -36,9 +38,9 @@ class _VigaPasswordInputDialogState extends State<VigaPasswordInputDialog> {
       listener: (context, state) {
         if (state.status == VigaPaymentStatus.success) {
           // 先关闭对话框，然后导航到成功页面
-          Navigator.of(context).pop();
+          context.pop();
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            Navigator.of(context).pushNamed('/payment_alipay_success');
+            context.push('/payment_alipay_success');
           });
         } else if (state.status == VigaPaymentStatus.failed) {
           Fluttertoast.showToast(msg: state.errorMessage ?? "發生未知錯誤");
@@ -69,7 +71,7 @@ class _VigaPasswordInputDialogState extends State<VigaPasswordInputDialog> {
                         children: [
                           IconButton(
                               icon: const Icon(Icons.close),
-                              onPressed: () => Navigator.pop(context)),
+                              onPressed: () => context.pop()),
                           const Spacer(),
                           Text("请输入支付密码", style: theme.textTheme.titleMedium),
                           const Spacer(),

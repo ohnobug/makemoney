@@ -90,7 +90,7 @@ class _VigaChangePhoneNumberScreenState
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.close, color: kPrimaryTextColor),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => context.pop(),
         ),
       ),
       body: Padding(

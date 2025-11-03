@@ -9,9 +9,7 @@ import 'package:vigaviga/tools/viga_logger.dart';
 class VigaSystemCubit extends Cubit<SystemState> {
   VigaSystemCubit()
       : super(
-          SystemState(
-            navigatorKey: GlobalKey<NavigatorState>(),
-          ),
+          SystemState(),
         );
 
   void updateContactazshow(bool contactazshow) {
@@ -62,10 +60,6 @@ class VigaSystemCubit extends Cubit<SystemState> {
     emit(state.copyWith(themeMode: themeMode));
   }
 
-  void updateNavigatorKey(GlobalKey<NavigatorState> key) {
-    emit(state.copyWith(navigatorKey: key));
-  }
-
   void updateLanguage(String language) {
     logger.info("Updating language to: $language");
     emit(state.copyWith(currentLocale: Locale(language)));
@@ -98,7 +92,6 @@ class SystemState extends Equatable {
   final bool? mainpage3isload;
   final bool? mainpage4isload;
   final bool? mainpage5isload;
-  final GlobalKey<NavigatorState> navigatorKey;
   final Size screenSize;
   final double appbarHeight;
   final double statusHeight;
@@ -126,7 +119,6 @@ class SystemState extends Equatable {
     this.showHomeTabbar = true,
     this.currentLocale = const Locale('en'),
     this.themeMode = ThemeMode.system,
-    required this.navigatorKey,
     this.videoProgress = 0.0,
     this.showVideoProgress = false,
     this.videoProgressBottomOffset = 0.0,
@@ -148,7 +140,6 @@ class SystemState extends Equatable {
     bool? showHomeTabbar,
     ThemeMode? themeMode,
     Locale? currentLocale,
-    GlobalKey<NavigatorState>? navigatorKey,
     double? videoProgress,
     bool? showVideoProgress,
     double? videoProgressBottomOffset,
@@ -167,11 +158,11 @@ class SystemState extends Equatable {
       mainpage5isload: mainpage5isload ?? this.mainpage5isload,
       screenSize: screenSize ?? this.screenSize,
       statusHeight: statusHeight ?? this.statusHeight,
-      bottomNavigationBarHeight: bottomNavigationBarHeight ?? this.bottomNavigationBarHeight,
+      bottomNavigationBarHeight:
+          bottomNavigationBarHeight ?? this.bottomNavigationBarHeight,
       appbarHeight: appbarHeight ?? this.appbarHeight,
       showHomeTabbar: showHomeTabbar ?? this.showHomeTabbar,
       themeMode: themeMode ?? this.themeMode,
-      navigatorKey: navigatorKey ?? this.navigatorKey,
       currentLocale: currentLocale ?? this.currentLocale,
       videoProgress: videoProgress ?? this.videoProgress,
       showVideoProgress: showVideoProgress ?? this.showVideoProgress,
@@ -190,7 +181,6 @@ class SystemState extends Equatable {
         mainpage3isload,
         mainpage4isload,
         mainpage5isload,
-        navigatorKey,
         screenSize,
         statusHeight,
         appbarHeight,

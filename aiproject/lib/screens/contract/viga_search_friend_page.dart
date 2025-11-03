@@ -167,7 +167,7 @@ class _VigaSearchFriend extends State<VigaSearchFriendPage> {
                     ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.of(context).pop();
+                        context.pop();
                       },
                       child: Container(
                         alignment: Alignment.center,

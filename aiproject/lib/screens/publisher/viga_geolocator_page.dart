@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/themes.dart';
 
 class LocationItem {
@@ -130,10 +131,13 @@ class _VigaGeolocatorPageState extends State<VigaGeolocatorPage> {
             statusBarBrightness: Brightness.light,
           ),
           leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios,
-                color: theme.colorScheme.onSurface, size: 40.0.w), // 20 * 2
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: theme.colorScheme.onSurface,
+              size: 40.0.w,
+            ),
             onPressed: () {
-              Navigator.pop(context);
+              context.pop();
             },
           ),
           title: Text(
@@ -170,7 +174,8 @@ class _VigaGeolocatorPageState extends State<VigaGeolocatorPage> {
         tabAlignment: TabAlignment.start,
         onTap: _onTabTapped,
         indicator: UnderlineTabIndicator(
-          borderSide: BorderSide(width: 6.0.w, color: theme.colorScheme.primary), // 3 * 2
+          borderSide: BorderSide(
+              width: 6.0.w, color: theme.colorScheme.primary), // 3 * 2
           insets: EdgeInsets.only(bottom: 10.0.w), // 5 * 2
           borderRadius: BorderRadius.all(Radius.circular(6.0.w)), // 3 * 2
         ),
@@ -185,7 +190,9 @@ class _VigaGeolocatorPageState extends State<VigaGeolocatorPage> {
             child: Text(
               city,
               style: TextStyle(
-                color: isSelected ? theme.colorScheme.primary : theme.colorScheme.onSurfaceVariant,
+                color: isSelected
+                    ? theme.colorScheme.primary
+                    : theme.colorScheme.onSurfaceVariant,
                 fontSize: 36.0.w, // 18 * 2
                 fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
               ),
@@ -305,7 +312,8 @@ class _VigaGeolocatorPageState extends State<VigaGeolocatorPage> {
           Container(
             padding: EdgeInsets.all(12.w),
             decoration: BoxDecoration(
-              color: AppColors.brandGreenVibrant5.withAlpha((0.1 * 255).toInt()),
+              color:
+                  AppColors.brandGreenVibrant5.withAlpha((0.1 * 255).toInt()),
               borderRadius: BorderRadius.circular(12.w),
             ),
             child: Icon(
@@ -396,7 +404,8 @@ class _VigaGeolocatorPageState extends State<VigaGeolocatorPage> {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.w),
                 decoration: BoxDecoration(
-                  color: theme.colorScheme.primaryContainer.withAlpha((0.3 * 255).toInt()),
+                  color: theme.colorScheme.primaryContainer
+                      .withAlpha((0.3 * 255).toInt()),
                   borderRadius: BorderRadius.circular(16.w),
                 ),
                 child: Text(

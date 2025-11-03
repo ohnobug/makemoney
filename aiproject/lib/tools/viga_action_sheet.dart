@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/widgets/viga_max_width_button.dart';
 
@@ -92,7 +93,7 @@ class __VigaActionSheetWidgetState extends State<_VigaActionSheetWidget>
     }
     _animationController.reverse().then((_) {
       if (mounted) {
-        Navigator.of(context).pop();
+        context.pop();
         afterAnimation();
       }
     });

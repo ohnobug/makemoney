@@ -80,7 +80,7 @@ class _VigaAiPublisherPageState extends State<VigaAiPublisherPage> {
             color: theme.colorScheme.onSurface,
             size: 40.w,
           ),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => context.pop(),
         ),
       ),
       body: SingleChildScrollView(

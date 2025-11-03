@@ -3,7 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
-import 'package:flutter/foundation.dart' as foundation; // ✨ [ADDED] 用于平台检查
+import 'package:flutter/foundation.dart' as foundation;
+import 'package:go_router/go_router.dart'; // ✨ [ADDED] 用于平台检查
 
 class VigaCommentInputPage extends StatefulWidget {
   final String? initialText;
@@ -60,7 +61,8 @@ class _VigaCommentInputPageState extends State<VigaCommentInputPage>
     });
 
     _panelAnimationController.addStatusListener((status) {
-      if (status == AnimationStatus.completed || status == AnimationStatus.dismissed) {
+      if (status == AnimationStatus.completed ||
+          status == AnimationStatus.dismissed) {
         setState(() {
           _isAnimating = false;
         });
@@ -86,7 +88,9 @@ class _VigaCommentInputPageState extends State<VigaCommentInputPage>
 
     final keyboardHeight = MediaQuery.of(context).viewInsets.bottom;
     // 使用历史键盘高度最大值作为起始高度
-    final startHeight = _maxKeyboardHeight > 0 ? _maxKeyboardHeight : (keyboardHeight > 0 ? keyboardHeight : 0.0);
+    final startHeight = _maxKeyboardHeight > 0
+        ? _maxKeyboardHeight
+        : (keyboardHeight > 0 ? keyboardHeight : 0.0);
     final targetHeight = defaultEmojiPanelHeight.w;
 
     setState(() {
@@ -173,7 +177,7 @@ class _VigaCommentInputPageState extends State<VigaCommentInputPage>
     if (comment.isNotEmpty) {
       widget.onCommentSubmitted?.call(comment);
     }
-    Navigator.of(context).pop();
+    context.pop();
   }
 
   @override
@@ -210,7 +214,7 @@ class _VigaCommentInputPageState extends State<VigaCommentInputPage>
         backgroundColor: Colors.transparent,
         resizeToAvoidBottomInset: false,
         body: GestureDetector(
-          onTap: () => Navigator.of(context).pop(),
+          onTap: () => context.pop(),
           child: Container(
             color: Colors.black.withAlpha(128),
             child: Column(
@@ -229,7 +233,9 @@ class _VigaCommentInputPageState extends State<VigaCommentInputPage>
                       // 底部垫高
                       Expanded(
                         child: Container(
-                          color: _isEmojiPanelVisible ? Colors.white : Colors.transparent,
+                          color: _isEmojiPanelVisible
+                              ? Colors.white
+                              : Colors.transparent,
                         ),
                       ),
                     ],

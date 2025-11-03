@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/viga_add_button.dart';
@@ -12,7 +13,8 @@ class VigaBindNewPhoneNumberPage extends StatefulWidget {
   const VigaBindNewPhoneNumberPage({super.key});
 
   @override
-  State<VigaBindNewPhoneNumberPage> createState() => _VigaBindNewPhoneNumberPage();
+  State<VigaBindNewPhoneNumberPage> createState() =>
+      _VigaBindNewPhoneNumberPage();
 }
 
 class _VigaBindNewPhoneNumberPage extends State<VigaBindNewPhoneNumberPage> {
@@ -131,7 +133,7 @@ class _VigaBindNewPhoneNumberPage extends State<VigaBindNewPhoneNumberPage> {
                                     actions: [
                                       TextButton(
                                         onPressed: () {
-                                          Navigator.of(context).pop();
+                                          context.pop();
                                         },
                                         child: Text(
                                           l10n.confirm,

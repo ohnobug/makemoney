@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/viga_appbar.dart';
@@ -202,7 +203,7 @@ class _VigaComplainState extends State<VigaComplainPage> {
       // 延迟返回上一页
       Future.delayed(const Duration(seconds: 2), () {
         if (mounted) {
-          Navigator.of(context).pop();
+          context.pop();
         }
       });
     }

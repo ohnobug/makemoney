@@ -2,6 +2,7 @@ import "dart:math" as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/tools/viga_logger.dart';
@@ -102,8 +103,8 @@ class _VigaQRCodeScannerState extends State<VigaQRCodeScanner> {
 
         if (barcodes.length == 1) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            openMiniprogram(
-                context, "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
+            openMiniprogram(context,
+                "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
           });
         }
       }
@@ -378,7 +379,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                     width: 50.w,
                     height: 50.w,
                     child: GestureDetector(
-                      onTap: () => Navigator.of(context).pop(), // 点击事件
+                      onTap: () => context.pop(), // 点击事件
                       child: Icon(
                         const IconData(
                           0xe601,
@@ -397,7 +398,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                     width: 50.w,
                     height: 50.w,
                     child: GestureDetector(
-                      onTap: () => Navigator.of(context).pop(), // 点击事件
+                      onTap: () => context.pop(), // 点击事件
                       child: Icon(
                         const IconData(
                           0xe659,
@@ -533,7 +534,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                               shape: BoxShape.circle,
                             ),
                             child: GestureDetector(
-                              onTap: () => Navigator.of(context).pop(),
+                              onTap: () => context.pop(),
                               child: Icon(
                                 const IconData(
                                   0xe64b,
@@ -637,7 +638,7 @@ class _ButtonAndScanBarWidgetState extends State<ButtonAndScanBarWidget>
                               shape: BoxShape.circle,
                             ),
                             child: GestureDetector(
-                              onTap: () => Navigator.of(context).pop(),
+                              onTap: () => context.pop(),
                               child: Icon(
                                 const IconData(
                                   0xe6e5,

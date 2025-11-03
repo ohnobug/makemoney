@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:azlistview/azlistview.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lpinyin/lpinyin.dart';
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,11 +9,11 @@ import 'package:vigaviga/tools/viga_logger.dart';
 
 /// 数据模型 (保持不变)
 class CountryInfo extends ISuspensionBean {
-  String name;        // 中文名 (或当前语言名称)
+  String name; // 中文名 (或当前语言名称)
   String englishName; // 英文名
-  String code;        // 国际电话区号
-  String isoCode;     // ISO 3166-1 alpha-2 代码
-  late String tag;   // 首字母索引标签
+  String code; // 国际电话区号
+  String isoCode; // ISO 3166-1 alpha-2 代码
+  late String tag; // 首字母索引标签
 
   CountryInfo({
     required this.name,
@@ -86,7 +87,7 @@ class _SelectCountryPageState extends State<VigaSelectCountryPage> {
   void _processDataWithLocalization() {
     final locale = Localizations.localeOf(context);
     final isChinese = locale.languageCode == 'zh';
-    
+
     // 获取 country_code_picker 的本地化实例
     // final countryLocalizations = CountryLocalizations.of(context);
 
@@ -97,7 +98,7 @@ class _SelectCountryPageState extends State<VigaSelectCountryPage> {
 
       // 根据当前语言环境，选择用于生成Tag的名称
       String nameForTag = isChinese ? country.name : country.englishName;
-      
+
       String pinyin = PinyinHelper.getPinyinE(nameForTag);
       String tag = pinyin.substring(0, 1).toUpperCase();
       if (RegExp(r'[A-Z]').hasMatch(tag)) {
@@ -113,7 +114,7 @@ class _SelectCountryPageState extends State<VigaSelectCountryPage> {
 
     // 触发UI更新
     if (mounted) {
-       _onSearchChanged();
+      _onSearchChanged();
     }
   }
 
@@ -147,7 +148,7 @@ class _SelectCountryPageState extends State<VigaSelectCountryPage> {
         systemOverlayStyle: SystemUiOverlayStyle.dark,
         leading: IconButton(
           icon: const Icon(Icons.close, color: Colors.black),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => context.pop(),
         ),
         title: Text(
           "选择国家和地区",
@@ -168,11 +169,12 @@ class _SelectCountryPageState extends State<VigaSelectCountryPage> {
                     itemBuilder: (BuildContext context, int index) {
                       final locale = Localizations.localeOf(context);
                       final isChinese = locale.languageCode == 'zh';
-                      return _buildListItem(_filteredCountryList[index], isChinese);
+                      return _buildListItem(
+                          _filteredCountryList[index], isChinese);
                     },
                     indexBarOptions: IndexBarOptions(
-                      textStyle:
-                          TextStyle(color: Colors.grey.shade600, fontSize: 26.w),
+                      textStyle: TextStyle(
+                          color: Colors.grey.shade600, fontSize: 26.w),
                       needRebuild: true,
                       selectTextStyle: const TextStyle(
                           color: Colors.white, fontWeight: FontWeight.bold),
@@ -227,7 +229,56 @@ class _SelectCountryPageState extends State<VigaSelectCountryPage> {
   }
 
   // 其他 build 方法保持不变
-  Widget _buildSearchBar() { /* ... */ return Container(color: Colors.white,padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 16.w),child: TextField(controller: _searchController,decoration: InputDecoration(hintText: "搜索",hintStyle: TextStyle(color: Colors.grey.shade500),prefixIcon: Icon(Icons.search, color: Colors.grey.shade500),suffixIcon: _searchController.text.isNotEmpty ? IconButton(icon: Icon(Icons.clear, color: Colors.grey.shade500),onPressed: () {_searchController.clear();},) : null,filled: true,fillColor: Colors.grey.shade200,contentPadding:  EdgeInsets.all(16.w),border: OutlineInputBorder(borderRadius: BorderRadius.circular(16.r),borderSide: BorderSide.none,),),),); }
-  Widget _buildEmptyState() { /* ... */ return const Center(child: Text("未找到相关结果",style: TextStyle(fontSize: 32, color: Colors.grey),),); }
-  Widget _buildSuspension(String tag) { /* ... */ return Container(height: 60.0.w,width: double.infinity,padding: EdgeInsets.only(left: 32.0.w),color: const Color(0xfff3f4f5),alignment: Alignment.centerLeft,child: Text(tag,style:  TextStyle(fontSize: 28.0.w, color: Color(0xff999999)),),); }
+  Widget _buildSearchBar() {
+    /* ... */ return Container(
+      color: Colors.white,
+      padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 16.w),
+      child: TextField(
+        controller: _searchController,
+        decoration: InputDecoration(
+          hintText: "搜索",
+          hintStyle: TextStyle(color: Colors.grey.shade500),
+          prefixIcon: Icon(Icons.search, color: Colors.grey.shade500),
+          suffixIcon: _searchController.text.isNotEmpty
+              ? IconButton(
+                  icon: Icon(Icons.clear, color: Colors.grey.shade500),
+                  onPressed: () {
+                    _searchController.clear();
+                  },
+                )
+              : null,
+          filled: true,
+          fillColor: Colors.grey.shade200,
+          contentPadding: EdgeInsets.all(16.w),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(16.r),
+            borderSide: BorderSide.none,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildEmptyState() {
+    /* ... */ return const Center(
+      child: Text(
+        "未找到相关结果",
+        style: TextStyle(fontSize: 32, color: Colors.grey),
+      ),
+    );
+  }
+
+  Widget _buildSuspension(String tag) {
+    /* ... */ return Container(
+      height: 60.0.w,
+      width: double.infinity,
+      padding: EdgeInsets.only(left: 32.0.w),
+      color: const Color(0xfff3f4f5),
+      alignment: Alignment.centerLeft,
+      child: Text(
+        tag,
+        style: TextStyle(fontSize: 28.0.w, color: Color(0xff999999)),
+      ),
+    );
+  }
 }

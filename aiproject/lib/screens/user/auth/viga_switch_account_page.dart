@@ -76,7 +76,7 @@ class _VigaSwitchAccountPageState extends State<VigaSwitchAccountPage> {
                         left: 30.w,
                         child: GestureDetector(
                           onTap: () {
-                            Navigator.of(context).pop();
+                            context.pop();
                           },
                           child: Container(
                             width: 80.w,
@@ -275,7 +275,7 @@ class _VigaSwitchAccountPageState extends State<VigaSwitchAccountPage> {
 
     // 切换到用户中心的tab（第4个tab）
     context.read<VigaSystemCubit>().updateMainTabIndex(4);
-    Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+    context.go('/');
   }
 
   void _navigateToLogin(Account account) {

@@ -2,12 +2,12 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/viga_system_cubit.dart';
-import 'package:vigaviga/screens/discovery/search/viga_home_search_results_page.dart';
 
 class _SearchItemData {
   final String text;
@@ -173,7 +173,7 @@ class _VigaSearch extends State<VigaSearchPage> with TickerProviderStateMixin {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 GestureDetector(
-                  onTap: () => Navigator.of(context).pop(),
+                  onTap: () => context.pop(),
                   child: Container(
                     color: Colors.transparent,
                     child: Icon(
@@ -379,18 +379,13 @@ class _VigaSearch extends State<VigaSearchPage> with TickerProviderStateMixin {
                 return GestureDetector(
                   onTap: () {
                     // 点击搜索项跳转到搜索结果页面
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => VigaHomeSearchResultsPage(
-                          initialSearchType: 'home_search',
-                          works: [], // 传入空的works列表，让搜索结果页面生成模拟数据
-                          collections: [],
-                          praised: [],
-                          searchKeyword: item.text, // 传递搜索关键词
-                        ),
-                      ),
-                    );
+                    context.push('/home_search_results', extra: {
+                      'initialSearchType': 'home_search',
+                      'works': [], // 传入空的works列表，让搜索结果页面生成模拟数据
+                      'collections': [],
+                      'praised': [],
+                      'searchKeyword': item.text, // 传递搜索关键词
+                    });
                   },
                   child: SizedBox(
                     width: 345.w,
@@ -448,17 +443,12 @@ class _VigaSearch extends State<VigaSearchPage> with TickerProviderStateMixin {
                 return GestureDetector(
                   onTap: () {
                     // 点击热门搜索项跳转到搜索结果页面
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => VigaHomeSearchResultsPage(
-                          initialSearchType: 'home_search',
-                          works: [], // 传入空的works列表，让搜索结果页面生成模拟数据
-                          collections: [],
-                          praised: [],
-                        ),
-                      ),
-                    );
+                    context.push('/home_search_results', extra: {
+                      'initialSearchType': 'home_search',
+                      'works': [], // 传入空的works列表，让搜索结果页面生成模拟数据
+                      'collections': [],
+                      'praised': [],
+                    });
                   },
                   child: Container(
                     height: 72.w,

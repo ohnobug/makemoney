@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/store/viga_system_cubit.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/screens/arts/widgets/viga_video_data.dart';
@@ -164,7 +165,7 @@ class VigaArtInfoModalContent extends StatelessWidget {
                         borderRadius: BorderRadius.circular(30.w),
                       ),
                       child: IconButton(
-                        onPressed: () => Navigator.pop(context),
+                        onPressed: () => context.pop(),
                         icon: Icon(
                           Icons.close,
                           color: Colors.white,

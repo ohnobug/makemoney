@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 class VigaVisiblePopUp extends StatefulWidget {
   const VigaVisiblePopUp({super.key});
@@ -68,9 +69,11 @@ class _VigaVisiblePopUpState extends State<VigaVisiblePopUp> {
                     ),
                     SizedBox(height: 16.w),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 16.w),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 24.w, vertical: 16.w),
                       decoration: BoxDecoration(
-                        color: theme.colorScheme.primaryContainer.withAlpha((0.3 * 255).toInt()),
+                        color: theme.colorScheme.primaryContainer
+                            .withAlpha((0.3 * 255).toInt()),
                         borderRadius: BorderRadius.circular(16.w),
                       ),
                       child: Text(
@@ -200,13 +203,14 @@ class _VigaVisiblePopUpState extends State<VigaVisiblePopUp> {
     );
   }
 
-  Widget _buildVisibilityOption(BuildContext context, String title, ThemeData theme) {
+  Widget _buildVisibilityOption(
+      BuildContext context, String title, ThemeData theme) {
     return InkWell(
       onTap: () {
         setState(() {
           _selectedVisibility = title;
         });
-        Navigator.pop(context);
+        context.pop();
       },
       borderRadius: BorderRadius.circular(12.w),
       child: Container(
@@ -224,7 +228,9 @@ class _VigaVisiblePopUpState extends State<VigaVisiblePopUp> {
                 title,
                 style: TextStyle(
                   fontSize: 32.w, // 16 * 2
-                  fontWeight: _selectedVisibility == title ? FontWeight.w600 : FontWeight.normal,
+                  fontWeight: _selectedVisibility == title
+                      ? FontWeight.w600
+                      : FontWeight.normal,
                   color: _selectedVisibility == title
                       ? theme.colorScheme.primary
                       : theme.colorScheme.onSurface,
@@ -243,8 +249,8 @@ class _VigaVisiblePopUpState extends State<VigaVisiblePopUp> {
     );
   }
 
-  Widget _buildComplexOption(
-      BuildContext context, String title, IconData? trailingIcon, ThemeData theme) {
+  Widget _buildComplexOption(BuildContext context, String title,
+      IconData? trailingIcon, ThemeData theme) {
     return InkWell(
       onTap: () {},
       borderRadius: BorderRadius.circular(12.w),

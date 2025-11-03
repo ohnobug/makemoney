@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/store/viga_payment_cubit.dart';
 import 'viga_payment_primary_button.dart';
 
@@ -27,8 +28,12 @@ class VigaSelectPaymentSheet extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const SizedBox(width: 48),
-                  Text("选择支付方式", style: theme.textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold)),
-                  IconButton(icon: const Icon(Icons.close), onPressed: () => Navigator.pop(context)),
+                  Text("选择支付方式",
+                      style: theme.textTheme.titleLarge
+                          ?.copyWith(fontWeight: FontWeight.bold)),
+                  IconButton(
+                      icon: const Icon(Icons.close),
+                      onPressed: () => context.pop()),
                 ],
               ),
               SizedBox(height: 40.h),
@@ -37,7 +42,9 @@ class VigaSelectPaymentSheet extends StatelessWidget {
                 icon: Icons.payment,
                 title: 'Vigaviga',
                 isSelected: state.selectedMethod == VigaPaymentMethod.alipay,
-                onTap: () => context.read<VigaPaymentCubit>().selectMethod(VigaPaymentMethod.alipay),
+                onTap: () => context
+                    .read<VigaPaymentCubit>()
+                    .selectMethod(VigaPaymentMethod.alipay),
               ),
               Divider(height: 1.h, color: theme.dividerColor),
               _buildMethodTile(
@@ -45,7 +52,9 @@ class VigaSelectPaymentSheet extends StatelessWidget {
                 icon: Icons.credit_card,
                 title: '花呗分期',
                 isSelected: state.selectedMethod == VigaPaymentMethod.huabei,
-                onTap: () => context.read<VigaPaymentCubit>().selectMethod(VigaPaymentMethod.huabei),
+                onTap: () => context
+                    .read<VigaPaymentCubit>()
+                    .selectMethod(VigaPaymentMethod.huabei),
               ),
               SizedBox(height: 60.h),
               VigaPaymentPrimaryButton(
@@ -53,7 +62,7 @@ class VigaSelectPaymentSheet extends StatelessWidget {
                 backgroundColor: const Color(0xFFE54335),
                 onPressed: () {
                   context.read<VigaPaymentCubit>().moveToConfirm();
-                  Navigator.pop(context, true);
+                  context.pop();
                 },
               ),
               SizedBox(height: MediaQuery.of(context).padding.bottom + 20.h),
@@ -64,7 +73,11 @@ class VigaSelectPaymentSheet extends StatelessWidget {
     );
   }
 
-  Widget _buildMethodTile(BuildContext context, {required IconData icon, required String title, required bool isSelected, required VoidCallback onTap}) {
+  Widget _buildMethodTile(BuildContext context,
+      {required IconData icon,
+      required String title,
+      required bool isSelected,
+      required VoidCallback onTap}) {
     final theme = Theme.of(context);
     return InkWell(
       onTap: onTap,

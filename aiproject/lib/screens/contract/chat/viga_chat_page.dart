@@ -27,7 +27,6 @@ import 'widgets/viga_video_message.dart';
 import 'widgets/viga_receive_video_message.dart';
 import 'package:vigaviga/store/viga_system_cubit.dart';
 import 'package:vigaviga/tools/viga_tools.dart';
-import 'package:vigaviga/features/viewer/viga_video_viewer_page.dart';
 
 // 消息数据模型
 class ChatMessage {
@@ -925,7 +924,7 @@ class _VigaChat extends State<VigaChat>
               context.read<VigaSystemCubit>().updateMainTabIndex(fromTabIndex);
             }
           }
-          Navigator.of(context).pop();
+          context.pop();
         }
       },
       child: BlocBuilder<VigaSystemCubit, SystemState>(
@@ -955,8 +954,7 @@ class _VigaChat extends State<VigaChat>
                       ],
                       leading: GestureDetector(
                         onTap: () {
-                          Navigator.of(context)
-                              .popUntil((route) => route.isFirst);
+                          context.go('/');
                         },
                         child: Container(
                           color: Colors.transparent,
@@ -1655,22 +1653,18 @@ class _VigaChat extends State<VigaChat>
             onTap: (position, size) {
               // 关闭键盘
               SystemChannels.textInput.invokeMethod('TextInput.hide');
-              Navigator.of(context).push(
-                PageRouteBuilder(
-                  pageBuilder: (context, animation, secondaryAnimation) {
-                    return VigaVideoViewerPage(
-                      videoSources: [message.video!.toString()],
-                      initialIndex: 0,
-                      initialRect: Rect.fromLTWH(
-                        position.dx,
-                        position.dy,
-                        size.width,
-                        size.height,
-                      ),
-                    );
-                  },
-                  transitionDuration: Duration.zero,
-                ),
+              context.push(
+                '/video_viewer',
+                extra: {
+                  'videoSources': [message.video!.toString()],
+                  'initialIndex': 0,
+                  'initialRect': Rect.fromLTWH(
+                    position.dx,
+                    position.dy,
+                    size.width,
+                    size.height,
+                  ),
+                },
               );
             },
           ),
@@ -1689,22 +1683,18 @@ class _VigaChat extends State<VigaChat>
             onTap: (position, size) {
               // 关闭键盘
               SystemChannels.textInput.invokeMethod('TextInput.hide');
-              Navigator.of(context).push(
-                PageRouteBuilder(
-                  pageBuilder: (context, animation, secondaryAnimation) {
-                    return VigaVideoViewerPage(
-                      videoSources: [message.video!.toString()],
-                      initialIndex: 0,
-                      initialRect: Rect.fromLTWH(
-                        position.dx,
-                        position.dy,
-                        size.width,
-                        size.height,
-                      ),
-                    );
-                  },
-                  transitionDuration: Duration.zero,
-                ),
+              context.push(
+                '/video_viewer',
+                extra: {
+                  'videoSources': [message.video!.toString()],
+                  'initialIndex': 0,
+                  'initialRect': Rect.fromLTWH(
+                    position.dx,
+                    position.dy,
+                    size.width,
+                    size.height,
+                  ),
+                },
               );
             },
           ),

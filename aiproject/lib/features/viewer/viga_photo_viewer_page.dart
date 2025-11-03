@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+import 'package:go_router/go_router.dart';
+
 enum ViewerState {
   idle,
   dragging,
@@ -14,12 +16,14 @@ class VigaPhotoViewerPage extends StatefulWidget {
   final List<String> imageSources;
   final int initialIndex;
   final Rect initialRect;
+  final String? heroTagPrefix;
 
   const VigaPhotoViewerPage({
     super.key,
     required this.imageSources,
     required this.initialIndex,
     required this.initialRect,
+    this.heroTagPrefix,
   });
 
   @override
@@ -129,7 +133,7 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
   void _onScaleEnd(ScaleEndDetails details) {
     if (_currentState == ViewerState.dragging) {
       if (_dragScale < 0.8) {
-        Navigator.of(context).pop();
+        context.pop();
       } else {
         _runDragSnapBackAnimation();
       }
@@ -277,7 +281,7 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
 
                 // 在 idle 状态下，任何单击都应立即关闭
                 if (_currentState == ViewerState.idle) {
-                  Navigator.of(context).pop();
+                  context.pop();
                   return;
                 }
 
@@ -374,7 +378,7 @@ class _VigaPhotoViewerPageState extends State<VigaPhotoViewerPage>
 
             if (isHeroActive) {
               return Hero(
-                tag: widget.imageSources[index],
+                tag: '${widget.heroTagPrefix ?? ''}_${widget.imageSources[index]}',
                 flightShuttleBuilder: (
                   flightContext,
                   animation,

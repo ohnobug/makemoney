@@ -5,6 +5,7 @@ import 'package:archive/archive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:lottie/lottie.dart';
 import 'package:mime/mime.dart';
@@ -147,7 +148,7 @@ class _VigaMiniProgramState extends State<VigaMiniProgram>
     } catch (e) {
       final message = messageData.toString();
       if (message == 'close_miniprogram') {
-        Navigator.of(context).pop();
+        context.pop();
       } else if (message == 'show_info') {
         _showMiniprogramInfoModalSheet(context);
       } else {
@@ -349,7 +350,7 @@ class _VigaMiniProgramState extends State<VigaMiniProgram>
                         ),
                         Expanded(
                           child: GestureDetector(
-                            onTap: () => Navigator.of(context).pop(),
+                            onTap: () => context.pop(),
                             child: Container(
                               color: Colors.transparent,
                               child: Icon(
@@ -387,7 +388,7 @@ class _VigaMiniProgramState extends State<VigaMiniProgram>
                 const SizedBox(height: 20),
                 ElevatedButton(
                   child: const Text('关闭'),
-                  onPressed: () => Navigator.pop(context),
+                  onPressed: () => context.pop(),
                 ),
               ],
             ),

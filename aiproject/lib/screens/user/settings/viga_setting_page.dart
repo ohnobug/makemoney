@@ -205,8 +205,7 @@ class _VigaSettingPage extends State<VigaSettingPage> {
                                       context
                                           .read<VigaSystemCubit>()
                                           .updateMainTabIndex(4);
-                                      Navigator.pushNamedAndRemoveUntil(
-                                          context, '/', (route) => false);
+                                      context.go('/');
                                     },
                                   ),
                                 ],

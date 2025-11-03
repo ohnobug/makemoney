@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/widgets/viga_work_search_widget.dart';
 
 class VigaSearchResultsPage extends StatefulWidget {
@@ -53,7 +54,7 @@ class _VigaSearchResultsPageState extends State<VigaSearchResultsPage> {
           Icons.arrow_back_ios,
           size: 40.w,
         ),
-        onPressed: () => Navigator.of(context).pop(),
+        onPressed: () => context.pop(),
       ),
     );
   }
@@ -72,15 +73,18 @@ class _VigaSearchResultsPageState extends State<VigaSearchResultsPage> {
             id: 'works',
             name: '作品',
             items: widget.works.map((url) => WorkItem.fromUrl(url)).toList(),
-            suggestionsBuilder: () => ['风景', '人像', '街拍', '建筑', '美食', '旅行', '艺术', '黑白'],
+            suggestionsBuilder: () =>
+                ['风景', '人像', '街拍', '建筑', '美食', '旅行', '艺术', '黑白'],
           ));
         }
         if (widget.collections.isNotEmpty) {
           sources.add(SearchSource(
             id: 'collections',
             name: '收藏',
-            items: widget.collections.map((url) => WorkItem.fromUrl(url)).toList(),
-            suggestionsBuilder: () => ['设计', '摄影', '插画', '创意', '灵感', '配色', '构图'],
+            items:
+                widget.collections.map((url) => WorkItem.fromUrl(url)).toList(),
+            suggestionsBuilder: () =>
+                ['设计', '摄影', '插画', '创意', '灵感', '配色', '构图'],
           ));
         }
         if (widget.praised.isNotEmpty) {

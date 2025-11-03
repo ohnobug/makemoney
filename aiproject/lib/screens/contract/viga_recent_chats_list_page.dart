@@ -16,7 +16,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
 import 'package:vigaviga/tools/dialog/viga_dialog_service.dart';
 import 'package:vigaviga/widgets/viga_appbar.dart';
-import 'package:vigaviga/screens/contract/viga_search_friend_page.dart';
 
 class VigaRecentChatsListPage extends StatefulWidget {
   const VigaRecentChatsListPage({super.key});
@@ -370,14 +369,9 @@ class _VigaRecentChatsListPage extends State<VigaRecentChatsListPage>
                       leading: GestureDetector(
                         onTap: () async {
                           if (_homescrollpixels == 0) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => VigaSearchFriendPage(
-                                  recentContacts: chatItems,
-                                ),
-                              ),
-                            );
+                            context.push('/contact/search_friend', extra: {
+                              'recentContacts': chatItems,
+                            });
                           }
                         },
                         child: Container(

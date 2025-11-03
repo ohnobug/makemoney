@@ -25,7 +25,6 @@ class VigaPopupCubit extends Cubit<PopupState> {
     );
   }
 
-  // 更新navigatorKey
   void updateImagePopup({
     required Size openBoxSize,
     required Offset openPosition,
@@ -51,7 +50,6 @@ class VigaPopupCubit extends Cubit<PopupState> {
     );
   }
 
-  // 更新navigatorKey
   void updateVideoPopup({
     required Size openBoxSize,
     required Offset openPosition,

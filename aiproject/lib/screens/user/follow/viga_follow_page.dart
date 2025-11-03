@@ -1,6 +1,7 @@
 // lib/follow/follow_page.dart
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'viga_followers_list.dart';
 import 'viga_following_list.dart';
 
@@ -11,7 +12,8 @@ class VigaFollowPage extends StatefulWidget {
   State<VigaFollowPage> createState() => _VigaFollowPageState();
 }
 
-class _VigaFollowPageState extends State<VigaFollowPage> with TickerProviderStateMixin {
+class _VigaFollowPageState extends State<VigaFollowPage>
+    with TickerProviderStateMixin {
   late final TabController _tabController;
 
   @override
@@ -43,7 +45,7 @@ class _VigaFollowPageState extends State<VigaFollowPage> with TickerProviderStat
                   child: IconButton(
                     icon: const Icon(Icons.arrow_back_ios_new,
                         size: 20, color: Colors.black),
-                    onPressed: () => Navigator.of(context).pop(),
+                    onPressed: () => context.pop(),
                   ),
                 ),
                 // 居中的 TabBar
@@ -63,8 +65,8 @@ class _VigaFollowPageState extends State<VigaFollowPage> with TickerProviderStat
                       ),
                       unselectedLabelStyle: const TextStyle(fontSize: 16),
                       indicatorSize: TabBarIndicatorSize.label,
-                      dividerHeight: 0, 
-                     /*  indicator: const UnderlineTabIndicator(
+                      dividerHeight: 0,
+                      /*  indicator: const UnderlineTabIndicator(
                         borderSide: BorderSide(width: 2.5, color: Colors.black),
                         insets: EdgeInsets.zero,
                       ), */

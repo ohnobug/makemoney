@@ -94,7 +94,7 @@ class _VigaChangeAccountButtonState extends State<VigaChangeAccountButton> {
               widget.ontap!();
             } else {
               if (widget.link == 'back') {
-                Navigator.of(context).pop();
+                context.pop();
               } else if (widget.link != null) {
                 context.push(widget.link!);
               }

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vigaviga/api_manager/api.dart';
-import 'package:vigaviga/features/viewer/viga_photo_viewer_page.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/viga_custom_physics.dart';
@@ -186,7 +185,7 @@ class _VigaFriendmoments extends State<VigaFriendmomentsPage>
           context.read<VigaPopupCubit>().updateReturnButtonEvent(true);
         } else {
           // 否则，执行默认的页面返回操作
-          Navigator.of(context).pop();
+          context.pop();
         }
       },
       child: BlocBuilder<VigaSystemCubit, SystemState>(
@@ -305,7 +304,7 @@ class _VigaFriendmoments extends State<VigaFriendmomentsPage>
                         foregroundColor: Colors.transparent,
                         leading: GestureDetector(
                           onTap: () {
-                            Navigator.of(context).pop();
+                            context.pop();
                           },
                           child: Container(
                             color: Colors.transparent, // 增大点击区域
@@ -467,7 +466,8 @@ class _VigaFriendmoments extends State<VigaFriendmomentsPage>
                   bottom: 30.w,
                   right: 30.w,
                   child: GestureDetector(
-                    onTap: () => context.push( "/chat/friend_moments_cover_setting"),
+                    onTap: () =>
+                        context.push("/chat/friend_moments_cover_setting"),
                     child: Column(
                       children: [
                         Icon(
@@ -928,30 +928,13 @@ class VigaTweenImage extends StatelessWidget {
         final imageSources = allImages ?? [imagePath];
         final currentIndex = allImages != null ? imageIndex : 0;
 
-        Navigator.push(
-          context,
-          PageRouteBuilder(
-            // 核心：页面本身不绘制背景，让路由的过渡动画处理
-            opaque: false,
-            barrierColor: Colors.transparent,
-            pageBuilder: (context, animation, secondaryAnimation) {
-              return VigaPhotoViewerPage(
-                imageSources: imageSources,
-                initialIndex: currentIndex,
-                initialRect: initialRect, // 传递精确的初始位置
-              );
-            },
-            // 使用路由自带的动画来实现背景的淡入淡出，这是最稳定可靠的方式
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) {
-              // animation 由路由管理, push时 0->1, pop时 1->0
-              // 我们用它来包裹整个查看器页面，实现完美的淡入淡出
-              return FadeTransition(
-                opacity: animation,
-                child: child,
-              );
-            },
-          ),
+        context.push(
+          '/photo_viewer',
+          extra: {
+            'imageSources': imageSources,
+            'initialIndex': currentIndex,
+            'initialRect': initialRect,
+          },
         );
       },
       child: SizedBox(

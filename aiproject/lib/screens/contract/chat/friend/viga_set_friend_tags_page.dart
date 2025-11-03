@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/viga_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -461,7 +462,7 @@ void _showNewTagPopup(
                     children: [
                       IconButton(
                         icon: Icon(Icons.close, color: colorScheme.onSurface),
-                        onPressed: () => Navigator.of(context).pop(),
+                        onPressed: () => context.pop(),
                       ),
                       Text(
                         l10n.enterTag,
@@ -492,7 +493,7 @@ void _showNewTagPopup(
                         ? null
                         : () {
                             callback(inputController2.text.trim());
-                            Navigator.of(context).pop();
+                            context.pop();
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(

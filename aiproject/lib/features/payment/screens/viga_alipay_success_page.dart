@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/store/viga_payment_cubit.dart';
 import 'package:vigaviga/store/viga_system_cubit.dart';
 import 'package:vigaviga/widgets/viga_appbar.dart';
@@ -29,7 +30,7 @@ class VigaAliPaySuccessPage extends StatelessWidget {
           actions: [
             VigaAppBarActionTextButton(
               onTap: () {
-                Navigator.of(context).pop();
+                context.pop();
               },
               title: '完成',
             ),

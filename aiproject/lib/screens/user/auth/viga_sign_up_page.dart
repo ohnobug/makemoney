@@ -70,7 +70,7 @@ class _VigaSignUpState extends State<VigaSignUpPage> {
       name: '用户${_emailController.text}',
     );
 
-    Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+    context.go('/');
   }
 
   @override
@@ -126,7 +126,7 @@ class _VigaSignUpState extends State<VigaSignUpPage> {
           left: 0,
           child: GestureDetector(
             onTap: () {
-              Navigator.of(context).pop();
+              context.pop();
             },
             child: Container(
               width: 80.w,

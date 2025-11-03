@@ -45,7 +45,7 @@ class _VigaSetNotesAndLabelsState extends State<VigaSetNotesAndLabelsPage> {
             leading: GestureDetector(
               onTap: () {
                 // 点击事件
-                Navigator.of(context).pop();
+                context.pop();
               },
               child: Container(
                 // color: Colors.transparent,

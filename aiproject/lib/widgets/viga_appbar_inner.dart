@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 
 // ignore: non_constant_identifier_names
 AppBar VigaAppBarInner({
@@ -14,7 +15,7 @@ AppBar VigaAppBarInner({
     leading: leading ??
         GestureDetector(
           onTap: () {
-            Navigator.of(context).pop();
+            context.pop();
             // wallet
           }, // 点击事件
           child: Container(

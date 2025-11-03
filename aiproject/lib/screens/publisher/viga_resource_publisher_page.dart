@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/widgets/viga_app_network_image.dart';
 import 'package:vigaviga/themes.dart';
 
@@ -134,7 +135,7 @@ class _ModelSearchPageState extends State<VigaResourceSearchPage> {
         leading: IconButton(
           icon: Icon(Icons.arrow_back_ios_new,
               color: theme.colorScheme.onSurface, size: 40.w), // 20 * 2
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => context.pop(),
         ),
         title: Text('灵感库',
             style: TextStyle(
@@ -160,7 +161,8 @@ class _ModelSearchPageState extends State<VigaResourceSearchPage> {
       margin: EdgeInsets.all(24.w),
       child: TextField(
         controller: _searchController,
-        style: TextStyle(fontSize: 28.w, color: theme.colorScheme.onSurface), // 14 * 2
+        style: TextStyle(
+            fontSize: 28.w, color: theme.colorScheme.onSurface), // 14 * 2
         decoration: InputDecoration(
           isDense: true,
           hintText: '搜索灵感模型...',
@@ -168,12 +170,10 @@ class _ModelSearchPageState extends State<VigaResourceSearchPage> {
             fontSize: 28.w,
             color: theme.colorScheme.onSurfaceVariant,
           ), // 14 * 2
-          prefixIcon: Icon(
-            Icons.search_outlined,
-            color: theme.colorScheme.onSurfaceVariant,
-            size: 40.w
-          ), // 20 * 2
-          contentPadding: EdgeInsets.symmetric(vertical: 24.0.w, horizontal: 20.w), // 12 * 2
+          prefixIcon: Icon(Icons.search_outlined,
+              color: theme.colorScheme.onSurfaceVariant, size: 40.w), // 20 * 2
+          contentPadding: EdgeInsets.symmetric(
+              vertical: 24.0.w, horizontal: 20.w), // 12 * 2
           filled: true,
           fillColor: theme.colorScheme.surface,
           border: OutlineInputBorder(
@@ -306,7 +306,8 @@ class _ModelSearchPageState extends State<VigaResourceSearchPage> {
                     padding: EdgeInsets.symmetric(
                         horizontal: 12.w, vertical: 6.w), // 6*2, 3*2
                     decoration: BoxDecoration(
-                      color: AppColors.brandGreenVibrant5.withAlpha((0.9 * 255).toInt()),
+                      color: AppColors.brandGreenVibrant5
+                          .withAlpha((0.9 * 255).toInt()),
                       borderRadius: BorderRadius.circular(12.w), // 6 * 2
                     ),
                     child: Text('LoRA',
@@ -340,7 +341,8 @@ class _ModelSearchPageState extends State<VigaResourceSearchPage> {
                   children: [
                     CircleAvatar(
                       radius: 20.w, // 10 * 2
-                      backgroundColor: theme.colorScheme.surfaceContainerHighest,
+                      backgroundColor:
+                          theme.colorScheme.surfaceContainerHighest,
                       backgroundImage: NetworkImage(item.authorAvatarUrl),
                     ),
                     SizedBox(width: 12.w), // 6 * 2

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/widgets/viga_app_network_image.dart';
 import 'package:vigaviga/widgets/loading.dart';
 
@@ -177,7 +178,7 @@ class _LikedVideosPageState extends State<LikedVideosPage> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new,
               size: 20, color: Colors.black),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () => context.pop(),
         ),
         title: Text('我的点赞',
             style: theme.textTheme.bodyLarge?.copyWith(fontSize: 20)),

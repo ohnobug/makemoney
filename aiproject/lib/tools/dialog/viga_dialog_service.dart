@@ -93,7 +93,7 @@ class _PopupMenuDialog extends StatelessWidget {
                                   0xe676,
                                   fontFamily: "iconfont",
                                 ),
-                                onTap: () => Navigator.of(context).pop(),
+                                onTap: () => context.pop(),
                               ),
                               // 添加好友
                               VigaPopupMenuItem(
@@ -116,7 +116,7 @@ class _PopupMenuDialog extends StatelessWidget {
                                   fontFamily: "iconfont",
                                 ),
                                 onTap: () {
-                                  Navigator.of(context).pop();
+                                  context.pop();
                                   context.push(
                                     '/discovery/qrcode_scanner',
                                   );
@@ -130,7 +130,7 @@ class _PopupMenuDialog extends StatelessWidget {
                                   fontFamily: "iconfont",
                                 ),
                                 onTap: () {
-                                  Navigator.of(context).pop();
+                                  context.pop();
                                   context.push(
                                     '/user/collection_and_payment',
                                   );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/features/payment/widgets/viga_payment_primary_button.dart';
 import 'package:vigaviga/store/viga_payment_cubit.dart';
 
@@ -25,10 +26,12 @@ class VigaMerchantSuccessPage extends StatelessWidget {
         children: [
           Text('交易剩余时间 29:43', style: theme.textTheme.bodySmall),
           SizedBox(height: 20.h),
-          Text("¥${state.paymentAmount.toStringAsFixed(2)}", style: theme.textTheme.displaySmall),
+          Text("¥${state.paymentAmount.toStringAsFixed(2)}",
+              style: theme.textTheme.displaySmall),
           const Spacer(),
           Container(
-            padding: EdgeInsets.fromLTRB(32.w, 60.h, 32.w, MediaQuery.of(context).padding.bottom + 20.h),
+            padding: EdgeInsets.fromLTRB(
+                32.w, 60.h, 32.w, MediaQuery.of(context).padding.bottom + 20.h),
             width: double.infinity,
             decoration: BoxDecoration(
               color: theme.cardColor,
@@ -36,15 +39,19 @@ class VigaMerchantSuccessPage extends StatelessWidget {
             ),
             child: Column(
               children: [
-                Text("支付成功 ¥${state.paymentAmount.toStringAsFixed(2)}", style: theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold)),
+                Text("支付成功 ¥${state.paymentAmount.toStringAsFixed(2)}",
+                    style: theme.textTheme.headlineSmall
+                        ?.copyWith(fontWeight: FontWeight.bold)),
                 SizedBox(height: 20.h),
-                Text("支付宝", style: theme.textTheme.bodyMedium?.copyWith(color: Colors.grey)),
+                Text("支付宝",
+                    style: theme.textTheme.bodyMedium
+                        ?.copyWith(color: Colors.grey)),
                 SizedBox(height: 60.h),
                 VigaPaymentPrimaryButton(
                   text: '完成',
                   backgroundColor: const Color(0xFFE54335),
                   onPressed: () {
-                    Navigator.of(context).popUntil((route) => route.isFirst);
+                    context.go('/');
                   },
                 ),
               ],

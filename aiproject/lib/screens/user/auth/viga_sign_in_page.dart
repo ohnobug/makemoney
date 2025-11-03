@@ -62,7 +62,7 @@ class _VigaSignInPageState extends State<VigaSignInPage> {
       name: '用户${_emailController.text.trim()}',
     );
 
-    Navigator.of(context).pop();
+    context.pop();
   }
 
   @override

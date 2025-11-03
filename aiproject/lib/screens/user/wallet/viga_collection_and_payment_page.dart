@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/viga_appbar.dart';
@@ -45,7 +46,7 @@ class _VigaCollectionAndPaymentPageState
               title: l10n.payment,
               leading: GestureDetector(
                 onTap: () {
-                  Navigator.of(context).pop();
+                  context.pop();
                   // wallet
                 }, // 点击事件
                 child: Container(

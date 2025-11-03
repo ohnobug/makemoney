@@ -15,8 +15,6 @@ import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/tools/viga_logger.dart';
 import 'package:vigaviga/widgets/viga_page_loading.dart';
 import 'package:vigaviga/widgets/viga_app_network_image.dart';
-import 'package:vigaviga/features/viewer/viga_photo_viewer_page.dart';
-import 'package:vigaviga/screens/discovery/search/viga_user_search_results_page.dart';
 
 class VigaUserPage extends StatefulWidget {
   const VigaUserPage({super.key});
@@ -31,18 +29,21 @@ class _VigaUserPageState extends State<VigaUserPage>
 
   late TabController _tabController;
   late PageController _pageController;
-
-  final List<String> _works = List.generate(
-      100, (i) => 'https://picsum.photos/400/400?random=${i + 500}');
-
-  final List<String> _collections = [];
-
-  final List<String> _praised = List.generate(
-      30, (i) => 'https://picsum.photos/400/400?random=${i + 5000}');
+  late List<String> _works;
+  late List<String> _collections;
+  late List<String> _praised;
 
   @override
   void initState() {
     super.initState();
+
+    // 初始化图片数据
+    _works = List.generate(
+        100, (i) => 'https://picsum.photos/400/400?random=${i + 500}');
+    _collections = [];
+    _praised = List.generate(
+        30, (i) => 'https://picsum.photos/400/400?random=${i + 5000}');
+
     _tabController = TabController(length: 3, vsync: this);
     _pageController = PageController();
 
@@ -664,17 +665,12 @@ class _VigaUserPageState extends State<VigaUserPage>
         searchType = 'works';
     }
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => VigaSearchResultsPage(
-          initialSearchType: searchType,
-          works: _works,
-          collections: _collections,
-          praised: _praised,
-        ),
-      ),
-    );
+    context.push('/search_results', extra: {
+      'initialSearchType': searchType,
+      'works': _works,
+      'collections': _collections,
+      'praised': _praised,
+    });
   }
 }
 
@@ -851,37 +847,21 @@ class __UserWorksGridState extends State<_UserWorksGrid> {
               final initialRect = Rect.fromLTWH(
                   position.dx, position.dy, size.width, size.height);
 
-              Navigator.push(
-                context,
-                PageRouteBuilder(
-                  // 核心：页面本身不绘制背景，让路由的过渡动画处理
-                  opaque: false,
-                  barrierColor: Colors.transparent,
-                  pageBuilder: (context, animation, secondaryAnimation) {
-                    return VigaPhotoViewerPage(
-                      imageSources: widget.items,
-                      initialIndex: index,
-                      initialRect: initialRect, // 传递精确的初始位置
-                    );
-                  },
-                  // 使用路由自带的动画来实现背景的淡入淡出，这是最稳定可靠的方式
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) {
-                    // animation 由路由管理, push时 0->1, pop时 1->0
-                    // 我们用它来包裹整个查看器页面，实现完美的淡入淡出
-                    return FadeTransition(
-                      opacity: animation,
-                      child: child,
-                    );
-                  },
-                ),
+              context.push(
+                '/photo_viewer',
+                extra: {
+                  'imageSources': widget.items,
+                  'initialIndex': index,
+                  'initialRect': initialRect,
+                  'heroTagPrefix': 'user_page_${widget.emptyMessage}',
+                },
               );
             },
             child: Stack(
               fit: StackFit.expand,
               children: [
                 Hero(
-                  tag: imageUrl,
+                  tag: 'user_page_${widget.emptyMessage}_$imageUrl',
                   child: VigaAppNetworkImage(
                     // 将 key 绑定到 Image 组件上
                     key: _imageKeys[index],

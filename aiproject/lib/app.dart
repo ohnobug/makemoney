@@ -81,11 +81,6 @@ class _AppState extends State<App> {
             // 2. 核心改动：使用 routerConfig 传入 go_router 实例
             routerConfig: appRouter,
 
-            // 3. 以下旧的路由属性已被移除:
-            // - onGenerateRoute
-            // - initialRoute
-            // - navigatorKey
-
             // 您的 builder 逻辑保持不变，用于实现全局浮层
             builder: (context, child) {
               return Builder(

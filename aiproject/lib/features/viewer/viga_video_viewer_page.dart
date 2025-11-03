@@ -1,6 +1,7 @@
 // G:\t\detection\aiproject\lib\screens\user\video_viewer\viga_video_viewer_page.dart
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:video_player/video_player.dart';
 import 'dart:math' as math;
 
@@ -161,7 +162,7 @@ class _VigaVideoViewerPageState extends State<VigaVideoViewerPage>
   void _onScaleEnd(ScaleEndDetails details) {
     if (_currentState == VideoViewerState.dragging) {
       if (_dragScale < 0.8) {
-        Navigator.of(context).pop();
+        context.pop();
       } else {
         _runDragSnapBackAnimation();
       }
@@ -320,7 +321,7 @@ class _VigaVideoViewerPageState extends State<VigaVideoViewerPage>
 
                 // 在 idle 状态下，任何单击都应立即关闭
                 if (_currentState == VideoViewerState.idle) {
-                  Navigator.of(context).pop();
+                  context.pop();
                   return;
                 }
 

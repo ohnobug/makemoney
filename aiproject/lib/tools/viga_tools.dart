@@ -7,13 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get_thumbnail_video/index.dart';
 import 'package:get_thumbnail_video/video_thumbnail.dart';
+import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_size_getter/image_size_getter.dart' as imagegetter;
 import 'package:path_provider/path_provider.dart';
 import 'package:vigaviga/tools/viga_logger.dart';
 
 void openMiniprogram(BuildContext context, String cid) {
-  Navigator.of(context).pushNamed("/open_miniprogram?cid=$cid");
+  context.pushNamed("/open_miniprogram?cid=$cid");
 }
 
 // 字体缩放

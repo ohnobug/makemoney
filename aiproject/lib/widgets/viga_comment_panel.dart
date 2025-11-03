@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/store/viga_system_cubit.dart';
 import 'package:vigaviga/widgets/viga_appbar_inner.dart';
-import 'package:vigaviga/features/viewer/viga_photo_viewer_page.dart';
 import 'viga_comment_input_page.dart';
 
 // 数据模型
@@ -151,40 +151,19 @@ class _VigaCommentPanelState extends State<VigaCommentPanel> {
 
   void _showImageViewer(String imageUrl, int index) {
     // 通过 key 获取图片在屏幕中的精确位置和大小
-    final RenderBox? renderBox = _imageKeys[index]
-        ?.currentContext
-        ?.findRenderObject() as RenderBox?;
+    final RenderBox? renderBox =
+        _imageKeys[index]?.currentContext?.findRenderObject() as RenderBox?;
     if (renderBox == null) return;
     final position = renderBox.localToGlobal(Offset.zero);
     final size = renderBox.size;
-    final initialRect = Rect.fromLTWH(
-        position.dx, position.dy, size.width, size.height);
+    final initialRect =
+        Rect.fromLTWH(position.dx, position.dy, size.width, size.height);
 
-    Navigator.push(
-      context,
-      PageRouteBuilder(
-        // 核心：页面本身不绘制背景，让路由的过渡动画处理
-        opaque: false,
-        barrierColor: Colors.transparent,
-        pageBuilder: (context, animation, secondaryAnimation) {
-          return VigaPhotoViewerPage(
-            imageSources: [imageUrl],
-            initialIndex: 0,
-            initialRect: initialRect, // 传递精确的初始位置
-          );
-        },
-        // 使用路由自带的动画来实现背景的淡入淡出，这是最稳定可靠的方式
-        transitionsBuilder:
-            (context, animation, secondaryAnimation, child) {
-          // animation 由路由管理, push时 0->1, pop时 1->0
-          // 我们用它来包裹整个查看器页面，实现完美的淡入淡出
-          return FadeTransition(
-            opacity: animation,
-            child: child,
-          );
-        },
-      ),
-    );
+    context.push('/photo_viewer', extra: {
+      'imageSources': [imageUrl],
+      'initialIndex': 0,
+      'initialRect': initialRect, // 传递精确的初始位置
+    });
   }
 
   Widget _buildCommentInput() {
@@ -273,8 +252,11 @@ class _VigaCommentPanelState extends State<VigaCommentPanel> {
                         child: Hero(
                           tag: data.imageUrl!,
                           child: Image.network(data.imageUrl!,
-                              height: 150.w, width: 150.w, fit: BoxFit.cover,
-                              key: _imageKeys.putIfAbsent(index, () => GlobalKey())),
+                              height: 150.w,
+                              width: 150.w,
+                              fit: BoxFit.cover,
+                              key: _imageKeys.putIfAbsent(
+                                  index, () => GlobalKey())),
                         ),
                       ),
                     ),
