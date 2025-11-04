@@ -40,7 +40,6 @@ import 'package:vigaviga/screens/user/settings/viga_feature_introduction_page.da
 import 'package:vigaviga/screens/user/settings/viga_complain_page.dart';
 import 'package:vigaviga/screens/user/settings/viga_account_and_secure_page.dart';
 import 'package:vigaviga/screens/user/settings/viga_account_info_page.dart';
-import 'package:vigaviga/screens/user/settings/viga_care_mode_page.dart';
 import 'package:vigaviga/screens/user/settings/viga_change_account_page.dart';
 import 'package:vigaviga/screens/user/settings/viga_chat_setting_page.dart';
 import 'package:vigaviga/screens/user/settings/viga_common_setting_page.dart';
@@ -60,7 +59,6 @@ import 'package:vigaviga/screens/user/settings/viga_set_password_page.dart';
 import 'package:vigaviga/screens/user/settings/viga_setting_page.dart';
 import 'package:vigaviga/screens/user/settings/viga_sound_lock_page.dart';
 import 'package:vigaviga/screens/user/settings/viga_theme_setting_page.dart';
-import 'package:vigaviga/screens/user/settings/viga_youth_mode_page.dart';
 import 'package:vigaviga/screens/user/settings/viga_verify_phone_page.dart';
 import 'package:vigaviga/screens/user/viga_camera_view_page.dart';
 import 'package:vigaviga/screens/user/wallet/viga_collection_and_payment_page.dart';
@@ -274,18 +272,7 @@ final GoRouter appRouter = GoRouter(
             child: const VigaInputVerifyCodePage(),
           ),
         ),
-        GoRoute(
-          path: 'teenage_mode',
-          pageBuilder: (c, s) => buildPageWithAnimation(
-            child: const VigaYouthModePage(),
-          ),
-        ),
-        GoRoute(
-          path: 'care_mode',
-          pageBuilder: (c, s) => buildPageWithAnimation(
-            child: const VigaCareModePage(),
-          ),
-        ),
+
         GoRoute(
           path: 'new_message_notification',
           pageBuilder: (c, s) => buildPageWithAnimation(
@@ -649,8 +636,8 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
         path: '/user',
         pageBuilder: (c, s) => buildPageWithoutAnimation(
-          child: const UserInfoPage(),
-        ),
+              child: const UserInfoPage(),
+            ),
         routes: [
           GoRoute(
             path: 'user_info',

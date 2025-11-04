@@ -7,7 +7,7 @@ import 'package:vigaviga/tools/viga_tools.dart';
 import 'package:vigaviga/widgets/viga_app_network_image.dart';
 
 class VigaFunctionItem extends StatefulWidget {
-  final String? icon;
+  final dynamic icon;
   final double? height;
   final EdgeInsetsGeometry? padding;
   final Object? title;
@@ -20,6 +20,7 @@ class VigaFunctionItem extends StatefulWidget {
   final EdgeInsetsGeometry? margin;
   final Function? onPress;
   final double size;
+  final Color? iconBackgroundColor;
 
   const VigaFunctionItem({
     super.key,
@@ -36,6 +37,7 @@ class VigaFunctionItem extends StatefulWidget {
     this.margin,
     this.onPress,
     this.size = 55.0,
+    this.iconBackgroundColor,
   });
 
   @override
@@ -125,27 +127,35 @@ class _VigaFunctionItemState extends State<VigaFunctionItem> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (widget.icon != null) ...[
-              // 头像
+            if (widget.icon != null)
               Container(
                 width: widget.size.w,
                 height: widget.size.w,
+                clipBehavior: Clip.antiAlias,
                 margin: widget.margin ??
                     const EdgeInsets.only(
                       left: 25.0,
                       right: 25.0,
                     ).w,
-                child: ClipOval(
-                  // borderRadius: BorderRadius.circular(widget.size.w / 2),
-                  child: VigaAppNetworkImage(
-                    imageUrl: widget.icon!,
-                    width: widget.size.w,
-                    height: widget.size.w,
-                    fit: BoxFit.cover,
-                  ),
+                decoration: BoxDecoration(
+                  color: widget.iconBackgroundColor,
+                  borderRadius: BorderRadius.circular(widget.size.w / 2),
                 ),
+                child: widget.icon is IconData
+                    ? Center(
+                        child: Icon(
+                          widget.icon as IconData,
+                          size: widget.size.w - 5.w,
+                          color: Colors.white,
+                        ),
+                      )
+                    : VigaAppNetworkImage(
+                        imageUrl: widget.icon!,
+                        width: widget.size.w,
+                        height: widget.size.w,
+                        fit: BoxFit.cover,
+                      ),
               ),
-            ],
             Expanded(
               child: Container(
                 height: double.infinity,

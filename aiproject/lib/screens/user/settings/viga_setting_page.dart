@@ -31,7 +31,7 @@ class _VigaSettingPage extends State<VigaSettingPage> {
 
     return BlocBuilder<VigaSystemCubit, SystemState>(
       builder: (context, systemState) {
-        String cdnBase = systemState.cdnBase;
+        // String cdnBase = systemState.cdnBase;
 
         return Scaffold(
           primary: false,
@@ -57,38 +57,37 @@ class _VigaSettingPage extends State<VigaSettingPage> {
                     // 账户与安全
                     VigaFunctionList(children: [
                       VigaFunctionItem(
-                        icon: "$cdnBase/icon/settings_03.png",
+                        icon: const IconData(
+                          0xe69d,
+                          fontFamily: 'Iconfont',
+                        ),
+                        backgroundColor: Colors.white,
+                        iconBackgroundColor: const Color(0xFFE0F2F1), // 柔和的青色
                         title: l10n.accountAndSecurityTitle,
                         link: '/settings/account_and_secure',
                         underline: false,
                       ),
                     ]),
 
-                    // // 青少年模式 与 关怀模式
-                    // VigaFunctionList(children: [
-                    //   VigaFunctionItem(
-                    //     title: l10n.youthMode,
-                    //     link: '/settings/teenage_mode',
-                    //     underline: true,
-                    //   ),
-                    //   VigaFunctionItem(
-                    //     title: l10n.caringMode,
-                    //     link: '/settting/care_mode',
-                    //     underline: false,
-                    //   ),
-                    // ]),
-
                     // 语言设置
                     VigaFunctionList(children: [
                       VigaFunctionItem(
-                        icon: "$cdnBase/icon/settings_01.png",
+                        icon: const IconData(
+                          0xe69d,
+                          fontFamily: 'Iconfont',
+                        ),
+                        iconBackgroundColor: const Color(0xFFE3F2FD), // 淡雅的天蓝色
                         title: l10n.languageSetting,
                         link: '/settings/language_setting',
                         underline: true,
                       ),
                       // 主题设置
                       VigaFunctionItem(
-                        icon: "$cdnBase/icon/settings_02.png",
+                        icon: const IconData(
+                          0xe69d,
+                          fontFamily: 'Iconfont',
+                        ),
+                        iconBackgroundColor: const Color(0xFFFCE4EC), // 温柔的粉色
                         title: l10n.themeSetting,
                         link: '/settings/theme_setting',
                         underline: false,
@@ -98,19 +97,31 @@ class _VigaSettingPage extends State<VigaSettingPage> {
                     // 新消息通知 与 聊天 和 通用
                     VigaFunctionList(children: [
                       VigaFunctionItem(
-                        icon: "$cdnBase/icon/settings_10.png",
+                        icon: const IconData(
+                          0xe69d,
+                          fontFamily: 'Iconfont',
+                        ),
+                        iconBackgroundColor: const Color(0xFFFFF3E0), // 温暖的杏色
                         title: l10n.newMessageNotifications,
                         link: '/settings/new_message_notification',
                         underline: true,
                       ),
                       VigaFunctionItem(
-                        icon: "$cdnBase/icon/settings_04.png",
+                        icon: const IconData(
+                          0xe69d,
+                          fontFamily: 'Iconfont',
+                        ),
+                        iconBackgroundColor: const Color(0xFFE0F7FA), // 清新的湖蓝色
                         title: l10n.chat,
                         link: '/settings/chat_setting',
                         underline: true,
                       ),
                       VigaFunctionItem(
-                        icon: "$cdnBase/icon/settings_05.png",
+                        icon: const IconData(
+                          0xe69d,
+                          fontFamily: 'Iconfont',
+                        ),
+                        iconBackgroundColor: const Color(0xFFEDE7F6), // 淡雅的紫色
                         title: l10n.general,
                         link: '/settings/common_setting',
                         underline: false,
@@ -122,25 +133,45 @@ class _VigaSettingPage extends State<VigaSettingPage> {
                       title: VigaAlphabet(title: l10n.privacy),
                       children: [
                         VigaFunctionItem(
-                          icon: "$cdnBase/icon/settings_06.png",
+                          icon: const IconData(
+                            0xe69d,
+                            fontFamily: 'Iconfont',
+                          ),
+                          iconBackgroundColor:
+                              const Color(0xFFFFF9C4), // 明亮的柠檬黄
                           title: l10n.friendPermissions,
                           link: '/settings/friend_permission',
                           underline: true,
                         ),
                         VigaFunctionItem(
-                          icon: "$cdnBase/icon/settings_07.png",
+                          icon: const IconData(
+                            0xe69d,
+                            fontFamily: 'Iconfont',
+                          ),
+                          iconBackgroundColor:
+                              const Color(0xFFE8EAF6), // 沉静的靛蓝色
                           title: l10n.personalInfoAndPermissions,
                           link: '/settings/personinfo_and_permission',
                           underline: true,
                         ),
                         VigaFunctionItem(
-                          icon: "$cdnBase/icon/settings_11.png",
+                          icon: const IconData(
+                            0xe69d,
+                            fontFamily: 'Iconfont',
+                          ),
+                          iconBackgroundColor:
+                              const Color(0xFFE8F5E9), // 自然的浅绿色
                           title: l10n.personalInfoCollectionList,
                           link: '/settings/personalinfo_collection_checklist',
                           underline: true,
                         ),
                         VigaFunctionItem(
-                          icon: "$cdnBase/icon/settings_09.png",
+                          icon: const IconData(
+                            0xe69d,
+                            fontFamily: 'Iconfont',
+                          ),
+                          iconBackgroundColor:
+                              const Color(0xFFFFF3E0), // 温暖的杏色 (与通知色相同)
                           title: l10n.thirdPartyInfoSharingList,
                           link:
                               "/open_miniprogram?cid=bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi",
@@ -153,13 +184,23 @@ class _VigaSettingPage extends State<VigaSettingPage> {
                     VigaFunctionList(
                       children: [
                         VigaFunctionItem(
-                          icon: "$cdnBase/icon/settings_13.png",
+                          icon: const IconData(
+                            0xe69d,
+                            fontFamily: 'Iconfont',
+                          ),
+                          iconBackgroundColor:
+                              const Color(0xFFF3E5F5), // 优雅的薰衣草色
                           title: l10n.aboutVigaviga,
                           link: '/settings/about',
                           underline: true,
                         ),
                         VigaFunctionItem(
-                          icon: "$cdnBase/icon/settings_12.png",
+                          icon: const IconData(
+                            0xe69d,
+                            fontFamily: 'Iconfont',
+                          ),
+                          iconBackgroundColor:
+                              const Color(0xFFE0F2F1), // 柔和的青色 (与账户安全色相同)
                           title: l10n.helpAndFeedback,
                           link: null,
                           onPress: () {

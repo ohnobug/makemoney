@@ -67,7 +67,6 @@ flutter:
     - assets/images/
     - assets/sounds/
     - assets/lotties/
-    - assets/web/
   fonts:
     - family: NotoColorEmoji-Regular
       fonts:
