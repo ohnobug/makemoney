@@ -43,6 +43,9 @@ class _VigaArtsPageState extends State<VigaArtsPage>
   bool _isCommentPanel = false;
   bool _hideVideoInfo = false;
 
+  // 滑动透明度相关
+  double _pageScrollOpacity = 1.0;
+
   final List<CommentData> _comments = [
     CommentData(
         username: '小红薯6514199C',
@@ -129,7 +132,22 @@ class _VigaArtsPageState extends State<VigaArtsPage>
 
     _pageController.addListener(() {
       if (!_pageController.hasClients || _pageController.page == null) return;
-      final newPage = _pageController.page!.round();
+
+      // 计算滑动透明度
+      final currentPage = _pageController.page!;
+      final pageFraction = currentPage - currentPage.floor();
+      final opacity = 1.0 - pageFraction.abs();
+
+      // 确保透明度在0.3到1.0之间（不完全透明）
+      final clampedOpacity = opacity.clamp(0.3, 1.0);
+
+      if (_pageScrollOpacity != clampedOpacity) {
+        setState(() {
+          _pageScrollOpacity = clampedOpacity;
+        });
+      }
+
+      final newPage = currentPage.round();
       if (_currentPage != newPage) {
         // 暂停旧视频
         _videoControllers[_currentPage]?.pause();
@@ -543,45 +561,48 @@ class _VigaArtsPageState extends State<VigaArtsPage>
                             ),
                           ),
                         if (!_hideVideoInfo)
-                          Stack(
-                            children: [
-                              Positioned(
-                                left: 0,
-                                bottom: 0.w,
-                                child: VigaVideoInfoSection(
-                                  avatarUrl: videoData.avatarPath,
-                                  userName: videoData.userName,
-                                  description: videoData.description,
-                                ),
-                              ),
-                              Positioned(
-                                bottom: 30.w,
-                                right: 10.w,
-                                width: 100.w,
-                                child: _buildActionButtons(videoData),
-                              ),
-                              Positioned(
-                                top: 15.w + systemState.statusHeight,
-                                right: 28.w,
-                                child: GestureDetector(
-                                  onTap: () => context.push(
-                                    '/discovery/search',
+                          Opacity(
+                            opacity: _pageScrollOpacity,
+                            child: Stack(
+                              children: [
+                                Positioned(
+                                  left: 0,
+                                  bottom: 0.w,
+                                  child: VigaVideoInfoSection(
+                                    avatarUrl: videoData.avatarPath,
+                                    userName: videoData.userName,
+                                    description: videoData.description,
                                   ),
-                                  child: Container(
-                                    color: Colors.transparent,
-                                    height: 58.w,
-                                    child: Icon(
-                                      const IconData(
-                                        0xe612,
-                                        fontFamily: 'Iconfont',
+                                ),
+                                Positioned(
+                                  bottom: 30.w,
+                                  right: 10.w,
+                                  width: 100.w,
+                                  child: _buildActionButtons(videoData),
+                                ),
+                                Positioned(
+                                  top: 15.w + systemState.statusHeight,
+                                  right: 28.w,
+                                  child: GestureDetector(
+                                    onTap: () => context.push(
+                                      '/discovery/search',
+                                    ),
+                                    child: Container(
+                                      color: Colors.transparent,
+                                      height: 58.w,
+                                      child: Icon(
+                                        const IconData(
+                                          0xe612,
+                                          fontFamily: 'Iconfont',
+                                        ),
+                                        color: AppColors.neutralWhite,
+                                        size: 48.w,
                                       ),
-                                      color: AppColors.neutralWhite,
-                                      size: 48.w,
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                       ],
                     ),

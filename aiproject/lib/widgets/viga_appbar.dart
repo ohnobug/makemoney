@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/viga_system_cubit.dart';
@@ -9,12 +10,14 @@ class VigaAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String? title;
   final List<Widget>? actions;
   final Widget? leading;
+  final SystemUiOverlayStyle? systemOverlayStyle;
 
   const VigaAppBar({
     super.key,
     this.title,
     this.actions,
     this.leading,
+    this.systemOverlayStyle,
   });
 
   @override
@@ -52,6 +55,7 @@ class _VigaAppBar extends State<VigaAppBar> {
               title: widget.title ?? "",
               actions: widget.actions ?? [],
               leading: widget.leading,
+              systemOverlayStyle: widget.systemOverlayStyle,
             ),
           ),
         );

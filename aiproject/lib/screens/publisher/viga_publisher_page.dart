@@ -23,18 +23,6 @@ class _VigaPublisherState extends State<VigaPublisherPage>
   bool get wantKeepAlive => true;
 
   @override
-  void activate() {
-    super.activate();
-
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.dark,
-      ),
-    );
-  }
-
-  @override
   void initState() {
     super.initState();
 
@@ -70,67 +58,71 @@ class _VigaPublisherState extends State<VigaPublisherPage>
       ),
       child: Scaffold(
         backgroundColor: theme.colorScheme.surface,
-      appBar: VigaAppBar(
-          title: l10n.tabbar_label_publisher,
-          leading: const SizedBox(),
-          actions: [
-            // 点击出来弹窗
-            VigaAppBarActionIconButton(
-              iconData: const IconData(0xe726, fontFamily: 'Iconfont'),
-              onTap: () {
-                showPopupMenu(context);
-              },
+        appBar: VigaAppBar(
+            systemOverlayStyle: SystemUiOverlayStyle(
+              statusBarColor: Colors.transparent,
+              statusBarIconBrightness: Brightness.dark,
             ),
-          ]),
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 48.w), // 24 * 2
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    // 上半部分: AI 创作入口
-                    _buildFlatOption(
-                      context: context,
-                      icon: Icons.auto_awesome, // 建议替换为你的 Iconfont
-                      title: 'AI 创作 (花费 5 钻石)',
-                      description:
-                          'AI将为你生成独特的NFT艺术品。费用包含AI生成服务及链上铸造，发布后即可赚取打赏。',
-                      onTap: () {
-                        context.push('/ai_publisher');
-                      },
-                    ),
-                    SizedBox(height: 20.w), // 20 * 2
-                    // 下半部分: 用户上传入口
-                    _buildFlatOption(
-                      context: context,
-                      icon: Icons.upload_file, // 建议替换为你的 Iconfont
-                      title: '上传原创作品 (仅需 2 钻石)',
-                      description: '将你的原创作品铸为NFT。仅需支付链上铸造费用，发布后即可通过社区打赏获得回报。',
-                      onTap: () async {
-                        final ImagePicker picker = ImagePicker();
-                        final XFile? image =
-                            await picker.pickImage(source: ImageSource.gallery);
-                        if (image != null) {
-                          if (context.mounted) {
-                            context.push('/publish_work');
-                          }
-                        }
-                      },
-                    ),
-                  ],
-                ),
+            title: l10n.tabbar_label_publisher,
+            leading: const SizedBox(),
+            actions: [
+              // 点击出来弹窗
+              VigaAppBarActionIconButton(
+                iconData: const IconData(0xe726, fontFamily: 'Iconfont'),
+                onTap: () {
+                  showPopupMenu(context);
+                },
               ),
-              // 底部成本说明
-              _buildCostDisclaimer(context),
-              SizedBox(height: 100.w), // 50 * 2
-            ],
+            ]),
+        body: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 48.w), // 24 * 2
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // 上半部分: AI 创作入口
+                      _buildFlatOption(
+                        context: context,
+                        icon: Icons.auto_awesome, // 建议替换为你的 Iconfont
+                        title: 'AI 创作 (花费 5 钻石)',
+                        description:
+                            'AI将为你生成独特的NFT艺术品。费用包含AI生成服务及链上铸造，发布后即可赚取打赏。',
+                        onTap: () {
+                          context.push('/ai_publisher');
+                        },
+                      ),
+                      SizedBox(height: 20.w), // 20 * 2
+                      // 下半部分: 用户上传入口
+                      _buildFlatOption(
+                        context: context,
+                        icon: Icons.upload_file, // 建议替换为你的 Iconfont
+                        title: '上传原创作品 (仅需 2 钻石)',
+                        description: '将你的原创作品铸为NFT。仅需支付链上铸造费用，发布后即可通过社区打赏获得回报。',
+                        onTap: () async {
+                          final ImagePicker picker = ImagePicker();
+                          final XFile? image = await picker.pickImage(
+                              source: ImageSource.gallery);
+                          if (image != null) {
+                            if (context.mounted) {
+                              context.push('/publish_work');
+                            }
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+                // 底部成本说明
+                _buildCostDisclaimer(context),
+                SizedBox(height: 100.w), // 50 * 2
+              ],
+            ),
           ),
         ),
-      ),
       ),
     );
   }

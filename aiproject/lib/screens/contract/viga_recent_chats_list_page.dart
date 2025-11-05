@@ -367,6 +367,10 @@ class _VigaRecentChatsListPage extends State<VigaRecentChatsListPage>
                       child: VigaAppBarInner(
                         context: context,
                         title: l10n.tabbar_label_chat,
+                        systemOverlayStyle: SystemUiOverlayStyle(
+                          statusBarColor: Colors.transparent,
+                          statusBarIconBrightness: Brightness.dark,
+                        ),
                         actions: [
                           // 联系人
                           VigaAppBarActionIconButton(

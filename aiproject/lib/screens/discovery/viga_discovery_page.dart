@@ -113,18 +113,6 @@ class _VigaDiscoveryPageState extends State<VigaDiscoveryPage>
   bool get wantKeepAlive => true;
 
   @override
-  void activate() {
-    super.activate();
-
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.dark,
-      ),
-    );
-  }
-
-  @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -161,44 +149,48 @@ class _VigaDiscoveryPageState extends State<VigaDiscoveryPage>
       ),
       child: Scaffold(
         backgroundColor: theme.colorScheme.surfaceContainer,
-      primary: false,
-      appBar: VigaAppBar(
-        title: l10n.tabbar_label_discover,
-        leading: SizedBox(),
-        actions: [
-          // 点击出来弹窗
-          VigaAppBarActionIconButton(
-            iconData: const IconData(0xe726, fontFamily: 'Iconfont'),
-            onTap: () {
-              showPopupMenu(context);
-            },
+        primary: false,
+        appBar: VigaAppBar(
+          title: l10n.tabbar_label_discover,
+          leading: SizedBox(),
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+            statusBarIconBrightness: Brightness.dark,
           ),
-        ],
-      ),
-      body: ListView(
-        physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.only(
-          bottom: 50.w,
+          actions: [
+            // 点击出来弹窗
+            VigaAppBarActionIconButton(
+              iconData: const IconData(0xe726, fontFamily: 'Iconfont'),
+              onTap: () {
+                showPopupMenu(context);
+              },
+            ),
+          ],
         ),
-        children: [
-          // 搜索框
-          _buildSearchBar(theme),
-          // Banner
-          _buildBanner(),
-          // 【间距调整】
-          SizedBox(height: 50.w),
-          // 服务与功能
-          _buildServicesSection(theme, l10n, systemState),
-          // 【间距调整】
-          SizedBox(height: 50.w),
-          // 热门趋势
-          _buildTrendingSection(theme),
-          // 【间距调整】
-          SizedBox(height: 50.w),
-          // 【核心改动】调用新的“热门分类”构建方法
-          _buildHotCategoriesSection(theme),
-        ],
-      ),
+        body: ListView(
+          physics: BouncingScrollPhysics(),
+          padding: EdgeInsets.only(
+            bottom: 50.w,
+          ),
+          children: [
+            // 搜索框
+            _buildSearchBar(theme),
+            // Banner
+            _buildBanner(),
+            // 【间距调整】
+            SizedBox(height: 50.w),
+            // 服务与功能
+            _buildServicesSection(theme, l10n, systemState),
+            // 【间距调整】
+            SizedBox(height: 50.w),
+            // 热门趋势
+            _buildTrendingSection(theme),
+            // 【间距调整】
+            SizedBox(height: 50.w),
+            // 【核心改动】调用新的“热门分类”构建方法
+            _buildHotCategoriesSection(theme),
+          ],
+        ),
       ),
     );
   }

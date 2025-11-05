@@ -431,7 +431,7 @@ class _VigaAuthorDetailPageState extends State<VigaAuthorDetailPage>
   void _navigateToAuthorSearchPage(BuildContext context) {
     final workUrls = _works.map((workItem) => workItem.imageUrl).toList();
 
-    context.push('/home_search_results', extra: {
+    context.push('/search_results', extra: {
       'initialSearchType': 'author_search',
       'works': workUrls,
       'collections': [],

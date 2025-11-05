@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 
@@ -8,6 +9,7 @@ AppBar VigaAppBarInner({
   required String title,
   List<Widget>? actions,
   Widget? leading,
+  SystemUiOverlayStyle? systemOverlayStyle,
 }) {
   ThemeData theme = Theme.of(context);
 
@@ -35,6 +37,7 @@ AppBar VigaAppBarInner({
           ),
         ),
     primary: false,
+    systemOverlayStyle: systemOverlayStyle,
     centerTitle: theme.appBarTheme.centerTitle,
     title: Text(title),
     toolbarHeight: theme.appBarTheme.toolbarHeight,

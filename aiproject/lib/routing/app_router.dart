@@ -20,7 +20,6 @@ import 'package:vigaviga/screens/discovery/viga_post_detail_page.dart';
 import 'package:vigaviga/screens/discovery/viga_qrcode_scanner_page.dart';
 import 'package:vigaviga/screens/discovery/search/viga_search_page.dart';
 import 'package:vigaviga/screens/discovery/search/viga_user_search_results_page.dart';
-import 'package:vigaviga/screens/discovery/search/viga_home_search_results_page.dart';
 import 'package:vigaviga/screens/publisher/viga_publisher_page.dart';
 import 'package:vigaviga/screens/contract/chat/friend/viga_add_friends_page.dart';
 import 'package:vigaviga/screens/contract/chat/friend/viga_friend_data_setting_page.dart';
@@ -609,20 +608,6 @@ final GoRouter appRouter = GoRouter(
         final args = state.extra as Map<String, dynamic>? ?? {};
         return buildPageWithAnimation(
           child: VigaSearchResultsPage(
-            initialSearchType: args['initialSearchType'] ?? 'works',
-            works: args['works'] ?? [],
-            collections: args['collections'] ?? [],
-            praised: args['praised'] ?? [],
-          ),
-        );
-      },
-    ),
-    GoRoute(
-      path: '/home_search_results',
-      pageBuilder: (context, state) {
-        final args = state.extra as Map<String, dynamic>? ?? {};
-        return buildPageWithAnimation(
-          child: VigaHomeSearchResultsPage(
             initialSearchType: args['initialSearchType'] ?? 'works',
             works: args['works'] ?? [],
             collections: args['collections'] ?? [],

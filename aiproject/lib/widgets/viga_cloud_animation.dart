@@ -61,7 +61,7 @@ class _VigaCloudAnimationState extends State<VigaCloudAnimation>
 
   CloudModel _createRandomCloud(Size screenSize) {
     final double size = _random.nextDouble() * 100 + 50;
-    final double speed = _random.nextDouble() * 20 + 10;
+    final double speed = _random.nextDouble() * 30 + 10;
     final Color color = Color.fromRGBO(
       _random.nextInt(155) + 100,
       _random.nextInt(155) + 100,
