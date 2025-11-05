@@ -415,7 +415,7 @@ class _VigaSearch extends State<VigaSearchPage> with TickerProviderStateMixin {
           ),
         ];
       },
-      body: VigaInsComponent(),
+      body: VigaInsComponent(enableScroll: false),
     );
   }
 
@@ -464,10 +464,11 @@ class _VigaSearch extends State<VigaSearchPage> with TickerProviderStateMixin {
           style: TextStyle(color: Color(0xFFFE2C55), fontSize: 30.w)));
       start = endOfQuery;
     }
-    if (start < text.length)
+    if (start < text.length) {
       spans.add(TextSpan(
           text: text.substring(start),
           style: TextStyle(color: Colors.black, fontSize: 30.w)));
+    }
     return RichText(text: TextSpan(children: spans));
   }
 

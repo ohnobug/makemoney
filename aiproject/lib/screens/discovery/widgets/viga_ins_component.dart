@@ -5,7 +5,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'ins_style_row.dart';
 
 class VigaInsComponent extends StatefulWidget {
-  const VigaInsComponent({super.key});
+  final bool enableScroll;
+
+  const VigaInsComponent({super.key, this.enableScroll = true});
 
   @override
   State<VigaInsComponent> createState() => _VigaInsComponentState();
@@ -37,8 +39,10 @@ class _VigaInsComponentState extends State<VigaInsComponent> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
+      physics: widget.enableScroll
+          ? const BouncingScrollPhysics()
+          : const NeverScrollableScrollPhysics(),
+      shrinkWrap: !widget.enableScroll,
       itemCount: _mediaRows.length * 2 - 1,
       itemBuilder: (context, index) {
         if (index.isOdd) return SizedBox(height: 2.w);
