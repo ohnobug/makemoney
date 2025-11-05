@@ -382,10 +382,11 @@ class _VigaSearch extends State<VigaSearchPage> with TickerProviderStateMixin {
               TabBar(
                 controller: _hotTrendsTabController,
                 isScrollable: true,
+                tabAlignment: TabAlignment.start,
                 indicator: const BoxDecoration(color: Colors.transparent),
                 labelColor: Color(0xFF7859C8),
                 unselectedLabelColor: Colors.grey.shade600,
-                labelPadding: EdgeInsets.symmetric(horizontal: 20.w),
+                labelPadding: EdgeInsets.only(left: 20.w, right: 20.w),
                 labelStyle:
                     TextStyle(fontSize: 30.w, fontWeight: FontWeight.bold),
                 onTap: (index) {/* Link to TabBarView controller */},
@@ -399,8 +400,8 @@ class _VigaSearch extends State<VigaSearchPage> with TickerProviderStateMixin {
           SliverToBoxAdapter(
             child: SizedBox(
               // Calculate height for a non-scrolling view
-              height: (90.w * _hotListItemCount) +
-                  100.w, // item height * count + button height
+              height: (92.w * _hotListItemCount) +
+                  122.w, // (item height + margin) * count + button height
               child: TabBarView(
                 controller: _hotTrendsTabController,
                 children: staticHotListTitleKeys.map((_) {
@@ -493,7 +494,7 @@ class _VigaSearch extends State<VigaSearchPage> with TickerProviderStateMixin {
                   style:
                       TextStyle(fontSize: 28.w, color: Colors.grey.shade500)),
               if (actionIcon != null)
-                Icon(actionIcon, color: Colors.grey.shade500, size: 36.w),
+                Icon(actionIcon, color: Colors.grey.shade500, size: 44.w),
             ],
           ),
           SizedBox(height: 20.w),
@@ -574,7 +575,19 @@ class _VigaSearch extends State<VigaSearchPage> with TickerProviderStateMixin {
           onTap: () => _executeSearch(item.text),
           child: Container(
             height: 90.w,
-            color: Colors.white,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(10.w)),
+              gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: [
+                  rank <= 3 ? Color(0xFFFDEEEE) : Colors.grey.shade50,
+                  Colors.white
+                ],
+              ),
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 30.w),
+            margin: EdgeInsets.only(bottom: 2.w),
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
