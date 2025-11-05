@@ -324,6 +324,16 @@ class _VigaSearch extends State<VigaSearchPage> with TickerProviderStateMixin {
           unselectedLabelColor: Colors.grey,
           indicatorColor: Colors.black,
           indicatorWeight: 3.0,
+          labelStyle: TextStyle(
+            fontSize: 28.w, // 选中时字体变小
+            fontWeight: FontWeight.normal, // 选中时字体变粗
+            color: Colors.black, // 选中时字体变黑
+          ),
+          unselectedLabelStyle: TextStyle(
+            fontSize: 28.w, // 未选中时字体稍大
+            fontWeight: FontWeight.normal, // 未选中时字体正常
+            color: Colors.grey, // 未选中时字体灰色
+          ),
           tabs: const [
             Tab(text: '作品'),
             Tab(text: '用户'),
