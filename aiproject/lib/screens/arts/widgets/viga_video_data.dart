@@ -1,4 +1,4 @@
-// --- 数据模型 (无需改动) ---
+// --- 数据模型 (已添加查看次数) ---
 class VideoData {
   final String videoPath;
   final String avatarPath;
@@ -10,6 +10,7 @@ class VideoData {
   int commentCount;
   int collectionCount;
   int shareCount;
+  int viewCount;
 
   VideoData({
     required this.videoPath,
@@ -22,5 +23,6 @@ class VideoData {
     required this.commentCount,
     required this.collectionCount,
     required this.shareCount,
+    required this.viewCount,
   });
 }

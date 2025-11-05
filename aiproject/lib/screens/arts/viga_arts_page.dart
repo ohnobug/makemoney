@@ -1,6 +1,7 @@
-// G:\t\detection\aiproject\lib\screens\arts\viga_arts_page.dart
+// G:\t\detection\aiproject\lib\screens\arts\viga_arts_page.dart (已修复)
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -23,12 +24,20 @@ class VigaArtsPage extends StatefulWidget {
 }
 
 class _VigaArtsPageState extends State<VigaArtsPage>
-    with TickerProviderStateMixin, WidgetsBindingObserver {
+    with
+        TickerProviderStateMixin,
+        WidgetsBindingObserver,
+        AutomaticKeepAliveClientMixin<VigaArtsPage> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
   late final Map<int, VideoPlayerController> _videoControllers;
   late final VigaSystemCubit _systemCubit;
   late final List<VideoData> _videoDataList;
+
+  // ############### 1. 新增状态标志 ###############
+  // 用于记录用户离开前视频是否在播放
+  bool _wasPlaying = false;
+  // #########################################
 
   bool _isPanelOpen = false;
   bool _isCommentPanel = false;
@@ -68,6 +77,40 @@ class _VigaArtsPageState extends State<VigaArtsPage>
   late AnimationController _videoAnimationController;
 
   @override
+  bool get wantKeepAlive => true;
+
+  // ############### 2. 核心修改：deactivate 和 activate ###############
+  @override
+  void deactivate() {
+    // 当页面变为不活动时（例如切换Tab）
+    super.deactivate();
+    // 1. 记录下当前视频是否正在播放
+    if (_currentVideoController?.value.isInitialized ?? false) {
+      _wasPlaying = _currentVideoController!.value.isPlaying;
+    }
+    // 2. 强制暂停视频，防止后台播放
+    _currentVideoController?.pause();
+  }
+
+  @override
+  void activate() {
+    // 当页面被重新激活时
+    super.activate();
+    // 3. 重置状态栏样式，确保视觉正确
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.light,
+      ),
+    );
+    // 4. 如果离开前视频是在播放状态，则恢复播放
+    if (_wasPlaying) {
+      _currentVideoController?.play();
+    }
+  }
+  // ###############################################################
+
+  @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
@@ -88,12 +131,19 @@ class _VigaArtsPageState extends State<VigaArtsPage>
       if (!_pageController.hasClients || _pageController.page == null) return;
       final newPage = _pageController.page!.round();
       if (_currentPage != newPage) {
+        // 暂停旧视频
         _videoControllers[_currentPage]?.pause();
         _videoControllers[_currentPage]?.removeListener(_onVideoChange);
+
         setState(() {
           _currentPage = newPage;
+
+          // 播放新视频
           _currentVideoController?.play();
           _currentVideoController?.addListener(_onVideoChange);
+
+          // 更新wasPlaying状态
+          _wasPlaying = _currentVideoController?.value.isPlaying ?? false;
           _onVideoChange();
         });
       }
@@ -113,26 +163,30 @@ class _VigaArtsPageState extends State<VigaArtsPage>
   List<VideoData> _createMockVideoData() {
     return [
       VideoData(
-          videoPath: '${_systemCubit.state.cdnBase}/ins/video2.mp4',
-          avatarPath: '${_systemCubit.state.cdnBase}/avatar/chat_10.jpg',
-          userName: '牛马的home',
-          description:
-              '我真的太爱我的游戏房了！😭😭😭 这一刻仿佛被钉在了客厅 #懒人救星 #居家办公 #电竞 #游戏 #男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间 #INGREM #治愈 #生活...',
-          likeCount: 1050,
-          commentCount: 241,
-          collectionCount: 421,
-          shareCount: 934),
+        videoPath: '${_systemCubit.state.cdnBase}/ins/video2.mp4',
+        avatarPath: '${_systemCubit.state.cdnBase}/avatar/chat_10.jpg',
+        userName: '牛马的home',
+        description:
+            '我真的太爱我的游戏房了！😭😭😭 这一刻仿佛被钉在了客厅 #懒人救星 #居家办公 #电竞 #游戏 #男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间 #INGREM #治愈 #生活...',
+        likeCount: 1050,
+        commentCount: 241,
+        collectionCount: 421,
+        viewCount: 1000,
+        shareCount: 934,
+      ),
       VideoData(
-          videoPath:
-              'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
-          avatarPath: '${_systemCubit.state.cdnBase}/avatar/chat_11.jpg',
-          userName: 'Flutter开发者',
-          description: '用Flutter做出的短视频流，性能和体验都非常棒！#Flutter #App开发 #编程',
-          likeCount: 2048,
-          commentCount: 512,
-          collectionCount: 1024,
-          shareCount: 128,
-          isLiked: true),
+        videoPath:
+            'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
+        avatarPath: '${_systemCubit.state.cdnBase}/avatar/chat_11.jpg',
+        userName: 'Flutter开发者',
+        description: '用Flutter做出的短视频流，性能和体验都非常棒！#Flutter #App开发 #编程',
+        likeCount: 2048,
+        commentCount: 512,
+        collectionCount: 1024,
+        viewCount: 1000,
+        shareCount: 128,
+        isLiked: true,
+      ),
     ];
   }
 
@@ -165,6 +219,8 @@ class _VigaArtsPageState extends State<VigaArtsPage>
         controller.setVolume(1.0);
         if (index == _currentPage) {
           controller.play();
+          // 首次播放时，更新wasPlaying状态
+          _wasPlaying = true;
           controller.addListener(_onVideoChange);
           _onVideoChange();
         }
@@ -203,6 +259,12 @@ class _VigaArtsPageState extends State<VigaArtsPage>
     logger.info('_showCommentsPanel called - setting _hideVideoInfo to true');
     _systemCubit.updateVideoProgress(show: false);
     _systemCubit.updateShowHomeTabbar(false);
+
+    // 打开评论面板前暂停视频
+    if (_currentVideoController?.value.isInitialized ?? false) {
+      _wasPlaying = _currentVideoController!.value.isPlaying;
+      _currentVideoController!.pause();
+    }
 
     setState(() {
       _isPanelOpen = true;
@@ -257,9 +319,7 @@ class _VigaArtsPageState extends State<VigaArtsPage>
                     scrollController: scrollController,
                     systemState: systemState,
                     onCommentSubmitted: (comment) {
-                      // 这里可以处理评论提交逻辑
                       logger.info('用户提交评论: $comment');
-                      // 可以在这里添加评论到列表的逻辑
                     },
                   );
                 });
@@ -270,12 +330,9 @@ class _VigaArtsPageState extends State<VigaArtsPage>
       },
     );
 
-    // 监听路由状态变化，确保在任何情况下都能正确恢复页面状态
     route.then((_) {
       _scrollableController.removeListener(_onPanelDrag);
       transitionAnimation.removeListener(entryAnimationListener);
-
-      // 确保无论通过什么方式关闭评论面板，都能恢复tabbar状态
       _hideCommentsPanel();
     });
   }
@@ -284,35 +341,36 @@ class _VigaArtsPageState extends State<VigaArtsPage>
     logger.info(
         '_hideCommentsPanel called - _isPanelOpen: $_isPanelOpen, _hideVideoInfo: $_hideVideoInfo');
 
-    // 立即重置所有状态，确保功能正常
     _systemCubit.updateShowHomeTabbar(true);
     _systemCubit.updateVideoProgress(show: true);
 
-    // 立即显示作者信息和按钮，不再等待动画
+    // 关闭评论面板后，如果之前在播放，则恢复播放
+    if (_wasPlaying) {
+      _currentVideoController?.play();
+    }
+
     if (mounted) {
       logger.info('Setting _hideVideoInfo to false in setState');
       setState(() {
         _isPanelOpen = false;
         _isCommentPanel = false;
-        _hideVideoInfo = false; // 立即显示作者信息和按钮
+        _hideVideoInfo = false;
       });
     } else {
       logger.info('Widget not mounted, cannot call setState');
     }
 
-    // 如果有动画在进行，继续执行但不影响状态
     if (mounted && _videoAnimationController.value != 1.0) {
       _videoAnimationController.animateTo(1.0, curve: Curves.easeOutQuart);
     }
   }
 
-  // 🚀 [RESTORED] _showArtInfoModalSheet
   void _showArtInfoModalSheet(BuildContext context) {
     final currentVideoData = _videoDataList[_currentPage];
 
     setState(() {
       _isPanelOpen = true;
-      _isCommentPanel = false; // Note: This will not trigger video scaling
+      _isCommentPanel = false;
     });
 
     showModalBottomSheet<void>(
@@ -346,7 +404,6 @@ class _VigaArtsPageState extends State<VigaArtsPage>
     });
   }
 
-  // _showArtShareModalSheet
   void _showArtShareModalSheet(BuildContext context) {
     showModalBottomSheet<void>(
       isScrollControlled: true,
@@ -373,6 +430,7 @@ class _VigaArtsPageState extends State<VigaArtsPage>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     logger.info(
         'build called - _hideVideoInfo: $_hideVideoInfo, _isPanelOpen: $_isPanelOpen, _isCommentPanel: $_isCommentPanel');
     return BlocBuilder<VigaSystemCubit, SystemState>(
@@ -401,131 +459,135 @@ class _VigaArtsPageState extends State<VigaArtsPage>
 
         return Scaffold(
           backgroundColor: Colors.black,
-          body: AnimatedBuilder(
-            animation: _videoAnimationController,
-            builder: (context, child) {
-              final progress = _videoAnimationController.value;
+          body: AnnotatedRegion<SystemUiOverlayStyle>(
+            value: const SystemUiOverlayStyle(
+              statusBarColor: Colors.transparent,
+              statusBarBrightness: Brightness.dark,
+              statusBarIconBrightness: Brightness.light,
+            ),
+            child: AnimatedBuilder(
+              animation: _videoAnimationController,
+              builder: (context, child) {
+                final progress = _videoAnimationController.value;
 
-              // Only apply the transformation if it's the comment panel
-              final currentVideoHeight = (_isPanelOpen && _isCommentPanel)
-                  ? interpolate(shrunkVideoHeight, normalVideoHeight, progress)
-                  : normalVideoHeight;
-              final currentVideoWidth = (_isPanelOpen && _isCommentPanel)
-                  ? interpolate(shrunkVideoWidth, screenWidth, progress)
-                  : screenWidth;
-              final currentVideoTop = (_isPanelOpen && _isCommentPanel)
-                  ? interpolate(shrunkVideoTopMargin, 0.0, progress)
-                  : 0.0;
-              final currentVideoLeft = (_isPanelOpen && _isCommentPanel)
-                  ? interpolate(
-                      (screenWidth - shrunkVideoWidth) / 2, 0.0, progress)
-                  : 0.0;
+                final currentVideoHeight = (_isPanelOpen && _isCommentPanel)
+                    ? interpolate(
+                        shrunkVideoHeight, normalVideoHeight, progress)
+                    : normalVideoHeight;
+                final currentVideoWidth = (_isPanelOpen && _isCommentPanel)
+                    ? interpolate(shrunkVideoWidth, screenWidth, progress)
+                    : screenWidth;
+                final currentVideoTop = (_isPanelOpen && _isCommentPanel)
+                    ? interpolate(shrunkVideoTopMargin, 0.0, progress)
+                    : 0.0;
+                final currentVideoLeft = (_isPanelOpen && _isCommentPanel)
+                    ? interpolate(
+                        (screenWidth - shrunkVideoWidth) / 2, 0.0, progress)
+                    : 0.0;
 
-              return Stack(
-                children: [
-                  Positioned(
-                    top: currentVideoTop,
-                    left: currentVideoLeft,
-                    width: currentVideoWidth,
-                    height: currentVideoHeight,
-                    child: child!,
-                  ),
-                ],
-              );
-            },
-            child: PageView.builder(
-              controller: _pageController,
-              scrollDirection: Axis.vertical,
-              physics: _isPanelOpen
-                  ? const NeverScrollableScrollPhysics()
-                  : const PageScrollPhysics(),
-              itemCount: _videoDataList.length,
-              itemBuilder: (context, index) {
-                final controller = _createVideoControllerForIndex(index);
-                final videoData = _videoDataList[index];
-
-                return Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                      (_isPanelOpen && _isCommentPanel)
-                          ? interpolate(
-                              12.0, 0.0, _videoAnimationController.value)
-                          : 0.0,
+                return Stack(
+                  children: [
+                    Positioned(
+                      top: currentVideoTop,
+                      left: currentVideoLeft,
+                      width: currentVideoWidth,
+                      height: currentVideoHeight,
+                      child: child!,
                     ),
-                    color: Colors.black,
-                  ),
-                  clipBehavior: Clip.hardEdge,
-                  child: Stack(
-                    fit: StackFit.expand,
-                    alignment: Alignment.center,
-                    children: [
-                      if (controller.value.isInitialized)
-                        FittedBox(
-                          fit: controller.value.aspectRatio < 1.0
-                              ? BoxFit.cover
-                              : BoxFit.contain,
-                          clipBehavior: Clip.hardEdge,
-                          child: SizedBox(
-                            width: controller.value.size.width,
-                            height: controller.value.size.height,
-                            child: VigaCustomVideoPlayer(
-                              key: ValueKey('video_$index'),
-                              canPlay: index == _currentPage,
-                              controller: controller,
-                              videoHeight: normalVideoHeight,
-                              enableTapToPlay: !_isPanelOpen,
-                              isPanelOpen: _isPanelOpen,
-                            ),
-                          ),
-                        ),
-                      if (!_hideVideoInfo)
-                        Stack(
-                          children: [
-                            Positioned(
-                              left: 0,
-                              bottom: 0.w,
-                              child: VigaVideoInfoSection(
-                                avatarUrl: videoData.avatarPath,
-                                userName: videoData.userName,
-                                description: videoData.description,
+                  ],
+                );
+              },
+              child: PageView.builder(
+                controller: _pageController,
+                scrollDirection: Axis.vertical,
+                physics: _isPanelOpen
+                    ? const NeverScrollableScrollPhysics()
+                    : const PageScrollPhysics(),
+                itemCount: _videoDataList.length,
+                itemBuilder: (context, index) {
+                  final controller = _createVideoControllerForIndex(index);
+                  final videoData = _videoDataList[index];
+
+                  return Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(
+                        (_isPanelOpen && _isCommentPanel)
+                            ? interpolate(
+                                12.0, 0.0, _videoAnimationController.value)
+                            : 0.0,
+                      ),
+                      color: Colors.black,
+                    ),
+                    clipBehavior: Clip.hardEdge,
+                    child: Stack(
+                      fit: StackFit.expand,
+                      alignment: Alignment.center,
+                      children: [
+                        if (controller.value.isInitialized)
+                          FittedBox(
+                            fit: controller.value.aspectRatio < 1.0
+                                ? BoxFit.cover
+                                : BoxFit.contain,
+                            clipBehavior: Clip.hardEdge,
+                            child: SizedBox(
+                              width: controller.value.size.width,
+                              height: controller.value.size.height,
+                              child: VigaCustomVideoPlayer(
+                                key: ValueKey('video_$index'),
+                                canPlay: index == _currentPage,
+                                controller: controller,
+                                videoHeight: normalVideoHeight,
+                                enableTapToPlay: !_isPanelOpen,
+                                isPanelOpen: _isPanelOpen,
                               ),
                             ),
-                            Positioned(
-                              bottom: 30.w,
-                              right: 10.w,
-                              width: 100.w,
-                              // height: 750.w,
-                              child: _buildActionButtons(videoData),
-                            ),
-
-                            // 右上角搜索按钮
-                            Positioned(
-                              top: 15.w + systemState.statusHeight,
-                              right: 28.w,
-                              child: GestureDetector(
-                                onTap: () => context.push(
-                                  '/discovery/search',
+                          ),
+                        if (!_hideVideoInfo)
+                          Stack(
+                            children: [
+                              Positioned(
+                                left: 0,
+                                bottom: 0.w,
+                                child: VigaVideoInfoSection(
+                                  avatarUrl: videoData.avatarPath,
+                                  userName: videoData.userName,
+                                  description: videoData.description,
                                 ),
-                                child: Container(
-                                  color: Colors.transparent,
-                                  height: 58.w,
-                                  child: Icon(
-                                    const IconData(
-                                      0xe612,
-                                      fontFamily: 'Iconfont',
+                              ),
+                              Positioned(
+                                bottom: 30.w,
+                                right: 10.w,
+                                width: 100.w,
+                                child: _buildActionButtons(videoData),
+                              ),
+                              Positioned(
+                                top: 15.w + systemState.statusHeight,
+                                right: 28.w,
+                                child: GestureDetector(
+                                  onTap: () => context.push(
+                                    '/discovery/search',
+                                  ),
+                                  child: Container(
+                                    color: Colors.transparent,
+                                    height: 58.w,
+                                    child: Icon(
+                                      const IconData(
+                                        0xe612,
+                                        fontFamily: 'Iconfont',
+                                      ),
+                                      color: AppColors.neutralWhite,
+                                      size: 48.w,
                                     ),
-                                    color: AppColors.neutralWhite,
-                                    size: 48.w,
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
-                    ],
-                  ),
-                );
-              },
+                            ],
+                          ),
+                      ],
+                    ),
+                  );
+                },
+              ),
             ),
           ),
         );
@@ -576,7 +638,7 @@ class _VigaArtsPageState extends State<VigaArtsPage>
         SizedBox(height: 20.w),
         _buildActionButton(
           const IconData(0xe6e6, fontFamily: 'Iconfont'),
-          count: '', // 更多按钮没有数字
+          count: '',
           onTap: () => _showArtInfoModalSheet(context),
         ),
       ],
@@ -596,7 +658,7 @@ class _VigaArtsPageState extends State<VigaArtsPage>
         padding: EdgeInsets.symmetric(
           vertical: 8.w,
           horizontal: 12.w,
-        ), // 增加内边距扩大点击区域
+        ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,

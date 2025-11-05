@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vigaviga/api_manager/api.dart';
@@ -25,7 +26,11 @@ class VigaRecentChatsListPage extends StatefulWidget {
 }
 
 class _VigaRecentChatsListPage extends State<VigaRecentChatsListPage>
-    with TickerProviderStateMixin {
+    with
+        TickerProviderStateMixin,
+        AutomaticKeepAliveClientMixin<VigaRecentChatsListPage> {
+  @override
+  bool get wantKeepAlive => true;
   final _miniprogramScrollController = ScrollController();
 
   late final List<ChatListItem> chatItems;
@@ -37,6 +42,18 @@ class _VigaRecentChatsListPage extends State<VigaRecentChatsListPage>
   double initialY = 0.0;
   double deltaY = 0.0;
   double downHomescrollpixels = 0;
+
+  @override
+  void activate() {
+    super.activate();
+
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+    );
+  }
 
   @override
   void initState() {
@@ -108,6 +125,7 @@ class _VigaRecentChatsListPage extends State<VigaRecentChatsListPage>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocBuilder<VigaSystemCubit, SystemState>(
         builder: (context, systemState) {
       if (systemState.screenSize == Size.zero ||
@@ -192,210 +210,218 @@ class _VigaRecentChatsListPage extends State<VigaRecentChatsListPage>
     logger.info(
         "topLottieOpacity: $topLottieOpacity   _homescrollpixels: $_homescrollpixels");
 
-    return Stack(
-      children: [
-        // 小程序背景
-        Visibility(
-          visible: _homescrollpixels > 0,
-          child: VigaCloudAnimation(),
-        ),
-
-        // 小程序列表, 需要现在在appbar下面
-        Visibility(
-          visible: _homescrollpixels > 0,
-          child: Positioned(
-            top: 0,
-            left: 0,
-            // 需要增高一点, 因为Transform.scale缩小后, SingleChildScrollView的高度不能自动适配.
-            height: _homescrollpixels +
-                (systemState.appbarHeight + statusHeight + 200.w),
-            width: screenSize.width,
-            child: VigaChatMiniProgram(
-              reverse: reverse,
-              homescrollpixels: _homescrollpixels,
-            ),
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+      child: Stack(
+        children: [
+          // 小程序背景
+          Visibility(
+            visible: _homescrollpixels > 0,
+            child: VigaCloudAnimation(),
           ),
-        ),
 
-        // 列表
-        Positioned(
-          top: systemState.appbarHeight +
-              statusHeight +
-              _animationController!.value,
-          left: 0,
-          width: screenSize.width,
-          height: screenSize.height - (systemState.appbarHeight + statusHeight),
-          child: Listener(
-            onPointerUp: (event) {
-              logger.info(
-                  "释放那一刻 ${_miniprogramScrollController.position.pixels}");
-
-              if (_miniprogramScrollController.position.pixels < -100) {
-                _animationController!.value = _homescrollpixels;
-                _miniprogramScrollController.jumpTo(0);
-                _physics = const NeverScrollableScrollPhysics();
-
-                context.read<VigaSystemCubit>().updateShowHomeTabbar(false);
-
-                _miniprogramScrollController.removeListener(scrollListener);
-
-                _animationController!.forward().then((_) {
-                  _miniprogramScrollController.jumpTo(0);
-                  _physics = const MyBouncingScrollPhysics();
-                  _miniprogramScrollController.addListener(scrollListener);
-                });
-              }
-            },
-            child: ScrollConfiguration(
-              behavior: CustomScrollBehavior().copyWith(
-                scrollbars: false,
-                physics: _physics,
-              ),
-              child: ListView.builder(
-                primary: false,
-                padding: EdgeInsets.only(bottom: 106.w),
-                // padding: EdgeInsets.all(0.w),
-                itemCount: chatItems.length,
-                shrinkWrap: true,
-                controller: _miniprogramScrollController,
-                scrollDirection: Axis.vertical,
-                itemBuilder: (context, index) {
-                  return chatItems[index];
-                },
-              ),
-            ),
-          ),
-        ),
-
-        // 三个点点动画
-        Visibility(
-          visible: !_lottieController.isCompleted,
-          child: Opacity(
-            opacity: _homescrollpixels > 0 ? 1 - topLottieOpacity : 0,
-            child: Container(
-              color: theme.colorScheme.surfaceContainer,
+          // 小程序列表, 需要现在在appbar下面
+          Visibility(
+            visible: _homescrollpixels > 0,
+            child: Positioned(
+              top: 0,
+              left: 0,
+              // 需要增高一点, 因为Transform.scale缩小后, SingleChildScrollView的高度不能自动适配.
+              height: _homescrollpixels +
+                  (systemState.appbarHeight + statusHeight + 200.w),
               width: screenSize.width,
-              height:
-                  _homescrollpixels + (systemState.appbarHeight + statusHeight),
-              child: Lottie.asset(
-                assetPath('lotties/homeminiprogramdarwing.json'),
-                width: screenSize.width,
-                height:
-                    _homescrollpixels + statusHeight + systemState.appbarHeight,
-                fit: BoxFit.contain,
-                renderCache: RenderCache.drawingCommands,
-                controller: _lottieController,
+              child: VigaChatMiniProgram(
+                reverse: reverse,
+                homescrollpixels: _homescrollpixels,
               ),
             ),
           ),
-        ),
 
-        Positioned(
-          height: systemState.appbarHeight + statusHeight,
-          width: 750.w,
-          top: _homescrollpixels,
-          child: Stack(
-            children: [
-              Visibility(
-                visible: _homescrollpixels == 0,
-                child: Container(
-                  color: theme.appBarTheme.backgroundColor,
-                  height: statusHeight,
+          // 列表
+          Positioned(
+            top: systemState.appbarHeight +
+                statusHeight +
+                _animationController!.value,
+            left: 0,
+            width: screenSize.width,
+            height:
+                screenSize.height - (systemState.appbarHeight + statusHeight),
+            child: Listener(
+              onPointerUp: (event) {
+                logger.info(
+                    "释放那一刻 ${_miniprogramScrollController.position.pixels}");
+
+                if (_miniprogramScrollController.position.pixels < -100) {
+                  _animationController!.value = _homescrollpixels;
+                  _miniprogramScrollController.jumpTo(0);
+                  _physics = const NeverScrollableScrollPhysics();
+
+                  context.read<VigaSystemCubit>().updateShowHomeTabbar(false);
+
+                  _miniprogramScrollController.removeListener(scrollListener);
+
+                  _animationController!.forward().then((_) {
+                    _miniprogramScrollController.jumpTo(0);
+                    _physics = const MyBouncingScrollPhysics();
+                    _miniprogramScrollController.addListener(scrollListener);
+                  });
+                }
+              },
+              child: ScrollConfiguration(
+                behavior: CustomScrollBehavior().copyWith(
+                  scrollbars: false,
+                  physics: _physics,
+                ),
+                child: ListView.builder(
+                  primary: false,
+                  padding: EdgeInsets.only(bottom: 106.w),
+                  // padding: EdgeInsets.all(0.w),
+                  itemCount: chatItems.length,
+                  shrinkWrap: true,
+                  controller: _miniprogramScrollController,
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (context, index) {
+                    return chatItems[index];
+                  },
                 ),
               ),
-              Positioned(
-                top: statusHeight,
-                child: Listener(
-                  onPointerDown: (event) {
-                    // 记录手指按下时的 Y 轴位置
-                    initialY = event.position.dy;
-                    downHomescrollpixels = _homescrollpixels;
-                  },
-                  onPointerMove: (event) {
-                    logger.info('Y轴移动距离: $deltaY');
+            ),
+          ),
 
-                    // 不允许下拉, 只允许上拉
-                    if (initialY < event.position.dy) {
-                      return;
-                    }
+          // 三个点点动画
+          Visibility(
+            visible: !_lottieController.isCompleted,
+            child: Opacity(
+              opacity: _homescrollpixels > 0 ? 1 - topLottieOpacity : 0,
+              child: Container(
+                color: theme.colorScheme.surfaceContainer,
+                width: screenSize.width,
+                height: _homescrollpixels +
+                    (systemState.appbarHeight + statusHeight),
+                child: Lottie.asset(
+                  assetPath('lotties/homeminiprogramdarwing.json'),
+                  width: screenSize.width,
+                  height: _homescrollpixels +
+                      statusHeight +
+                      systemState.appbarHeight,
+                  fit: BoxFit.contain,
+                  renderCache: RenderCache.drawingCommands,
+                  controller: _lottieController,
+                ),
+              ),
+            ),
+          ),
 
-                    // 计算手指在Y轴上移动的距离
-                    deltaY = event.position.dy - initialY;
-
-                    double newHomescrollpixels =
-                        downHomescrollpixels - deltaY.abs();
-
-                    setState(() {
-                      _homescrollpixels = newHomescrollpixels;
-                    });
-
-                    _animationController!.value = newHomescrollpixels;
-                  },
-                  onPointerUp: (event) {
-                    // 恢复
-                    reverse();
-                  },
+          Positioned(
+            height: systemState.appbarHeight + statusHeight,
+            width: 750.w,
+            top: _homescrollpixels,
+            child: Stack(
+              children: [
+                Visibility(
+                  visible: _homescrollpixels == 0,
                   child: Container(
                     color: theme.appBarTheme.backgroundColor,
-                    width: 750.w,
-                    height: systemState.appbarHeight,
-                    child: VigaAppBarInner(
-                      context: context,
-                      title: l10n.tabbar_label_chat,
-                      actions: [
-                        // 联系人
-                        VigaAppBarActionIconButton(
-                          iconData:
-                              const IconData(0xe608, fontFamily: 'Iconfont'),
-                          onTap: () {
-                            if (_homescrollpixels == 0) {
-                              context.push('/contact');
-                            }
-                          },
-                        ),
+                    height: statusHeight,
+                  ),
+                ),
+                Positioned(
+                  top: statusHeight,
+                  child: Listener(
+                    onPointerDown: (event) {
+                      // 记录手指按下时的 Y 轴位置
+                      initialY = event.position.dy;
+                      downHomescrollpixels = _homescrollpixels;
+                    },
+                    onPointerMove: (event) {
+                      logger.info('Y轴移动距离: $deltaY');
 
-                        // 点击出来弹窗
-                        VigaAppBarActionIconButton(
-                          iconData:
-                              const IconData(0xe726, fontFamily: 'Iconfont'),
-                          onTap: () {
+                      // 不允许下拉, 只允许上拉
+                      if (initialY < event.position.dy) {
+                        return;
+                      }
+
+                      // 计算手指在Y轴上移动的距离
+                      deltaY = event.position.dy - initialY;
+
+                      double newHomescrollpixels =
+                          downHomescrollpixels - deltaY.abs();
+
+                      setState(() {
+                        _homescrollpixels = newHomescrollpixels;
+                      });
+
+                      _animationController!.value = newHomescrollpixels;
+                    },
+                    onPointerUp: (event) {
+                      // 恢复
+                      reverse();
+                    },
+                    child: Container(
+                      color: theme.appBarTheme.backgroundColor,
+                      width: 750.w,
+                      height: systemState.appbarHeight,
+                      child: VigaAppBarInner(
+                        context: context,
+                        title: l10n.tabbar_label_chat,
+                        actions: [
+                          // 联系人
+                          VigaAppBarActionIconButton(
+                            iconData:
+                                const IconData(0xe608, fontFamily: 'Iconfont'),
+                            onTap: () {
+                              if (_homescrollpixels == 0) {
+                                context.push('/contact');
+                              }
+                            },
+                          ),
+
+                          // 点击出来弹窗
+                          VigaAppBarActionIconButton(
+                            iconData:
+                                const IconData(0xe726, fontFamily: 'Iconfont'),
+                            onTap: () {
+                              if (_homescrollpixels == 0) {
+                                showPopupMenu(context);
+                              }
+                            },
+                          ),
+                        ],
+                        // 搜索
+                        leading: GestureDetector(
+                          onTap: () async {
                             if (_homescrollpixels == 0) {
-                              showPopupMenu(context);
+                              context.push('/contact/search_friend', extra: {
+                                'recentContacts': chatItems,
+                              });
                             }
                           },
-                        ),
-                      ],
-                      // 搜索
-                      leading: GestureDetector(
-                        onTap: () async {
-                          if (_homescrollpixels == 0) {
-                            context.push('/contact/search_friend', extra: {
-                              'recentContacts': chatItems,
-                            });
-                          }
-                        },
-                        child: Container(
-                          color: Colors.transparent,
-                          height: 90.w,
-                          padding: EdgeInsets.only(left: 33.w),
-                          child: Icon(
-                            color: theme.appBarTheme.titleTextStyle!.color,
-                            const IconData(
-                              0xe612,
-                              fontFamily: 'Iconfont',
+                          child: Container(
+                            color: Colors.transparent,
+                            height: 90.w,
+                            padding: EdgeInsets.only(left: 33.w),
+                            child: Icon(
+                              color: theme.appBarTheme.titleTextStyle!.color,
+                              const IconData(
+                                0xe612,
+                                fontFamily: 'Iconfont',
+                              ),
+                              size: 40.w,
                             ),
-                            size: 40.w,
                           ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
-        )
-      ],
+        ],
+      ),
     );
   }
 }

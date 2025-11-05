@@ -49,16 +49,6 @@ class _VigaQRCodeScannerState extends State<VigaQRCodeScanner> {
   void initState() {
     super.initState();
 
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent, // 设置状态栏透明
-        statusBarIconBrightness: Brightness.light, // 设置状态栏图标颜色
-      ),
-    );
-    // player = AudioPlayer();
-    // player.setReleaseMode(ReleaseMode.stop);
-    // player.setSource(AssetSource("sounds/scan_success.mp3"),);
-
     // 创建视频控制器并初始化
     _mediaController = VideoPlayerController.asset(
       assetPath("sounds/scan_success.mp3"),
@@ -148,44 +138,51 @@ class _VigaQRCodeScannerState extends State<VigaQRCodeScanner> {
       return Scaffold(
         primary: false,
         appBar: null,
-        body: Stack(
-          fit: StackFit.expand,
-          children: [
-            MobileScanner(
-              fit: BoxFit.cover,
-              controller: _mobileScannerController,
-              // onDetect: _handleBarcode,
-            ),
+        body: AnnotatedRegion<SystemUiOverlayStyle>(
+          value: SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+            statusBarBrightness: Brightness.dark,
+            statusBarIconBrightness: Brightness.light,
+          ),
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              MobileScanner(
+                fit: BoxFit.cover,
+                controller: _mobileScannerController,
+                // onDetect: _handleBarcode,
+              ),
 
-            if (_barcodeCapture != null && _barcodeCapture!.image != null)
-              Stack(fit: StackFit.expand, children: [
-                // 扫码后暂停结果
-                Image.memory(
-                  _barcodeCapture!.image!,
-                  fit: BoxFit.cover,
-                  filterQuality: FilterQuality.high,
-                  frameBuilder: (
-                    BuildContext context,
-                    Widget child,
-                    int? frame,
-                    bool? wasSynchronouslyLoaded,
-                  ) {
-                    if (wasSynchronouslyLoaded == true || frame != null) {
-                      return child;
-                    }
+              if (_barcodeCapture != null && _barcodeCapture!.image != null)
+                Stack(fit: StackFit.expand, children: [
+                  // 扫码后暂停结果
+                  Image.memory(
+                    _barcodeCapture!.image!,
+                    fit: BoxFit.cover,
+                    filterQuality: FilterQuality.high,
+                    frameBuilder: (
+                      BuildContext context,
+                      Widget child,
+                      int? frame,
+                      bool? wasSynchronouslyLoaded,
+                    ) {
+                      if (wasSynchronouslyLoaded == true || frame != null) {
+                        return child;
+                      }
 
-                    return SizedBox();
-                  },
-                ),
-                ...overlays
-              ]),
+                      return SizedBox();
+                    },
+                  ),
+                  ...overlays
+                ]),
 
-            // 按钮与扫码条动画
-            ButtonAndScanBarWidget(
-              controller: _mobileScannerController,
-              barcodeCapture: _barcodeCapture,
-            )
-          ],
+              // 按钮与扫码条动画
+              ButtonAndScanBarWidget(
+                controller: _mobileScannerController,
+                barcodeCapture: _barcodeCapture,
+              )
+            ],
+          ),
         ),
       );
     });

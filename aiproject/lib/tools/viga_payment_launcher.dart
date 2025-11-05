@@ -1,3 +1,5 @@
+// G:\t\detection\aiproject\lib\tools\viga_payment_launcher.dart
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/store/viga_payment_cubit.dart';
@@ -6,12 +8,6 @@ import 'package:vigaviga/features/payment/widgets/viga_confirm_payment_sheet.dar
 import 'package:vigaviga/features/payment/widgets/viga_password_input_dialog.dart';
 
 class VigaPaymentLauncher {
-  /// 啟動完整的支付流程
-  ///
-  /// 使用示例：
-  /// ```dart
-  /// VigaPaymentLauncher.startPaymentFlow(context);
-  /// ```
   static Future<void> startPaymentFlow(
     BuildContext context, {
     double? amount,
@@ -67,6 +63,7 @@ class VigaPaymentLauncher {
     if (context.mounted) {
       await showDialog(
         context: context,
+        useSafeArea: false,
         barrierDismissible: false,
         barrierColor: Colors.transparent,
         builder: (_) => BlocProvider.value(

@@ -62,7 +62,7 @@ class VigaSelectPaymentSheet extends StatelessWidget {
                 backgroundColor: const Color(0xFFE54335),
                 onPressed: () {
                   context.read<VigaPaymentCubit>().moveToConfirm();
-                  context.pop();
+                  context.pop(true);
                 },
               ),
               SizedBox(height: MediaQuery.of(context).padding.bottom + 20.h),

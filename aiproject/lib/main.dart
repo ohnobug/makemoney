@@ -29,14 +29,6 @@ void main() async {
 
   setupLogger();
 
-  logger.info('Application is starting...');
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent, // 设置状态栏透明
-      statusBarIconBrightness: Brightness.light, // 设置状态栏图标颜色
-    ),
-  );
-
   runApp(MultiBlocProvider(providers: [
     BlocProvider(create: (_) => VigaSystemCubit()),
     BlocProvider(create: (_) => VigaUserCubit()),

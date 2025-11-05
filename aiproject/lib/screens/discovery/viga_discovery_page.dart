@@ -1,6 +1,7 @@
 // 文件路径: /lib/widgets/viga_discovery.dart
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vigaviga/tools/viga_logger.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,7 +47,8 @@ class VigaDiscoveryPage extends StatefulWidget {
   State<VigaDiscoveryPage> createState() => _VigaDiscoveryPageState();
 }
 
-class _VigaDiscoveryPageState extends State<VigaDiscoveryPage> {
+class _VigaDiscoveryPageState extends State<VigaDiscoveryPage>
+    with AutomaticKeepAliveClientMixin<VigaDiscoveryPage> {
   // Mock data for trending topics
   final List<TrendItem> trendingTopics = [
     TrendItem(
@@ -108,6 +110,21 @@ class _VigaDiscoveryPageState extends State<VigaDiscoveryPage> {
   ];
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
+  void activate() {
+    super.activate();
+
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+    );
+  }
+
+  @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -119,6 +136,7 @@ class _VigaDiscoveryPageState extends State<VigaDiscoveryPage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocBuilder<VigaSystemCubit, SystemState>(
       buildWhen: (previous, current) =>
           previous.mainpage2isload != current.mainpage2isload,
@@ -136,8 +154,13 @@ class _VigaDiscoveryPageState extends State<VigaDiscoveryPage> {
     ThemeData theme = Theme.of(context);
     AppLocalizations l10n = AppLocalizations.of(context)!;
 
-    return Scaffold(
-      backgroundColor: theme.colorScheme.surfaceContainer,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+      child: Scaffold(
+        backgroundColor: theme.colorScheme.surfaceContainer,
       primary: false,
       appBar: VigaAppBar(
         title: l10n.tabbar_label_discover,
@@ -175,6 +198,7 @@ class _VigaDiscoveryPageState extends State<VigaDiscoveryPage> {
           // 【核心改动】调用新的“热门分类”构建方法
           _buildHotCategoriesSection(theme),
         ],
+      ),
       ),
     );
   }

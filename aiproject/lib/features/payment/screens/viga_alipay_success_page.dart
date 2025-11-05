@@ -30,7 +30,7 @@ class VigaAliPaySuccessPage extends StatelessWidget {
           actions: [
             VigaAppBarActionTextButton(
               onTap: () {
-                context.pop();
+                context.go('/payment_demo');
               },
               title: '完成',
             ),
@@ -38,79 +38,74 @@ class VigaAliPaySuccessPage extends StatelessWidget {
         ),
         body: BlocBuilder<VigaSystemCubit, SystemState>(
           builder: (context, systemState) {
-            return ScrollConfiguration(
-              behavior:
-                  ScrollConfiguration.of(context).copyWith(scrollbars: false),
+            // 建议只使用一个 SingleChildScrollView
+            return SingleChildScrollView(
+              // 保留一个 SingleChildScrollView
+              physics: const AlwaysScrollableScrollPhysics(
+                parent: BouncingScrollPhysics(),
+              ),
               child: Container(
-                constraints: BoxConstraints(
-                  minHeight: MediaQuery.of(context).size.height -
-                      systemState.appbarHeight -
-                      systemState.statusHeight,
-                ),
+                // 移除 minHeight 约束，让 SingleChildScrollView 决定高度
+                // constraints: BoxConstraints(
+                //   minHeight: MediaQuery.of(context).size.height -
+                //       systemState.appbarHeight -
+                //       systemState.statusHeight,
+                // ),
                 color: theme.colorScheme.surfaceContainer,
-                child: SingleChildScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(
-                    parent: BouncingScrollPhysics(),
-                  ),
-                  child: SingleChildScrollView(
-                    physics: const AlwaysScrollableScrollPhysics(
-                      parent: BouncingScrollPhysics(),
-                    ),
-                    child: Column(
-                      children: [
-                        Container(
-                          width: double.infinity,
-                          color: theme.primaryColor,
-                          child: Column(
-                            children: [
-                              SizedBox(height: 60.w),
-                              Icon(
-                                Icons.check_circle,
-                                color: Colors.white,
-                                size: 120.w,
-                              ),
-                              SizedBox(height: 30.w),
-                              Text(
-                                "支付成功",
-                                style: theme.textTheme.headlineMedium?.copyWith(
-                                  color: Colors.white,
-                                ),
-                              ),
-                              SizedBox(height: 20.w),
-                              Text(
-                                "¥${state.paymentAmount.toStringAsFixed(2)}",
-                                style: theme.textTheme.headlineSmall?.copyWith(
-                                  color: Colors.white,
-                                ),
-                              ),
-                              SizedBox(height: 80.w),
-                            ],
+                child: Column(
+                  // <--- 这个 Column
+                  children: [
+                    Container(
+                      // 顶部成功的蓝色区域
+                      width: double.infinity,
+                      color: theme.primaryColor, // 统一使用主题的 primaryColor
+                      child: Column(
+                        children: [
+                          SizedBox(height: 60.w),
+                          Icon(
+                            Icons.check_circle,
+                            color: Colors.white,
+                            size: 120.w,
                           ),
-                        ),
-                        Expanded(
-                          child: Container(
-                            color: const Color(0xFFF5F5F5),
-                            padding: EdgeInsets.all(32.w),
-                            child: Container(
-                              padding: EdgeInsets.all(32.w),
-                              decoration: BoxDecoration(
-                                  color: theme.cardColor,
-                                  borderRadius: BorderRadius.circular(16.r)),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  _buildInfoRow(
-                                      context, "收款方", state.merchantName),
-                                  Divider(height: 40.h),
-                                  _buildInfoRow(context, "交易方式", "余额"),
-                                ],
-                              ),
+                          SizedBox(height: 30.w),
+                          Text(
+                            "支付成功",
+                            style: theme.textTheme.headlineMedium?.copyWith(
+                              color: Colors.white,
                             ),
                           ),
-                        ),
-                      ],
+                          SizedBox(height: 20.w),
+                          Text(
+                            "¥${state.paymentAmount.toStringAsFixed(2)}",
+                            style: theme.textTheme.headlineSmall?.copyWith(
+                              color: Colors.white,
+                            ),
+                          ),
+                          SizedBox(height: 80.w),
+                        ],
+                      ),
                     ),
-                  ),
+                    // <--- 移除 Expanded
+                    Container(
+                      // 之前 Expanded 包裹的 Container
+                      color: const Color(0xFFF5F5F5), // 使用固定颜色或者主题颜色
+                      padding: EdgeInsets.all(32.w),
+                      child: Container(
+                        padding: EdgeInsets.all(32.w),
+                        decoration: BoxDecoration(
+                            color: theme.cardColor,
+                            borderRadius: BorderRadius.circular(16.r)),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            _buildInfoRow(context, "收款方", state.merchantName),
+                            Divider(height: 40.h),
+                            _buildInfoRow(context, "交易方式", "余额"),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             );

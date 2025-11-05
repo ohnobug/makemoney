@@ -43,7 +43,7 @@ class VigaCustomNumpad extends StatelessWidget {
 
   Widget _buildNumpadKey(String key) {
     return InkWell(
-      onTap: () => onKeyPressed(key),
+      onTap: key.isEmpty ? null : () => onKeyPressed(key),
       child: Container(
         height: 120.h,
         decoration: BoxDecoration(

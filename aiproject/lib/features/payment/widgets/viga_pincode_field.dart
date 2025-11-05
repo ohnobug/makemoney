@@ -45,7 +45,7 @@ class VigaPincodeField extends StatelessWidget {
                           shape: BoxShape.circle,
                         ),
                       )
-                    : null),
+                    : const SizedBox.shrink()),
           );
         }),
       ),

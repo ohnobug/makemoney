@@ -67,7 +67,7 @@ class VigaConfirmPaymentSheet extends StatelessWidget {
                 borderRadius: 12.r,
                 onPressed: () {
                   context.read<VigaPaymentCubit>().moveToPasswordEntry();
-                  context.pop();
+                  context.pop(true);
                 },
               ),
               SizedBox(height: 20.h),

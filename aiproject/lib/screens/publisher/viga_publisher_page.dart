@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -16,7 +17,23 @@ class VigaPublisherPage extends StatefulWidget {
   State<VigaPublisherPage> createState() => _VigaPublisherState();
 }
 
-class _VigaPublisherState extends State<VigaPublisherPage> {
+class _VigaPublisherState extends State<VigaPublisherPage>
+    with AutomaticKeepAliveClientMixin<VigaPublisherPage> {
+  @override
+  bool get wantKeepAlive => true;
+
+  @override
+  void activate() {
+    super.activate();
+
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -30,6 +47,7 @@ class _VigaPublisherState extends State<VigaPublisherPage> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return BlocBuilder<VigaSystemCubit, SystemState>(
       buildWhen: (previous, current) =>
           previous.mainpage3isload != current.mainpage3isload,
@@ -45,8 +63,13 @@ class _VigaPublisherState extends State<VigaPublisherPage> {
     ThemeData theme = Theme.of(context);
     AppLocalizations l10n = AppLocalizations.of(context)!;
 
-    return Scaffold(
-      backgroundColor: theme.colorScheme.surface,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+      child: Scaffold(
+        backgroundColor: theme.colorScheme.surface,
       appBar: VigaAppBar(
           title: l10n.tabbar_label_publisher,
           leading: const SizedBox(),
@@ -107,6 +130,7 @@ class _VigaPublisherState extends State<VigaPublisherPage> {
             ],
           ),
         ),
+      ),
       ),
     );
   }

@@ -1,5 +1,8 @@
+// G:\t\detection\aiproject\lib\features\payment\screens\viga_payment_demo_page.dart
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/tools/viga_payment_launcher.dart';
 import 'package:vigaviga/widgets/viga_appbar.dart';
 
@@ -8,9 +11,34 @@ class VigaPaymentDemoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
       appBar: VigaAppBar(
         title: '支付模块演示',
+        leading: GestureDetector(
+          onTap: () {
+            if (context.canPop()) {
+              context.pop();
+            } else {
+              context.go('/');
+            }
+          },
+          child: Container(
+            color: Colors.transparent,
+            height: 90.w,
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.only(left: 35.w),
+            child: Icon(
+              const IconData(
+                0xed9e,
+                fontFamily: 'Iconfont',
+              ), // 使用的图标
+              color: theme.appBarTheme.titleTextStyle!.color, // 图标颜色
+              size: 36.w, // 图标大小
+            ),
+          ),
+        ),
       ),
       body: Padding(
         padding: EdgeInsets.all(32.w),

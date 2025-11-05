@@ -15,9 +15,10 @@ AppBar VigaAppBarInner({
     leading: leading ??
         GestureDetector(
           onTap: () {
-            context.pop();
-            // wallet
-          }, // 点击事件
+            if (context.canPop()) {
+              context.pop();
+            }
+          },
           child: Container(
             color: Colors.transparent,
             height: 90.w,

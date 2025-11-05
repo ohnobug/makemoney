@@ -1,6 +1,7 @@
+// 文件路径: VigaCustomTabbar.dart (此版本正确，无需修改)
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/screens/arts/viga_arts_page.dart';
 import 'package:vigaviga/screens/contract/viga_recent_chats_list_page.dart';
@@ -11,12 +12,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/store/viga_system_cubit.dart';
 
-// _TabInfo 类保持不变
 class _TabInfo {
   final IconData icon;
   final IconData selectedIcon;
   final double iconSize;
-
   const _TabInfo({
     required this.icon,
     required this.selectedIcon,
@@ -26,7 +25,6 @@ class _TabInfo {
 
 class VigaCustomTabbar extends StatefulWidget {
   const VigaCustomTabbar({super.key});
-
   @override
   State<VigaCustomTabbar> createState() => _VigaCustomTabbarState();
 }
@@ -48,56 +46,41 @@ class _VigaCustomTabbarState extends State<VigaCustomTabbar>
 
   final List<_TabInfo> _tabs = [
     _TabInfo(
-      icon: const IconData(0xe63c, fontFamily: "Iconfont"),
-      selectedIcon: const IconData(0xe63b, fontFamily: "Iconfont"),
-      iconSize: 75.0.w,
-    ),
+        icon: const IconData(0xe63c, fontFamily: "Iconfont"),
+        selectedIcon: const IconData(0xe63b, fontFamily: "Iconfont"),
+        iconSize: 75.0.w),
     _TabInfo(
-      icon: const IconData(0xe61c, fontFamily: "Iconfont"),
-      selectedIcon: const IconData(0xe638, fontFamily: "Iconfont"),
-      iconSize: 71.0.w,
-    ),
+        icon: const IconData(0xe61c, fontFamily: "Iconfont"),
+        selectedIcon: const IconData(0xe638, fontFamily: "Iconfont"),
+        iconSize: 71.0.w),
     _TabInfo(
-      icon: const IconData(0xe67c, fontFamily: "Iconfont"),
-      selectedIcon: const IconData(0xe642, fontFamily: "Iconfont"),
-      iconSize: 77.0.w,
-    ),
+        icon: const IconData(0xe67c, fontFamily: "Iconfont"),
+        selectedIcon: const IconData(0xe642, fontFamily: "Iconfont"),
+        iconSize: 77.0.w),
     _TabInfo(
-      icon: const IconData(0xe7b3, fontFamily: "Iconfont"),
-      selectedIcon: const IconData(0xe676, fontFamily: "Iconfont"),
-      iconSize: 75.0.w,
-    ),
+        icon: const IconData(0xe7b3, fontFamily: "Iconfont"),
+        selectedIcon: const IconData(0xe676, fontFamily: "Iconfont"),
+        iconSize: 75.0.w),
     _TabInfo(
-      icon: const IconData(0xe63f, fontFamily: "Iconfont"),
-      selectedIcon: const IconData(0xe62b, fontFamily: "Iconfont"),
-      iconSize: 81.0.w,
-    ),
+        icon: const IconData(0xe63f, fontFamily: "Iconfont"),
+        selectedIcon: const IconData(0xe62b, fontFamily: "Iconfont"),
+        iconSize: 81.0.w),
   ];
 
   @override
   void initState() {
     super.initState();
-
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.light,
-      ),
-    );
-
     var systemCubit = context.read<VigaSystemCubit>();
     systemCubit.updateBottomNavigationBarHeight(95.w);
     systemCubit.updateAppbarHeight(90.w);
-
     _tabController = TabController(
-      length: _tabs.length,
-      vsync: this,
-      initialIndex: systemCubit.state.mainTabIndex,
-    );
+        length: _tabs.length,
+        vsync: this,
+        initialIndex: systemCubit.state.mainTabIndex);
     _tabController.addListener(_onTabChanged);
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (mounted) {
+        _onTabChanged(isInitialCall: true);
         if (kIsWeb) {
           systemCubit.updateStatusHeight(0);
         } else {
@@ -109,30 +92,17 @@ class _VigaCustomTabbarState extends State<VigaCustomTabbar>
     });
   }
 
-  void _onTabChanged() {
-    // setState is needed to trigger a rebuild so the Theme widget can update
-    setState(() {});
-    if (_tabController.indexIsChanging == false) {
+  void _onTabChanged({bool isInitialCall = false}) {
+    if (!isInitialCall && _tabController.indexIsChanging) {
+      setState(() {});
+    }
+    if (!_tabController.indexIsChanging || isInitialCall) {
       final index = _tabController.index;
 
-      if (index == 0 || index == 4) {
-        SystemChrome.setSystemUIOverlayStyle(
-          const SystemUiOverlayStyle(
-            statusBarColor: Colors.transparent,
-            statusBarIconBrightness: Brightness.light,
-          ),
-        );
-      } else {
-        SystemChrome.setSystemUIOverlayStyle(
-          const SystemUiOverlayStyle(
-            statusBarColor: Colors.transparent,
-            statusBarIconBrightness: Brightness.dark,
-          ),
-        );
+      if (!isInitialCall) {
+        context.read<VigaSystemCubit>().updateMainTabIndex(index);
+        context.read<VigaSystemCubit>().updateVideoProgress(show: index == 0);
       }
-
-      context.read<VigaSystemCubit>().updateMainTabIndex(index);
-      context.read<VigaSystemCubit>().updateVideoProgress(show: index == 0);
     }
   }
 
@@ -147,7 +117,6 @@ class _VigaCustomTabbarState extends State<VigaCustomTabbar>
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
     final tabTitles = _getTabTitles(context);
-
     return BlocBuilder<VigaSystemCubit, SystemState>(
       builder: (context, systemState) {
         return Stack(
@@ -155,9 +124,8 @@ class _VigaCustomTabbarState extends State<VigaCustomTabbar>
             Theme(
               data: _tabController.index == 0
                   ? theme.copyWith(
-                      bottomAppBarTheme: theme.bottomAppBarTheme.copyWith(
-                        color: Colors.black,
-                      ),
+                      bottomAppBarTheme:
+                          theme.bottomAppBarTheme.copyWith(color: Colors.black),
                       tabBarTheme: theme.tabBarTheme.copyWith(
                         unselectedLabelColor: Colors.white.withAlpha(128),
                         labelColor: Colors.white,
@@ -175,56 +143,47 @@ class _VigaCustomTabbarState extends State<VigaCustomTabbar>
                       child: Container(
                         height: systemState.bottomNavigationBarHeight + 1.0.w,
                         decoration: BoxDecoration(
-                          // 3. 使用 'newContext' 来获取颜色，这样就能正确读到黑色背景
                           color: Theme.of(newContext).bottomAppBarTheme.color,
                           border: Border(
                             top: BorderSide(
-                              color: Theme.of(newContext).dividerColor,
-                              width: 1.0.w,
-                            ),
+                                color: Theme.of(newContext).dividerColor,
+                                width: 1.0.w),
                           ),
                         ),
-                        child: Stack(
-                          children: [
-                            TabBar(
-                              controller: _tabController,
-                              dividerColor: Colors.transparent,
-                              // 4. TabBar 的颜色也必须从 'newContext' 获取，以确保同步更新
-                              labelColor:
-                                  Theme.of(newContext).tabBarTheme.labelColor,
-                              labelStyle:
-                                  Theme.of(newContext).tabBarTheme.labelStyle,
-                              unselectedLabelColor: Theme.of(newContext)
-                                  .tabBarTheme
-                                  .unselectedLabelColor,
-                              indicator: const BoxDecoration(),
-                              overlayColor:
-                                  WidgetStateProperty.all(Colors.transparent),
-                              tabs: List.generate(
-                                _tabs.length,
-                                (index) {
-                                  final tabInfo = _tabs[index];
-                                  final icon = _tabController.index == index
-                                      ? tabInfo.selectedIcon
-                                      : tabInfo.icon;
-                                  return Tab(
-                                    iconMargin: EdgeInsets.only(bottom: 3.w),
-                                    icon: SizedBox(
-                                      height: 50.w,
-                                      width: 50.w,
-                                      child: Center(
-                                        child: Icon(
-                                          icon,
-                                          size: tabInfo.iconSize.w,
-                                        ),
-                                      ),
-                                    ),
-                                    text: tabTitles[index],
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
+                        child: TabBar(
+                          padding: EdgeInsets.only(bottom: 10.w),
+                          controller: _tabController,
+                          dividerColor: Colors.transparent,
+                          labelColor:
+                              Theme.of(newContext).tabBarTheme.labelColor,
+                          labelStyle:
+                              Theme.of(newContext).tabBarTheme.labelStyle,
+                          unselectedLabelColor: Theme.of(newContext)
+                              .tabBarTheme
+                              .unselectedLabelColor,
+                          indicator: const BoxDecoration(),
+                          overlayColor:
+                              WidgetStateProperty.all(Colors.transparent),
+                          tabs: List.generate(
+                            _tabs.length,
+                            (index) {
+                              final tabInfo = _tabs[index];
+                              final icon = _tabController.index == index
+                                  ? tabInfo.selectedIcon
+                                  : tabInfo.icon;
+                              return Tab(
+                                iconMargin: EdgeInsets.only(bottom: 3.w),
+                                icon: SizedBox(
+                                  height: 50.w,
+                                  width: 50.w,
+                                  child: Center(
+                                    child: Icon(icon, size: tabInfo.iconSize.w),
+                                  ),
+                                ),
+                                text: tabTitles[index],
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ),
@@ -237,15 +196,13 @@ class _VigaCustomTabbarState extends State<VigaCustomTabbar>
                         VigaDiscoveryPage(),
                         VigaPublisherPage(),
                         VigaRecentChatsListPage(),
-                        VigaUserPage(),
+                        VigaUserPage()
                       ],
                     ),
                   );
                 },
               ),
             ),
-
-            // 视频进度条
             Positioned(
               bottom: systemState.bottomNavigationBarHeight +
                   systemState.videoProgressBottomOffset,
@@ -262,7 +219,7 @@ class _VigaCustomTabbarState extends State<VigaCustomTabbar>
                   ),
                 ),
               ),
-            ),
+            )
           ],
         );
       },

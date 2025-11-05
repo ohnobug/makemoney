@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -359,23 +360,31 @@ class _VigaForgotPasswordPageState extends State<VigaForgotPasswordPage> {
       builder: (context, systemState) {
         return Scaffold(
           backgroundColor: AppColors.darkBackground,
-          body: SafeArea(
-            child: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              padding: EdgeInsets.symmetric(horizontal: 48.w), // 调整了边距以适配750宽度
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(height: 100.w),
-                  _buildCurrentStep(),
-                  SizedBox(height: 60.w),
-                  _buildCurrentButton(),
-                  SizedBox(height: 40.w),
-                  // 仅在第一步显示返回登录链接
-                  if (!_showCodeInput && !_showPasswordInput)
-                    _buildSignInLink(),
-                  SizedBox(height: 40.w),
-                ],
+          body: AnnotatedRegion<SystemUiOverlayStyle>(
+            value: SystemUiOverlayStyle(
+              statusBarColor: Colors.transparent,
+              statusBarBrightness: Brightness.dark,
+              statusBarIconBrightness: Brightness.light,
+            ),
+            child: SafeArea(
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                padding:
+                    EdgeInsets.symmetric(horizontal: 48.w), // 调整了边距以适配750宽度
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 100.w),
+                    _buildCurrentStep(),
+                    SizedBox(height: 60.w),
+                    _buildCurrentButton(),
+                    SizedBox(height: 40.w),
+                    // 仅在第一步显示返回登录链接
+                    if (!_showCodeInput && !_showPasswordInput)
+                      _buildSignInLink(),
+                    SizedBox(height: 40.w),
+                  ],
+                ),
               ),
             ),
           ),
