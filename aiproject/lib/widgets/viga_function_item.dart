@@ -145,7 +145,7 @@ class _VigaFunctionItemState extends State<VigaFunctionItem> {
                     ? Center(
                         child: Icon(
                           widget.icon as IconData,
-                          size: widget.size.w - 5.w,
+                          size: widget.size.w - 20.w,
                           color: Colors.white,
                         ),
                       )

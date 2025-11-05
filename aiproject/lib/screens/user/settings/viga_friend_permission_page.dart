@@ -32,8 +32,6 @@ class _VigaFriendPermissionPage extends State<VigaFriendPermissionPage> {
 
     return BlocBuilder<VigaSystemCubit, SystemState>(
       builder: (context, systemState) {
-        String cdnBase = systemState.cdnBase;
-
         return Scaffold(
           primary: false,
           appBar: VigaAppBar(
@@ -58,7 +56,7 @@ class _VigaFriendPermissionPage extends State<VigaFriendPermissionPage> {
                     VigaFunctionList(children: [
                       // 添加好友时需要验证
                       VigaFunctionItem(
-                        icon: "$cdnBase/avatar/02.png",
+                        icon: null,
                         title: l10n.requireVerificationWhenAdded,
                         // link: '',
                         underline: false,
@@ -82,7 +80,7 @@ class _VigaFriendPermissionPage extends State<VigaFriendPermissionPage> {
                       children: [
                         // 加我的方式
                         VigaFunctionItem(
-                          icon: "$cdnBase/avatar/02.png",
+                          icon: null,
                           title: l10n.waysToAddMe,
                           link: '',
                           underline: true,
@@ -101,7 +99,6 @@ class _VigaFriendPermissionPage extends State<VigaFriendPermissionPage> {
                               color: AppColors.neutralGrey35,
                               fontSize: 24.w,
                               overflow: TextOverflow.ellipsis,
-                              
                             ),
                           ),
                           showStyle: VigaSwitch(
@@ -120,7 +117,7 @@ class _VigaFriendPermissionPage extends State<VigaFriendPermissionPage> {
                       children: [
                         // 只聊天
                         VigaFunctionItem(
-                          icon: "$cdnBase/avatar/02.png",
+                          icon: null,
                           title: l10n.chatOnly,
                           link: '',
                           underline: true,
@@ -128,7 +125,7 @@ class _VigaFriendPermissionPage extends State<VigaFriendPermissionPage> {
 
                         // 朋友圈
                         VigaFunctionItem(
-                          icon: "$cdnBase/avatar/02.png",
+                          icon: null,
                           title: l10n.moments,
                           link: '',
                           underline: true,
@@ -136,7 +133,7 @@ class _VigaFriendPermissionPage extends State<VigaFriendPermissionPage> {
 
                         // 频道
                         VigaFunctionItem(
-                          icon: "$cdnBase/avatar/02.png",
+                          icon: null,
                           title: l10n.channels,
                           link: '',
                           underline: true,
@@ -144,7 +141,7 @@ class _VigaFriendPermissionPage extends State<VigaFriendPermissionPage> {
 
                         // 看一看
                         VigaFunctionItem(
-                          icon: "$cdnBase/avatar/02.png",
+                          icon: null,
                           title: l10n.look,
                           link: '',
                           underline: true,
@@ -152,7 +149,7 @@ class _VigaFriendPermissionPage extends State<VigaFriendPermissionPage> {
 
                         // Vigaviga运动
                         VigaFunctionItem(
-                          icon: "$cdnBase/avatar/02.png",
+                          icon: null,
                           title: l10n.weRun,
                           link: '',
                           underline: false,
@@ -165,7 +162,7 @@ class _VigaFriendPermissionPage extends State<VigaFriendPermissionPage> {
                       children: [
                         // 通讯录黑名单
                         VigaFunctionItem(
-                          icon: "$cdnBase/avatar/02.png",
+                          icon: null,
                           title: l10n.contactsBlocklist,
                           link: '',
                           underline: false,

@@ -32,8 +32,6 @@ class _VigaNewMessageNotificationPage
 
     return BlocBuilder<VigaSystemCubit, SystemState>(
       builder: (context, systemState) {
-        String cdnBase = systemState.cdnBase;
-
         return Scaffold(
           primary: false,
           appBar: VigaAppBar(
@@ -60,7 +58,7 @@ class _VigaNewMessageNotificationPage
                       children: [
                         // 新消息通知
                         VigaFunctionItem(
-                          icon: "$cdnBase/avatar/02.png",
+                          icon: null,
                           title: l10n.receiveNewMessageNotifications,
                           // link: '',
                           underline: true,
@@ -81,8 +79,7 @@ class _VigaNewMessageNotificationPage
 
                         // 接收语音视频通话邀请
                         VigaFunctionItem(
-                          icon: "$cdnBase/avatar/02.png",
-                          title: l10n.receiveVoiceVideoCallInvites,
+                          icon: null, title: l10n.receiveVoiceVideoCallInvites,
                           // link: '',
                           underline: false,
                           tapEffect: false,
@@ -107,7 +104,7 @@ class _VigaNewMessageNotificationPage
                       children: [
                         // 显示消息详情
                         VigaFunctionItem(
-                          icon: "$cdnBase/avatar/02.png",
+                          icon: null,
                           title: l10n.notificationShowMessageDetails,
                           // link: '',
                           underline: false,
@@ -134,16 +131,14 @@ class _VigaNewMessageNotificationPage
                       children: [
                         // 新消息系统通知
                         VigaFunctionItem(
-                          icon: "$cdnBase/avatar/02.png",
-                          title: l10n.newMessageSystemNotification,
+                          icon: null, title: l10n.newMessageSystemNotification,
                           link: '',
                           underline: true,
                           // showStyle: l10n.goToSystemSettings,
                         ),
                         // 语音视频通话提醒
                         VigaFunctionItem(
-                          icon: "$cdnBase/avatar/02.png",
-                          title: l10n.voiceVideoCallAlerts,
+                          icon: null, title: l10n.voiceVideoCallAlerts,
                           link: '',
                           underline: false,
                           // showStyle: l10n.goToSystemSettings,
@@ -157,7 +152,7 @@ class _VigaNewMessageNotificationPage
                       children: [
                         // 消息铃声
                         VigaFunctionItem(
-                          icon: "$cdnBase/avatar/02.png",
+                          icon: null,
                           title: l10n.messageTone,
                           link: '',
                           underline: true,
@@ -166,7 +161,7 @@ class _VigaNewMessageNotificationPage
 
                         // 通话铃声
                         VigaFunctionItem(
-                          icon: "$cdnBase/avatar/02.png",
+                          icon: null,
                           title: l10n.callRingtone,
                           link: '',
                           underline: true,
@@ -175,8 +170,7 @@ class _VigaNewMessageNotificationPage
 
                         // 好友能听到我的铃声
                         VigaFunctionItem(
-                          icon: "$cdnBase/avatar/02.png",
-                          title: l10n.friendCanHearMyRingtone,
+                          icon: null, title: l10n.friendCanHearMyRingtone,
                           // link: '',
                           underline: false,
                           tapEffect: false,

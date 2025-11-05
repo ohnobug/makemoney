@@ -91,39 +91,46 @@ class _VigaLanguageSettingPageState extends State<VigaLanguageSettingPage> {
 
   Widget _buildSearchBar() {
     return Container(
-      height: 72.w,
+      height: 80.w,
       decoration: BoxDecoration(
-        color: AppColors.neutralGrey7,
-        borderRadius: BorderRadius.circular(10.w),
+        color: AppColors.neutralGrey5,
+        borderRadius: BorderRadius.circular(20.w),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 8.w,
+            offset: Offset(0, 2.w),
+          ),
+        ],
       ),
       child: TextField(
-        // [新增 1] 添加 textAlignVertical.center 使文本在垂直方向上居中
         textAlignVertical: TextAlignVertical.center,
-        style: TextStyle(fontSize: 30.w), // 实际输入文本的样式
+        style: TextStyle(
+          fontSize: 32.w,
+          fontWeight: FontWeight.w500,
+          color: AppColors.neutralGrey9,
+        ),
         decoration: InputDecoration(
           hintText: '搜索语言...',
           hintStyle: TextStyle(
             color: AppColors.neutralGrey41,
-            fontSize: 30.w,
-            // [修复] 确保 hintStyle 和 style 的 fontSize 相同，避免跳动
+            fontSize: 32.w,
+            fontWeight: FontWeight.w400,
           ),
-          prefixIcon: Icon(
-            Icons.search,
-            color: AppColors.neutralGrey41,
-            size: 40.w,
+          prefixIcon: Padding(
+            padding: EdgeInsets.only(left: 24.w, right: 16.w),
+            child: Icon(
+              Icons.search_rounded,
+              color: AppColors.neutralGrey41,
+              size: 36.w,
+            ),
           ),
-
-          // [新增 2] isCollapsed 移除了 TextField 内部的默认边距
-          // 这使得我们可以通过 contentPadding 完全控制内容的位置
           isCollapsed: true,
-
-          // [新增 3] contentPadding 设置为 zero，因为 textAlignVertical 会处理居中
-          // 如果您仍然觉得位置不准，可以微调 vertical 的值，例如 EdgeInsets.symmetric(vertical: 2.w)
-          contentPadding: EdgeInsets.zero,
-
-          border: InputBorder.none, // 移除边框
-          focusedBorder: InputBorder.none, // 聚焦时也移除边框
-          enabledBorder: InputBorder.none, // 可用时也移除边框
+          contentPadding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 0),
+          border: InputBorder.none,
+          focusedBorder: InputBorder.none,
+          enabledBorder: InputBorder.none,
+          filled: false,
         ),
         onChanged: (value) {
           // TODO: 实现语言搜索过滤
@@ -135,13 +142,28 @@ class _VigaLanguageSettingPageState extends State<VigaLanguageSettingPage> {
   /// 构建分组标题
   Widget _buildSectionTitle(String title) {
     return Padding(
-      padding: EdgeInsets.only(bottom: 16.w, left: 16.w),
-      child: Text(
-        title,
-        style: TextStyle(
-          color: AppColors.neutralGrey41,
-          fontSize: 28.w,
-        ),
+      padding: EdgeInsets.only(bottom: 20.w, left: 8.w, top: 8.w),
+      child: Row(
+        children: [
+          Container(
+            width: 4.w,
+            height: 24.w,
+            decoration: BoxDecoration(
+              color: AppColors.brandGreenVibrant7,
+              borderRadius: BorderRadius.circular(2.w),
+            ),
+          ),
+          SizedBox(width: 12.w),
+          Text(
+            title,
+            style: TextStyle(
+              color: AppColors.neutralGrey3,
+              fontSize: 30.w,
+              fontWeight: FontWeight.w600,
+              letterSpacing: -0.2,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -154,11 +176,11 @@ class _VigaLanguageSettingPageState extends State<VigaLanguageSettingPage> {
   ///   - `currentLocale`: 当前选中的语言区域。
   ///
   /// 返回值：
-  ///   - 返回一个 [Card] 组件，内部使用 [ListView.separated] 展示语言选项，
+  ///   - 返回一个 [Container] 组件，内部使用 [ListView.separated] 展示语言选项，
   ///     每个选项之间用分隔线隔开。
   ///
   /// 功能说明：
-  ///   - 卡片无阴影（`elevation: 0`），边距为零（`margin: EdgeInsets.zero`）。
+  ///   - 卡片带有阴影和圆角，提供现代感。
   ///   - 卡片背景为白色（`Colors.white`）。
   ///   - 列表项不可滚动（`physics: const NeverScrollableScrollPhysics()`）。
   ///   - 每个语言选项会根据当前语言区域判断是否被选中。
@@ -168,31 +190,39 @@ class _VigaLanguageSettingPageState extends State<VigaLanguageSettingPage> {
   ///   - 中文（`zh`）和繁体中文（`zh_TW`）会被视为同一种语言。
   Widget _buildLanguageCard(
       List<LanguageOption> languages, Locale currentLocale) {
-    return Card(
-      elevation: 0,
-      margin: EdgeInsets.zero,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.w),
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20.w),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.08),
+            blurRadius: 12.w,
+            offset: Offset(0, 4.w),
+          ),
+        ],
       ),
-      color: Colors.white, // 或者 systemState.themeData.cardColor
-      child: ListView.separated(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: languages.length,
-        itemBuilder: (context, index) {
-          final language = languages[index];
-          // 检查当前语言是否被选中
-          final isSelected = language.code == currentLocale.languageCode ||
-              (language.code == 'zh' && currentLocale.toString() == 'zh_TW');
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20.w),
+        child: ListView.separated(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: languages.length,
+          itemBuilder: (context, index) {
+            final language = languages[index];
+            // 检查当前语言是否被选中
+            final isSelected = language.code == currentLocale.languageCode ||
+                (language.code == 'zh' && currentLocale.toString() == 'zh_TW');
 
-          return _buildLanguageTile(language, isSelected);
-        },
-        separatorBuilder: (context, index) => const Divider(
-          height: 1,
-          thickness: 1,
-          color: AppColors.neutralGrey7,
-          indent: 20,
-          endIndent: 20,
+            return _buildLanguageTile(language, isSelected);
+          },
+          separatorBuilder: (context, index) => Divider(
+            height: 1,
+            thickness: 1,
+            color: AppColors.neutralGrey7,
+            indent: 32.w,
+            endIndent: 32.w,
+          ),
         ),
       ),
     );
@@ -202,34 +232,81 @@ class _VigaLanguageSettingPageState extends State<VigaLanguageSettingPage> {
   Widget _buildLanguageTile(LanguageOption language, bool isSelected) {
     ThemeData theme = Theme.of(context);
 
-    return ListTile(
-      contentPadding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 8.w),
-      title: Text(
-        language.nativeName,
-        style: TextStyle(
-          fontSize: 32.w,
-          fontWeight: FontWeight.w500,
-          color: theme.colorScheme.onSurface,
+    return Container(
+      decoration: BoxDecoration(
+        color: isSelected ? AppColors.brandGreenVibrant1.withValues(alpha: 0.1) : Colors.transparent,
+        borderRadius: BorderRadius.circular(16.w),
+      ),
+      margin: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.w),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(16.w),
+          onTap: () {
+            // 当用户点击时，调用 Cubit 更新语言状态
+            context.read<VigaSystemCubit>().updateLanguage(language.code);
+          },
+          highlightColor: AppColors.brandGreenVibrant7.withValues(alpha: 0.1),
+          splashColor: AppColors.brandGreenVibrant7.withValues(alpha: 0.2),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.easeInOut,
+            padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 20.w),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        language.nativeName,
+                        style: TextStyle(
+                          fontSize: 34.w,
+                          fontWeight: FontWeight.w600,
+                          color: isSelected ? AppColors.brandGreenVibrant7 : theme.colorScheme.onSurface,
+                          letterSpacing: -0.2,
+                        ),
+                      ),
+                      SizedBox(height: 4.w),
+                      Text(
+                        language.name,
+                        style: TextStyle(
+                          fontSize: 26.w,
+                          color: isSelected ? AppColors.brandGreenVibrant7.withValues(alpha: 0.8) : AppColors.neutralGrey41,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                if (isSelected)
+                  AnimatedContainer(
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.elasticOut,
+                    width: 24.w,
+                    height: 24.w,
+                    decoration: BoxDecoration(
+                      color: AppColors.brandGreenVibrant7,
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.brandGreenVibrant7.withValues(alpha: 0.4),
+                          blurRadius: 8.w,
+                          offset: Offset(0, 2.w),
+                        ),
+                      ],
+                    ),
+                    child: Icon(
+                      Icons.check_rounded,
+                      color: Colors.white,
+                      size: 16.w,
+                    ),
+                  ),
+              ],
+            ),
+          ),
         ),
       ),
-      subtitle: Text(
-        language.name,
-        style: TextStyle(
-          fontSize: 26.w,
-          color: AppColors.neutralGrey41,
-        ),
-      ),
-      trailing: isSelected
-          ? Icon(
-              Icons.check,
-              color: AppColors.brandGreenVibrant7, // 使用主题色
-              size: 40.w,
-            )
-          : null,
-      onTap: () {
-        // 当用户点击时，调用 Cubit 更新语言状态
-        context.read<VigaSystemCubit>().updateLanguage(language.code);
-      },
     );
   }
 }

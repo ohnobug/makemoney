@@ -30,8 +30,6 @@ class _VigaPersonalinfoAndPermissionPage
 
     return BlocBuilder<VigaSystemCubit, SystemState>(
       builder: (context, systemState) {
-        String cdnBase = systemState.cdnBase;
-
         return Scaffold(
           primary: false,
           appBar: VigaAppBar(
@@ -56,7 +54,7 @@ class _VigaPersonalinfoAndPermissionPage
                       children: [
                         // 系统权限管理
                         VigaFunctionItem(
-                          icon: "$cdnBase/avatar/02.png",
+                          icon: null,
                           title: l10n.systemPermissionManagement,
                           link: '',
                           underline: true,
@@ -64,7 +62,7 @@ class _VigaPersonalinfoAndPermissionPage
                         ),
                         // 授权管理
                         VigaFunctionItem(
-                          icon: "$cdnBase/avatar/02.png",
+                          icon: null,
                           title: l10n.authorizationManagement,
                           link: '',
                           underline: false,
@@ -77,7 +75,7 @@ class _VigaPersonalinfoAndPermissionPage
                     VigaFunctionList(children: [
                       // 个性化广告管理
                       VigaFunctionItem(
-                        icon: "$cdnBase/avatar/02.png",
+                        icon: null,
                         title: l10n.personalizedAdManagement,
                         link: '',
                         underline: false,
@@ -89,7 +87,7 @@ class _VigaPersonalinfoAndPermissionPage
                     VigaFunctionList(children: [
                       // 浏览和导出个人信息
                       VigaFunctionItem(
-                        icon: "$cdnBase/avatar/02.png",
+                        icon: null,
                         title: l10n.browseAndExportPersonalInfo,
                         link: '',
                         underline: false,

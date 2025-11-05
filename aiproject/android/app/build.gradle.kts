@@ -30,11 +30,11 @@ android {
         versionName = flutter.versionName
     }
 
-    packagingOptions {
-        exclude("lib/x86_64/*.so")
-        exclude("lib/x86/*.so")
-        exclude("lib/armeabi-v7a/*.so")
-    }
+    // packagingOptions {
+    //     exclude("lib/x86_64/*.so")
+    //     exclude("lib/x86/*.so")
+    //     exclude("lib/armeabi-v7a/*.so")
+    // }
 
     lint {
         baseline = file("lint-baseline.xml")

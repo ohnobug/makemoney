@@ -32,8 +32,6 @@ class _VigaChatSettingPage extends State<VigaChatSettingPage> {
 
     return BlocBuilder<VigaSystemCubit, SystemState>(
         builder: (context, systemState) {
-      String cdnBase = systemState.cdnBase;
-
       return Scaffold(
         primary: false,
         appBar: VigaAppBar(
@@ -56,8 +54,7 @@ class _VigaChatSettingPage extends State<VigaChatSettingPage> {
                   children: [
                     // 使用听筒播放语音
                     VigaFunctionItem(
-                      icon: "$cdnBase/avatar/02.png",
-                      title: l10n.useEarpieceToPlayVoice,
+                      icon: null, title: l10n.useEarpieceToPlayVoice,
                       // link: '',
                       underline: true,
                       tapEffect: false,
@@ -87,7 +84,6 @@ class _VigaChatSettingPage extends State<VigaChatSettingPage> {
                           color: AppColors.neutralGrey35,
                           fontSize: 24.w,
                           overflow: TextOverflow.ellipsis,
-                          
                         ),
                       ),
                       showStyle: Expanded(
@@ -107,7 +103,7 @@ class _VigaChatSettingPage extends State<VigaChatSettingPage> {
 
                     // 聊天背景
                     VigaFunctionItem(
-                      icon: "$cdnBase/avatar/02.png",
+                      icon: null,
                       title: l10n.chatBackground,
                       link: '',
                       underline: true,
@@ -115,7 +111,7 @@ class _VigaChatSettingPage extends State<VigaChatSettingPage> {
 
                     // 表情管理
                     VigaFunctionItem(
-                      icon: "$cdnBase/avatar/02.png",
+                      icon: null,
                       title: l10n.stickerManagement,
                       link: '',
                       underline: false,
@@ -128,13 +124,13 @@ class _VigaChatSettingPage extends State<VigaChatSettingPage> {
                   title: VigaAlphabet(title: l10n.chatHistory),
                   children: [
                     VigaFunctionItem(
-                      icon: "$cdnBase/avatar/02.png",
+                      icon: null,
                       title: l10n.chatHistoryMigrationBackup,
                       link: '',
                       underline: true,
                     ),
                     VigaFunctionItem(
-                      icon: "$cdnBase/avatar/02.png",
+                      icon: null,
                       title: l10n.clearChatHistory,
                       link: '',
                       underline: false,

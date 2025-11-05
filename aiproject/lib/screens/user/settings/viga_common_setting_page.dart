@@ -30,8 +30,6 @@ class _VigaCommonSettingPage extends State<VigaCommonSettingPage> {
 
     return BlocBuilder<VigaSystemCubit, SystemState>(
       builder: (context, systemState) {
-        String cdnBase = systemState.cdnBase;
-
         return Scaffold(
           primary: false,
           appBar: VigaAppBar(
@@ -58,7 +56,7 @@ class _VigaCommonSettingPage extends State<VigaCommonSettingPage> {
                       children: [
                         // 深色模式
                         VigaFunctionItem(
-                          icon: "$cdnBase/avatar/02.png",
+                          icon: null,
                           title: l10n.darkMode,
                           link: '',
                           underline: true,
@@ -68,7 +66,7 @@ class _VigaCommonSettingPage extends State<VigaCommonSettingPage> {
 
                         // 横屏模式
                         VigaFunctionItem(
-                          icon: "$cdnBase/avatar/02.png",
+                          icon: null,
                           title: l10n.enableLandscapeMode,
                           // link: '',
                           underline: true,
@@ -89,7 +87,7 @@ class _VigaCommonSettingPage extends State<VigaCommonSettingPage> {
 
                         // NFC
                         VigaFunctionItem(
-                          icon: "$cdnBase/avatar/02.png",
+                          icon: null,
                           title: l10n.action_enable_nfc,
                           // link: '',
                           underline: true,
@@ -110,7 +108,7 @@ class _VigaCommonSettingPage extends State<VigaCommonSettingPage> {
 
                         // 自动下载Vigaviga安装包
                         VigaFunctionItem(
-                          icon: "$cdnBase/avatar/02.png",
+                          icon: null,
                           title: l10n.autoDownloadVigavigaInstaller,
                           link: '',
                           underline: true,
@@ -120,7 +118,7 @@ class _VigaCommonSettingPage extends State<VigaCommonSettingPage> {
 
                         // 多语言
                         VigaFunctionItem(
-                          icon: "$cdnBase/avatar/02.png",
+                          icon: null,
                           title: l10n.multiLanguage,
                           link: '',
                           underline: true,
@@ -130,7 +128,7 @@ class _VigaCommonSettingPage extends State<VigaCommonSettingPage> {
 
                         // 转发
                         VigaFunctionItem(
-                          icon: "$cdnBase/avatar/02.png",
+                          icon: null,
                           title: l10n.transfer,
                           link: '',
                           underline: false,
@@ -145,42 +143,42 @@ class _VigaCommonSettingPage extends State<VigaCommonSettingPage> {
                       children: [
                         // 存储空间
                         VigaFunctionItem(
-                          icon: "$cdnBase/avatar/02.png",
+                          icon: null,
                           title: l10n.storageSpace,
                           link: '',
                           underline: true,
                         ),
                         // 字体大小
                         VigaFunctionItem(
-                          icon: "$cdnBase/avatar/02.png",
+                          icon: null,
                           title: l10n.fontSize,
                           link: '',
                           underline: true,
                         ),
                         // 声音与音频
                         VigaFunctionItem(
-                          icon: "$cdnBase/avatar/02.png",
+                          icon: null,
                           title: l10n.musicAndAudio,
                           link: '',
                           underline: true,
                         ),
                         // 权限管理
                         VigaFunctionItem(
-                          icon: "$cdnBase/avatar/02.png",
+                          icon: null,
                           title: l10n.permission_list_items,
                           link: '',
                           underline: true,
                         ),
                         // 发行页面管理
                         VigaFunctionItem(
-                          icon: "$cdnBase/avatar/02.png",
+                          icon: null,
                           title: l10n.discoverPageManagement,
                           link: '',
                           underline: true,
                         ),
                         // 辅助功能
                         VigaFunctionItem(
-                          icon: "$cdnBase/avatar/02.png",
+                          icon: null,
                           title: l10n.accessibility,
                           link: '',
                           underline: false,

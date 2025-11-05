@@ -63,8 +63,6 @@ class _VigaAbout extends State<VigaAboutPage> {
 
     return BlocBuilder<VigaSystemCubit, SystemState>(
       builder: (context, systemState) {
-        String cdnBase = systemState.cdnBase;
-
         return Theme(
           data: theme.copyWith(
             appBarTheme: theme.appBarTheme.copyWith(
@@ -131,21 +129,33 @@ class _VigaAbout extends State<VigaAboutPage> {
                       VigaFunctionList(
                         children: [
                           VigaFunctionItem(
-                            icon: "$cdnBase/avatar/02.png",
+                            icon: const IconData(
+                              0xe65f,
+                              fontFamily: 'Iconfont',
+                            ),
+                            iconBackgroundColor: const Color(0xFF42A5F5),
                             title: l10n.featureIntroduction,
                             link: '/settings/feature_introduction',
                             backgroundColor: AppColors.neutralWhite,
                             underline: true,
                           ),
                           VigaFunctionItem(
-                            icon: "$cdnBase/avatar/02.png",
+                            icon: const IconData(
+                              0x10191,
+                              fontFamily: 'Iconfont',
+                            ),
+                            iconBackgroundColor: const Color(0xFFFF7043),
                             title: l10n.complain,
                             link: '/settings/complain',
                             backgroundColor: AppColors.neutralWhite,
                             underline: true,
                           ),
                           VigaFunctionItem(
-                            icon: "$cdnBase/avatar/02.png",
+                            icon: const IconData(
+                              0xe69b,
+                              fontFamily: 'Iconfont',
+                            ),
+                            iconBackgroundColor: const Color(0xFF26A69A),
                             title: l10n.checkNewVersion,
                             link: null,
                             backgroundColor: AppColors.neutralWhite,
