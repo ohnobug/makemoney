@@ -4,17 +4,19 @@ import 'package:dlibphonenumber/dlibphonenumber.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vigaviga/tools/viga_logger.dart';
+import 'package:vigaviga/widgets/viga_appbar.dart';
+import 'package:vigaviga/l10n/app_localizations.dart';
 
-class VigaChangePhoneNumberScreen extends StatefulWidget {
-  const VigaChangePhoneNumberScreen({super.key});
+class VigaChangePhonePage extends StatefulWidget {
+  const VigaChangePhonePage({super.key});
 
   @override
-  State<VigaChangePhoneNumberScreen> createState() =>
-      _VigaChangePhoneNumberScreenState();
+  State<VigaChangePhonePage> createState() =>
+      _VigaChangePhonePageState();
 }
 
-class _VigaChangePhoneNumberScreenState
-    extends State<VigaChangePhoneNumberScreen> {
+class _VigaChangePhonePageState
+    extends State<VigaChangePhonePage> {
   final TextEditingController _phoneController = TextEditingController();
   final String _countryName = '中国';
   final String _countryCode = '+86';
@@ -72,156 +74,227 @@ class _VigaChangePhoneNumberScreenState
 
   @override
   Widget build(BuildContext context) {
-    // 定义颜色方案
-    const Color kPrimaryTextColor = Color(0xFF000000);
-    final Color kSecondaryTextColor = Colors.grey.shade600;
-    final Color kHintTextColor = Colors.grey.shade400;
-    final Color kCountryCodeColor = const Color(0xFF333333);
-    final Color kDividerColor = Colors.grey.shade200;
-    final Color kCursorColor = const Color(0xFF00BAA2);
-    ThemeData theme = Theme.of(context);
-    // 定义统一的标签宽度
-    double kLabelWidth = 176.0.w;
+    final l10n = AppLocalizations.of(context)!;
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
 
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.close, color: kPrimaryTextColor),
-          onPressed: () => context.pop(),
-        ),
+      appBar: VigaAppBar(
+        title: l10n.changePhoneNumber,
+        actions: [
+          VigaAppBarActionTextButton(
+            onTap: _isPhoneNumberValid
+                ? () {
+                    logger.info(
+                        'Phone number is valid: $_countryCode${_phoneController.text}');
+                  }
+                : null,
+            title: l10n.nextStep,
+          ),
+        ],
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 48.0.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            SizedBox(height: 120.h),
-            Center(
-              child: Text(
-                '更换手机号',
-                style: TextStyle(
-                    fontSize: 56.w,
-                    fontWeight: FontWeight.bold,
-                    color: kPrimaryTextColor),
-              ),
-            ),
-            SizedBox(height: 32.h),
-            Text(
-              '一个手机号只能绑定一个账号，更换后可使用新手机号登录此账号。对于已绑定其他账号的手机号，本次操作后将与原账号解绑。',
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 28.w, color: kSecondaryTextColor),
-            ),
-            SizedBox(height: 80.h),
-
-            // 国家/地区选择
-            GestureDetector(
-              onTap: () {
-                logger.info('Navigate to country selection page');
-                context.push('/country');
-              },
-              child: Container(
-                color: Colors.transparent,
-                padding: EdgeInsets.symmetric(vertical: 32.0.w),
-                child: Row(
-                  children: <Widget>[
-                    SizedBox(
-                      width: kLabelWidth,
-                      child: Text(
-                        '国家/地区',
-                        style:
-                            TextStyle(fontSize: 32.w, color: kPrimaryTextColor),
-                      ),
-                    ),
-                    Text(
-                      _countryName,
-                      style:
-                          TextStyle(fontSize: 32.w, color: kPrimaryTextColor),
-                    ),
-                    const Expanded(child: SizedBox()),
-                    Icon(Icons.arrow_forward_ios,
-                        size: 32.w, color: Colors.grey.shade400),
-                  ],
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Container(
+          color: Colors.white,
+          padding: EdgeInsets.symmetric(horizontal: 48.w, vertical: 40.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '一个手机号只能绑定一个账号，更换后可使用新手机号登录此账号。对于已绑定其他账号的手机号，本次操作后将与原账号解绑。',
+                style: textTheme.bodyMedium?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
                 ),
               ),
-            ),
-            Divider(height: 1, color: kDividerColor),
+              SizedBox(height: 30.h),
 
-            // 手机号输入
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 8.0.w),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(
-                    width: kLabelWidth,
-                    child: Text(
-                      '手机号',
-                      style:
-                          TextStyle(fontSize: 32.w, color: kPrimaryTextColor),
-                    ),
-                  ),
-                  Text(
-                    _countryCode,
-                    style: TextStyle(fontSize: 36.w, color: kCountryCodeColor),
-                  ),
-                  SizedBox(width: 16.w),
-                  Expanded(
-                    child: TextField(
-                      controller: _phoneController,
-                      keyboardType: TextInputType.phone,
-                      autofocus: true,
-                      cursorColor: kCursorColor,
-                      decoration: InputDecoration(
-                        hintText: '请填写手机号码',
-                        border: InputBorder.none,
-                        hintStyle:
-                            TextStyle(color: kHintTextColor, fontSize: 32.w),
-                      ),
-                      style:
-                          TextStyle(fontSize: 36.w, color: kPrimaryTextColor),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Divider(height: 1, color: kDividerColor),
-            SizedBox(height: 80.h),
-
-            // 下一步按钮
-            SizedBox(
-              width: double.infinity,
-              height: 80.h,
-              child: ElevatedButton(
-                onPressed: _isPhoneNumberValid
-                    ? () {
-                        logger.info(
-                            'Phone number is valid: $_countryCode${_phoneController.text}');
-                      }
-                    : null,
-                style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                  foregroundColor: Colors.white,
-                  backgroundColor: theme.colorScheme.primary,
-                  // 按钮禁用状态下的背景颜色
-                  disabledBackgroundColor: theme.colorScheme.primaryContainer,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16.r),
-                  ),
+              // 国家/地区选择
+              GestureDetector(
+                onTap: () {
+                  logger.info('Navigate to country selection page');
+                  context.push('/country');
+                },
+                child: _InfoRow(
+                  label: '国家/地区',
+                  value: _countryName,
+                  trailing: Icon(Icons.arrow_forward_ios,
+                      size: 32.w, color: Colors.grey.shade400),
                 ),
-                child: Text(
-                  '下一步',
+              ),
+              SizedBox(height: 20.h),
+
+              // 手机号输入 - 使用浮动标签样式
+              _FormInputRow(
+                label: '手机号',
+                hintText: '请填写手机号码',
+                controller: _phoneController,
+                keyboardType: TextInputType.phone,
+                obscureText: false,
+                prefix: Text(
+                  _countryCode,
                   style: TextStyle(
                     fontSize: 36.w,
+                    color: const Color(0xFF333333),
                   ),
                 ),
               ),
-            ),
-          ],
+              SizedBox(height: 30.h),
+
+              // 按钮区域
+              SizedBox(
+                width: double.infinity,
+                height: 50.h,
+                child: ElevatedButton(
+                  onPressed: _isPhoneNumberValid
+                      ? () {
+                          logger.info(
+                              'Phone number is valid: $_countryCode${_phoneController.text}');
+                        }
+                      : null,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: theme.colorScheme.primary,
+                    disabledBackgroundColor: const Color(0xFFF5F5F5),
+                    foregroundColor: Colors.white,
+                    disabledForegroundColor: Colors.grey,
+                    elevation: 0,
+                    padding: EdgeInsets.symmetric(vertical: 14.h),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                  ),
+                  child: Text(
+                    l10n.nextStep,
+                    style: TextStyle(
+                      fontSize: 18.sp,
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(height: 40.h),
+            ],
+          ),
         ),
       ),
+    );
+  }
+}
+
+// 公共组件 1: 用于展示 "标签: 信息" 的行 (样式微调)
+class _InfoRow extends StatelessWidget {
+  final String label;
+  final String value;
+  final Widget? trailing;
+
+  const _InfoRow({required this.label, required this.value, this.trailing});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+
+    return Container(
+      height: 56.h,
+      padding: EdgeInsets.symmetric(horizontal: 12.w),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF7F7F7),
+        borderRadius: BorderRadius.circular(8.r),
+      ),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 160.w,
+            child: Text(label, style: textTheme.titleMedium),
+          ),
+          SizedBox(width: 16.w),
+          Expanded(
+            child: Text(
+              value,
+              style: textTheme.bodyLarge?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          if (trailing != null) trailing!,
+        ],
+      ),
+    );
+  }
+}
+
+// 公共组件 2: 浮动标签输入框
+class _FormInputRow extends StatefulWidget {
+  final String label;
+  final String hintText;
+  final TextEditingController? controller;
+  final TextInputType? keyboardType;
+  final bool obscureText;
+  final Widget? prefix;
+
+  const _FormInputRow({
+    required this.label,
+    required this.hintText,
+    this.controller,
+    this.keyboardType,
+    this.obscureText = false,
+    this.prefix,
+  });
+
+  @override
+  State<_FormInputRow> createState() => _FormInputRowState();
+}
+
+class _FormInputRowState extends State<_FormInputRow> {
+  @override
+  void initState() {
+    super.initState();
+    widget.controller?.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+
+    return TextField(
+      controller: widget.controller,
+      obscureText: widget.obscureText,
+      keyboardType: widget.keyboardType,
+      style: textTheme.bodyLarge,
+      cursorColor: theme.colorScheme.primary,
+      decoration: InputDecoration(
+        labelText: widget.label,
+        labelStyle: const TextStyle(color: Colors.grey),
+        hintText: widget.hintText,
+        hintStyle: textTheme.bodyLarge?.copyWith(
+          color: theme.colorScheme.onSurface.withAlpha(102),
+        ),
+        enabledBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: Color.fromARGB(255, 224, 224, 224)),
+        ),
+        focusedBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey),
+        ),
+        prefix: widget.prefix,
+        suffixIcon:
+            widget.controller != null && widget.controller!.text.isNotEmpty
+                ? IconButton(
+                    icon: const Icon(
+                      Icons.cancel,
+                      color: Colors.grey,
+                      size: 20,
+                    ),
+                    onPressed: () {
+                      widget.controller!.clear();
+                    },
+                  )
+                : null,
+      ),
+      onTapOutside: (_) => FocusScope.of(context).unfocus(),
     );
   }
 }

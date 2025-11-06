@@ -115,7 +115,7 @@ class _VigaOfficialAccountsState extends State<VigaOfficialAccountsPage> {
             child: Column(
               children: [
                 VigaSearch(
-                  link: '/discovery/search',
+                  link: '/search',
                   title: l10n.search,
                 ), // 使用 l10n
                 Expanded(

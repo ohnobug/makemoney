@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
@@ -28,103 +29,97 @@ class _VigaPersonalinfoAndPermissionPage
     ThemeData theme = Theme.of(context);
     AppLocalizations l10n = AppLocalizations.of(context)!;
 
-    return BlocBuilder<VigaSystemCubit, SystemState>(
-      builder: (context, systemState) {
-        return Scaffold(
-          primary: false,
-          appBar: VigaAppBar(
-            title: l10n.personalInfoAndPermissions,
-          ),
-          body: ScrollConfiguration(
-            behavior:
-                ScrollConfiguration.of(context).copyWith(scrollbars: false),
-            child: Container(
-              constraints: BoxConstraints(
-                  minHeight: MediaQuery.of(context).size.height -
-                      systemState.appbarHeight -
-                      systemState.statusHeight),
-              color: theme.colorScheme.surfaceContainer,
-              child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(
-                  parent: BouncingScrollPhysics(),
-                ),
-                child: Column(
-                  children: [
-                    VigaFunctionList(
-                      children: [
-                        // 系统权限管理
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+      child: BlocBuilder<VigaSystemCubit, SystemState>(
+        builder: (context, systemState) {
+          return Scaffold(
+            primary: false,
+            appBar: VigaAppBar(
+              title: l10n.personalInfoAndPermissions,
+            ),
+            body: ScrollConfiguration(
+              behavior:
+                  ScrollConfiguration.of(context).copyWith(scrollbars: false),
+              child: Container(
+                constraints: BoxConstraints(
+                    minHeight: MediaQuery.of(context).size.height -
+                        systemState.appbarHeight -
+                        systemState.statusHeight),
+                color: theme.colorScheme.surfaceContainer,
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(
+                    parent: BouncingScrollPhysics(),
+                  ),
+                  child: Column(
+                    children: [
+                      VigaFunctionList(
+                        children: [
+                          // 系统权限管理
+                          VigaFunctionItem(
+                            icon: null,
+                            title: l10n.systemPermissionManagement,
+                            link: '',
+                            underline: true,
+                            tapEffect: true,
+                          ),
+                          // 授权管理
+                          VigaFunctionItem(
+                            icon: null,
+                            title: l10n.authorizationManagement,
+                            link: '',
+                            underline: false,
+                            tapEffect: true,
+                          ),
+                        ],
+                      ),
+
+                      // 浏览和导出个人信息
+                      VigaFunctionList(children: [
+                        // 浏览和导出个人信息
                         VigaFunctionItem(
                           icon: null,
-                          title: l10n.systemPermissionManagement,
-                          link: '',
-                          underline: true,
-                          tapEffect: true,
-                        ),
-                        // 授权管理
-                        VigaFunctionItem(
-                          icon: null,
-                          title: l10n.authorizationManagement,
+                          title: l10n.browseAndExportPersonalInfo,
                           link: '',
                           underline: false,
                           tapEffect: true,
                         ),
-                      ],
-                    ),
+                      ]),
 
-                    // 个性化广告管理
-                    VigaFunctionList(children: [
-                      // 个性化广告管理
-                      VigaFunctionItem(
-                        icon: null,
-                        title: l10n.personalizedAdManagement,
-                        link: '',
-                        underline: false,
-                        tapEffect: true,
-                      ),
-                    ]),
+                      SizedBox(height: 920.w),
 
-                    // 浏览和导出个人信息
-                    VigaFunctionList(children: [
-                      // 浏览和导出个人信息
-                      VigaFunctionItem(
-                        icon: null,
-                        title: l10n.browseAndExportPersonalInfo,
-                        link: '',
-                        underline: false,
-                        tapEffect: true,
-                      ),
-                    ]),
-
-                    SizedBox(height: 920.w),
-
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          l10n.privacyPolicySummaryTitle,
-                          style: TextStyle(
-                            fontSize: 26.w,
-                            height: 1.08,
-                            color: AppColors.brandPurpleDark1,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            l10n.privacyPolicySummaryTitle,
+                            style: TextStyle(
+                              fontSize: 26.w,
+                              height: 1.08,
+                              color: AppColors.brandPurpleDark1,
+                            ),
                           ),
-                        ),
-                        Text(
-                          l10n.privacyPolicyTitle,
-                          style: TextStyle(
-                            fontSize: 26.w,
-                            height: 1.08,
-                            color: AppColors.brandPurpleDark1,
-                          ),
-                        )
-                      ],
-                    )
-                  ],
+                          Text(
+                            l10n.privacyPolicyTitle,
+                            style: TextStyle(
+                              fontSize: 26.w,
+                              height: 1.08,
+                              color: AppColors.brandPurpleDark1,
+                            ),
+                          )
+                        ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

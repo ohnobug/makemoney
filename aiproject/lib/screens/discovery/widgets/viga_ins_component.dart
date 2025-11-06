@@ -8,8 +8,15 @@ import 'ins_style_row.dart';
 /// 独立瀑布流组件 - 提供可复用的瀑布流展示
 class VigaInsComponent extends StatefulWidget {
   final bool enableScroll; // 是否启用滚动
+  final String? searchMode; // 搜索模式
+  final String? searchType; // 搜索类型
 
-  const VigaInsComponent({super.key, this.enableScroll = true});
+  const VigaInsComponent({
+    super.key,
+    this.enableScroll = true,
+    this.searchMode,
+    this.searchType,
+  });
 
   @override
   State<VigaInsComponent> createState() => _VigaInsComponentState();

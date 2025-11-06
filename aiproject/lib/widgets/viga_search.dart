@@ -8,12 +8,14 @@ class VigaSearch extends StatefulWidget {
   final Function? onTap;
   final String? link;
   final String title;
+  final Map<String, dynamic>? extra;
 
   const VigaSearch({
     super.key,
     this.onTap,
     required this.link,
     required this.title,
+    this.extra,
   });
 
   @override
@@ -30,7 +32,11 @@ class _VigaSearch extends State<VigaSearch> {
         return GestureDetector(
           onTap: () {
             if (widget.link is String) {
-              context.push(widget.link!);
+              if (widget.extra != null) {
+                context.push(widget.link!, extra: widget.extra);
+              } else {
+                context.push(widget.link!);
+              }
             }
 
             if (widget.onTap is Function) {
@@ -45,7 +51,7 @@ class _VigaSearch extends State<VigaSearch> {
               padding:
                   EdgeInsets.symmetric(vertical: 8.0.w, horizontal: 20.0.w),
               decoration: BoxDecoration(
-                color: theme.colorScheme.surface,
+                color: theme.colorScheme.surfaceContainer,
                 borderRadius: BorderRadius.circular(15).w,
                 // border: Border.all(color: Color.fromRGBO(158, 158, 158, 0.3),),
               ),

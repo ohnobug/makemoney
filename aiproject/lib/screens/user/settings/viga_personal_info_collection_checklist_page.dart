@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vigaviga/themes.dart';
@@ -29,348 +30,324 @@ class _LJPpersonalInfoCollectionChecklist
     ThemeData theme = Theme.of(context);
     AppLocalizations l10n = AppLocalizations.of(context)!;
 
-    return BlocBuilder<VigaSystemCubit, SystemState>(
-      builder: (context, systemState) {
-        return Scaffold(
-          primary: false,
-          appBar: const VigaAppBar(),
-          body: ScrollConfiguration(
-            behavior:
-                ScrollConfiguration.of(context).copyWith(scrollbars: false),
-            child: Container(
-              constraints: BoxConstraints(
-                  minHeight: MediaQuery.of(context).size.height -
-                      systemState.appbarHeight -
-                      systemState.statusHeight),
-              color: AppColors.neutralWhite,
-              child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(
-                  parent: BouncingScrollPhysics(),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      height: 130.w,
-                    ),
-                    Text(
-                      l10n.personalInfoCollectionList,
-                      style: TextStyle(
-                        fontSize: 41.w,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+      child: BlocBuilder<VigaSystemCubit, SystemState>(
+        builder: (context, systemState) {
+          return Scaffold(
+            primary: false,
+            appBar: const VigaAppBar(),
+            body: ScrollConfiguration(
+              behavior:
+                  ScrollConfiguration.of(context).copyWith(scrollbars: false),
+              child: Container(
+                constraints: BoxConstraints(
+                    minHeight: MediaQuery.of(context).size.height -
+                        systemState.appbarHeight -
+                        systemState.statusHeight),
+                color: AppColors.neutralWhite,
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(
+                    parent: BouncingScrollPhysics(),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        height: 130.w,
                       ),
-                    ),
-                    SizedBox(
-                      height: 45.w,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(left: 68.w, right: 68.w),
-                      child: Text(
-                        textAlign: TextAlign.center,
-                        l10n.personalInfoCollectionFullDescription,
-                        style: TextStyle(fontSize: 32.w),
+                      Text(
+                        l10n.personalInfoCollectionList,
+                        style: TextStyle(
+                          fontSize: 41.w,
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 100.0.w,
-                    ),
+                      SizedBox(
+                        height: 45.w,
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(left: 68.w, right: 68.w),
+                        child: Text(
+                          textAlign: TextAlign.center,
+                          l10n.personalInfoCollectionFullDescription,
+                          style: TextStyle(fontSize: 32.w),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 100.0.w,
+                      ),
 
-                    // 基本信息
-                    SizedBox(
-                      width: 690.w,
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 105.w,
-                            margin: EdgeInsets.only(left: 30.w),
-                            alignment: Alignment.centerLeft,
-                            decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                  color: theme.dividerColor,
-                                  width: 1.0.w,
-                                  style: BorderStyle.solid,
+                      // 基本信息
+                      SizedBox(
+                        width: 690.w,
+                        child: Column(
+                          children: [
+                            Container(
+                              height: 105.w,
+                              margin: EdgeInsets.only(left: 30.w),
+                              alignment: Alignment.centerLeft,
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: theme.dividerColor,
+                                    width: 1.0.w,
+                                    style: BorderStyle.solid,
+                                  ),
+                                ),
+                              ),
+                              child: Text(
+                                l10n.basicInfo,
+                                style: TextStyle(
+                                  fontSize: 25.w,
+                                  color:
+                                      theme.listTileTheme.titleTextStyle!.color,
                                 ),
                               ),
                             ),
-                            child: Text(
-                              l10n.basicInfo,
-                              style: TextStyle(
-                                fontSize: 25.w,
-                                color:
-                                    theme.listTileTheme.titleTextStyle!.color,
-                              ),
+                            VigaPCCFunctionItem(
+                              title: l10n.avatar,
+                              link: '',
+                              underline: true,
+                              tapEffect: true,
                             ),
-                          ),
-                          VigaPCCFunctionItem(
-                            title: l10n.avatar,
-                            link: '',
-                            underline: true,
-                            tapEffect: true,
-                          ),
-                          VigaPCCFunctionItem(
-                            title: l10n.name,
-                            link: '',
-                            underline: true,
-                            tapEffect: true,
-                          ),
-                          VigaPCCFunctionItem(
-                            title: l10n.phoneNumber,
-                            link: '',
-                            underline: true,
-                            tapEffect: true,
-                          ),
-                          VigaPCCFunctionItem(
-                            title: l10n.gender,
-                            link: '',
-                            underline: true,
-                            tapEffect: true,
-                          ),
-                          VigaPCCFunctionItem(
-                            title: l10n.region,
-                            link: '',
-                            underline: true,
-                            tapEffect: true,
-                          ),
-                          VigaPCCFunctionItem(
-                            title: l10n.personalSignatureTitle,
-                            link: '',
-                            underline: true,
-                            tapEffect: true,
-                          ),
-                          VigaPCCFunctionItem(
-                            title: l10n.address,
-                            link: '',
-                            underline: true,
-                            tapEffect: true,
-                          ),
-                        ],
+                            VigaPCCFunctionItem(
+                              title: l10n.name,
+                              link: '',
+                              underline: true,
+                              tapEffect: true,
+                            ),
+                            VigaPCCFunctionItem(
+                              title: l10n.phoneNumber,
+                              link: '',
+                              underline: true,
+                              tapEffect: true,
+                            ),
+                            VigaPCCFunctionItem(
+                              title: l10n.gender,
+                              link: '',
+                              underline: true,
+                              tapEffect: true,
+                            ),
+                            VigaPCCFunctionItem(
+                              title: l10n.region,
+                              link: '',
+                              underline: true,
+                              tapEffect: true,
+                            ),
+                            VigaPCCFunctionItem(
+                              title: l10n.personalSignatureTitle,
+                              link: '',
+                              underline: true,
+                              tapEffect: true,
+                            ),
+                            VigaPCCFunctionItem(
+                              title: l10n.address,
+                              link: '',
+                              underline: true,
+                              tapEffect: true,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 30.w,
-                    ),
-                    // 设备信息
-                    SizedBox(
-                      width: 690.w,
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 105.w,
-                            margin: EdgeInsets.only(left: 30.w),
-                            alignment: Alignment.centerLeft,
-                            decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                  color: theme.dividerColor,
-                                  width: 1.0.w,
-                                  style: BorderStyle.solid,
+                      SizedBox(
+                        height: 30.w,
+                      ),
+                      // 设备信息
+                      SizedBox(
+                        width: 690.w,
+                        child: Column(
+                          children: [
+                            Container(
+                              height: 105.w,
+                              margin: EdgeInsets.only(left: 30.w),
+                              alignment: Alignment.centerLeft,
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: theme.dividerColor,
+                                    width: 1.0.w,
+                                    style: BorderStyle.solid,
+                                  ),
+                                ),
+                              ),
+                              child: Text(
+                                l10n.deviceInfo,
+                                style: TextStyle(
+                                  fontSize: 25.w,
+                                  color: AppColors.neutralDarkGrey13,
                                 ),
                               ),
                             ),
-                            child: Text(
-                              l10n.deviceInfo,
-                              style: TextStyle(
-                                fontSize: 25.w,
-                                color: AppColors.neutralDarkGrey13,
-                              ),
+                            VigaPCCFunctionItem(
+                              title: l10n.loggedInDevices,
+                              link: '',
+                              underline: true,
+                              tapEffect: true,
                             ),
-                          ),
-                          VigaPCCFunctionItem(
-                            title: l10n.loggedInDevices,
-                            link: '',
-                            underline: true,
-                            tapEffect: true,
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 30.w,
-                    ),
-                    // 用户使用过程信息
-                    SizedBox(
-                      width: 690.w,
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 105.w,
-                            margin: EdgeInsets.only(left: 30.w),
-                            alignment: Alignment.centerLeft,
-                            decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                  color: theme.dividerColor,
-                                  width: 1.0.w,
-                                  style: BorderStyle.solid,
+                      SizedBox(
+                        height: 30.w,
+                      ),
+                      // 用户使用过程信息
+                      SizedBox(
+                        width: 690.w,
+                        child: Column(
+                          children: [
+                            Container(
+                              height: 105.w,
+                              margin: EdgeInsets.only(left: 30.w),
+                              alignment: Alignment.centerLeft,
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: theme.dividerColor,
+                                    width: 1.0.w,
+                                    style: BorderStyle.solid,
+                                  ),
+                                ),
+                              ),
+                              child: Text(
+                                l10n.userInfoDuringUse,
+                                style: TextStyle(
+                                  fontSize: 25.w,
+                                  color: AppColors.neutralDarkGrey13,
                                 ),
                               ),
                             ),
-                            child: Text(
-                              l10n.userInfoDuringUse,
-                              style: TextStyle(
-                                fontSize: 25.w,
-                                color: AppColors.neutralDarkGrey13,
-                              ),
+                            VigaPCCFunctionItem(
+                              title: l10n.location,
+                              link: '',
+                              underline: true,
+                              tapEffect: true,
                             ),
-                          ),
-                          VigaPCCFunctionItem(
-                            title: l10n.location,
-                            link: '',
-                            underline: true,
-                            tapEffect: true,
-                          ),
-                          VigaPCCFunctionItem(
-                            title: "图片与视频",
-                            link: '',
-                            underline: true,
-                            tapEffect: true,
-                          ),
-                        ],
+                            VigaPCCFunctionItem(
+                              title: "图片与视频",
+                              link: '',
+                              underline: true,
+                              tapEffect: true,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 30.w,
-                    ),
-                    // 社交与内容信息
-                    SizedBox(
-                      width: 690.w,
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 105.w,
-                            margin: EdgeInsets.only(left: 30.w),
-                            alignment: Alignment.centerLeft,
-                            decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                  color: theme.dividerColor,
-                                  width: 1.0.w,
-                                  style: BorderStyle.solid,
+                      SizedBox(
+                        height: 30.w,
+                      ),
+                      // 社交与内容信息
+                      SizedBox(
+                        width: 690.w,
+                        child: Column(
+                          children: [
+                            Container(
+                              height: 105.w,
+                              margin: EdgeInsets.only(left: 30.w),
+                              alignment: Alignment.centerLeft,
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: theme.dividerColor,
+                                    width: 1.0.w,
+                                    style: BorderStyle.solid,
+                                  ),
+                                ),
+                              ),
+                              child: Text(
+                                l10n.socialAndContentInfo,
+                                style: TextStyle(
+                                  fontSize: 25.w,
+                                  color: AppColors.neutralDarkGrey13,
                                 ),
                               ),
                             ),
-                            child: Text(
-                              l10n.socialAndContentInfo,
-                              style: TextStyle(
-                                fontSize: 25.w,
-                                color: AppColors.neutralDarkGrey13,
-                              ),
+                            VigaPCCFunctionItem(
+                              title: l10n.moments,
+                              link: '',
+                              underline: true,
+                              tapEffect: true,
                             ),
-                          ),
-                          VigaPCCFunctionItem(
-                            title: l10n.moments,
-                            link: '',
-                            underline: true,
-                            tapEffect: true,
-                          ),
-                          VigaPCCFunctionItem(
-                            title: l10n.status,
-                            link: '',
-                            underline: true,
-                            tapEffect: true,
-                          ),
-                          VigaPCCFunctionItem(
-                            title: l10n.vigavigaBeans,
-                            link: '',
-                            underline: true,
-                            tapEffect: true,
-                          ),
-                          VigaPCCFunctionItem(
-                            title: l10n.weRun,
-                            link: '',
-                            underline: true,
-                            tapEffect: true,
-                          ),
-                          VigaPCCFunctionItem(
-                            title: Text(
-                              l10n.look,
-                              style: TextStyle(
-                                height: 1.08,
-                                fontWeight: FontWeight.bold,
-                                fontSize: fontSizeScale(32.0.w),
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.visible,
+                            VigaPCCFunctionItem(
+                              title: l10n.status,
+                              link: '',
+                              underline: true,
+                              tapEffect: true,
                             ),
-                            link: '',
-                            underline: true,
-                            tapEffect: true,
-                          ),
-                          VigaPCCFunctionItem(
-                            title: l10n.officialAccounts,
-                            link: '',
-                            underline: true,
-                            tapEffect: true,
-                          ),
-                          VigaPCCFunctionItem(
-                            title: l10n.miniPrograms,
-                            link: '',
-                            underline: true,
-                            tapEffect: true,
-                          ),
-                          VigaPCCFunctionItem(
-                            title: l10n.channels,
-                            link: '',
-                            underline: true,
-                            tapEffect: true,
-                          ),
-                          VigaPCCFunctionItem(
-                            title: l10n.vigavigaGames,
-                            link: '',
-                            underline: true,
-                            tapEffect: true,
-                          ),
-                        ],
+                            VigaPCCFunctionItem(
+                              title: Text(
+                                l10n.look,
+                                style: TextStyle(
+                                  height: 1.08,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: fontSizeScale(32.0.w),
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.visible,
+                              ),
+                              link: '',
+                              underline: true,
+                              tapEffect: true,
+                            ),
+                            VigaPCCFunctionItem(
+                              title: l10n.miniPrograms,
+                              link: '',
+                              underline: true,
+                              tapEffect: true,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 30.w,
-                    ),
-                    // 联系人信息
-                    SizedBox(
-                      width: 690.w,
-                      child: Column(
-                        children: [
-                          Container(
-                            height: 105.w,
-                            margin: EdgeInsets.only(left: 30.w),
-                            alignment: Alignment.centerLeft,
-                            decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                  color: theme.dividerColor,
-                                  width: 1.0.w,
-                                  style: BorderStyle.solid,
+                      SizedBox(
+                        height: 30.w,
+                      ),
+                      // 联系人信息
+                      SizedBox(
+                        width: 690.w,
+                        child: Column(
+                          children: [
+                            Container(
+                              height: 105.w,
+                              margin: EdgeInsets.only(left: 30.w),
+                              alignment: Alignment.centerLeft,
+                              decoration: BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: theme.dividerColor,
+                                    width: 1.0.w,
+                                    style: BorderStyle.solid,
+                                  ),
+                                ),
+                              ),
+                              child: Text(
+                                l10n.contactInfo,
+                                style: TextStyle(
+                                  fontSize: 25.w,
+                                  color: AppColors.neutralDarkGrey13,
                                 ),
                               ),
                             ),
-                            child: Text(
-                              l10n.contactInfo,
-                              style: TextStyle(
-                                fontSize: 25.w,
-                                color: AppColors.neutralDarkGrey13,
-                              ),
+                            VigaPCCFunctionItem(
+                              title: l10n.phoneContacts,
+                              link: '',
+                              underline: true,
+                              tapEffect: true,
                             ),
-                          ),
-                          VigaPCCFunctionItem(
-                            title: l10n.phoneContacts,
-                            link: '',
-                            underline: true,
-                            tapEffect: true,
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    SizedBox(
-                      height: 100.w,
-                    )
-                  ],
+                      SizedBox(
+                        height: 100.w,
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

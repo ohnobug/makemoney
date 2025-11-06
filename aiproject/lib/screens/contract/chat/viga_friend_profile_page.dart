@@ -150,6 +150,9 @@ class _VigaFriendProfile extends State<VigaFriendProfilePage>
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
+                                        SizedBox(
+                                          height: 20.w,
+                                        ),
                                         // 姓名
                                         VigaTextSpans(
                                           text: widget.name!,
@@ -161,25 +164,6 @@ class _VigaFriendProfile extends State<VigaFriendProfilePage>
                                           emojiStyle: TextStyle(
                                             height: 1.08,
                                             fontSize: fontSizeScale(40.w),
-                                          ),
-                                        ),
-
-                                        SizedBox(
-                                          height: 20.w,
-                                        ),
-
-                                        // 昵称
-                                        VigaTextSpans(
-                                          text: l10n.nicknameDisplay(
-                                              widget.nickname!),
-                                          style: TextStyle(
-                                            height: 1.08,
-                                            fontSize: fontSizeScale(27.w),
-                                            color: AppColors.neutralDarkGrey1,
-                                          ),
-                                          emojiStyle: TextStyle(
-                                            height: 1.08,
-                                            fontSize: fontSizeScale(27.w),
                                           ),
                                         ),
 
@@ -209,11 +193,10 @@ class _VigaFriendProfile extends State<VigaFriendProfilePage>
                                             );
                                           },
                                           child: Text(
-                                            l10n.vigavigaIdDisplay(
-                                                widget.account!),
+                                            "ID: ${widget.account!}",
                                             style: TextStyle(
                                               height: 1.08,
-                                              fontSize: fontSizeScale(27.w),
+                                              fontSize: fontSizeScale(30.w),
                                               color: AppColors.neutralDarkGrey1,
                                             ),
                                           ),
@@ -232,7 +215,6 @@ class _VigaFriendProfile extends State<VigaFriendProfilePage>
                           children: [
                             // 朋友资料
                             VigaFunctionItem(
-                              icon: "$cdnBase/avatar/02.png",
                               title: l10n.friendProfile,
                               link: '/chat/friend_information',
                               underline: true,
@@ -240,7 +222,6 @@ class _VigaFriendProfile extends State<VigaFriendProfilePage>
 
                             // 朋友权限
                             VigaFunctionItem(
-                              icon: "$cdnBase/avatar/02.png",
                               title: l10n.friendPermissions,
                               link: '/chat/friend_permissions',
                               underline: true,
@@ -248,7 +229,6 @@ class _VigaFriendProfile extends State<VigaFriendProfilePage>
 
                             // 朋友圈
                             VigaFunctionItem(
-                              icon: "$cdnBase/avatar/02.png",
                               title: Container(
                                 width: 190.w,
                                 padding: EdgeInsets.only(left: 30.w),
@@ -284,7 +264,7 @@ class _VigaFriendProfile extends State<VigaFriendProfilePage>
                                         fit: BoxFit.cover,
                                       ),
                                       SizedBox(
-                                        width: 15.w,
+                                        width: 8.w,
                                       ),
                                       VigaAppNetworkImage(
                                         imageUrl:
@@ -294,7 +274,7 @@ class _VigaFriendProfile extends State<VigaFriendProfilePage>
                                         fit: BoxFit.cover,
                                       ),
                                       SizedBox(
-                                        width: 15.w,
+                                        width: 8.w,
                                       ),
                                       VigaAppNetworkImage(
                                         imageUrl:
@@ -304,7 +284,7 @@ class _VigaFriendProfile extends State<VigaFriendProfilePage>
                                         fit: BoxFit.cover,
                                       ),
                                       SizedBox(
-                                        width: 15.w,
+                                        width: 8.w,
                                       ),
                                       VigaAppNetworkImage(
                                         imageUrl:
@@ -322,7 +302,6 @@ class _VigaFriendProfile extends State<VigaFriendProfilePage>
 
                             // 视频号
                             VigaFunctionItem(
-                              icon: "${systemState.cdnBase}/avatar/02.png",
                               title: Container(
                                 width: 190.w,
                                 padding: EdgeInsets.only(
@@ -342,14 +321,9 @@ class _VigaFriendProfile extends State<VigaFriendProfilePage>
                                 ),
                               ),
                               link: '/ins',
-                              showLinkIcon: false,
                               height: 216.w,
                               showStyle: Expanded(
                                 child: Row(
-                                  // direction: Axis.horizontal,
-                                  // width: 490.w + 62.w,
-                                  // height: 215.w,
-                                  // margin: EdgeInsets.only(left: 68.w),
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
@@ -390,7 +364,7 @@ class _VigaFriendProfile extends State<VigaFriendProfilePage>
                                               fit: BoxFit.cover,
                                             ),
                                             SizedBox(
-                                              width: 15.w,
+                                              width: 8.w,
                                             ),
                                             VigaAppNetworkImage(
                                               imageUrl:
@@ -400,7 +374,7 @@ class _VigaFriendProfile extends State<VigaFriendProfilePage>
                                               fit: BoxFit.cover,
                                             ),
                                             SizedBox(
-                                              width: 15.w,
+                                              width: 8.w,
                                             ),
                                             VigaAppNetworkImage(
                                               imageUrl:
@@ -410,7 +384,7 @@ class _VigaFriendProfile extends State<VigaFriendProfilePage>
                                               fit: BoxFit.cover,
                                             ),
                                             SizedBox(
-                                              width: 15.w,
+                                              width: 8.w,
                                             ),
                                             VigaAppNetworkImage(
                                               imageUrl:
@@ -423,24 +397,6 @@ class _VigaFriendProfile extends State<VigaFriendProfilePage>
                                         )
                                       ],
                                     ),
-
-                                    // 箭头
-                                    Container(
-                                      width: 30.w,
-                                      margin: EdgeInsets.only(
-                                        right: 32.w,
-                                        top: 75.w,
-                                      ),
-                                      child: Icon(
-                                        const IconData(
-                                          0xed9d,
-                                          fontFamily: 'Iconfont',
-                                        ),
-                                        size: 30.0.w,
-                                        color: theme.colorScheme.onSurface
-                                            .withAlpha(100),
-                                      ),
-                                    )
                                   ],
                                 ),
                               ),
@@ -449,7 +405,6 @@ class _VigaFriendProfile extends State<VigaFriendProfilePage>
 
                             // 更多信息
                             VigaFunctionItem(
-                              icon: "$cdnBase/avatar/02.png",
                               title: l10n.moreInfo,
                               link: '/chat/friend_more_info',
                               underline: false,
@@ -583,7 +538,7 @@ class _VigaFriendProfile extends State<VigaFriendProfilePage>
                                         ),
                                       ),
                                       onPressed: () {
-                                        context.push( '/video_player');
+                                        context.push('/video_player');
                                       },
                                     ),
                                     VigaActionSheetAction(
@@ -628,7 +583,7 @@ class _VigaFriendProfile extends State<VigaFriendProfilePage>
                                         ]),
                                       ),
                                       onPressed: () {
-                                        context.push( '/chat/dial');
+                                        context.push('/chat/dial');
                                       },
                                     ),
                                   ],

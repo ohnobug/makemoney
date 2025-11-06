@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vigaviga/themes.dart';
@@ -38,147 +39,153 @@ class _VigaComplainState extends State<VigaComplainPage> {
     ThemeData theme = Theme.of(context);
     AppLocalizations l10n = AppLocalizations.of(context)!;
 
-    return BlocBuilder<VigaSystemCubit, SystemState>(
-      builder: (context, systemState) {
-        return Theme(
-          data: theme.copyWith(
-            appBarTheme: theme.appBarTheme.copyWith(
-              backgroundColor: Colors.transparent,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+      child: BlocBuilder<VigaSystemCubit, SystemState>(
+        builder: (context, systemState) {
+          return Theme(
+            data: theme.copyWith(
+              appBarTheme: theme.appBarTheme.copyWith(
+                backgroundColor: Colors.transparent,
+              ),
             ),
-          ),
-          child: Scaffold(
-            primary: false,
-            appBar: VigaAppBar(
-              title: l10n.complain,
-            ),
-            body: ScrollConfiguration(
-              behavior:
-                  ScrollConfiguration.of(context).copyWith(scrollbars: false),
-              child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(
-                  parent: BouncingScrollPhysics(),
-                ),
-                child: Container(
-                  width: 750.w,
-                  constraints: BoxConstraints(
-                    minHeight: MediaQuery.of(context).size.height -
-                        (systemState.statusHeight + 90.w),
+            child: Scaffold(
+              primary: false,
+              appBar: VigaAppBar(
+                title: l10n.complain,
+              ),
+              body: ScrollConfiguration(
+                behavior:
+                    ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(
+                    parent: BouncingScrollPhysics(),
                   ),
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height: 20.w),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20.w),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "问题描述",
-                                style: TextStyle(
-                                  fontSize: 32.w,
-                                  fontWeight: FontWeight.w600,
-                                  color: theme.primaryColorDark,
-                                ),
-                              ),
-                              SizedBox(height: 20.w),
-                              Container(
-                                height: 300.w,
-                                decoration: BoxDecoration(
-                                  color: AppColors.neutralWhite,
-                                  borderRadius: BorderRadius.circular(20.w),
-                                  border: Border.all(
-                                    color: AppColors.neutralGrey13,
-                                    width: 2.w,
-                                  ),
-                                ),
-                                child: TextFormField(
-                                  controller: _complainController,
-                                  maxLines: null,
-                                  maxLength: 500,
-                                  decoration: InputDecoration(
-                                    hintText: "请详细描述您遇到的问题或建议...",
-                                    hintStyle: TextStyle(
-                                      fontSize: 28.w,
-                                      color: AppColors.neutralGrey13,
-                                    ),
-                                    border: InputBorder.none,
-                                    contentPadding: EdgeInsets.all(30.w),
-                                    counterText: "",
-                                  ),
+                  child: Container(
+                    width: 750.w,
+                    constraints: BoxConstraints(
+                      minHeight: MediaQuery.of(context).size.height -
+                          (systemState.statusHeight + 90.w),
+                    ),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(height: 20.w),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20.w),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "问题描述",
                                   style: TextStyle(
-                                    fontSize: 28.w,
-                                  ),
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return '请输入问题描述';
-                                    }
-                                    if (value.length < 10) {
-                                      return '问题描述至少需要10个字符';
-                                    }
-                                    return null;
-                                  },
-                                ),
-                              ),
-                              SizedBox(height: 20.w),
-                              Text(
-                                "联系方式（选填）",
-                                style: TextStyle(
-                                  fontSize: 32.w,
-                                  fontWeight: FontWeight.w600,
-                                  color: theme.primaryColorDark,
-                                ),
-                              ),
-                              SizedBox(height: 20.w),
-                              Container(
-                                height: 120.w,
-                                decoration: BoxDecoration(
-                                  color: AppColors.neutralWhite,
-                                  borderRadius: BorderRadius.circular(20.w),
-                                  border: Border.all(
-                                    color: AppColors.neutralGrey13,
-                                    width: 2.w,
+                                    fontSize: 32.w,
+                                    fontWeight: FontWeight.w600,
+                                    color: theme.primaryColorDark,
                                   ),
                                 ),
-                                child: TextFormField(
-                                  controller: _contactController,
-                                  decoration: InputDecoration(
-                                    hintText: "邮箱/电话/微信等（方便我们联系您）",
-                                    hintStyle: TextStyle(
-                                      fontSize: 28.w,
+                                SizedBox(height: 20.w),
+                                Container(
+                                  height: 300.w,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.neutralWhite,
+                                    borderRadius: BorderRadius.circular(20.w),
+                                    border: Border.all(
                                       color: AppColors.neutralGrey13,
+                                      width: 2.w,
                                     ),
-                                    border: InputBorder.none,
-                                    contentPadding: EdgeInsets.all(30.w),
                                   ),
-                                  style: TextStyle(
-                                    fontSize: 28.w,
+                                  child: TextFormField(
+                                    controller: _complainController,
+                                    maxLines: null,
+                                    maxLength: 500,
+                                    decoration: InputDecoration(
+                                      hintText: "请详细描述您遇到的问题或建议...",
+                                      hintStyle: TextStyle(
+                                        fontSize: 28.w,
+                                        color: AppColors.neutralGrey13,
+                                      ),
+                                      border: InputBorder.none,
+                                      contentPadding: EdgeInsets.all(30.w),
+                                      counterText: "",
+                                    ),
+                                    style: TextStyle(
+                                      fontSize: 28.w,
+                                    ),
+                                    validator: (value) {
+                                      if (value == null || value.isEmpty) {
+                                        return '请输入问题描述';
+                                      }
+                                      if (value.length < 10) {
+                                        return '问题描述至少需要10个字符';
+                                      }
+                                      return null;
+                                    },
                                   ),
                                 ),
-                              ),
-                              SizedBox(height: 60.w),
-                            ],
+                                SizedBox(height: 20.w),
+                                Text(
+                                  "联系方式（选填）",
+                                  style: TextStyle(
+                                    fontSize: 32.w,
+                                    fontWeight: FontWeight.w600,
+                                    color: theme.primaryColorDark,
+                                  ),
+                                ),
+                                SizedBox(height: 20.w),
+                                Container(
+                                  height: 120.w,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.neutralWhite,
+                                    borderRadius: BorderRadius.circular(20.w),
+                                    border: Border.all(
+                                      color: AppColors.neutralGrey13,
+                                      width: 2.w,
+                                    ),
+                                  ),
+                                  child: TextFormField(
+                                    controller: _contactController,
+                                    decoration: InputDecoration(
+                                      hintText: "邮箱/电话/微信等（方便我们联系您）",
+                                      hintStyle: TextStyle(
+                                        fontSize: 28.w,
+                                        color: AppColors.neutralGrey13,
+                                      ),
+                                      border: InputBorder.none,
+                                      contentPadding: EdgeInsets.all(30.w),
+                                    ),
+                                    style: TextStyle(
+                                      fontSize: 28.w,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 60.w),
+                              ],
+                            ),
                           ),
-                        ),
-                        VigaFunctionList(children: [
-                          VigaMaxWidthButton(
-                            title: "提交反馈",
-                            link: null,
-                            onPressed: _submitComplain,
-                            underline: false,
-                          ),
-                        ]),
-                      ],
+                          VigaFunctionList(children: [
+                            VigaMaxWidthButton(
+                              title: "提交反馈",
+                              link: null,
+                              onPressed: _submitComplain,
+                              underline: false,
+                            ),
+                          ]),
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 

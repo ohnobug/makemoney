@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/widgets/viga_appbar.dart';
@@ -22,7 +23,8 @@ class VigaLanguageSettingPage extends StatefulWidget {
   const VigaLanguageSettingPage({super.key});
 
   @override
-  State<VigaLanguageSettingPage> createState() => _VigaLanguageSettingPageState();
+  State<VigaLanguageSettingPage> createState() =>
+      _VigaLanguageSettingPageState();
 }
 
 class _VigaLanguageSettingPageState extends State<VigaLanguageSettingPage> {
@@ -43,49 +45,56 @@ class _VigaLanguageSettingPageState extends State<VigaLanguageSettingPage> {
   @override
   Widget build(BuildContext context) {
     // 使用 BlocBuilder 来监听 VigaSystemCubit 的状态变化
-    return BlocBuilder<VigaSystemCubit, SystemState>(
-      builder: (context, systemState) {
-        // 获取当前选中的语言
-        final currentLocale = systemState.currentLocale;
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+      child: BlocBuilder<VigaSystemCubit, SystemState>(
+        builder: (context, systemState) {
+          // 获取当前选中的语言
+          final currentLocale = systemState.currentLocale;
 
-        // 假设“已添加语言”就是当前选中的语言
-        final List<LanguageOption> addedLanguages = _allLanguages
-            .where((lang) =>
-                lang.code == currentLocale.languageCode ||
-                (lang.code == 'zh' && currentLocale.languageCode == 'zh_TW') ||
-                (lang.code == 'zh_TW' && currentLocale.languageCode == 'zh'))
-            .toList();
+          // 假设“已添加语言”就是当前选中的语言
+          final List<LanguageOption> addedLanguages = _allLanguages
+              .where((lang) =>
+                  lang.code == currentLocale.languageCode ||
+                  (lang.code == 'zh' &&
+                      currentLocale.languageCode == 'zh_TW') ||
+                  (lang.code == 'zh_TW' && currentLocale.languageCode == 'zh'))
+              .toList();
 
-        // 如果当前语言不在列表里（比如默认的'en'），则默认显示简体中文
-        if (addedLanguages.isEmpty) {
-          addedLanguages
-              .add(_allLanguages.firstWhere((lang) => lang.code == 'zh'));
-        }
+          // 如果当前语言不在列表里（比如默认的'en'），则默认显示简体中文
+          if (addedLanguages.isEmpty) {
+            addedLanguages
+                .add(_allLanguages.firstWhere((lang) => lang.code == 'zh'));
+          }
 
-        return Scaffold(
-          appBar: const VigaAppBar(
-            title: '添加语言',
-            // l10n.addLanguage, // 建议使用国际化
-          ),
-          body: ListView(
-            padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 20.w),
-            children: [
-              // 1. 搜索框
-              _buildSearchBar(),
-              SizedBox(height: 40.w),
+          return Scaffold(
+            appBar: const VigaAppBar(
+              title: '添加语言',
+              // l10n.addLanguage, // 建议使用国际化
+            ),
+            body: ListView(
+              padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 20.w),
+              children: [
+                // 1. 搜索框
+                _buildSearchBar(),
+                SizedBox(height: 40.w),
 
-              // 2. 建议语言
-              _buildSectionTitle('建议语言'),
-              _buildLanguageCard(_suggestedLanguages, currentLocale),
-              SizedBox(height: 40.w),
+                // 2. 建议语言
+                _buildSectionTitle('建议语言'),
+                _buildLanguageCard(_suggestedLanguages, currentLocale),
+                SizedBox(height: 40.w),
 
-              // 3. 所有语言
-              _buildSectionTitle('所有语言'),
-              _buildLanguageCard(_allLanguages, currentLocale),
-            ],
-          ),
-        );
-      },
+                // 3. 所有语言
+                _buildSectionTitle('所有语言'),
+                _buildLanguageCard(_allLanguages, currentLocale),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 
@@ -234,7 +243,9 @@ class _VigaLanguageSettingPageState extends State<VigaLanguageSettingPage> {
 
     return Container(
       decoration: BoxDecoration(
-        color: isSelected ? AppColors.brandGreenVibrant1.withValues(alpha: 0.1) : Colors.transparent,
+        color: isSelected
+            ? AppColors.brandGreenVibrant1.withValues(alpha: 0.1)
+            : Colors.transparent,
         borderRadius: BorderRadius.circular(16.w),
       ),
       margin: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.w),
@@ -263,7 +274,9 @@ class _VigaLanguageSettingPageState extends State<VigaLanguageSettingPage> {
                         style: TextStyle(
                           fontSize: 34.w,
                           fontWeight: FontWeight.w600,
-                          color: isSelected ? AppColors.brandGreenVibrant7 : theme.colorScheme.onSurface,
+                          color: isSelected
+                              ? AppColors.brandGreenVibrant7
+                              : theme.colorScheme.onSurface,
                           letterSpacing: -0.2,
                         ),
                       ),
@@ -272,7 +285,10 @@ class _VigaLanguageSettingPageState extends State<VigaLanguageSettingPage> {
                         language.name,
                         style: TextStyle(
                           fontSize: 26.w,
-                          color: isSelected ? AppColors.brandGreenVibrant7.withValues(alpha: 0.8) : AppColors.neutralGrey41,
+                          color: isSelected
+                              ? AppColors.brandGreenVibrant7
+                                  .withValues(alpha: 0.8)
+                              : AppColors.neutralGrey41,
                           fontWeight: FontWeight.w400,
                         ),
                       ),
@@ -290,7 +306,8 @@ class _VigaLanguageSettingPageState extends State<VigaLanguageSettingPage> {
                       shape: BoxShape.circle,
                       boxShadow: [
                         BoxShadow(
-                          color: AppColors.brandGreenVibrant7.withValues(alpha: 0.4),
+                          color: AppColors.brandGreenVibrant7
+                              .withValues(alpha: 0.4),
                           blurRadius: 8.w,
                           offset: Offset(0, 2.w),
                         ),

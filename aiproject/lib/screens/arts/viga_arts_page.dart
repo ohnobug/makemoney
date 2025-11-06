@@ -185,7 +185,32 @@ class _VigaArtsPageState extends State<VigaArtsPage>
       _hideCommentsPanel();
       return false; // 允许默认返回行为继续处理
     }
+    // 当从其他路由返回时，恢复视频播放
+    _handleRouteActive();
     return false; // 允许默认返回行为
+  }
+
+  @override
+  Future<bool> didPushRoute(String route) async {
+    // 当切换到其他路由时，暂停视频播放
+    _handleRouteInactive();
+    return false; // 允许默认路由行为
+  }
+
+  void _handleRouteInactive() {
+    // 记录当前视频是否正在播放
+    if (_currentVideoController?.value.isInitialized ?? false) {
+      _wasPlaying = _currentVideoController!.value.isPlaying;
+    }
+    // 暂停视频播放
+    _currentVideoController?.pause();
+  }
+
+  void _handleRouteActive() {
+    // 如果离开前视频是在播放状态，则恢复播放
+    if (_wasPlaying) {
+      _currentVideoController?.play();
+    }
   }
 
   List<VideoData> _createMockVideoData() {
@@ -471,7 +496,8 @@ class _VigaArtsPageState extends State<VigaArtsPage>
           }
         } else {
           // 当切换回arts标签页时，如果之前是播放状态则恢复播放
-          if (_wasPlayingBeforeTabSwitch && !(_currentVideoController?.value.isPlaying ?? false)) {
+          if (_wasPlayingBeforeTabSwitch &&
+              !(_currentVideoController?.value.isPlaying ?? false)) {
             _currentVideoController?.play();
             _wasPlayingBeforeTabSwitch = false;
           }
@@ -609,7 +635,7 @@ class _VigaArtsPageState extends State<VigaArtsPage>
                                   right: 28.w,
                                   child: GestureDetector(
                                     onTap: () => context.push(
-                                      '/discovery/search',
+                                      '/search',
                                     ),
                                     child: Container(
                                       color: Colors.transparent,

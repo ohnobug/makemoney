@@ -201,7 +201,7 @@ class _VigaDiscoveryPageState extends State<VigaDiscoveryPage>
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.w),
       child: GestureDetector(
         onTap: () {
-          context.push('/discovery/search');
+          context.push('/search');
         },
         child: Container(
           height: 70.w,

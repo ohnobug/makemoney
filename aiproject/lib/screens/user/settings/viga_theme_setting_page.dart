@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/widgets/viga_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -34,26 +35,32 @@ class _VigaThemeSettingPageState extends State<VigaThemeSettingPage> {
     ThemeData theme = Theme.of(context);
 
     // 使用 BlocBuilder 来监听 VigaSystemCubit 的状态变化
-    return BlocBuilder<VigaSystemCubit, SystemState>(
-      builder: (context, systemState) {
-        // [改动 3] 获取当前选中的主题模式
-        final currentThemeMode = systemState.themeMode;
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+      child: BlocBuilder<VigaSystemCubit, SystemState>(
+        builder: (context, systemState) {
+          // [改动 3] 获取当前选中的主题模式
+          final currentThemeMode = systemState.themeMode;
 
-        return Scaffold(
-          // 使用当前主题的背景色
-          backgroundColor: theme.colorScheme.surfaceContainer,
-          appBar: const VigaAppBar(
-            title: '外观', // AppBar 标题更新
-          ),
-          body: ListView(
-            padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 40.w),
-            children: [
-              // [改动 4] UI 结构简化，直接显示主题选项卡片
-              _buildThemeCard(_themeOptions, currentThemeMode),
-            ],
-          ),
-        );
-      },
+          return Scaffold(
+            // 使用当前主题的背景色
+            backgroundColor: theme.colorScheme.surfaceContainer,
+            appBar: const VigaAppBar(
+              title: '外观', // AppBar 标题更新
+            ),
+            body: ListView(
+              padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 40.w),
+              children: [
+                // [改动 4] UI 结构简化，直接显示主题选项卡片
+                _buildThemeCard(_themeOptions, currentThemeMode),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 

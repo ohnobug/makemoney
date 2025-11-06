@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
@@ -30,154 +31,136 @@ class _VigaFriendPermissionPage extends State<VigaFriendPermissionPage> {
     ThemeData theme = Theme.of(context);
     AppLocalizations l10n = AppLocalizations.of(context)!;
 
-    return BlocBuilder<VigaSystemCubit, SystemState>(
-      builder: (context, systemState) {
-        return Scaffold(
-          primary: false,
-          appBar: VigaAppBar(
-            title: l10n.friendPermissions,
-          ),
-          body: ScrollConfiguration(
-            behavior:
-                ScrollConfiguration.of(context).copyWith(scrollbars: false),
-            child: Container(
-              constraints: BoxConstraints(
-                  minHeight: MediaQuery.of(context).size.height -
-                      systemState.appbarHeight -
-                      systemState.statusHeight),
-              color: theme.colorScheme.surfaceContainer,
-              child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(
-                  parent: BouncingScrollPhysics(),
-                ),
-                child: Column(
-                  children: [
-                    // 添加好友时需要验证
-                    VigaFunctionList(children: [
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+      child: BlocBuilder<VigaSystemCubit, SystemState>(
+        builder: (context, systemState) {
+          return Scaffold(
+            primary: false,
+            appBar: VigaAppBar(
+              title: l10n.friendPermissions,
+            ),
+            body: ScrollConfiguration(
+              behavior:
+                  ScrollConfiguration.of(context).copyWith(scrollbars: false),
+              child: Container(
+                constraints: BoxConstraints(
+                    minHeight: MediaQuery.of(context).size.height -
+                        systemState.appbarHeight -
+                        systemState.statusHeight),
+                color: theme.colorScheme.surfaceContainer,
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(
+                    parent: BouncingScrollPhysics(),
+                  ),
+                  child: Column(
+                    children: [
                       // 添加好友时需要验证
-                      VigaFunctionItem(
-                        icon: null,
-                        title: l10n.requireVerificationWhenAdded,
-                        // link: '',
-                        underline: false,
-                        tapEffect: false,
-                        showStyle: Expanded(
-                          flex: 0,
-                          child: Container(
-                            margin: const EdgeInsets.only(right: 32).w,
-                            child: VigaSwitch(
-                              initialValue: true,
+                      VigaFunctionList(children: [
+                        // 添加好友时需要验证
+                        VigaFunctionItem(
+                          icon: null,
+                          title: l10n.requireVerificationWhenAdded,
+                          // link: '',
+                          underline: false,
+                          tapEffect: false,
+                          showStyle: Expanded(
+                            flex: 0,
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 32).w,
+                              child: VigaSwitch(
+                                initialValue: true,
+                                onChanged: (value) {
+                                  logger.info(value);
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                      ]),
+
+                      VigaFunctionList(
+                        children: [
+                          // 加我的方式
+                          VigaFunctionItem(
+                            icon: null,
+                            title: l10n.waysToAddMe,
+                            link: '',
+                            underline: true,
+                          ),
+                          // 通过手机号找到我
+                          VigaSpecialFunctionItem(
+                            title: l10n.recommendContactsToMe,
+                            tapEffect: false,
+                            underline: false,
+                            height: null,
+                            // link: '',
+                            subTitle: Text(
+                              l10n.recommendContactsMessageFull,
+                              maxLines: 5,
+                              style: TextStyle(
+                                color: AppColors.neutralGrey37,
+                                fontSize: 28.w,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            showStyle: VigaSwitch(
+                              initialValue: false,
                               onChanged: (value) {
                                 logger.info(value);
                               },
                             ),
                           ),
-                        ),
+                        ],
                       ),
-                    ]),
 
-                    VigaFunctionList(
-                      children: [
-                        // 加我的方式
-                        VigaFunctionItem(
-                          icon: null,
-                          title: l10n.waysToAddMe,
-                          link: '',
-                          underline: true,
-                        ),
-                        // 通过手机号找到我
-                        VigaSpecialFunctionItem(
-                          title: l10n.recommendContactsToMe,
-                          tapEffect: false,
-                          underline: false,
-                          height: null,
-                          // link: '',
-                          subTitle: Text(
-                            l10n.recommendContactsMessageFull,
-                            maxLines: 3,
-                            style: TextStyle(
-                              color: AppColors.neutralGrey35,
-                              fontSize: 24.w,
-                              overflow: TextOverflow.ellipsis,
-                            ),
+                      // 只聊天、朋友圈、频道、看一看、Vigaviga运动、通讯录黑名单
+                      VigaFunctionList(
+                        title: VigaAlphabet(title: l10n.friendPermissions),
+                        children: [
+                          // 只聊天
+                          VigaFunctionItem(
+                            icon: null,
+                            title: l10n.chatOnly,
+                            link: '',
+                            underline: true,
                           ),
-                          showStyle: VigaSwitch(
-                            initialValue: false,
-                            onChanged: (value) {
-                              logger.info(value);
-                            },
+
+                          // 朋友圈
+                          VigaFunctionItem(
+                            icon: null,
+                            title: l10n.moments,
+                            link: '',
+                            underline: true,
                           ),
-                        ),
-                      ],
-                    ),
+                        ],
+                      ),
 
-                    // 只聊天、朋友圈、频道、看一看、Vigaviga运动、通讯录黑名单
-                    VigaFunctionList(
-                      title: VigaAlphabet(title: l10n.friendPermissions),
-                      children: [
-                        // 只聊天
-                        VigaFunctionItem(
-                          icon: null,
-                          title: l10n.chatOnly,
-                          link: '',
-                          underline: true,
-                        ),
+                      // 通讯录黑名单
+                      VigaFunctionList(
+                        children: [
+                          // 通讯录黑名单
+                          VigaFunctionItem(
+                            icon: null,
+                            title: l10n.contactsBlocklist,
+                            link: '',
+                            underline: false,
+                          ),
+                        ],
+                      ),
 
-                        // 朋友圈
-                        VigaFunctionItem(
-                          icon: null,
-                          title: l10n.moments,
-                          link: '',
-                          underline: true,
-                        ),
-
-                        // 频道
-                        VigaFunctionItem(
-                          icon: null,
-                          title: l10n.channels,
-                          link: '',
-                          underline: true,
-                        ),
-
-                        // 看一看
-                        VigaFunctionItem(
-                          icon: null,
-                          title: l10n.look,
-                          link: '',
-                          underline: true,
-                        ),
-
-                        // Vigaviga运动
-                        VigaFunctionItem(
-                          icon: null,
-                          title: l10n.weRun,
-                          link: '',
-                          underline: false,
-                        ),
-                      ],
-                    ),
-
-                    // 通讯录黑名单
-                    VigaFunctionList(
-                      children: [
-                        // 通讯录黑名单
-                        VigaFunctionItem(
-                          icon: null,
-                          title: l10n.contactsBlocklist,
-                          link: '',
-                          underline: false,
-                        ),
-                      ],
-                    ),
-
-                    SizedBox(height: 100.w)
-                  ],
+                      SizedBox(height: 100.w)
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

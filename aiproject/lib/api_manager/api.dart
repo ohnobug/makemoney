@@ -28,7 +28,7 @@ List<ChatListItem> getChatItems(BuildContext context) {
       lastedTime: "16:56",
       badge: 100,
       onPressed: () {
-        context.push( '/chat', extra: <String, String>{
+        context.push('/chat', extra: <String, String>{
           'title': "花重月数花重月数花重月数花重月数花重月数花重月数花重月数花重月数花重月数花重月数",
           'icon': "$cdnBase/avatar/chat_1.jpg",
         });
@@ -44,7 +44,7 @@ List<ChatListItem> getChatItems(BuildContext context) {
       lastedTime: "16:49",
       badge: -1,
       onPressed: () {
-        context.push( '/chat', extra: <String, String>{
+        context.push('/chat', extra: <String, String>{
           'title': AppLocalizations.of(context)!.fileTransferHelper,
           'icon': "$cdnBase/avatar/webwxgeticon.jpg",
         });
@@ -60,7 +60,7 @@ List<ChatListItem> getChatItems(BuildContext context) {
       lastedTime: "16:40",
       badge: 9,
       onPressed: () {
-        context.push( '/group_chat', extra: <String, String>{
+        context.push('/group_chat', extra: <String, String>{
           'title': "华南理工大学 软件开发群",
           'icon': "$cdnBase/avatar/webwxgetheadimg.jpg",
         });
@@ -76,7 +76,7 @@ List<ChatListItem> getChatItems(BuildContext context) {
       lastedTime: "16:33",
       badge: -1,
       onPressed: () {
-        context.push( '/chat', extra: <String, String>{
+        context.push('/chat', extra: <String, String>{
           'title': "邓子乔",
           'icon': "$cdnBase/avatar/chat_4.jpg",
         });
@@ -92,7 +92,7 @@ List<ChatListItem> getChatItems(BuildContext context) {
       lastedTime: "16:25",
       badge: -1,
       onPressed: () {
-        context.push( '/chat', extra: <String, String>{
+        context.push('/chat', extra: <String, String>{
           'title': "余笙南吟",
           'icon': "$cdnBase/avatar/chat_5.jpg",
         });
@@ -108,7 +108,7 @@ List<ChatListItem> getChatItems(BuildContext context) {
       lastedTime: "16:18",
       badge: -1,
       onPressed: () {
-        context.push( '/chat', extra: <String, String>{
+        context.push('/chat', extra: <String, String>{
           'title': "陈情匿旧酒",
           'icon': "$cdnBase/avatar/chat_6.jpg",
         });
@@ -123,7 +123,7 @@ List<ChatListItem> getChatItems(BuildContext context) {
       avatar: "$cdnBase/avatar/chat_7.jpg",
       lastedTime: "16:13",
       onPressed: () {
-        context.push( '/chat', extra: <String, String>{
+        context.push('/chat', extra: <String, String>{
           'title': "白桃乌龙",
           'icon': "$cdnBase/avatar/chat_7.jpg",
         });
@@ -138,7 +138,7 @@ List<ChatListItem> getChatItems(BuildContext context) {
       avatar: "$cdnBase/avatar/chat_8.jpg",
       lastedTime: "16:03",
       onPressed: () {
-        context.push( '/chat', extra: <String, String>{
+        context.push('/chat', extra: <String, String>{
           'title': "清浅ˋ旧时光",
           'icon': "$cdnBase/avatar/chat_8.jpg",
         });
@@ -153,7 +153,7 @@ List<ChatListItem> getChatItems(BuildContext context) {
       avatar: "$cdnBase/avatar/chat_9.jpg",
       lastedTime: "15:54",
       onPressed: () {
-        context.push( '/chat', extra: <String, String>{
+        context.push('/chat', extra: <String, String>{
           'title': "荒碎梦残",
           'icon': "$cdnBase/avatar/chat_9.jpg",
         });
@@ -168,7 +168,7 @@ List<ChatListItem> getChatItems(BuildContext context) {
       avatar: "$cdnBase/avatar/chat_10.jpg",
       lastedTime: "15:49",
       onPressed: () {
-        context.push( '/chat', extra: <String, String>{
+        context.push('/chat', extra: <String, String>{
           'title': "无梦相赠",
           'icon': "$cdnBase/avatar/chat_10.jpg",
         });
@@ -183,7 +183,7 @@ List<ChatListItem> getChatItems(BuildContext context) {
       avatar: "$cdnBase/avatar/chat_11.jpg",
       lastedTime: "15:43",
       onPressed: () {
-        context.push( '/chat', extra: <String, String>{
+        context.push('/chat', extra: <String, String>{
           'title': "离人泪",
           'icon': "$cdnBase/avatar/chat_11.jpg",
         });
@@ -198,7 +198,7 @@ List<ChatListItem> getChatItems(BuildContext context) {
       avatar: "$cdnBase/avatar/chat_12.jpg",
       lastedTime: "15:36",
       onPressed: () {
-        context.push( '/chat', extra: <String, String>{
+        context.push('/chat', extra: <String, String>{
           'title': "伊人在水一方",
           'icon': "$cdnBase/avatar/chat_12.jpg",
         });
@@ -213,7 +213,7 @@ List<ChatListItem> getChatItems(BuildContext context) {
       avatar: "$cdnBase/avatar/chat_13.jpg",
       lastedTime: "15:26",
       onPressed: () {
-        context.push( '/chat', extra: <String, String>{
+        context.push('/chat', extra: <String, String>{
           'title': "与我共梦",
           'icon': "$cdnBase/avatar/chat_13.jpg",
         });
@@ -228,7 +228,7 @@ List<ChatListItem> getChatItems(BuildContext context) {
       avatar: "$cdnBase/avatar/chat_14.jpg",
       lastedTime: "15:19",
       onPressed: () {
-        context.push( '/chat', extra: <String, String>{
+        context.push('/chat', extra: <String, String>{
           'title': "挽弦暮笙",
           'icon': "$cdnBase/avatar/chat_14.jpg",
         });
@@ -243,7 +243,7 @@ List<ChatListItem> getChatItems(BuildContext context) {
       avatar: "$cdnBase/avatar/chat_15.jpg",
       lastedTime: "15:13",
       onPressed: () {
-        context.push( '/chat', extra: <String, String>{
+        context.push('/chat', extra: <String, String>{
           'title': "开始厌倦",
           'icon': "$cdnBase/avatar/chat_15.jpg",
         });
@@ -258,7 +258,7 @@ List<ChatListItem> getChatItems(BuildContext context) {
       avatar: "$cdnBase/avatar/chat_16.jpg",
       lastedTime: "15:05",
       onPressed: () {
-        context.push( '/chat', extra: <String, String>{
+        context.push('/chat', extra: <String, String>{
           'title': "仙女收纳盒",
           'icon': "$cdnBase/avatar/chat_16.jpg",
         });
@@ -273,7 +273,7 @@ List<ChatListItem> getChatItems(BuildContext context) {
       avatar: "$cdnBase/avatar/chat_17.jpg",
       lastedTime: "15:00",
       onPressed: () {
-        context.push( '/chat', extra: <String, String>{
+        context.push('/chat', extra: <String, String>{
           'title': "華燈初上",
           'icon': "$cdnBase/avatar/chat_17.jpg",
         });
@@ -288,7 +288,7 @@ List<ChatListItem> getChatItems(BuildContext context) {
       avatar: "$cdnBase/avatar/chat_18.jpg",
       lastedTime: "14:51",
       onPressed: () {
-        context.push( '/chat', extra: <String, String>{
+        context.push('/chat', extra: <String, String>{
           'title': "袖手今生",
           'icon': "$cdnBase/avatar/chat_18.jpg",
         });
@@ -303,7 +303,7 @@ List<ChatListItem> getChatItems(BuildContext context) {
       avatar: "$cdnBase/avatar/chat_19.jpg",
       lastedTime: "14:41",
       onPressed: () {
-        context.push( '/chat', extra: <String, String>{
+        context.push('/chat', extra: <String, String>{
           'title': "ら道不清的忧伤",
           'icon': "$cdnBase/avatar/chat_19.jpg",
         });
@@ -318,7 +318,7 @@ List<ChatListItem> getChatItems(BuildContext context) {
       avatar: "$cdnBase/avatar/chat_20.jpg",
       lastedTime: "14:31",
       onPressed: () {
-        context.push( '/chat', extra: <String, String>{
+        context.push('/chat', extra: <String, String>{
           'title': "凉生",
           'icon': "$cdnBase/avatar/chat_20.jpg",
         });
@@ -333,7 +333,7 @@ List<ChatListItem> getChatItems(BuildContext context) {
       avatar: "$cdnBase/avatar/chat_21.jpg",
       lastedTime: "14:21",
       onPressed: () {
-        context.push( '/chat', extra: <String, String>{
+        context.push('/chat', extra: <String, String>{
           'title': "墨香九歌",
           'icon': "$cdnBase/avatar/chat_21.jpg",
         });
@@ -348,7 +348,7 @@ List<ChatListItem> getChatItems(BuildContext context) {
       avatar: "$cdnBase/avatar/chat_22.jpg",
       lastedTime: "14:13",
       onPressed: () {
-        context.push( '/chat', extra: <String, String>{
+        context.push('/chat', extra: <String, String>{
           'title': "暖栀",
           'icon': "$cdnBase/avatar/chat_22.jpg",
         });
@@ -363,7 +363,7 @@ List<ChatListItem> getChatItems(BuildContext context) {
       avatar: "$cdnBase/avatar/chat_23.jpg",
       lastedTime: "14:05",
       onPressed: () {
-        context.push( '/chat', extra: <String, String>{
+        context.push('/chat', extra: <String, String>{
           'title': "等待许了苍老",
           'icon': "$cdnBase/avatar/chat_23.jpg",
         });
@@ -378,7 +378,7 @@ List<ChatListItem> getChatItems(BuildContext context) {
       avatar: "$cdnBase/avatar/chat_24.jpg",
       lastedTime: "13:55",
       onPressed: () {
-        context.push( '/chat', extra: <String, String>{
+        context.push('/chat', extra: <String, String>{
           'title': "笙歌白云",
           'icon': "$cdnBase/avatar/chat_24.jpg",
         });
@@ -393,7 +393,7 @@ List<ChatListItem> getChatItems(BuildContext context) {
       avatar: "$cdnBase/avatar/chat_25.jpg",
       lastedTime: "13:48",
       onPressed: () {
-        context.push( '/chat', extra: <String, String>{
+        context.push('/chat', extra: <String, String>{
           'title': "万幸得以相识",
           'icon': "$cdnBase/avatar/chat_25.jpg",
         });
@@ -408,7 +408,7 @@ List<ChatListItem> getChatItems(BuildContext context) {
       avatar: "$cdnBase/avatar/chat_26.jpg",
       lastedTime: "13:40",
       onPressed: () {
-        context.push( '/chat', extra: <String, String>{
+        context.push('/chat', extra: <String, String>{
           'title': "凤鸣寂寥",
           'icon': "$cdnBase/avatar/chat_26.jpg",
         });
@@ -423,7 +423,7 @@ List<ChatListItem> getChatItems(BuildContext context) {
       avatar: "$cdnBase/avatar/chat_27.jpg",
       lastedTime: "13:33",
       onPressed: () {
-        context.push( '/chat', extra: <String, String>{
+        context.push('/chat', extra: <String, String>{
           'title': "余生不过一盏茶",
           'icon': "$cdnBase/avatar/chat_27.jpg",
         });
@@ -438,7 +438,7 @@ List<ChatListItem> getChatItems(BuildContext context) {
       avatar: "$cdnBase/avatar/chat_28.jpg",
       lastedTime: "13:25",
       onPressed: () {
-        context.push( '/chat', extra: <String, String>{
+        context.push('/chat', extra: <String, String>{
           'title': "丢了梦想的猎手",
           'icon': "$cdnBase/avatar/chat_28.jpg",
         });
@@ -453,7 +453,7 @@ List<ChatListItem> getChatItems(BuildContext context) {
       avatar: "$cdnBase/avatar/chat_29.jpg",
       lastedTime: "13:15",
       onPressed: () {
-        context.push( '/chat', extra: <String, String>{
+        context.push('/chat', extra: <String, String>{
           'title': "今朝有酒今朝醉",
           'icon': "$cdnBase/avatar/chat_29.jpg",
         });
@@ -468,7 +468,7 @@ List<ChatListItem> getChatItems(BuildContext context) {
       avatar: "$cdnBase/avatar/chat_30.jpg",
       lastedTime: "13:05",
       onPressed: () {
-        context.push( '/chat', extra: <String, String>{
+        context.push('/chat', extra: <String, String>{
           'title': "旧事酒浓",
           'icon': "$cdnBase/avatar/chat_30.jpg",
         });
@@ -501,12 +501,8 @@ List<dynamic> getContactDataList(BuildContext context) {
         titleKey: 'tags',
         icon: "$cdnBase/avatar/04.png",
         link: '/contact/tags',
-        underline: true),
-    FunctionItemData(
-        titleKey: 'officialAccounts',
-        icon: "$cdnBase/avatar/05.png",
-        link: '/contact/official_accounts',
         underline: false),
+
     'A', // 字母
     ContactItemData(title: "天空飘来五个字那都不是事", icon: "$cdnBase/avatar/chat_1.jpg"),
     ContactItemData(title: "本因", icon: "$cdnBase/avatar/chat_10.jpg"),

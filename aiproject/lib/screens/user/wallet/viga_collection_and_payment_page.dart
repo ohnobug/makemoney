@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -29,422 +30,431 @@ class _VigaCollectionAndPaymentPageState
     ThemeData theme = Theme.of(context);
     AppLocalizations l10n = AppLocalizations.of(context)!;
 
-    return BlocBuilder<VigaSystemCubit, SystemState>(
-      builder: (context, systemState) {
-        return Theme(
-          data: theme.copyWith(
-            appBarTheme: theme.appBarTheme.copyWith(
-              backgroundColor: AppColors.brandTealDark3,
-              titleTextStyle: theme.appBarTheme.titleTextStyle!.copyWith(
-                color: Colors.white,
-              ),
-            ),
-          ),
-          child: Scaffold(
-            primary: false,
-            appBar: VigaAppBar(
-              title: l10n.payment,
-              leading: GestureDetector(
-                onTap: () {
-                  context.pop();
-                  // wallet
-                }, // 点击事件
-                child: Container(
-                  color: Colors.transparent,
-                  height: 90.w,
-                  alignment: Alignment.centerLeft,
-                  padding: EdgeInsets.only(left: 35.w),
-                  child: Icon(
-                    const IconData(
-                      0xe628,
-                      fontFamily: 'Iconfont',
-                    ), // 使用的图标
-                    color: Colors.white, // 图标颜色
-                    size: 36.w, // 图标大小
-                  ),
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+      child: BlocBuilder<VigaSystemCubit, SystemState>(
+        builder: (context, systemState) {
+          return Theme(
+            data: theme.copyWith(
+              appBarTheme: theme.appBarTheme.copyWith(
+                backgroundColor: AppColors.brandTealDark3,
+                titleTextStyle: theme.appBarTheme.titleTextStyle!.copyWith(
+                  color: Colors.white,
                 ),
               ),
             ),
-            body: ColoredBox(
-              color: AppColors.brandTealDark3,
-              child: ScrollConfiguration(
-                behavior:
-                    ScrollConfiguration.of(context).copyWith(scrollbars: false),
-                child: SingleChildScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(
-                    parent: BouncingScrollPhysics(),
+            child: Scaffold(
+              primary: false,
+              appBar: VigaAppBar(
+                title: l10n.payment,
+                leading: GestureDetector(
+                  onTap: () {
+                    context.pop();
+                    // wallet
+                  }, // 点击事件
+                  child: Container(
+                    color: Colors.transparent,
+                    height: 90.w,
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.only(left: 35.w),
+                    child: Icon(
+                      const IconData(
+                        0xe628,
+                        fontFamily: 'Iconfont',
+                      ), // 使用的图标
+                      color: Colors.white, // 图标颜色
+                      size: 36.w, // 图标大小
+                    ),
                   ),
-                  child: Column(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(
-                          top: 15.w,
-                          left: 15.w,
-                          right: 15.w,
-                        ),
-                        padding: EdgeInsets.only(
-                          left: 30.w,
-                          right: 30.w,
-                          top: 0,
-                          bottom: 30.w,
-                        ),
-                        decoration: BoxDecoration(
-                          color: AppColors.neutralWhite,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(15.w),
+                ),
+              ),
+              body: ColoredBox(
+                color: AppColors.brandTealDark3,
+                child: ScrollConfiguration(
+                  behavior: ScrollConfiguration.of(context)
+                      .copyWith(scrollbars: false),
+                  child: SingleChildScrollView(
+                    physics: const AlwaysScrollableScrollPhysics(
+                      parent: BouncingScrollPhysics(),
+                    ),
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.only(
+                            top: 15.w,
+                            left: 15.w,
+                            right: 15.w,
                           ),
-                        ),
-                        child: Column(
-                          children: [
-                            // 标题
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                // 支付码
-                                Text.rich(
-                                  TextSpan(
-                                    children: [
-                                      WidgetSpan(
-                                        child: Icon(
-                                          const IconData(
-                                            0xe611,
-                                            fontFamily: 'Iconfont',
-                                          ), // 使用的图标
-                                          color: AppColors
-                                              .brandGreenVibrantDeep1, // 图标颜色
-                                          size: 35.w, // 图标大小
-                                        ),
-                                      ),
-                                      WidgetSpan(
-                                          child: SizedBox(
-                                        width: 10.w,
-                                      )),
-                                      TextSpan(
-                                        text: l10n.paymentCode,
-                                        style: TextStyle(
-                                          fontSize: 32.w,
-                                          height: 1.08,
-                                          color:
-                                              AppColors.brandGreenVibrantDeep1,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-
-                                // 三个点
-                                GestureDetector(
-                                  onTap: () {
-                                    // 点击事件
-                                  },
-                                  child: Container(
-                                    height: 90.w,
-                                    color: Colors.transparent,
-                                    child: Icon(
-                                      color: AppColors.neutralGrey38,
-                                      const IconData(
-                                        0xe659,
-                                        fontFamily: 'Iconfont',
-                                      ),
-                                      size: 43.w, // 图标大小
-                                    ),
-                                  ),
-                                )
-                              ],
+                          padding: EdgeInsets.only(
+                            left: 30.w,
+                            right: 30.w,
+                            top: 0,
+                            bottom: 30.w,
+                          ),
+                          decoration: BoxDecoration(
+                            color: AppColors.neutralWhite,
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(15.w),
                             ),
-                            // 分割线
-                            Padding(
-                              padding: EdgeInsets.only(
-                                top: 0,
-                                bottom: 30,
-                                left: 0,
-                                right: 0,
-                              ).w,
-                              child: Divider(
-                                height: 1.w,
-                                color: theme.dividerColor,
-                              ),
-                            ),
-
-                            // 优先使用零钱
-                            Text(
-                              l10n.prioritizeBalancePayment,
-                              style: TextStyle(
-                                fontSize: 25.w,
-                                color: AppColors.neutralGrey54,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 20.w,
-                            ),
-                            VigaAppNetworkImage(
-                              imageUrl:
-                                  "${systemState.cdnBase}/avatar/linecode.png",
-                              width: 630.0.w,
-                              height: 90.0.w,
-                              fit: BoxFit.fill,
-                            ),
-                            SizedBox(
-                              height: 35.w,
-                            ),
-                            SizedBox(
-                              height: 400.w,
-                              width: 750.w,
-                              child: VigaAppNetworkImage(
-                                imageUrl:
-                                    "${systemState.cdnBase}/avatar/qrcode.png",
-                                width: 400.0.w,
-                                height: 400.0.w,
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                            // 分割线
-                            Padding(
-                              padding: EdgeInsets.only(
-                                top: 40,
-                                bottom: 40,
-                                left: 0,
-                                right: 0,
-                              ).w,
-                              child: Divider(
-                                height: 1.w,
-                                color: theme.dividerColor,
-                              ),
-                            ),
-                            Column(
-                              children: [
-                                // 优先付款方式
-                                SizedBox(
-                                  width: 750.w,
-                                  height: 30.w,
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        l10n.priorityPaymentMethod,
-                                        style: TextStyle(
-                                          fontSize: 25.w,
-                                          height: 1.08,
-                                          color: AppColors.neutralDarkGrey2,
-                                        ),
-                                      ),
-                                      Flex(
-                                        direction: Axis.horizontal,
-                                        children: [
-                                          Text(
-                                            l10n.change,
-                                            style: TextStyle(
-                                              fontSize: 25.w,
-                                              height: 1.08,
-                                              color: AppColors.neutralDarkGrey2,
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 15.w,
-                                          ),
-                                          Icon(
+                          ),
+                          child: Column(
+                            children: [
+                              // 标题
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  // 支付码
+                                  Text.rich(
+                                    TextSpan(
+                                      children: [
+                                        WidgetSpan(
+                                          child: Icon(
                                             const IconData(
-                                              0xe891,
+                                              0xe611,
                                               fontFamily: 'Iconfont',
                                             ), // 使用的图标
                                             color: AppColors
-                                                .neutralDarkGrey2, // 图标颜色
-                                            size: 28.w, // 图标大小
-                                          )
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-
-                                SizedBox(
-                                  height: 20.w,
-                                ),
-
-                                // 零钱
-                                Container(
-                                  height: 107.w,
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 33.w),
-                                  decoration: BoxDecoration(
-                                    color: AppColors.neutralGrey5,
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(10.w),
+                                                .brandGreenVibrantDeep1, // 图标颜色
+                                            size: 35.w, // 图标大小
+                                          ),
+                                        ),
+                                        WidgetSpan(
+                                            child: SizedBox(
+                                          width: 10.w,
+                                        )),
+                                        TextSpan(
+                                          text: l10n.paymentCode,
+                                          style: TextStyle(
+                                            fontSize: 32.w,
+                                            height: 1.08,
+                                            color: AppColors
+                                                .brandGreenVibrantDeep1,
+                                          ),
+                                        )
+                                      ],
                                     ),
                                   ),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      // 零钱
-                                      Text.rich(
-                                        TextSpan(
+
+                                  // 三个点
+                                  GestureDetector(
+                                    onTap: () {
+                                      // 点击事件
+                                    },
+                                    child: Container(
+                                      height: 90.w,
+                                      color: Colors.transparent,
+                                      child: Icon(
+                                        color: AppColors.neutralGrey38,
+                                        const IconData(
+                                          0xe659,
+                                          fontFamily: 'Iconfont',
+                                        ),
+                                        size: 43.w, // 图标大小
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              // 分割线
+                              Padding(
+                                padding: EdgeInsets.only(
+                                  top: 0,
+                                  bottom: 30,
+                                  left: 0,
+                                  right: 0,
+                                ).w,
+                                child: Divider(
+                                  height: 1.w,
+                                  color: theme.dividerColor,
+                                ),
+                              ),
+
+                              // 优先使用零钱
+                              Text(
+                                l10n.prioritizeBalancePayment,
+                                style: TextStyle(
+                                  fontSize: 25.w,
+                                  color: AppColors.neutralGrey54,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 20.w,
+                              ),
+                              VigaAppNetworkImage(
+                                imageUrl:
+                                    "${systemState.cdnBase}/avatar/linecode.png",
+                                width: 630.0.w,
+                                height: 90.0.w,
+                                fit: BoxFit.fill,
+                              ),
+                              SizedBox(
+                                height: 35.w,
+                              ),
+                              SizedBox(
+                                height: 400.w,
+                                width: 750.w,
+                                child: VigaAppNetworkImage(
+                                  imageUrl:
+                                      "${systemState.cdnBase}/avatar/qrcode.png",
+                                  width: 400.0.w,
+                                  height: 400.0.w,
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                              // 分割线
+                              Padding(
+                                padding: EdgeInsets.only(
+                                  top: 40,
+                                  bottom: 40,
+                                  left: 0,
+                                  right: 0,
+                                ).w,
+                                child: Divider(
+                                  height: 1.w,
+                                  color: theme.dividerColor,
+                                ),
+                              ),
+                              Column(
+                                children: [
+                                  // 优先付款方式
+                                  SizedBox(
+                                    width: 750.w,
+                                    height: 30.w,
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          l10n.priorityPaymentMethod,
+                                          style: TextStyle(
+                                            fontSize: 25.w,
+                                            height: 1.08,
+                                            color: AppColors.neutralDarkGrey2,
+                                          ),
+                                        ),
+                                        Flex(
+                                          direction: Axis.horizontal,
                                           children: [
-                                            WidgetSpan(
-                                                child: Icon(
-                                              const IconData(
-                                                0xe6cc,
-                                                fontFamily: 'Iconfont',
-                                              ), // 使用的图标
-                                              color: AppColors
-                                                  .accentYellow, // 图标颜色
-                                              size: 38.w, // 图标大小
-                                            )),
-                                            WidgetSpan(
-                                              child: SizedBox(
-                                                width: 10.w,
-                                              ),
-                                            ),
-                                            TextSpan(
-                                              text: l10n.balance,
+                                            Text(
+                                              l10n.change,
                                               style: TextStyle(
                                                 fontSize: 25.w,
                                                 height: 1.08,
-                                                color: AppColors.neutralGrey74,
+                                                color:
+                                                    AppColors.neutralDarkGrey2,
                                               ),
                                             ),
+                                            SizedBox(
+                                              width: 15.w,
+                                            ),
+                                            Icon(
+                                              const IconData(
+                                                0xe891,
+                                                fontFamily: 'Iconfont',
+                                              ), // 使用的图标
+                                              color: AppColors
+                                                  .neutralDarkGrey2, // 图标颜色
+                                              size: 28.w, // 图标大小
+                                            )
                                           ],
                                         ),
-                                      ),
-
-                                      // 打勾
-                                      Icon(
-                                        const IconData(
-                                          0xe60d,
-                                          fontFamily: 'Iconfont',
-                                        ), // 使用的图标
-                                        color: AppColors
-                                            .brandGreenVibrantDeep2, // 图标颜色
-                                        size: 30.w, // 图标大小
-                                      )
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
 
-                      SizedBox(
-                        height: 10.w,
-                      ),
+                                  SizedBox(
+                                    height: 20.w,
+                                  ),
 
-                      Container(
-                        margin: EdgeInsets.only(
-                          top: 15.w,
-                          left: 15.w,
-                          right: 15.w,
-                        ),
-                        clipBehavior: Clip.hardEdge,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(15.w),
+                                  // 零钱
+                                  Container(
+                                    height: 107.w,
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 33.w),
+                                    decoration: BoxDecoration(
+                                      color: AppColors.neutralGrey5,
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10.w),
+                                      ),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        // 零钱
+                                        Text.rich(
+                                          TextSpan(
+                                            children: [
+                                              WidgetSpan(
+                                                  child: Icon(
+                                                const IconData(
+                                                  0xe6cc,
+                                                  fontFamily: 'Iconfont',
+                                                ), // 使用的图标
+                                                color: AppColors
+                                                    .accentYellow, // 图标颜色
+                                                size: 38.w, // 图标大小
+                                              )),
+                                              WidgetSpan(
+                                                child: SizedBox(
+                                                  width: 10.w,
+                                                ),
+                                              ),
+                                              TextSpan(
+                                                text: l10n.balance,
+                                                style: TextStyle(
+                                                  fontSize: 25.w,
+                                                  height: 1.08,
+                                                  color:
+                                                      AppColors.neutralGrey74,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+
+                                        // 打勾
+                                        Icon(
+                                          const IconData(
+                                            0xe60d,
+                                            fontFamily: 'Iconfont',
+                                          ), // 使用的图标
+                                          color: AppColors
+                                              .brandGreenVibrantDeep2, // 图标颜色
+                                          size: 30.w, // 图标大小
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
                           ),
                         ),
-                        child: Column(
-                          children: [
-                            VigaCAPFunctionItem(
-                              title: l10n.digitalRMBPayment,
-                              icon: const IconData(
-                                0xe6f5,
-                                fontFamily: 'Iconfont',
-                              ),
-                              iconColor: AppColors.accentRedPure,
-                              link: '',
-                              color: AppColors.blackTransparent64,
-                              backgroundColor: AppColors.neutralWhite,
-                              underline: false,
-                            ),
-                          ],
+
+                        SizedBox(
+                          height: 10.w,
                         ),
-                      ),
 
-                      SizedBox(
-                        height: 10.w,
-                      ),
-
-                      // 列表
-                      Container(
-                        margin:
-                            EdgeInsets.only(top: 15.w, left: 15.w, right: 15.w),
-                        clipBehavior: Clip.hardEdge,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(15.w),
+                        Container(
+                          margin: EdgeInsets.only(
+                            top: 15.w,
+                            left: 15.w,
+                            right: 15.w,
+                          ),
+                          clipBehavior: Clip.hardEdge,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(15.w),
+                            ),
+                          ),
+                          child: Column(
+                            children: [
+                              VigaCAPFunctionItem(
+                                title: l10n.digitalRMBPayment,
+                                icon: const IconData(
+                                  0xe6f5,
+                                  fontFamily: 'Iconfont',
+                                ),
+                                iconColor: AppColors.accentRedPure,
+                                link: '',
+                                color: AppColors.blackTransparent64,
+                                backgroundColor: AppColors.neutralWhite,
+                                underline: false,
+                              ),
+                            ],
                           ),
                         ),
-                        child: Column(
-                          children: [
-                            VigaCAPFunctionItem(
-                              title: l10n.qrCodeCollection,
-                              icon: const IconData(
-                                0xe623,
-                                fontFamily: "Iconfont",
-                              ),
-                              link: '',
-                              backgroundColor: AppColors.brandTealMedium,
-                              underline: true,
-                            ),
-                            VigaCAPFunctionItem(
-                              title: l10n.rewardCode,
-                              icon: const IconData(
-                                0xe67b,
-                                fontFamily: "Iconfont",
-                              ),
-                              link: '',
-                              backgroundColor: AppColors.brandTealMedium,
-                              underline: true,
-                            ),
-                            VigaCAPFunctionItem(
-                              title: l10n.groupSplitBill,
-                              icon: const IconData(
-                                0xe624,
-                                fontFamily: "Iconfont",
-                              ),
-                              link: '',
-                              backgroundColor: AppColors.brandTealMedium,
-                              underline: true,
-                            ),
-                            VigaCAPFunctionItem(
-                              title: l10n.faceToFaceRedPacket,
-                              icon: const IconData(
-                                0xe625,
-                                fontFamily: "Iconfont",
-                              ),
-                              link: '',
-                              backgroundColor: AppColors.brandTealMedium,
-                              underline: true,
-                            ),
-                            VigaCAPFunctionItem(
-                              title: l10n.transferToBankCardOrPhone,
-                              icon: const IconData(
-                                0xe661,
-                                fontFamily: "Iconfont",
-                              ),
-                              link: '',
-                              backgroundColor: AppColors.brandTealMedium,
-                              underline: false,
-                            ),
-                          ],
-                        ),
-                      ),
 
-                      SizedBox(
-                        height: 20.w,
-                      )
-                    ],
+                        SizedBox(
+                          height: 10.w,
+                        ),
+
+                        // 列表
+                        Container(
+                          margin: EdgeInsets.only(
+                              top: 15.w, left: 15.w, right: 15.w),
+                          clipBehavior: Clip.hardEdge,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(15.w),
+                            ),
+                          ),
+                          child: Column(
+                            children: [
+                              VigaCAPFunctionItem(
+                                title: l10n.qrCodeCollection,
+                                icon: const IconData(
+                                  0xe623,
+                                  fontFamily: "Iconfont",
+                                ),
+                                link: '',
+                                backgroundColor: AppColors.brandTealMedium,
+                                underline: true,
+                              ),
+                              VigaCAPFunctionItem(
+                                title: l10n.rewardCode,
+                                icon: const IconData(
+                                  0xe67b,
+                                  fontFamily: "Iconfont",
+                                ),
+                                link: '',
+                                backgroundColor: AppColors.brandTealMedium,
+                                underline: true,
+                              ),
+                              VigaCAPFunctionItem(
+                                title: l10n.groupSplitBill,
+                                icon: const IconData(
+                                  0xe624,
+                                  fontFamily: "Iconfont",
+                                ),
+                                link: '',
+                                backgroundColor: AppColors.brandTealMedium,
+                                underline: true,
+                              ),
+                              VigaCAPFunctionItem(
+                                title: l10n.faceToFaceRedPacket,
+                                icon: const IconData(
+                                  0xe625,
+                                  fontFamily: "Iconfont",
+                                ),
+                                link: '',
+                                backgroundColor: AppColors.brandTealMedium,
+                                underline: true,
+                              ),
+                              VigaCAPFunctionItem(
+                                title: l10n.transferToBankCardOrPhone,
+                                icon: const IconData(
+                                  0xe661,
+                                  fontFamily: "Iconfont",
+                                ),
+                                link: '',
+                                backgroundColor: AppColors.brandTealMedium,
+                                underline: false,
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        SizedBox(
+                          height: 20.w,
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

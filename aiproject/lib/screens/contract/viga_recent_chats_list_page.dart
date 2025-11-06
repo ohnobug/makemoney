@@ -53,6 +53,13 @@ class _VigaRecentChatsListPage extends State<VigaRecentChatsListPage>
         statusBarIconBrightness: Brightness.dark,
       ),
     );
+
+    // 关闭所有对话框当页面重新激活时
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        closeAllDialogs(context);
+      }
+    });
   }
 
   @override
@@ -398,9 +405,7 @@ class _VigaRecentChatsListPage extends State<VigaRecentChatsListPage>
                         leading: GestureDetector(
                           onTap: () async {
                             if (_homescrollpixels == 0) {
-                              context.push('/contact/search_friend', extra: {
-                                'recentContacts': chatItems,
-                              });
+                              context.push('/contact/search_friend', extra: chatItems);
                             }
                           },
                           child: Container(

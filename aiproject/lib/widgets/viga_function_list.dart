@@ -28,12 +28,12 @@ class VigaFunctionList extends StatelessWidget {
         Container(
           // height: 1.w,
           width: 710.w,
-          margin: EdgeInsets.symmetric(vertical: 10.w),
+          margin: EdgeInsets.symmetric(vertical: 3.w),
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
             color: theme.colorScheme.surface,
             borderRadius: BorderRadius.all(
-              Radius.circular(10.w),
+              Radius.circular(15.w),
             ),
           ),
           child: Column(

@@ -315,7 +315,7 @@ class _VigaNewFriendsState extends State<VigaNewFriendsPage> {
                       return VigaFunctionItem(
                         title: l10n.addPhoneContacts,
                         icon: "$cdnBase/icon/phone.png",
-                        link: '/user/collection_and_payment',
+                        link: '/contact/phone_contact',
                         underline: false,
                       );
                     }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/viga_appbar.dart';
@@ -28,86 +29,93 @@ class _VigaAaccountAndSecure extends State<VigaAccountAndSecurePage> {
 
     return BlocBuilder<VigaSystemCubit, SystemState>(
       builder: (context, systemState) {
-        return Scaffold(
-          primary: false,
-          appBar: VigaAppBar(
-            title: l10n.accountAndSecurity,
+        return AnnotatedRegion<SystemUiOverlayStyle>(
+          value: const SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent,
+            statusBarIconBrightness: Brightness.dark,
           ),
-          body: ScrollConfiguration(
-            behavior:
-                ScrollConfiguration.of(context).copyWith(scrollbars: false),
-            child: Container(
-              constraints: BoxConstraints(
-                minHeight: MediaQuery.of(context).size.height -
-                    systemState.appbarHeight -
-                    systemState.statusHeight,
-              ),
-              color: theme.colorScheme.surfaceContainer,
-              child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(
-                  parent: BouncingScrollPhysics(),
+          child: Scaffold(
+            primary: false,
+            appBar: VigaAppBar(
+              title: l10n.accountAndSecurity,
+            ),
+            body: ScrollConfiguration(
+              behavior:
+                  ScrollConfiguration.of(context).copyWith(scrollbars: false),
+              child: Container(
+                constraints: BoxConstraints(
+                  minHeight: MediaQuery.of(context).size.height -
+                      systemState.appbarHeight -
+                      systemState.statusHeight,
                 ),
-                child: BlocBuilder<VigaUserCubit, UserState>(
-                  builder: (context, userState) {
-                    return Column(
-                      children: [
-                        // 账户与安全
-                        VigaFunctionList(
-                          children: [
-                            VigaFunctionItem(
-                              icon: null,
-                              title: l10n.vigavigaID,
-                              link: '/settings/account_info',
-                              showStyle: userState.userinfoAccount,
-                              underline: true,
-                            ),
+                color: theme.colorScheme.surfaceContainer,
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(
+                    parent: BouncingScrollPhysics(),
+                  ),
+                  child: BlocBuilder<VigaUserCubit, UserState>(
+                    builder: (context, userState) {
+                      return Column(
+                        children: [
+                          // 账户与安全
+                          VigaFunctionList(
+                            children: [
+                              VigaFunctionItem(
+                                icon: null,
+                                title: l10n.vigavigaID,
+                                link: '/settings/account_info',
+                                showStyle: userState.userinfoAccount,
+                                underline: true,
+                              ),
 
-                            // 手机号
-                            VigaFunctionItem(
-                              icon: null,
-                              title: l10n.phoneNumber,
-                              link: '/settings/phone_number',
-                              showStyle: userState.userinfoPhone,
-                              underline: false,
-                            ),
-                          ],
-                        ),
+                              // 手机号
+                              VigaFunctionItem(
+                                icon: null,
+                                title: l10n.phoneNumber,
+                                link: '/settings/phone_number',
+                                showStyle: userState.userinfoPhone,
+                                underline: false,
+                              ),
 
-                        // Vigaviga密码
-                        VigaFunctionList(
-                          children: [
-                            VigaFunctionItem(
-                              icon: null,
-                              title: l10n.vigavigaPassword,
-                              link: '/settings/set_password',
-                              underline: true,
-                            ),
-                          ],
-                        ),
+                              // 邮箱地址
+                              VigaFunctionItem(
+                                title: l10n.emailAddress,
+                                link: '/settings/change_email',
+                                showStyle: l10n.notBound,
+                                underline: false,
+                              ),
+                            ],
+                          ),
 
-                        VigaFunctionList(
-                          children: [
-                            // 登录过的设备
-                            VigaFunctionItem(
-                              icon: null,
-                              title: l10n.loggedInDevices,
-                              link: '/settings/logged_devices',
-                              underline: true,
-                            ),
-                            // 更多安全设置
-                            VigaFunctionItem(
-                              icon: null,
-                              title: l10n.moreSecuritySettings,
-                              link: '/settings/more_secure_setting',
-                              underline: false,
-                            ),
-                          ],
-                        ),
+                          // Vigaviga密码
+                          VigaFunctionList(
+                            children: [
+                              VigaFunctionItem(
+                                icon: null,
+                                title: "密码修改",
+                                link: '/settings/set_password',
+                                underline: true,
+                              ),
+                            ],
+                          ),
 
-                        SizedBox(height: 100.w)
-                      ],
-                    );
-                  },
+                          VigaFunctionList(
+                            children: [
+                              // 登录过的设备
+                              VigaFunctionItem(
+                                icon: null,
+                                title: l10n.loggedInDevices,
+                                link: '/settings/logged_devices',
+                                underline: false,
+                              ),
+                            ],
+                          ),
+
+                          SizedBox(height: 100.w)
+                        ],
+                      );
+                    },
+                  ),
                 ),
               ),
             ),

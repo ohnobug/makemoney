@@ -48,8 +48,6 @@ class _VigaContactState extends State<VigaContactPage> {
         return l10n.groupChats;
       case 'tags':
         return l10n.tags;
-      case 'officialAccounts':
-        return l10n.officialAccounts;
       default:
         return '';
     }
@@ -108,7 +106,8 @@ class _VigaContactState extends State<VigaContactPage> {
                             link: itemData.link,
                             underline: itemData.underline,
                             onPressed: itemData.link.isEmpty
-                                ? () => context.push( '/contact/new_friends') // 特殊处理
+                                ? () =>
+                                    context.push('/contact/new_friends') // 特殊处理
                                 : null,
                           );
                         }

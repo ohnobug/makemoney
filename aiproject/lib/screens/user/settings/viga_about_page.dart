@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
@@ -61,117 +62,123 @@ class _VigaAbout extends State<VigaAboutPage> {
     ThemeData theme = Theme.of(context);
     AppLocalizations l10n = AppLocalizations.of(context)!;
 
-    return BlocBuilder<VigaSystemCubit, SystemState>(
-      builder: (context, systemState) {
-        return Theme(
-          data: theme.copyWith(
-            appBarTheme: theme.appBarTheme.copyWith(
-              backgroundColor: Colors.transparent,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+      child: BlocBuilder<VigaSystemCubit, SystemState>(
+        builder: (context, systemState) {
+          return Theme(
+            data: theme.copyWith(
+              appBarTheme: theme.appBarTheme.copyWith(
+                backgroundColor: Colors.transparent,
+              ),
             ),
-          ),
-          child: Scaffold(
-            primary: false,
-            appBar: VigaAppBar(),
-            body: ScrollConfiguration(
-              behavior:
-                  ScrollConfiguration.of(context).copyWith(scrollbars: false),
-              child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(
-                  parent: BouncingScrollPhysics(),
-                ),
-                child: Container(
-                  width: 750.w,
-                  // padding: EdgeInsets.only(left: 90.w, right: 90.w),
-                  constraints: BoxConstraints(
-                    minHeight: systemState.screenSize.height -
-                        (systemState.statusHeight + systemState.appbarHeight),
+            child: Scaffold(
+              primary: false,
+              appBar: VigaAppBar(),
+              body: ScrollConfiguration(
+                behavior:
+                    ScrollConfiguration.of(context).copyWith(scrollbars: false),
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(
+                    parent: BouncingScrollPhysics(),
                   ),
-                  // color: AppColors.accentRedDark2,
-                  child: Column(
-                    children: [
-                      SizedBox(height: 100.w),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          ClipRRect(
-                            clipBehavior: Clip.hardEdge,
-                            borderRadius: BorderRadiusGeometry.circular(20.w),
-                            child: Image.asset(
-                              assetPath("images/logo.jpeg"),
-                              width: 200.0.w,
-                              height: 200.0.w,
-                              fit: BoxFit.contain,
+                  child: Container(
+                    width: 750.w,
+                    // padding: EdgeInsets.only(left: 90.w, right: 90.w),
+                    constraints: BoxConstraints(
+                      minHeight: systemState.screenSize.height -
+                          (systemState.statusHeight + systemState.appbarHeight),
+                    ),
+                    // color: AppColors.accentRedDark2,
+                    child: Column(
+                      children: [
+                        SizedBox(height: 100.w),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            ClipRRect(
+                              clipBehavior: Clip.hardEdge,
+                              borderRadius: BorderRadiusGeometry.circular(20.w),
+                              child: Image.asset(
+                                assetPath("images/logo.jpeg"),
+                                width: 200.0.w,
+                                height: 200.0.w,
+                                fit: BoxFit.contain,
+                              ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 20.w,
-                          ),
-                          Text(
-                            l10n.app_name,
-                            style: TextStyle(
-                              height: 1.08,
-                              fontSize: 43.w,
+                            SizedBox(
+                              height: 20.w,
                             ),
-                          ),
-                          SizedBox(
-                            height: 18.w,
-                          ),
-                          Text(
-                            "Version 1.0.0",
-                            style: TextStyle(
-                              height: 1.08,
-                              fontSize: 27.w,
+                            Text(
+                              l10n.app_name,
+                              style: TextStyle(
+                                height: 1.08,
+                                fontSize: 43.w,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 50.w),
-                      VigaFunctionList(
-                        children: [
-                          VigaFunctionItem(
-                            icon: const IconData(
-                              0xe65f,
-                              fontFamily: 'Iconfont',
+                            SizedBox(
+                              height: 18.w,
                             ),
-                            iconBackgroundColor: const Color(0xFF42A5F5),
-                            title: l10n.featureIntroduction,
-                            link: '/settings/feature_introduction',
-                            backgroundColor: AppColors.neutralWhite,
-                            underline: true,
-                          ),
-                          VigaFunctionItem(
-                            icon: const IconData(
-                              0x10191,
-                              fontFamily: 'Iconfont',
+                            Text(
+                              "Version 1.0.0",
+                              style: TextStyle(
+                                height: 1.08,
+                                fontSize: 27.w,
+                              ),
                             ),
-                            iconBackgroundColor: const Color(0xFFFF7043),
-                            title: l10n.complain,
-                            link: '/settings/complain',
-                            backgroundColor: AppColors.neutralWhite,
-                            underline: true,
-                          ),
-                          VigaFunctionItem(
-                            icon: const IconData(
-                              0xe69b,
-                              fontFamily: 'Iconfont',
+                          ],
+                        ),
+                        SizedBox(height: 50.w),
+                        VigaFunctionList(
+                          children: [
+                            VigaFunctionItem(
+                              icon: const IconData(
+                                0xe65f,
+                                fontFamily: 'Iconfont',
+                              ),
+                              iconBackgroundColor: const Color(0xFF42A5F5),
+                              title: l10n.featureIntroduction,
+                              link: '/settings/feature_introduction',
+                              backgroundColor: AppColors.neutralWhite,
+                              underline: true,
                             ),
-                            iconBackgroundColor: const Color(0xFF26A69A),
-                            title: l10n.checkNewVersion,
-                            link: null,
-                            backgroundColor: AppColors.neutralWhite,
-                            underline: false,
-                            onPress: _checkNewVersion,
-                          )
-                        ],
-                      )
-                    ],
+                            VigaFunctionItem(
+                              icon: const IconData(
+                                0x10191,
+                                fontFamily: 'Iconfont',
+                              ),
+                              iconBackgroundColor: const Color(0xFFFF7043),
+                              title: l10n.complain,
+                              link: '/settings/complain',
+                              backgroundColor: AppColors.neutralWhite,
+                              underline: true,
+                            ),
+                            VigaFunctionItem(
+                              icon: const IconData(
+                                0xe69b,
+                                fontFamily: 'Iconfont',
+                              ),
+                              iconBackgroundColor: const Color(0xFF26A69A),
+                              title: l10n.checkNewVersion,
+                              link: null,
+                              backgroundColor: AppColors.neutralWhite,
+                              underline: false,
+                              onPress: _checkNewVersion,
+                            )
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

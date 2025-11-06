@@ -1,5 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vigaviga/themes.dart';
@@ -31,109 +32,116 @@ class _LJEemergencyContact extends State<VigaEmergencyContactPage> {
 
     return BlocBuilder<VigaSystemCubit, SystemState>(
         builder: (context, systemState) {
-      return Scaffold(
-        primary: false,
-        appBar: VigaAppBar(
-          title: l10n.emergencyContacts,
-          actions: [
-            VigaAppBarActionTextButton(
-              onTap: () {
-                context.push('/settings/security/bind_phone');
-              },
-              title: l10n.done,
-            ),
-          ],
+      return AnnotatedRegion<SystemUiOverlayStyle>(
+        value: const SystemUiOverlayStyle(
+          statusBarColor: Colors.transparent,
+          statusBarIconBrightness: Brightness.dark,
         ),
-        body: ScrollConfiguration(
-          behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-          child: SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(
-              parent: BouncingScrollPhysics(),
-            ),
-            child: Container(
-              width: 750.w,
-              // padding: EdgeInsets.only(left: 90.w, right: 90.w),
-              constraints: BoxConstraints(
-                minHeight: MediaQuery.of(context).size.height -
-                    (systemState.statusHeight + 90.w),
+        child: Scaffold(
+          primary: false,
+          appBar: VigaAppBar(
+            title: l10n.emergencyContacts,
+            actions: [
+              VigaAppBarActionTextButton(
+                onTap: () {
+                  context.push('/settings/security/bind_phone');
+                },
+                title: l10n.done,
               ),
-              // color: AppColors.accentRedDark2,
-              child: Column(
-                children: [
-                  Container(
-                    height: 290.w,
-                    alignment: Alignment.center,
-                    child: Icon(
-                      const IconData(
-                        0xe626,
-                        fontFamily: 'Iconfont',
-                      ), // 使用的图标
-                      color: AppColors.brandGreenVibrant3, // 图标颜色
-                      size: 195.w, // 图标大小
-                    ),
-                  ),
-                  Text(
-                    l10n.emergencyContacts,
-                    style: TextStyle(
-                      height: 1.08,
-                      fontSize: 40.w,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 60.w,
-                  ),
-                  Container(
-                    alignment: Alignment.topLeft,
-                    margin: EdgeInsets.only(left: 27.w, right: 27.w),
-                    child: Text(
-                      l10n.addEmergencyContactsGuidanceFull(3),
-                      style: TextStyle(
-                        color: AppColors.neutralGrey51,
-                        // height: 1.08,
-                        fontSize: 25.w,
+            ],
+          ),
+          body: ScrollConfiguration(
+            behavior:
+                ScrollConfiguration.of(context).copyWith(scrollbars: false),
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(
+                parent: BouncingScrollPhysics(),
+              ),
+              child: Container(
+                width: 750.w,
+                // padding: EdgeInsets.only(left: 90.w, right: 90.w),
+                constraints: BoxConstraints(
+                  minHeight: MediaQuery.of(context).size.height -
+                      (systemState.statusHeight + 90.w),
+                ),
+                // color: AppColors.accentRedDark2,
+                child: Column(
+                  children: [
+                    Container(
+                      height: 290.w,
+                      alignment: Alignment.center,
+                      child: Icon(
+                        const IconData(
+                          0xe626,
+                          fontFamily: 'Iconfont',
+                        ), // 使用的图标
+                        color: AppColors.brandGreenVibrant3, // 图标颜色
+                        size: 195.w, // 图标大小
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 50.w,
-                  ),
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    margin: EdgeInsets.only(
-                      left: 27.w,
-                      right: 27.w,
+                    Text(
+                      l10n.emergencyContacts,
+                      style: TextStyle(
+                        height: 1.08,
+                        fontSize: 40.w,
+                      ),
                     ),
-                    padding: EdgeInsets.only(bottom: 35.w),
-                    decoration: BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(
-                          color: theme.dividerColor,
-                          width: 2.w,
-                          style: BorderStyle.solid,
+                    SizedBox(
+                      height: 60.w,
+                    ),
+                    Container(
+                      alignment: Alignment.topLeft,
+                      margin: EdgeInsets.only(left: 27.w, right: 27.w),
+                      child: Text(
+                        l10n.addEmergencyContactsGuidanceFull(3),
+                        style: TextStyle(
+                          color: AppColors.neutralGrey51,
+                          // height: 1.08,
+                          fontSize: 25.w,
                         ),
                       ),
                     ),
-                    child: Text(
-                      l10n.learnHowToRecoverPassword,
-                      style: TextStyle(
-                        height: 1.08,
-                        color: AppColors.brandPurpleDark4,
-                        fontSize: 25.w,
+                    SizedBox(
+                      height: 50.w,
+                    ),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      margin: EdgeInsets.only(
+                        left: 27.w,
+                        right: 27.w,
+                      ),
+                      padding: EdgeInsets.only(bottom: 35.w),
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: theme.dividerColor,
+                            width: 2.w,
+                            style: BorderStyle.solid,
+                          ),
+                        ),
+                      ),
+                      child: Text(
+                        l10n.learnHowToRecoverPassword,
+                        style: TextStyle(
+                          height: 1.08,
+                          color: AppColors.brandPurpleDark4,
+                          fontSize: 25.w,
+                        ),
                       ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 50.w,
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 27.w, right: 27.w),
-                    child: Row(
-                      children: [
-                        const IconBox(),
-                      ],
+                    SizedBox(
+                      height: 50.w,
                     ),
-                  )
-                ],
+                    Container(
+                      margin: EdgeInsets.only(left: 27.w, right: 27.w),
+                      child: Row(
+                        children: [
+                          const IconBox(),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vigaviga/themes.dart';
@@ -38,198 +39,205 @@ class _VigaWalletPage extends State<VigaWalletPage> {
     AppLocalizations l10n = AppLocalizations.of(context)!;
     String cdnBase = systemState.cdnBase;
 
-    return Scaffold(
-      primary: false,
-      appBar: VigaAppBar(
-        title: l10n.wallet,
-        actions: [
-          VigaAppBarActionTextButton(
-            onTap: () {
-              context.push('/user/wallet/bill_details');
-            },
-            title: l10n.bill,
-          ),
-        ],
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
       ),
-      body: Container(
-        constraints: BoxConstraints(
-          minHeight: MediaQuery.of(context).size.height -
-              (90.0.w + systemState.statusHeight),
-        ),
-        color: theme.colorScheme.surfaceContainer,
-        child: ScrollConfiguration(
-          behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-          child: SingleChildScrollView(
-            physics: const AlwaysScrollableScrollPhysics(
-              parent: BouncingScrollPhysics(),
+      child: Scaffold(
+        primary: false,
+        appBar: VigaAppBar(
+          title: l10n.wallet,
+          actions: [
+            VigaAppBarActionTextButton(
+              onTap: () {
+                context.push('/user/wallet/bill_details');
+              },
+              title: l10n.bill,
             ),
-            child: Column(
-              children: [
-                // 余额、余额宝、银行卡、扫一扫
-                VigaFunctionList(
-                  children: [
-                    // 余额
-                    VigaFunctionItem(
-                      title: l10n.balance,
-                      icon: "$cdnBase/icon/discovery_icon1.png",
-                      link: '/user/pocketmoney',
-                      showStyle: Expanded(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text.rich(
-                              TextSpan(
-                                children: [
-                                  WidgetSpan(
-                                    child: SizedBox(
-                                      width: 22.w,
-                                      child: Icon(
-                                        const IconData(
-                                          0xe90d,
-                                          fontFamily: 'Iconfont',
+          ],
+        ),
+        body: Container(
+          constraints: BoxConstraints(
+            minHeight: MediaQuery.of(context).size.height -
+                (90.0.w + systemState.statusHeight),
+          ),
+          color: theme.colorScheme.surfaceContainer,
+          child: ScrollConfiguration(
+            behavior:
+                ScrollConfiguration.of(context).copyWith(scrollbars: false),
+            child: SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(
+                parent: BouncingScrollPhysics(),
+              ),
+              child: Column(
+                children: [
+                  // 余额、余额宝、银行卡、扫一扫
+                  VigaFunctionList(
+                    children: [
+                      // 余额
+                      VigaFunctionItem(
+                        title: l10n.balance,
+                        icon: "$cdnBase/icon/discovery_icon1.png",
+                        link: '/user/pocketmoney',
+                        showStyle: Expanded(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text.rich(
+                                TextSpan(
+                                  children: [
+                                    WidgetSpan(
+                                      child: SizedBox(
+                                        width: 22.w,
+                                        child: Icon(
+                                          const IconData(
+                                            0xe90d,
+                                            fontFamily: 'Iconfont',
+                                          ),
+                                          size: 25.w, // 图标大小
                                         ),
-                                        size: 25.w, // 图标大小
+                                      ),
+                                      alignment: PlaceholderAlignment
+                                          .middle, // 使图标与文本垂直居中对齐
+                                    ),
+                                    TextSpan(
+                                      text: context
+                                          .read<VigaUserCubit>()
+                                          .state
+                                          .walletBalance
+                                          .toString(),
+                                      style: TextStyle(
+                                        height: 1.08,
+                                        fontSize: fontSizeScale(29.w),
+                                        color: theme.colorScheme.onSurface,
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: "Roboto",
                                       ),
                                     ),
-                                    alignment: PlaceholderAlignment
-                                        .middle, // 使图标与文本垂直居中对齐
-                                  ),
-                                  TextSpan(
-                                    text: context
-                                        .read<VigaUserCubit>()
-                                        .state
-                                        .walletBalance
-                                        .toString(),
-                                    style: TextStyle(
-                                      height: 1.08,
-                                      fontSize: fontSizeScale(29.w),
-                                      color: theme.colorScheme.onSurface,
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: "Roboto",
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              textAlign: TextAlign.center,
-                            )
-                          ],
+                                  ],
+                                ),
+                                textAlign: TextAlign.center,
+                              )
+                            ],
+                          ),
                         ),
+                        underline: true,
                       ),
-                      underline: true,
-                    ),
 
-                    // 余额宝
-                    VigaFunctionItem(
-                      title: l10n.balancePlus,
-                      icon: "$cdnBase/icon/discovery_icon2.png",
-                      link: '',
-                      showStyle: SizedBox(
-                        width: 380.w,
-                        // color: AppColors.accentRedPure,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text.rich(
-                              TextSpan(
-                                children: [
-                                  TextSpan(
-                                    text: l10n.label_yield("1.64%"),
-                                    style: TextStyle(
-                                      height: 1.08,
-                                      fontSize: fontSizeScale(23.w),
-                                      color: AppColors.accentOrangeDark,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Text.rich(
-                              TextSpan(
-                                children: [
-                                  WidgetSpan(
-                                    child: SizedBox(
-                                      width: 22.w,
-                                      child: Icon(
-                                        const IconData(
-                                          0xe90d,
-                                          fontFamily: 'Iconfont',
-                                        ),
-                                        size: 25.w, // 图标大小
+                      // 余额宝
+                      VigaFunctionItem(
+                        title: l10n.balancePlus,
+                        icon: "$cdnBase/icon/discovery_icon2.png",
+                        link: '',
+                        showStyle: SizedBox(
+                          width: 380.w,
+                          // color: AppColors.accentRedPure,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text.rich(
+                                TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text: l10n.label_yield("1.64%"),
+                                      style: TextStyle(
+                                        height: 1.08,
+                                        fontSize: fontSizeScale(23.w),
+                                        color: AppColors.accentOrangeDark,
                                       ),
                                     ),
-                                    alignment: PlaceholderAlignment
-                                        .middle, // 使图标与文本垂直居中对齐
-                                  ),
-                                  TextSpan(
-                                    text: context
-                                        .read<VigaUserCubit>()
-                                        .state
-                                        .walletFoundationBalance
-                                        .toString(),
-                                    style: TextStyle(
-                                      height: 1.08,
-                                      fontSize: fontSizeScale(29.w),
-                                      color: theme.colorScheme.onSurface,
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: "Roboto",
-                                    ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
-                              textAlign: TextAlign.center,
-                            )
-                          ],
+                              Text.rich(
+                                TextSpan(
+                                  children: [
+                                    WidgetSpan(
+                                      child: SizedBox(
+                                        width: 22.w,
+                                        child: Icon(
+                                          const IconData(
+                                            0xe90d,
+                                            fontFamily: 'Iconfont',
+                                          ),
+                                          size: 25.w, // 图标大小
+                                        ),
+                                      ),
+                                      alignment: PlaceholderAlignment
+                                          .middle, // 使图标与文本垂直居中对齐
+                                    ),
+                                    TextSpan(
+                                      text: context
+                                          .read<VigaUserCubit>()
+                                          .state
+                                          .walletFoundationBalance
+                                          .toString(),
+                                      style: TextStyle(
+                                        height: 1.08,
+                                        fontSize: fontSizeScale(29.w),
+                                        color: theme.colorScheme.onSurface,
+                                        fontWeight: FontWeight.w500,
+                                        fontFamily: "Roboto",
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                textAlign: TextAlign.center,
+                              )
+                            ],
+                          ),
                         ),
+                        underline: true,
                       ),
-                      underline: true,
-                    ),
 
-                    // 银行卡
-                    VigaFunctionItem(
-                      title: l10n.bankCards,
-                      icon: "$cdnBase/icon/discovery_icon3.png",
-                      link: '',
-                      underline: true,
-                    ),
+                      // 银行卡
+                      VigaFunctionItem(
+                        title: l10n.bankCards,
+                        icon: "$cdnBase/icon/discovery_icon3.png",
+                        link: '',
+                        underline: true,
+                      ),
 
-                    // 扫一扫、听一听
-                    VigaFunctionItem(
-                      title: l10n.familyCard,
-                      icon: "$cdnBase/icon/discovery_icon4.png",
-                      link: '',
-                      underline: false,
-                    ),
-                  ],
-                ),
+                      // 扫一扫、听一听
+                      VigaFunctionItem(
+                        title: l10n.familyCard,
+                        icon: "$cdnBase/icon/discovery_icon4.png",
+                        link: '',
+                        underline: false,
+                      ),
+                    ],
+                  ),
 
-                // 支付分
-                VigaFunctionList(
-                  children: [
-                    VigaFunctionItem(
-                      title: l10n.paymentScore,
-                      icon: "$cdnBase/icon/discovery_icon5.png",
-                      link: '',
-                      underline: false,
-                    ),
-                  ],
-                ),
+                  // 支付分
+                  VigaFunctionList(
+                    children: [
+                      VigaFunctionItem(
+                        title: l10n.paymentScore,
+                        icon: "$cdnBase/icon/discovery_icon5.png",
+                        link: '',
+                        underline: false,
+                      ),
+                    ],
+                  ),
 
-                // 消费者保护
-                VigaFunctionList(
-                  children: [
-                    VigaFunctionItem(
-                      title: l10n.consumerProtection,
-                      icon: "$cdnBase/icon/discovery_icon6.png",
-                      link: '',
-                      underline: false,
-                    ),
-                  ],
-                ),
+                  // 消费者保护
+                  VigaFunctionList(
+                    children: [
+                      VigaFunctionItem(
+                        title: l10n.consumerProtection,
+                        icon: "$cdnBase/icon/discovery_icon6.png",
+                        link: '',
+                        underline: false,
+                      ),
+                    ],
+                  ),
 
-                SizedBox(height: 100.w)
-              ],
+                  SizedBox(height: 100.w)
+                ],
+              ),
             ),
           ),
         ),

@@ -135,75 +135,94 @@ class _SelectCountryPageState extends State<VigaSelectCountryPage> {
     });
   }
 
-  // [!!] UI部分几乎不需要修改，因为逻辑已经解耦
   @override
   Widget build(BuildContext context) {
-    // ... Build 方法完全保持不变 ...
-    return Scaffold(
-      backgroundColor: Colors.white,
-      resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        systemOverlayStyle: SystemUiOverlayStyle.dark,
-        leading: IconButton(
-          icon: const Icon(Icons.close, color: Colors.black),
-          onPressed: () => context.pop(),
-        ),
-        title: Text(
-          "选择国家和地区",
-          style: TextStyle(
-              color: Colors.black, fontSize: 36.w, fontWeight: FontWeight.w600),
-        ),
-        centerTitle: true,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
       ),
-      body: Column(
-        children: [
-          _buildSearchBar(),
-          Expanded(
-            child: _filteredCountryList.isEmpty
-                ? _buildEmptyState()
-                : AzListView(
-                    data: _filteredCountryList,
-                    itemCount: _filteredCountryList.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final locale = Localizations.localeOf(context);
-                      final isChinese = locale.languageCode == 'zh';
-                      return _buildListItem(
-                          _filteredCountryList[index], isChinese);
-                    },
-                    indexBarOptions: IndexBarOptions(
-                      textStyle: TextStyle(
-                          color: Colors.grey.shade600, fontSize: 26.w),
-                      needRebuild: true,
-                      selectTextStyle: const TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
-                      selectItemDecoration: const BoxDecoration(
-                          shape: BoxShape.circle, color: Colors.blue),
-                    ),
-                    indexHintBuilder: (context, hint) {
-                      return Container(
-                        alignment: Alignment.center,
-                        width: 120.0.w,
-                        height: 120.0.w,
-                        decoration: BoxDecoration(
-                          color: Colors.black.withAlpha(128),
-                          shape: BoxShape.circle,
-                        ),
-                        child: Text(hint,
-                            style: TextStyle(
-                                color: Colors.white, fontSize: 60.0.w)),
-                      );
-                    },
-                  ),
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(
+          backgroundColor: Colors.white,
+          elevation: 0,
+          systemOverlayStyle: SystemUiOverlayStyle.dark,
+          leading: IconButton(
+            icon: const Icon(
+              Icons.close,
+              color: Colors.black,
+            ),
+            onPressed: () => context.pop(),
           ),
-        ],
+          title: Text(
+            "选择国家和地区",
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 36.w,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          centerTitle: true,
+        ),
+        body: Column(
+          children: [
+            _buildSearchBar(),
+            Expanded(
+              child: _filteredCountryList.isEmpty
+                  ? _buildEmptyState()
+                  : AzListView(
+                      data: _filteredCountryList,
+                      itemCount: _filteredCountryList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final locale = Localizations.localeOf(context);
+                        final isChinese = locale.languageCode == 'zh';
+                        return _buildListItem(
+                            _filteredCountryList[index], isChinese);
+                      },
+                      indexBarOptions: IndexBarOptions(
+                        textStyle: TextStyle(
+                          color: Colors.grey.shade600,
+                          fontSize: 26.w,
+                        ),
+                        needRebuild: true,
+                        selectTextStyle: const TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        selectItemDecoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.blue,
+                        ),
+                      ),
+                      indexHintBuilder: (context, hint) {
+                        return Container(
+                          alignment: Alignment.center,
+                          width: 120.0.w,
+                          height: 120.0.w,
+                          decoration: BoxDecoration(
+                            color: Colors.black.withAlpha(128),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Text(
+                            hint,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 60.0.w,
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildListItem(CountryInfo model, bool isChinese) {
-    // [!!] 这里不再需要判断，因为 country.name 已经是本地化后的名称
     final displayName = model.name;
 
     return Column(
@@ -230,7 +249,7 @@ class _SelectCountryPageState extends State<VigaSelectCountryPage> {
 
   // 其他 build 方法保持不变
   Widget _buildSearchBar() {
-    /* ... */ return Container(
+    return Container(
       color: Colors.white,
       padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 16.w),
       child: TextField(
@@ -260,7 +279,7 @@ class _SelectCountryPageState extends State<VigaSelectCountryPage> {
   }
 
   Widget _buildEmptyState() {
-    /* ... */ return const Center(
+    return const Center(
       child: Text(
         "未找到相关结果",
         style: TextStyle(fontSize: 32, color: Colors.grey),
@@ -269,7 +288,7 @@ class _SelectCountryPageState extends State<VigaSelectCountryPage> {
   }
 
   Widget _buildSuspension(String tag) {
-    /* ... */ return Container(
+    return Container(
       height: 60.0.w,
       width: double.infinity,
       padding: EdgeInsets.only(left: 32.0.w),

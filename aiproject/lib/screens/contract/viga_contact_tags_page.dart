@@ -60,7 +60,7 @@ class _VigaContactTagsState extends State<VigaContactTagsPage> {
             child: Column(
               children: [
                 VigaSearch(
-                  link: '/contact/search_friend',
+                  link: '/search',
                   title: l10n.search,
                 ),
                 Expanded(

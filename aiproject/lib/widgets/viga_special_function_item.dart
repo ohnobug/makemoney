@@ -83,9 +83,6 @@ class _VigaSpecialFunctionItemState extends State<VigaSpecialFunctionItem> {
         // ======================= 核心修改在这里 =======================
         child: Row(
           children: [
-            // 1. 【核心】将左侧的 Column 用 Expanded 包裹
-            //    这会给 Column 提供一个有限的垂直约束，解决无限高度问题。
-            //    同时，它也会让标题部分占据所有可用的水平空间，直到遇到 Spacer。
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -112,7 +109,11 @@ class _VigaSpecialFunctionItemState extends State<VigaSpecialFunctionItem> {
             // const Spacer(), // 注意：当左侧使用 Expanded 时，我们不再需要 Spacer
 
             // 3. 右侧的自定义组件（例如 Switch）
-            if (widget.showStyle != null) widget.showStyle!,
+            if (widget.showStyle != null)
+              Container(
+                margin: EdgeInsets.only(left: 5.w),
+                child: widget.showStyle!,
+              ),
 
             // 4. 右侧的箭头图标
             if (widget.link != null)

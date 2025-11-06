@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
@@ -66,165 +67,171 @@ class _VigaBillDetailsPage extends State<VigaBillDetailsPage>
     AppLocalizations l10n = AppLocalizations.of(context)!;
     final colorScheme = theme.colorScheme;
 
-    return BlocBuilder<VigaSystemCubit, SystemState>(
-      builder: (context, systemState) {
-        String cdnBase = systemState.cdnBase;
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+      child: BlocBuilder<VigaSystemCubit, SystemState>(
+        builder: (context, systemState) {
+          String cdnBase = systemState.cdnBase;
 
-        return Scaffold(
-          primary: false,
-          appBar: VigaAppBar(
-            title: l10n.bill,
-            actions: [
-              VigaAppBarActionTextButton(
-                onTap: () {},
-                title: l10n.faq,
-              ),
-            ],
-          ),
-          body: Stack(
-            children: [
-              // Main content
-              Container(
-                height: double.infinity,
-                color: colorScheme.surfaceContainer,
-                child: Column(
-                  children: [
-                    _buildFilterBar(theme, l10n),
-                    _buildDateSelector(theme, l10n),
-                    Expanded(
-                      child: ScrollConfiguration(
-                        behavior: ScrollConfiguration.of(context)
-                            .copyWith(scrollbars: false),
-                        child: SingleChildScrollView(
-                          physics: AlwaysScrollableScrollPhysics(
-                            parent: BouncingScrollPhysics(),
-                          ),
-                          child: Column(
-                            // Your list of VigaChangeDetailItem
-                            children: [
-                              VigaChangeDetailItem(
-                                title: "原乡智选",
-                                change: -32,
-                                icon: "$cdnBase/avatar/01.png",
-                                link: '',
-                                underline: true,
-                              ),
-                              VigaChangeDetailItem(
-                                title: "原乡智选",
-                                change: -56,
-                                icon: "$cdnBase/avatar/01.png",
-                                link: '',
-                                underline: true,
-                              ),
-                              VigaChangeDetailItem(
-                                title: "原乡智选",
-                                change: -14,
-                                icon: "$cdnBase/avatar/01.png",
-                                link: '',
-                                underline: true,
-                              ),
-                              VigaChangeDetailItem(
-                                title: "原乡智选",
-                                change: 200,
-                                icon: "$cdnBase/avatar/01.png",
-                                link: '',
-                                underline: true,
-                              ),
-                              VigaChangeDetailItem(
-                                title: "原乡智选",
-                                change: -49,
-                                icon: "$cdnBase/avatar/01.png",
-                                link: '',
-                                underline: true,
-                              ),
-                              VigaChangeDetailItem(
-                                title: "原乡智选",
-                                change: -18,
-                                icon: "$cdnBase/avatar/01.png",
-                                link: '',
-                                underline: true,
-                              ),
-                              VigaChangeDetailItem(
-                                title: "原乡智选",
-                                change: -21,
-                                icon: "$cdnBase/avatar/01.png",
-                                link: '',
-                                underline: true,
-                              ),
-                              VigaChangeDetailItem(
-                                title: "原乡智选",
-                                change: -29,
-                                icon: "$cdnBase/avatar/01.png",
-                                link: '',
-                                underline: true,
-                              ),
-                              VigaChangeDetailItem(
-                                title: "原乡智选",
-                                change: -91,
-                                icon: "$cdnBase/avatar/01.png",
-                                link: '',
-                                underline: true,
-                              ),
-                              VigaChangeDetailItem(
-                                title: "原乡智选",
-                                change: -5,
-                                icon: "$cdnBase/avatar/01.png",
-                                link: '',
-                                underline: true,
-                              ),
-                              VigaChangeDetailItem(
-                                title: "原乡智选",
-                                change: -73,
-                                icon: "$cdnBase/avatar/01.png",
-                                link: '',
-                                underline: true,
-                              ),
-                              VigaChangeDetailItem(
-                                title: "原乡智选",
-                                change: -47,
-                                icon: "$cdnBase/avatar/01.png",
-                                link: '',
-                                underline: true,
-                              ),
-                              VigaChangeDetailItem(
-                                title: "原乡智选",
-                                change: -15,
-                                icon: "$cdnBase/avatar/01.png",
-                                link: '',
-                                underline: true,
-                              ),
-                            ],
+          return Scaffold(
+            primary: false,
+            appBar: VigaAppBar(
+              title: l10n.bill,
+              actions: [
+                VigaAppBarActionTextButton(
+                  onTap: () {},
+                  title: l10n.faq,
+                ),
+              ],
+            ),
+            body: Stack(
+              children: [
+                // Main content
+                Container(
+                  height: double.infinity,
+                  color: colorScheme.surfaceContainer,
+                  child: Column(
+                    children: [
+                      _buildFilterBar(theme, l10n),
+                      _buildDateSelector(theme, l10n),
+                      Expanded(
+                        child: ScrollConfiguration(
+                          behavior: ScrollConfiguration.of(context)
+                              .copyWith(scrollbars: false),
+                          child: SingleChildScrollView(
+                            physics: AlwaysScrollableScrollPhysics(
+                              parent: BouncingScrollPhysics(),
+                            ),
+                            child: Column(
+                              // Your list of VigaChangeDetailItem
+                              children: [
+                                VigaChangeDetailItem(
+                                  title: "原乡智选",
+                                  change: -32,
+                                  icon: "$cdnBase/avatar/01.png",
+                                  link: '',
+                                  underline: true,
+                                ),
+                                VigaChangeDetailItem(
+                                  title: "原乡智选",
+                                  change: -56,
+                                  icon: "$cdnBase/avatar/01.png",
+                                  link: '',
+                                  underline: true,
+                                ),
+                                VigaChangeDetailItem(
+                                  title: "原乡智选",
+                                  change: -14,
+                                  icon: "$cdnBase/avatar/01.png",
+                                  link: '',
+                                  underline: true,
+                                ),
+                                VigaChangeDetailItem(
+                                  title: "原乡智选",
+                                  change: 200,
+                                  icon: "$cdnBase/avatar/01.png",
+                                  link: '',
+                                  underline: true,
+                                ),
+                                VigaChangeDetailItem(
+                                  title: "原乡智选",
+                                  change: -49,
+                                  icon: "$cdnBase/avatar/01.png",
+                                  link: '',
+                                  underline: true,
+                                ),
+                                VigaChangeDetailItem(
+                                  title: "原乡智选",
+                                  change: -18,
+                                  icon: "$cdnBase/avatar/01.png",
+                                  link: '',
+                                  underline: true,
+                                ),
+                                VigaChangeDetailItem(
+                                  title: "原乡智选",
+                                  change: -21,
+                                  icon: "$cdnBase/avatar/01.png",
+                                  link: '',
+                                  underline: true,
+                                ),
+                                VigaChangeDetailItem(
+                                  title: "原乡智选",
+                                  change: -29,
+                                  icon: "$cdnBase/avatar/01.png",
+                                  link: '',
+                                  underline: true,
+                                ),
+                                VigaChangeDetailItem(
+                                  title: "原乡智选",
+                                  change: -91,
+                                  icon: "$cdnBase/avatar/01.png",
+                                  link: '',
+                                  underline: true,
+                                ),
+                                VigaChangeDetailItem(
+                                  title: "原乡智选",
+                                  change: -5,
+                                  icon: "$cdnBase/avatar/01.png",
+                                  link: '',
+                                  underline: true,
+                                ),
+                                VigaChangeDetailItem(
+                                  title: "原乡智选",
+                                  change: -73,
+                                  icon: "$cdnBase/avatar/01.png",
+                                  link: '',
+                                  underline: true,
+                                ),
+                                VigaChangeDetailItem(
+                                  title: "原乡智选",
+                                  change: -47,
+                                  icon: "$cdnBase/avatar/01.png",
+                                  link: '',
+                                  underline: true,
+                                ),
+                                VigaChangeDetailItem(
+                                  title: "原乡智选",
+                                  change: -15,
+                                  icon: "$cdnBase/avatar/01.png",
+                                  link: '',
+                                  underline: true,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              // Filter Overlay and Panel
-              if (_showFilterOverlay) ...[
-                GestureDetector(
-                  onTap: _closeFilter,
-                  child: Container(
-                    color:
-                        AppColors.blackTransparent45, // This can stay hardcoded
+                    ],
                   ),
                 ),
-                AnimatedBuilder(
-                  animation: _animationController,
-                  builder: (context, child) {
-                    return Transform.translate(
-                      offset: Offset(0, _slideAnimation.value * 1030.w),
-                      child: child,
-                    );
-                  },
-                  child: _buildFilterPanel(theme, l10n),
-                ),
+                // Filter Overlay and Panel
+                if (_showFilterOverlay) ...[
+                  GestureDetector(
+                    onTap: _closeFilter,
+                    child: Container(
+                      color: AppColors
+                          .blackTransparent45, // This can stay hardcoded
+                    ),
+                  ),
+                  AnimatedBuilder(
+                    animation: _animationController,
+                    builder: (context, child) {
+                      return Transform.translate(
+                        offset: Offset(0, _slideAnimation.value * 1030.w),
+                        child: child,
+                      );
+                    },
+                    child: _buildFilterPanel(theme, l10n),
+                  ),
+                ],
               ],
-            ],
-          ),
-        );
-      },
+            ),
+          );
+        },
+      ),
     );
   }
 

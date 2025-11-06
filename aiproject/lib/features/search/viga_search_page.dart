@@ -9,6 +9,7 @@ import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/viga_system_cubit.dart';
 import 'package:vigaviga/screens/discovery/widgets/viga_ins_component.dart';
+import 'package:vigaviga/widgets/viga_chatlist_item.dart';
 
 // 定义页面主体应该显示的三种模式
 enum _SearchBodyMode { hotTrends, suggestions, results }
@@ -20,7 +21,9 @@ class _SearchItemData {
 }
 
 class VigaSearchPage extends StatefulWidget {
-  const VigaSearchPage({super.key});
+  final Map<String, dynamic>? extra;
+
+  const VigaSearchPage({super.key, this.extra});
 
   @override
   State<VigaSearchPage> createState() => _VigaSearch();
@@ -36,6 +39,14 @@ class _VigaSearch extends State<VigaSearchPage> with TickerProviderStateMixin {
 
   late TabController _hotTrendsTabController;
   late TabController _resultsTabController;
+
+  // 用户搜索相关状态
+  List<ChatListItem> _userSearchResults = [];
+  bool _isSearchingUsers = false;
+  bool _hasSearchedUsers = false;
+
+  // 自动聚焦状态
+  bool _shouldAutoFocus = false;
 
   final List<String> _mockSuggestions = [
     '牛逼老外原版视频',
@@ -114,6 +125,18 @@ class _VigaSearch extends State<VigaSearchPage> with TickerProviderStateMixin {
     _searchController = TextEditingController();
     _focusNode = FocusNode();
 
+    // 处理传入的参数
+    _handleExtraParams();
+
+    // 如果设置了自动聚焦，在下一帧请求焦点
+    if (_shouldAutoFocus) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) {
+          _focusNode.requestFocus();
+        }
+      });
+    }
+
     _searchController.addListener(() {
       final newQuery = _searchController.text;
       if (_searchQuery != newQuery) {
@@ -140,6 +163,54 @@ class _VigaSearch extends State<VigaSearchPage> with TickerProviderStateMixin {
     super.dispose();
   }
 
+  void _handleExtraParams() {
+    final extra = widget.extra;
+    if (extra != null) {
+      final searchMode = extra['searchMode'] as String?;
+      final searchType = extra['searchType'] as String?;
+      final initialTab = extra['initialTab'] as int?;
+      final autoFocus = extra['autoFocus'] as bool? ?? false;
+
+      // 处理初始tab设置
+      if (initialTab != null && initialTab >= 0 && initialTab < _resultsTabController.length) {
+        _resultsTabController.index = initialTab;
+      }
+
+      // 处理自动聚焦
+      if (autoFocus) {
+        _shouldAutoFocus = true;
+      }
+
+      if (searchMode == 'user_content' && searchType != null) {
+        // 用户内容搜索模式，直接进入结果页面
+        setState(() {
+          _currentBody = _SearchBodyMode.results;
+          // 根据搜索类型设置对应的tab
+          switch (searchType) {
+            case 'works':
+              _resultsTabController.index = 0;
+              break;
+            case 'collections':
+              _resultsTabController.index = 0; // 收藏也显示在作品tab
+              break;
+            case 'praised':
+              _resultsTabController.index = 0; // 点赞也显示在作品tab
+              break;
+          }
+        });
+      } else if (searchMode == 'author_search') {
+        // 作者搜索模式，直接进入结果页面并设置搜索关键词
+        final authorName = extra['authorName'] as String?;
+        if (authorName != null) {
+          _searchController.text = authorName;
+          setState(() {
+            _currentBody = _SearchBodyMode.results;
+          });
+        }
+      }
+    }
+  }
+
   void _resetToHotTrends() {
     _searchController.clear();
     _focusNode.unfocus();
@@ -155,10 +226,98 @@ class _VigaSearch extends State<VigaSearchPage> with TickerProviderStateMixin {
       text: keyword,
       selection: TextSelection.collapsed(offset: keyword.length),
     );
+
+    // 检测是否是用户搜索
+    bool isUserSearch = _isUserRelatedSearch(keyword);
+
     setState(() {
       _activeSearchKeyword = keyword;
       _currentBody = _SearchBodyMode.results;
+
+      // 如果是用户相关搜索，自动切换到用户tab
+      if (isUserSearch && _resultsTabController.index != 1) {
+        _resultsTabController.animateTo(1);
+      }
     });
+
+    // 执行用户搜索
+    if (isUserSearch) {
+      _performUserSearch(keyword);
+    }
+  }
+
+  bool _isUserRelatedSearch(String keyword) {
+    // 检测搜索关键词是否包含用户相关词汇
+    final userKeywords = ['用户', '好友', '朋友', '联系人', '@', 'id:', 'uid:'];
+    return userKeywords.any((userKeyword) =>
+        keyword.toLowerCase().contains(userKeyword.toLowerCase()));
+  }
+
+  void _performUserSearch(String query) {
+    if (query.trim().isEmpty) {
+      setState(() {
+        _userSearchResults = [];
+        _hasSearchedUsers = false;
+      });
+      return;
+    }
+
+    setState(() {
+      _isSearchingUsers = true;
+      _hasSearchedUsers = true;
+    });
+
+    // 模拟搜索延迟和结果
+    Future.delayed(const Duration(milliseconds: 500), () {
+      if (mounted) {
+        setState(() {
+          // 创建模拟的用户搜索结果
+          _userSearchResults = _createMockUserResults(query);
+          _isSearchingUsers = false;
+        });
+      }
+    });
+  }
+
+  List<ChatListItem> _createMockUserResults(String query) {
+    // 创建模拟的用户数据
+    final mockUsers = [
+      ChatListItem(
+        avatar: 'https://picsum.photos/100/100?random=1',
+        avatarRadius: 25.w,
+        friendName: '用户_${query}_001',
+        message: '这是关于 $query 的用户',
+        notice: false,
+        underline: true,
+        lastedTime: '刚刚',
+        badge: null,
+        onPressed: () {},
+      ),
+      ChatListItem(
+        avatar: 'https://picsum.photos/100/100?random=2',
+        avatarRadius: 25.w,
+        friendName: '$query达人',
+        message: '专注于 $query 的内容创作',
+        notice: false,
+        underline: true,
+        lastedTime: '1小时前',
+        badge: null,
+        onPressed: () {},
+      ),
+      ChatListItem(
+        avatar: 'https://picsum.photos/100/100?random=3',
+        avatarRadius: 25.w,
+        friendName: '$query爱好者',
+        message: '热爱分享 $query 相关内容',
+        notice: false,
+        underline: false,
+        lastedTime: '2小时前',
+        badge: null,
+        onPressed: () {},
+      ),
+    ];
+
+    return mockUsers;
   }
 
   String _getHotTitleFromKey(AppLocalizations l10n, String key) {
@@ -210,6 +369,26 @@ class _VigaSearch extends State<VigaSearchPage> with TickerProviderStateMixin {
       builder: (context, systemState) {
         AppLocalizations l10n = AppLocalizations.of(context)!;
         ThemeData theme = Theme.of(context);
+
+        // 在构建时也检查参数，确保参数被正确处理
+        if (widget.extra != null && !_shouldAutoFocus) {
+          final autoFocus = widget.extra!['autoFocus'] as bool? ?? false;
+          if (autoFocus) {
+            _shouldAutoFocus = true;
+          }
+        }
+
+        // Handle auto-focus after build
+        if (_shouldAutoFocus) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            if (mounted) {
+              _focusNode.requestFocus();
+              setState(() {
+                _shouldAutoFocus = false;
+              });
+            }
+          });
+        }
 
         return GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -346,8 +525,10 @@ class _VigaSearch extends State<VigaSearchPage> with TickerProviderStateMixin {
             children: [
               VigaInsComponent(
                 key: ValueKey(_activeSearchKeyword),
+                searchMode: widget.extra?['searchMode'],
+                searchType: widget.extra?['searchType'],
               ),
-              const Center(child: Text('用户搜索结果占位')),
+              _buildUserSearchResults(),
               const Center(child: Text('小程序搜索结果占位')),
             ],
           ),
@@ -417,6 +598,98 @@ class _VigaSearch extends State<VigaSearchPage> with TickerProviderStateMixin {
         ];
       },
       body: VigaInsComponent(enableScroll: false),
+    );
+  }
+
+  Widget _buildUserSearchResults() {
+    if (_isSearchingUsers) {
+      return Center(
+        child: CircularProgressIndicator(
+          color: Theme.of(context).colorScheme.primary,
+        ),
+      );
+    }
+
+    if (!_hasSearchedUsers) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.search,
+              size: 80.w,
+              color: Colors.grey.shade400,
+            ),
+            SizedBox(height: 20.w),
+            Text(
+              '搜索用户、好友或联系人',
+              style: TextStyle(
+                fontSize: 28.w,
+                color: Colors.grey.shade600,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    if (_userSearchResults.isEmpty) {
+      return Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.search_off_rounded,
+              size: 80.w,
+              color: Colors.grey.shade400,
+            ),
+            SizedBox(height: 20.w),
+            Text(
+              '没有找到相关用户',
+              style: TextStyle(
+                fontSize: 28.w,
+                color: Colors.grey.shade600,
+              ),
+            ),
+            SizedBox(height: 10.w),
+            Text(
+              '试试其他关键词',
+              style: TextStyle(
+                fontSize: 24.w,
+                color: Colors.grey.shade500,
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    return ListView.builder(
+      padding: EdgeInsets.zero,
+      itemCount: _userSearchResults.length,
+      itemBuilder: (context, index) {
+        final userItem = _userSearchResults[index];
+        return ChatListItem(
+          avatar: userItem.avatar,
+          avatarRadius: 25.w,
+          friendName: userItem.friendName,
+          message: userItem.message,
+          notice: false,
+          underline: index < _userSearchResults.length - 1,
+          lastedTime: '',
+          badge: null,
+          onPressed: () {
+            // 跳转到用户详情页
+            context.push(
+              '/user/detail',
+              extra: <String, String>{
+                'title': userItem.friendName,
+                'avatar': userItem.avatar,
+              },
+            );
+          },
+        );
+      },
     );
   }
 
@@ -571,6 +844,7 @@ class _VigaSearch extends State<VigaSearchPage> with TickerProviderStateMixin {
   }
 }
 
+
 class _ViewFullListButton extends StatefulWidget {
   final VoidCallback onTap;
   final String text;
@@ -642,6 +916,7 @@ class __ViewFullListButtonState extends State<_ViewFullListButton> {
     );
   }
 }
+
 
 class _SliverTabBarDelegate extends SliverPersistentHeaderDelegate {
   _SliverTabBarDelegate(this.tabBar);
@@ -787,3 +1062,4 @@ class __HotListItemState extends State<_HotListItem> {
     );
   }
 }
+

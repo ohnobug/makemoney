@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
@@ -61,98 +62,106 @@ class _VigaLoggedDevicesPageState extends State<VigaLoggedDevicesPage> {
     ThemeData theme = Theme.of(context);
     AppLocalizations l10n = AppLocalizations.of(context)!;
 
-    return BlocBuilder<VigaSystemCubit, SystemState>(
-      builder: (context, systemState) {
-        String cdnBase = systemState.cdnBase;
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+      child: BlocBuilder<VigaSystemCubit, SystemState>(
+        builder: (context, systemState) {
+          String cdnBase = systemState.cdnBase;
 
-        return Scaffold(
-          primary: false,
-          appBar: VigaAppBar(
-            title: l10n.loggedInDevices,
-            actions: [
-              GestureDetector(
-                onTap: _toggleEditMode,
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 40.w),
-                  alignment: Alignment.center,
-                  child: Text(
-                    _isEditing ? l10n.done : l10n.edit,
-                    style: TextStyle(
-                      color: _isEditing
-                          ? theme.colorScheme.primary
-                          : theme.colorScheme.onSurface,
-                      fontSize: 32.w,
-                      fontWeight:
-                          _isEditing ? FontWeight.bold : FontWeight.w100,
-                    ),
-                  ),
-                ),
-              )
-            ],
-          ),
-          body: ScrollConfiguration(
-            behavior:
-                ScrollConfiguration.of(context).copyWith(scrollbars: false),
-            child: Container(
-              constraints: BoxConstraints(
-                minHeight: MediaQuery.of(context).size.height -
-                    systemState.appbarHeight -
-                    systemState.statusHeight,
-              ),
-              color: theme.colorScheme.surfaceContainer,
-              child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(
-                  parent: BouncingScrollPhysics(),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 30.w, vertical: 20.w),
-                      child: Text(
-                        l10n.manageLoginDevicesDescriptionFull,
-                        style: TextStyle(
-                          fontSize: 27.w,
-                          color: AppColors.neutralGrey60,
-                        ),
+          return Scaffold(
+            primary: false,
+            appBar: VigaAppBar(
+              title: l10n.loggedInDevices,
+              actions: [
+                GestureDetector(
+                  onTap: _toggleEditMode,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 40.w),
+                    alignment: Alignment.center,
+                    child: Text(
+                      _isEditing ? l10n.done : l10n.edit,
+                      style: TextStyle(
+                        color: _isEditing
+                            ? theme.colorScheme.primary
+                            : theme.colorScheme.onSurface,
+                        fontSize: 32.w,
+                        fontWeight:
+                            _isEditing ? FontWeight.bold : FontWeight.w100,
                       ),
                     ),
-                    // 当前设备
-                    VigaFunctionList(
-                      title: VigaAlphabet(title: l10n.currentlyLoggedInDevices),
-                      children: List.generate(loggedInDevices.length, (index) {
-                        final device = loggedInDevices[index];
-                        return _buildDeviceItem(
-                          device,
-                          () => _deleteDevice(loggedInDevices, index),
-                          cdnBase,
-                          l10n,
-                        );
-                      }),
-                    ),
-                    // 登出设备
-                    VigaFunctionList(
-                      title: VigaAlphabet(title: l10n.loggedOutDevices),
-                      children:
-                          List.generate(loggedOutDevices.length, (index) {
-                        final device = loggedOutDevices[index];
-                        return _buildDeviceItem(
-                          device,
-                          () => _deleteDevice(loggedOutDevices, index),
-                          cdnBase,
-                          l10n,
-                        );
-                      }),
-                    ),
-                    SizedBox(height: 100.w)
-                  ],
+                  ),
+                )
+              ],
+            ),
+            body: ScrollConfiguration(
+              behavior:
+                  ScrollConfiguration.of(context).copyWith(scrollbars: false),
+              child: Container(
+                constraints: BoxConstraints(
+                  minHeight: MediaQuery.of(context).size.height -
+                      systemState.appbarHeight -
+                      systemState.statusHeight,
+                ),
+                color: theme.colorScheme.surfaceContainer,
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(
+                    parent: BouncingScrollPhysics(),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 30.w, vertical: 20.w),
+                        child: Text(
+                          l10n.manageLoginDevicesDescriptionFull,
+                          style: TextStyle(
+                            fontSize: 27.w,
+                            color: AppColors.neutralGrey60,
+                          ),
+                        ),
+                      ),
+                      // 当前设备
+                      VigaFunctionList(
+                        title:
+                            VigaAlphabet(title: l10n.currentlyLoggedInDevices),
+                        children:
+                            List.generate(loggedInDevices.length, (index) {
+                          final device = loggedInDevices[index];
+                          return _buildDeviceItem(
+                            device,
+                            () => _deleteDevice(loggedInDevices, index),
+                            cdnBase,
+                            l10n,
+                          );
+                        }),
+                      ),
+                      // 登出设备
+                      VigaFunctionList(
+                        title: VigaAlphabet(title: l10n.loggedOutDevices),
+                        children:
+                            List.generate(loggedOutDevices.length, (index) {
+                          final device = loggedOutDevices[index];
+                          return _buildDeviceItem(
+                            device,
+                            () => _deleteDevice(loggedOutDevices, index),
+                            cdnBase,
+                            l10n,
+                          );
+                        }),
+                      ),
+                      SizedBox(height: 100.w)
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 
@@ -174,7 +183,7 @@ class _VigaLoggedDevicesPageState extends State<VigaLoggedDevicesPage> {
           ),
         Expanded(
           child: VigaSpecialFunctionItem(
-            height: 130.w,
+            // height: 130.w,
             title: device.name,
             link: _isEditing ? null : '/settings/device_detail',
             underline: true,
@@ -184,8 +193,9 @@ class _VigaLoggedDevicesPageState extends State<VigaLoggedDevicesPage> {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      color: AppColors.neutralGrey35,
-                      fontSize: 22.w,
+                      color: AppColors.neutralGrey37,
+                      fontSize: 28.w,
+                      overflow: TextOverflow.ellipsis,
                     ),
                   )
                 : null,
@@ -200,9 +210,9 @@ class _VigaLoggedDevicesPageState extends State<VigaLoggedDevicesPage> {
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          fontSize: 25.w,
-                          height: 1.08,
-                          color: AppColors.neutralGrey39,
+                          color: AppColors.neutralGrey37,
+                          fontSize: 28.w,
+                          overflow: TextOverflow.ellipsis,
                         ),
                       ),
                     ),

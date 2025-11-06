@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:vigaviga/tools/viga_logger.dart';
+import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/viga_appbar.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:vigaviga/store/viga_user_cubit.dart';
+import 'package:vigaviga/tools/viga_logger.dart';
 
-class VigaModifyEmailPage extends StatefulWidget {
-  const VigaModifyEmailPage({super.key});
+class VigaChangeEmailPage extends StatefulWidget {
+  const VigaChangeEmailPage({super.key});
 
   @override
-  State<VigaModifyEmailPage> createState() => _ModifyEmailPageState();
+  State<VigaChangeEmailPage> createState() => _VigaChangeEmailPageState();
 }
 
-class _ModifyEmailPageState extends State<VigaModifyEmailPage> {
+class _VigaChangeEmailPageState extends State<VigaChangeEmailPage> {
   final TextEditingController _emailController = TextEditingController();
   // 新增一个状态变量，用于跟踪邮箱格式是否有效
   bool _isEmailValid = false;
@@ -49,97 +53,209 @@ class _ModifyEmailPageState extends State<VigaModifyEmailPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final userState = context.read<VigaUserCubit>().state;
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: const VigaAppBar(),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 100),
-            const Center(
-              child: Text(
-                '修改邮箱',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
+      appBar: VigaAppBar(
+        title: '更换邮箱',
+        actions: [
+          VigaAppBarActionTextButton(
+            onTap: _isEmailValid
+                ? () {
+                    // 在这里处理点击事件，例如提交数据
+                    logger.info('下一步，邮箱是: ${_emailController.text}');
+                    context.push('/settings/verify_email_screen');
+                  }
+                : null,
+            title: l10n.nextStep,
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Container(
+          color: Colors.white,
+          padding: EdgeInsets.symmetric(horizontal: 48.w, vertical: 40.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                '更换邮箱后，您可以使用新邮箱登录此账号。一个邮箱只能绑定一个账号。',
+                style: textTheme.bodyMedium?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
                 ),
               ),
-            ),
-            const SizedBox(height: 50),
-            Row(
-              children: [
-                const Text(
-                  '邮箱',
-                  style: TextStyle(fontSize: 18, color: Colors.black),
-                ),
-                const SizedBox(width: 16),
-                Expanded(
-                  child: TextField(
-                    controller: _emailController,
-                    autofocus: true,
-                    cursorColor: Colors.green,
-                    style: const TextStyle(fontSize: 18),
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      hintText: '请输入邮箱地址',
-                      hintStyle: TextStyle(color: Colors.grey),
+              SizedBox(height: 30.h),
+
+              // 用户ID信息
+              _InfoRow(
+                label: l10n.vigavigaID,
+                value: userState.userinfoAccount ?? '',
+              ),
+              SizedBox(height: 20.h),
+
+              // 邮箱输入框 - 使用浮动标签样式
+              _FormInputRow(
+                label: l10n.emailAddress,
+                hintText: '请输入邮箱地址',
+                controller: _emailController,
+                keyboardType: TextInputType.emailAddress,
+                obscureText: false,
+              ),
+              SizedBox(height: 30.h),
+
+              // 按钮区域
+              SizedBox(
+                width: double.infinity,
+                height: 50.h,
+                child: ElevatedButton(
+                  onPressed: _isEmailValid
+                      ? () {
+                          logger.info('下一步，邮箱是: ${_emailController.text}');
+                          context.push('/settings/verify_email_screen');
+                        }
+                      : null,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: theme.colorScheme.primary,
+                    disabledBackgroundColor: const Color(0xFFF5F5F5),
+                    foregroundColor: Colors.white,
+                    disabledForegroundColor: Colors.grey,
+                    elevation: 0,
+                    padding: EdgeInsets.symmetric(vertical: 14.h),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.r),
+                    ),
+                  ),
+                  child: Text(
+                    l10n.nextStep,
+                    style: TextStyle(
+                      fontSize: 18.sp,
                     ),
                   ),
                 ),
-              ],
-            ),
-            const Divider(
-              height: 1,
-              thickness: 1,
-              color: Color(0xFFE0E0E0),
-            ),
-            const Spacer(),
-            SizedBox(
-              width: double.infinity,
-              height: 50, // 新增此行
-              child: ElevatedButton(
-                // 核心改动：根据 _isEmailValid 的值来决定按钮是否可点击
-                // 如果为 true，onPressed 是一个函数，按钮激活
-                // 如果为 false，onPressed 是 null，按钮禁用
-                onPressed: _isEmailValid
-                    ? () {
-                        // 在这里处理点击事件，例如提交数据
-                        logger.info('下一步，邮箱是: ${_emailController.text}');
-                        context.push('/settings/verify_email_screen');
-                      }
-                    : null,
-                style: ElevatedButton.styleFrom(
-                  // 设置激活状态下的背景色
-                  backgroundColor: Colors.blue,
-                  // 设置禁用状态下的背景色
-                  disabledBackgroundColor: const Color(0xFFF5F5F5),
-                  // 设置激活状态下的文字颜色
-                  foregroundColor: Colors.white,
-                  // 设置禁用状态下的文字颜色
-                  disabledForegroundColor: Colors.grey,
-                  elevation: 0,
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                child: const Text(
-                  '下一步',
-                  style: TextStyle(
-                    fontSize: 18,
-                    // 文字颜色会根据按钮状态自动从 foregroundColor 和 disabledForegroundColor 中选择
-                  ),
-                ),
               ),
-            ),
-            const SizedBox(height: 40),
-          ],
+              SizedBox(height: 40.h),
+            ],
+          ),
         ),
       ),
+    );
+  }
+}
+
+// 公共组件 1: 用于展示 "标签: 信息" 的行 (样式微调)
+class _InfoRow extends StatelessWidget {
+  final String label;
+  final String value;
+
+  const _InfoRow({required this.label, required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+
+    return Container(
+      height: 56.h,
+      padding: EdgeInsets.symmetric(horizontal: 12.w),
+      decoration: BoxDecoration(
+        color: const Color(0xFFF7F7F7),
+        borderRadius: BorderRadius.circular(8.r),
+      ),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 160.w,
+            child: Text(label, style: textTheme.titleMedium),
+          ),
+          SizedBox(width: 16.w),
+          Expanded(
+            child: Text(
+              value,
+              style: textTheme.bodyLarge?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// 公共组件 2: 浮动标签输入框
+class _FormInputRow extends StatefulWidget {
+  final String label;
+  final String hintText;
+  final TextEditingController? controller;
+  final TextInputType? keyboardType;
+  final bool obscureText;
+
+  const _FormInputRow({
+    required this.label,
+    required this.hintText,
+    this.controller,
+    this.keyboardType,
+    this.obscureText = false,
+  });
+
+  @override
+  State<_FormInputRow> createState() => _FormInputRowState();
+}
+
+class _FormInputRowState extends State<_FormInputRow> {
+  @override
+  void initState() {
+    super.initState();
+    widget.controller?.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final textTheme = theme.textTheme;
+
+    return TextField(
+      controller: widget.controller,
+      obscureText: widget.obscureText,
+      keyboardType: widget.keyboardType,
+      style: textTheme.bodyLarge,
+      cursorColor: theme.colorScheme.primary,
+      decoration: InputDecoration(
+        labelText: widget.label,
+        labelStyle: const TextStyle(color: Colors.grey),
+        hintText: widget.hintText,
+        hintStyle: textTheme.bodyLarge?.copyWith(
+          color: theme.colorScheme.onSurface.withAlpha(102),
+        ),
+        enabledBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: Color.fromARGB(255, 224, 224, 224)),
+        ),
+        focusedBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey),
+        ),
+        suffixIcon:
+            widget.controller != null && widget.controller!.text.isNotEmpty
+                ? IconButton(
+                    icon: const Icon(
+                      Icons.cancel,
+                      color: Colors.grey,
+                      size: 20,
+                    ),
+                    onPressed: () {
+                      widget.controller!.clear();
+                    },
+                  )
+                : null,
+      ),
+      onTapOutside: (_) => FocusScope.of(context).unfocus(),
     );
   }
 }

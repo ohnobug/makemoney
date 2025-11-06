@@ -51,79 +51,86 @@ class _VigaSwitchAccountPageState extends State<VigaSwitchAccountPage> {
     ThemeData theme = Theme.of(context);
     AppLocalizations l10n = AppLocalizations.of(context)!;
 
-    return BlocBuilder<VigaSystemCubit, SystemState>(
-      builder: (context, systemState) {
-        return Scaffold(
-          backgroundColor: AppColors.darkBackground,
-          body: AnnotatedRegion<SystemUiOverlayStyle>(
-            value: SystemUiOverlayStyle(
-              statusBarColor: Colors.transparent,
-              statusBarBrightness: Brightness.dark,
-              statusBarIconBrightness: Brightness.light,
-            ),
-            child: SafeArea(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 110.w,
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        // 标题
-                        Text(
-                          l10n.switchAccount,
-                          style: TextStyle(
-                            color: AppColors.fontPrimary,
-                            fontSize: 68.w, // 对应 34.sp
-                            fontWeight: FontWeight.bold,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarBrightness: Brightness.dark,
+        statusBarIconBrightness: Brightness.light,
+      ),
+      child: BlocBuilder<VigaSystemCubit, SystemState>(
+        builder: (context, systemState) {
+          return Scaffold(
+            backgroundColor: AppColors.darkBackground,
+            body: AnnotatedRegion<SystemUiOverlayStyle>(
+              value: SystemUiOverlayStyle(
+                statusBarColor: Colors.transparent,
+                statusBarBrightness: Brightness.dark,
+                statusBarIconBrightness: Brightness.light,
+              ),
+              child: SafeArea(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 110.w,
+                      child: Stack(
+                        alignment: Alignment.center,
+                        children: [
+                          // 标题
+                          Text(
+                            l10n.switchAccount,
+                            style: TextStyle(
+                              color: AppColors.fontPrimary,
+                              fontSize: 68.w, // 对应 34.sp
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        // 关闭按钮
-                        Positioned(
-                          left: 30.w,
-                          child: GestureDetector(
-                            onTap: () {
-                              context.pop();
-                            },
-                            child: Container(
-                              width: 80.w,
-                              height: 80.w,
-                              alignment: Alignment.center,
-                              child: Icon(
-                                Icons.close,
-                                size: 40.w,
-                                color: AppColors.fontSecondary,
+                          // 关闭按钮
+                          Positioned(
+                            left: 30.w,
+                            child: GestureDetector(
+                              onTap: () {
+                                context.pop();
+                              },
+                              child: Container(
+                                width: 80.w,
+                                height: 80.w,
+                                alignment: Alignment.center,
+                                child: Icon(
+                                  Icons.close,
+                                  size: 40.w,
+                                  color: AppColors.fontSecondary,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: ScrollConfiguration(
-                      behavior: ScrollConfiguration.of(context)
-                          .copyWith(scrollbars: false),
-                      child: ListView(
-                        physics: const AlwaysScrollableScrollPhysics(
-                          parent: BouncingScrollPhysics(),
-                        ),
-                        padding: EdgeInsets.symmetric(horizontal: 48.w),
-                        children: [
-                          ...List.generate(_accounts.length, (index) {
-                            final account = _accounts[index];
-                            return _buildAccountItem(account, theme);
-                          }),
                         ],
                       ),
                     ),
-                  ),
-                ],
+                    Expanded(
+                      child: ScrollConfiguration(
+                        behavior: ScrollConfiguration.of(context)
+                            .copyWith(scrollbars: false),
+                        child: ListView(
+                          physics: const AlwaysScrollableScrollPhysics(
+                            parent: BouncingScrollPhysics(),
+                          ),
+                          padding: EdgeInsets.symmetric(horizontal: 48.w),
+                          children: [
+                            ...List.generate(_accounts.length, (index) {
+                              final account = _accounts[index];
+                              return _buildAccountItem(account, theme);
+                            }),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 

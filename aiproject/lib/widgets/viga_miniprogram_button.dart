@@ -83,8 +83,8 @@ class VigaMiniprogramButtonState extends State<VigaMiniprogramButton> {
                 borderRadius: BorderRadius.circular(10).w,
                 child: VigaAppNetworkImage(
                   imageUrl: widget.icon,
-                  width: 75.w,
-                  height: 75.w,
+                  width: 80.w,
+                  height: 80.w,
                   fit: BoxFit.cover, // 让图片完全填满圆形区域
                 )),
             SizedBox(height: 15.w), // 图标和标题之间的间距

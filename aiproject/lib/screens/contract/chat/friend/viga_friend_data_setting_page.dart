@@ -43,7 +43,6 @@ class _VigaFriendDataSetting extends State<VigaFriendDataSettingPage> {
     ThemeData theme = Theme.of(context);
     AppLocalizations l10n = AppLocalizations.of(context)!;
 
-    String cdnBase = systemState.cdnBase;
     return Stack(
       children: [
         Positioned(
@@ -69,45 +68,29 @@ class _VigaFriendDataSetting extends State<VigaFriendDataSettingPage> {
                     children: [
                       VigaFunctionList(children: [
                         VigaFunctionItem(
-                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.setRemarkAndTags,
                           link: '/chat/set_notes_and_labels',
                           showStyle: "邓子乔",
                           underline: true,
                         ),
                         VigaFunctionItem(
-                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.friendPermissions,
                           link: '/chat/friend_permissions',
                           underline: false,
                         ),
                       ]),
 
-// 推荐、 添加到桌面
                       VigaFunctionList(children: [
                         VigaFunctionItem(
-                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.recommendToFriend,
                           link: '',
                           underline: true,
-                        ),
-                        VigaFunctionItem(
-                          icon: "$cdnBase/avatar/02.png",
-                          title: l10n.addToDesktop,
-                          // link: '',
-                          underline: false,
-                          onPress: () {
-                            setState(() {
-                              showPopup = true;
-                            });
-                          },
                         ),
                       ]),
 
                       // 设置星标朋友
                       VigaFunctionList(children: [
                         VigaFunctionItem(
-                          icon: "$cdnBase/avatar/02.png",
                           title: l10n.setAsStarFriend,
                           // link: '',
                           underline: false,
@@ -131,7 +114,6 @@ class _VigaFriendDataSetting extends State<VigaFriendDataSettingPage> {
                       VigaFunctionList(
                         children: [
                           VigaFunctionItem(
-                            icon: "$cdnBase/avatar/02.png",
                             title: l10n.addToBlocklist,
                             tapEffect: false,
                             underline: true,
@@ -149,7 +131,6 @@ class _VigaFriendDataSetting extends State<VigaFriendDataSettingPage> {
                             ),
                           ),
                           VigaFunctionItem(
-                            icon: "$cdnBase/avatar/02.png",
                             title: l10n.complain,
                             link: '',
                             underline: false,

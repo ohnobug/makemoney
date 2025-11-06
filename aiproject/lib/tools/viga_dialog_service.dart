@@ -34,6 +34,11 @@ void showPopupMenu(BuildContext context) {
   );
 }
 
+// 关闭所有对话框的辅助函数
+void closeAllDialogs(BuildContext context) {
+  Navigator.of(context, rootNavigator: true).pop();
+}
+
 class _PopupMenuDialog extends StatelessWidget {
   final Animation<double> animation;
 
@@ -103,6 +108,7 @@ class _PopupMenuDialog extends StatelessWidget {
                                   fontFamily: "iconfont",
                                 ),
                                 onTap: () {
+                                  context.pop();
                                   context.push(
                                     '/contact/add_friends',
                                   );

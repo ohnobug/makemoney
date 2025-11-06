@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
@@ -37,87 +38,93 @@ class _VigaSetPasswordPageState extends State<VigaSetPasswordPage> {
     final theme = Theme.of(context);
     final textTheme = theme.textTheme;
 
-    return Scaffold(
-      // 1. 设置页面背景为白色
-      backgroundColor: Colors.white,
-      appBar: VigaAppBar(
-        title: l10n.setPassword,
-        actions: [
-          VigaAppBarActionTextButton(
-            onTap: () {
-              // TODO: 实现 "完成" 按钮的逻辑
-            },
-            title: l10n.done,
-          ),
-        ],
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
       ),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Container(
-          // 2. 容器颜色也设置为白色，确保一致性
-          color: Colors.white,
-          padding: EdgeInsets.symmetric(horizontal: 48.w, vertical: 40.h),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                l10n.setVigavigaPasswordDescription,
-                style: textTheme.bodyMedium?.copyWith(
-                  color: theme.colorScheme.onSurfaceVariant,
-                ),
-              ),
-              SizedBox(height: 30.h),
-
-              // --- 表单内容 ---
-              _InfoRow(
-                label: l10n.vigavigaID,
-                value: userState.userinfoAccount ?? '',
-              ),
-              SizedBox(height: 20.h),
-
-              // 3. 使用新的 _FormInputRow 组件
-              _FormInputRow(
-                label: l10n.originalPassword,
-                hintText: l10n.enterOriginalPassword,
-                controller: originPasswordController,
-              ),
-              SizedBox(height: 20.h),
-
-              _FormInputRow(
-                label: l10n.newPassword,
-                hintText: l10n.enterNewPassword,
-                controller: newPasswordController,
-              ),
-              SizedBox(height: 20.h),
-
-              _FormInputRow(
-                label: l10n.confirmPassword,
-                hintText: l10n.enterToConfirm,
-                controller: confirmPasswordController,
-              ),
-              // --- 表单内容结束 ---
-
-              SizedBox(height: 30.h),
-              Text(
-                l10n.passwordValidationRule(8, 16),
-                style: textTheme.bodySmall?.copyWith(
-                  color: theme.colorScheme.onSurface,
-                ),
-              ),
-              SizedBox(height: 10.h),
-              InkWell(
-                onTap: () {
-                  context.push('/user/auth/forgot_password');
-                },
-                child: Text(
-                  l10n.forgotOriginalPassword,
-                  style: textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.primary,
-                    decoration: TextDecoration.underline,
+      child: Scaffold(
+        // 1. 设置页面背景为白色
+        backgroundColor: Colors.white,
+        appBar: VigaAppBar(
+          title: l10n.setPassword,
+          actions: [
+            VigaAppBarActionTextButton(
+              onTap: () {
+                // TODO: 实现 "完成" 按钮的逻辑
+              },
+              title: l10n.done,
+            ),
+          ],
+        ),
+        body: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Container(
+            // 2. 容器颜色也设置为白色，确保一致性
+            color: Colors.white,
+            padding: EdgeInsets.symmetric(horizontal: 48.w, vertical: 40.h),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  l10n.setVigavigaPasswordDescription,
+                  style: textTheme.bodyMedium?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
                   ),
                 ),
-              ),
-            ],
+                SizedBox(height: 30.h),
+
+                // --- 表单内容 ---
+                _InfoRow(
+                  label: l10n.vigavigaID,
+                  value: userState.userinfoAccount ?? '',
+                ),
+                SizedBox(height: 20.h),
+
+                // 3. 使用新的 _FormInputRow 组件
+                _FormInputRow(
+                  label: l10n.originalPassword,
+                  hintText: l10n.enterOriginalPassword,
+                  controller: originPasswordController,
+                ),
+                SizedBox(height: 20.h),
+
+                _FormInputRow(
+                  label: l10n.newPassword,
+                  hintText: l10n.enterNewPassword,
+                  controller: newPasswordController,
+                ),
+                SizedBox(height: 20.h),
+
+                _FormInputRow(
+                  label: l10n.confirmPassword,
+                  hintText: l10n.enterToConfirm,
+                  controller: confirmPasswordController,
+                ),
+                // --- 表单内容结束 ---
+
+                SizedBox(height: 30.h),
+                Text(
+                  l10n.passwordValidationRule(8, 16),
+                  style: textTheme.bodySmall?.copyWith(
+                    color: theme.colorScheme.onSurface,
+                  ),
+                ),
+                SizedBox(height: 10.h),
+                InkWell(
+                  onTap: () {
+                    context.push('/user/auth/forgot_password');
+                  },
+                  child: Text(
+                    l10n.forgotOriginalPassword,
+                    style: textTheme.bodySmall?.copyWith(
+                      color: theme.colorScheme.primary,
+                      decoration: TextDecoration.underline,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

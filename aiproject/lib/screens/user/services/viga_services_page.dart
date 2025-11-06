@@ -1,6 +1,7 @@
 // 文件路径: lib/your_path/viga_services.dart (替换这个文件的全部内容)
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -28,111 +29,119 @@ class VigaServicesPage extends StatelessWidget {
     final AppLocalizations l10n = AppLocalizations.of(context)!;
 
     // 3. 删除了 BlocBuilder, Stack, AnimationController, showSelector 等所有与弹窗相关的状态和UI
-    return BlocBuilder<VigaSystemCubit, SystemState>(
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+      child: BlocBuilder<VigaSystemCubit, SystemState>(
         builder: (context, systemState) {
-      String cdnBase = systemState.cdnBase;
+          String cdnBase = systemState.cdnBase;
 
-      return Scaffold(
-        primary: false,
-        appBar: VigaAppBar(
-          title: l10n.services,
-          actions: [
-            GestureDetector(
-              onTap: () {
-                showVigaActionSheet(
-                  context: context,
-                  // 传入一个操作列表
-                  actions: [
-                    VigaActionSheetAction(
-                      text: Text(l10n.serviceManagement),
-                      onPressed: () {
-                        context.push('/user/services_manager');
-                      },
+          return Scaffold(
+            primary: false,
+            appBar: VigaAppBar(
+              title: l10n.services,
+              actions: [
+                GestureDetector(
+                  onTap: () {
+                    showVigaActionSheet(
+                      context: context,
+                      // 传入一个操作列表
+                      actions: [
+                        VigaActionSheetAction(
+                          text: Text(l10n.serviceManagement),
+                          onPressed: () {
+                            context.push('/user/services_manager');
+                          },
+                        ),
+                      ],
+                      cancelButtonText: l10n.cancel,
+                    );
+                  },
+                  // 这个按钮的UI保持不变
+                  child: Container(
+                    height: 90.w,
+                    color: Colors.transparent,
+                    padding: EdgeInsets.only(right: 33.w),
+                    alignment: Alignment.center,
+                    child: Icon(
+                      const IconData(
+                        0xe659,
+                        fontFamily: 'Iconfont',
+                      ),
+                      size: 37.w,
                     ),
-                  ],
-                  cancelButtonText: l10n.cancel,
-                );
-              },
-              // 这个按钮的UI保持不变
-              child: Container(
-                height: 90.w,
-                color: Colors.transparent,
-                padding: EdgeInsets.only(right: 33.w),
-                alignment: Alignment.center,
-                child: Icon(
-                  const IconData(
-                    0xe659,
-                    fontFamily: 'Iconfont',
                   ),
-                  size: 37.w,
-                ),
-              ),
-            )
-          ],
-        ),
-        backgroundColor: theme.colorScheme.surfaceContainer,
-        body: ScrollConfiguration(
-          behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-          child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            child: Column(
-              children: [
-                // --- 顶部核心功能卡片 ---
-                _buildHeaderCard(context),
-
-                // --- 服务分区 (这部分UI保持不变) ---
-                VigaFunctionButtonsSection(
-                  title: l10n.financialServices,
-                  buttons: [
-                    VigaFunctionButton(
-                        icon: "$cdnBase/icon/server_icon1.png",
-                        title: l10n.services,
-                        onPressed: () => logger.info('点击了信用卡还款按钮~~')),
-                    VigaFunctionButton(
-                        icon: "$cdnBase/icon/server_icon2.png",
-                        title: l10n.moments,
-                        onPressed: () => logger.info('点击了理财通按钮~~')),
-                    VigaFunctionButton(
-                        icon: "$cdnBase/icon/server_icon3.png",
-                        title: l10n.settings,
-                        onPressed: () => logger.info('点击了保险服务按钮~~')),
-                  ],
-                ),
-                VigaFunctionButtonsSection(
-                  title: l10n.lifeServices,
-                  buttons: [
-                    VigaFunctionButton(
-                        icon: "$cdnBase/icon/server_icon4.png",
-                        title: l10n.mobileTopUp,
-                        onPressed: () => logger.info('点击了手机充值按钮~~')),
-                    VigaFunctionButton(
-                        icon: "$cdnBase/icon/server_icon5.png",
-                        title: l10n.utilityPayments,
-                        onPressed: () => logger.info('点击了生活缴费按钮~~')),
-                    VigaFunctionButton(
-                        icon: "$cdnBase/icon/server_icon6.png",
-                        title: l10n.qCoinTopUp,
-                        onPressed: () => logger.info('点击了Q币充值按钮~~')),
-                    VigaFunctionButton(
-                        icon: "$cdnBase/icon/server_icon7.png",
-                        title: l10n.cityServices,
-                        onPressed: () => logger.info('点击了城市服务按钮~~')),
-                    VigaFunctionButton(
-                        icon: "$cdnBase/icon/server_icon8.png",
-                        title: l10n.tencentCharity,
-                        onPressed: () => logger.info('点击了腾讯公益按钮~~')),
-                    VigaFunctionButton(
-                        icon: "$cdnBase/icon/server_icon9.png",
-                        title: l10n.healthCare,
-                        onPressed: () => logger.info('点击了医疗健康按钮~~')),
-                  ],
-                ),
+                )
               ],
             ),
-          ),
-        ),
-      );
-    });
+            backgroundColor: theme.colorScheme.surfaceContainer,
+            body: ScrollConfiguration(
+              behavior:
+                  ScrollConfiguration.of(context).copyWith(scrollbars: false),
+              child: SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  children: [
+                    // --- 顶部核心功能卡片 ---
+                    _buildHeaderCard(context),
+
+                    // --- 服务分区 (这部分UI保持不变) ---
+                    VigaFunctionButtonsSection(
+                      title: l10n.financialServices,
+                      buttons: [
+                        VigaFunctionButton(
+                            icon: "$cdnBase/icon/server_icon1.png",
+                            title: l10n.services,
+                            onPressed: () => logger.info('点击了信用卡还款按钮~~')),
+                        VigaFunctionButton(
+                            icon: "$cdnBase/icon/server_icon2.png",
+                            title: l10n.moments,
+                            onPressed: () => logger.info('点击了理财通按钮~~')),
+                        VigaFunctionButton(
+                            icon: "$cdnBase/icon/server_icon3.png",
+                            title: l10n.settings,
+                            onPressed: () => logger.info('点击了保险服务按钮~~')),
+                      ],
+                    ),
+                    VigaFunctionButtonsSection(
+                      title: l10n.lifeServices,
+                      buttons: [
+                        VigaFunctionButton(
+                            icon: "$cdnBase/icon/server_icon4.png",
+                            title: l10n.mobileTopUp,
+                            onPressed: () => logger.info('点击了手机充值按钮~~')),
+                        VigaFunctionButton(
+                            icon: "$cdnBase/icon/server_icon5.png",
+                            title: l10n.utilityPayments,
+                            onPressed: () => logger.info('点击了生活缴费按钮~~')),
+                        VigaFunctionButton(
+                            icon: "$cdnBase/icon/server_icon6.png",
+                            title: l10n.qCoinTopUp,
+                            onPressed: () => logger.info('点击了Q币充值按钮~~')),
+                        VigaFunctionButton(
+                            icon: "$cdnBase/icon/server_icon7.png",
+                            title: l10n.cityServices,
+                            onPressed: () => logger.info('点击了城市服务按钮~~')),
+                        VigaFunctionButton(
+                            icon: "$cdnBase/icon/server_icon8.png",
+                            title: l10n.tencentCharity,
+                            onPressed: () => logger.info('点击了腾讯公益按钮~~')),
+                        VigaFunctionButton(
+                            icon: "$cdnBase/icon/server_icon9.png",
+                            title: l10n.healthCare,
+                            onPressed: () => logger.info('点击了医疗健康按钮~~')),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
   }
 
   /// 构建器：顶部核心功能卡片 (保持不变)

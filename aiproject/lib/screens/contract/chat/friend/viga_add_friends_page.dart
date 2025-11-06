@@ -63,8 +63,13 @@ class _VigaAddFriends extends State<VigaAddFriendsPage> {
                 ),
                 // 搜索框
                 VigaSearch(
-                  link: '/contact/search_friend',
+                  link: '/search',
                   title: l10n.accountOrPhone,
+                  extra: {
+                    'initialTab': 1, // 用户tab
+                    'searchMode': 'user_search',
+                    'autoFocus': true, // 自动聚焦输入框
+                  },
                 ),
 
                 SizedBox(
@@ -138,7 +143,7 @@ class _VigaAddFriends extends State<VigaAddFriendsPage> {
 
                 VigaIconFunctionItem(
                   title: l10n.phoneContacts,
-                  link: '/settings/phone_contact',
+                  link: '/contact/phone_contact',
                   underline: true,
                   avatar: "$cdnBase/icon/add_friend_icon4.png",
                   message: l10n.addOrInviteContacts,

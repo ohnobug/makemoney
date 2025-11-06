@@ -192,6 +192,7 @@ class _VigaFunctionItemState extends State<VigaFunctionItem> {
                             ),
                           )
                         : widget.title as Widget,
+                        
                     if (widget.showStyle != null)
                       widget.showStyle is String
                           ? Expanded(

@@ -312,10 +312,18 @@ class _VigaUserPageState extends State<VigaUserPage>
         ));
   }
 
-  Widget _buildFloatingIconButton(
-      {required IconData icon, required VoidCallback onTap}) {
+  Widget _buildFloatingIconButton({
+    required IconData icon,
+    required VoidCallback onTap,
+  }) {
     return IconButton(
-        onPressed: onTap, icon: Icon(icon, color: Colors.white, size: 44.w));
+      onPressed: onTap,
+      icon: Icon(
+        icon,
+        color: Colors.white,
+        size: 44.w,
+      ),
+    );
   }
 
   Widget _buildUserInfoSection(
@@ -325,33 +333,42 @@ class _VigaUserPageState extends State<VigaUserPage>
     String accountId = userState.userinfoName!;
     final List<VigaUserFunctionButton> serviceButtons = [
       VigaUserFunctionButton(
-          icon: "$cdnBase/icon/server_icon11.png",
-          title: "钱包",
-          onPressed: () => context.push('/user/services')),
+        icon: "$cdnBase/icon/server_icon11.png",
+        title: "钱包",
+        onPressed: () => context.push('/user/services'),
+      ),
       VigaUserFunctionButton(
-          icon: "$cdnBase/icon/server_icon12.png",
-          title: "交易",
-          onPressed: () {
-            context.push('/test');
-          }),
+        icon: "$cdnBase/icon/server_icon12.png",
+        title: "交易",
+        onPressed: () {
+          context.push('/test');
+        },
+      ),
       VigaUserFunctionButton(
-          icon: "$cdnBase/icon/server_icon13.png",
-          title: "创作中心",
-          onPressed: () {
-            context.push('/photo_grid');
-          }),
+        icon: "$cdnBase/icon/server_icon13.png",
+        title: "创作中心",
+        onPressed: () {
+          context.push('/photo_grid');
+        },
+      ),
       VigaUserFunctionButton(
-          icon: "$cdnBase/icon/server_icon16.png",
-          title: "浏览历史",
-          onPressed: () {
-            context.push('/payment_demo');
-          }),
+        icon: "$cdnBase/icon/server_icon16.png",
+        title: "浏览历史",
+        onPressed: () {
+          context.push('/payment_demo');
+        },
+      ),
       VigaUserFunctionButton(
           icon: "$cdnBase/icon/server_icon14.png",
           title: "学院",
           onPressed: () {
-            context.push('/webview',
-                extra: {'url': 'https://course.vigaviga.com', 'title': "学院"});
+            context.push(
+              '/webview',
+              extra: {
+                'url': 'https://course.vigaviga.com',
+                'title': "学院",
+              },
+            );
           })
     ];
     return SizedBox(
@@ -359,9 +376,11 @@ class _VigaUserPageState extends State<VigaUserPage>
       child: Stack(
         children: [
           Positioned.fill(
-              child: VigaAppNetworkImage(
-                  imageUrl: "https://picsum.photos/750/750?random=497",
-                  fit: BoxFit.cover)),
+            child: VigaAppNetworkImage(
+              imageUrl: "https://picsum.photos/750/750?random=497",
+              fit: BoxFit.cover,
+            ),
+          ),
           Positioned.fill(
             child: Container(
               decoration: BoxDecoration(
@@ -389,133 +408,139 @@ class _VigaUserPageState extends State<VigaUserPage>
           Column(children: [
             SizedBox(height: systemState.statusHeight + 100.w),
             Padding(
-                padding: EdgeInsets.symmetric(horizontal: 32.w),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(children: [
-                        GestureDetector(
-                            onTap: () => context.push('/user/info'),
-                            child: ClipOval(child:
-                                BlocBuilder<VigaUserCubit, UserState>(
-                                    builder: (context, state) {
-                              final avatar = state.userinfoAvatar;
-                              return VigaAppNetworkImage(
-                                imageUrl: (avatar == null || avatar.isEmpty)
-                                    ? "${systemState.cdnBase}/avatar/default.png"
-                                    : avatar,
-                                width: 140.w,
-                                height: 140.w,
-                                fit: BoxFit.cover,
-                              );
-                            }))),
-                        SizedBox(width: 30.w),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(children: [
-                                BlocBuilder<VigaUserCubit, UserState>(
-                                  builder: (context, state) => SizedBox(
-                                    width: 400.w,
-                                    child: Text(
-                                      state.userinfoName ?? '用户名',
-                                      maxLines: 1,
-                                      style: TextStyle(
-                                        fontSize: 35.w,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ),
+              padding: EdgeInsets.symmetric(horizontal: 32.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(children: [
+                    GestureDetector(
+                      onTap: () => context.push('/user/info'),
+                      child: ClipOval(
+                        child: BlocBuilder<VigaUserCubit, UserState>(
+                          builder: (context, state) {
+                            final avatar = state.userinfoAvatar;
+                            return VigaAppNetworkImage(
+                              imageUrl: (avatar == null || avatar.isEmpty)
+                                  ? "${systemState.cdnBase}/avatar/default.png"
+                                  : avatar,
+                              width: 140.w,
+                              height: 140.w,
+                              fit: BoxFit.cover,
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                    SizedBox(width: 30.w),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(children: [
+                            BlocBuilder<VigaUserCubit, UserState>(
+                              builder: (context, state) => SizedBox(
+                                width: 400.w,
+                                child: Text(
+                                  state.userinfoName ?? '用户名',
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                    fontSize: 35.w,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
-                                const Spacer(),
-                                GestureDetector(
-                                  onTap: () {
-                                    context.push('/user/user_info');
-                                  },
-                                  child: Icon(
-                                    Icons.qr_code_2_outlined,
-                                    size: 50.w,
+                              ),
+                            ),
+                            const Spacer(),
+                            GestureDetector(
+                              onTap: () {
+                                context.push('/user/user_card');
+                              },
+                              child: Icon(
+                                Icons.qr_code_2_outlined,
+                                size: 50.w,
+                                color: Colors.white,
+                              ),
+                            )
+                          ]),
+                          SizedBox(height: 12.w),
+                          GestureDetector(
+                            onTap: () {
+                              Clipboard.setData(ClipboardData(text: accountId));
+                              Fluttertoast.showToast(
+                                msg: "复制成功",
+                                gravity: ToastGravity.CENTER,
+                                webBgColor: "black",
+                                webPosition: "center",
+                              );
+                            },
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  l10n.vigavigaIdDisplay(accountId),
+                                  style: TextStyle(
+                                    fontSize: 24.w,
                                     color: Colors.white,
                                   ),
-                                )
-                              ]),
-                              SizedBox(height: 12.w),
-                              GestureDetector(
-                                onTap: () {
-                                  Clipboard.setData(
-                                      ClipboardData(text: accountId));
-                                  Fluttertoast.showToast(
-                                      msg: "复制成功",
-                                      gravity: ToastGravity.CENTER,
-                                      webBgColor: "black",
-                                      webPosition: "center");
-                                },
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      l10n.vigavigaIdDisplay(accountId),
-                                      style: TextStyle(
-                                        fontSize: 24.w,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                    SizedBox(width: 10.w),
-                                    Icon(
-                                      Icons.copy_all_outlined,
-                                      size: 28.w,
-                                      color: Colors.white,
-                                    )
-                                  ],
                                 ),
-                              )
-                            ],
-                          ),
-                        )
-                      ]),
-                      SizedBox(height: 30.w),
-                      Row(children: [
-                        _buildStatsItem(
-                          "25",
-                          "关注",
-                          () => context.push('/user/follow_and_fans'),
-                        ),
-                        SizedBox(width: 60.w),
-                        _buildStatsItem(
-                          "1.2M",
-                          "粉丝",
-                          () => context.push('/user/follow_and_fans'),
-                        ),
-                        SizedBox(width: 60.w),
-                        _buildStatsItem(
-                          "8.9M",
-                          "获赞",
-                          () => context.push('/user/like'),
-                        ),
-                        const Spacer(),
-                        ElevatedButton(
-                          onPressed: () => context.push('/user/info'),
-                          style: ElevatedButton.styleFrom(
-                              elevation: 0,
-                              backgroundColor: theme.dividerColor,
-                              foregroundColor: theme.textTheme.bodyLarge?.color,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8.w)),
-                              padding: EdgeInsets.symmetric(horizontal: 30.w),
-                              minimumSize: Size(0, 70.w)),
-                          child: Text(
-                            "个人资料",
-                            style: TextStyle(
-                              fontSize: 26.w,
-                              fontWeight: FontWeight.normal,
+                                SizedBox(width: 10.w),
+                                Icon(
+                                  Icons.copy_all_outlined,
+                                  size: 28.w,
+                                  color: Colors.white,
+                                )
+                              ],
                             ),
-                          ),
-                        )
-                      ])
-                    ])),
+                          )
+                        ],
+                      ),
+                    )
+                  ]),
+                  SizedBox(height: 30.w),
+                  Row(children: [
+                    _buildStatsItem(
+                      "25",
+                      "关注",
+                      () => context.push('/user/follow_and_fans'),
+                    ),
+                    SizedBox(width: 60.w),
+                    _buildStatsItem(
+                      "1.2M",
+                      "粉丝",
+                      () => context.push('/user/follow_and_fans'),
+                    ),
+                    SizedBox(width: 60.w),
+                    _buildStatsItem(
+                      "8.9M",
+                      "获赞",
+                      () => context.push('/user/like'),
+                    ),
+                    const Spacer(),
+                    ElevatedButton(
+                      onPressed: () => context.push('/user/info'),
+                      style: ElevatedButton.styleFrom(
+                        elevation: 0,
+                        backgroundColor: theme.dividerColor,
+                        foregroundColor: theme.textTheme.bodyLarge?.color,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.w)),
+                        padding: EdgeInsets.symmetric(horizontal: 30.w),
+                        minimumSize: Size(0, 70.w),
+                      ),
+                      child: Text(
+                        "个人资料",
+                        style: TextStyle(
+                          fontSize: 26.w,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                    )
+                  ])
+                ],
+              ),
+            ),
             Padding(
               padding: EdgeInsets.only(
                 top: 30,
@@ -640,26 +665,7 @@ class _VigaUserPageState extends State<VigaUserPage>
   }
 
   void _navigateToSearchPage(BuildContext context) {
-    String searchType;
-    switch (_tabController.index) {
-      case 0:
-        searchType = 'works';
-        break;
-      case 1:
-        searchType = 'collections';
-        break;
-      case 2:
-        searchType = 'praised';
-        break;
-      default:
-        searchType = 'works';
-    }
-    context.push('/search_results', extra: {
-      'initialSearchType': searchType,
-      'works': _works,
-      'collections': _collections,
-      'praised': _praised
-    });
+    context.push('/user_content_search');
   }
 }
 
@@ -714,6 +720,9 @@ class __UserWorksGridState extends State<_UserWorksGrid> {
           alignment: Alignment.topCenter,
           child: SingleChildScrollView(
               primary: widget.isActive,
+              physics: widget.isActive
+                  ? const ClampingScrollPhysics()
+                  : const NeverScrollableScrollPhysics(),
               child:
                   Column(mainAxisAlignment: MainAxisAlignment.start, children: [
                 SizedBox(height: 120.w),
@@ -755,6 +764,9 @@ class __UserWorksGridState extends State<_UserWorksGrid> {
         alignment: Alignment.topCenter,
         child: SingleChildScrollView(
             primary: widget.isActive,
+            physics: widget.isActive
+                ? const ClampingScrollPhysics()
+                : const NeverScrollableScrollPhysics(),
             child:
                 Column(mainAxisAlignment: MainAxisAlignment.start, children: [
               SizedBox(height: 120.w),
@@ -804,6 +816,9 @@ class __UserWorksGridState extends State<_UserWorksGrid> {
         key: PageStorageKey<String>(widget.emptyMessage),
         padding: EdgeInsets.symmetric(horizontal: 2.w),
         itemCount: widget.items.length,
+        physics: widget.isActive
+            ? const ClampingScrollPhysics()
+            : const NeverScrollableScrollPhysics(),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 3,
           crossAxisSpacing: 2.w,
@@ -1076,6 +1091,8 @@ class _UserWorksSharePanel extends StatelessWidget {
               ],
             ),
           ),
+
+          SizedBox(height: MediaQuery.of(context).padding.bottom),
         ],
       ),
     );

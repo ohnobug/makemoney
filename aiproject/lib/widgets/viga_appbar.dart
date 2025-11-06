@@ -141,7 +141,7 @@ class _VigaAppBarActionTextButton extends State<VigaAppBarActionTextButton> {
           style: TextStyle(
             color: theme.colorScheme.onSurface,
             fontSize: fontSizeScale(32.w),
-            fontWeight: FontWeight.w500,
+            // fontWeight: FontWeight.w500,
           ),
         ),
       ),

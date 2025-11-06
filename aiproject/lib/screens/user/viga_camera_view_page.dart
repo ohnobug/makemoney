@@ -1,6 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/tools/viga_logger.dart';
@@ -94,14 +95,21 @@ class _VigaCameraViewPageState extends State<VigaCameraViewPage>
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<VigaSystemCubit, SystemState>(
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+      child: BlocBuilder<VigaSystemCubit, SystemState>(
         builder: (context, systemState) {
-      return Container(
-        // margin: EdgeInsets.all(10),
-        // color: Colors.yellow,
-        child: _cameraPreviewWidget(),
-      );
-    });
+          return Container(
+            // margin: EdgeInsets.all(10),
+            // color: Colors.yellow,
+            child: _cameraPreviewWidget(),
+          );
+        },
+      ),
+    );
   }
 
   Widget _cameraPreviewWidget() {

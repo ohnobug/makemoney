@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
@@ -436,36 +437,43 @@ class _VigaPhoneContactPage extends State<VigaPhoneContactPage> {
   Widget build(BuildContext context) {
     AppLocalizations l10n = AppLocalizations.of(context)!;
 
-    return BlocBuilder<VigaSystemCubit, SystemState>(
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+      child: BlocBuilder<VigaSystemCubit, SystemState>(
         builder: (context, systemState) {
-      return Scaffold(
-        primary: false,
-        appBar: VigaAppBar(
-          title: l10n.viewPhoneContacts,
-        ),
-        body: ScrollConfiguration(
-          behavior: CustomScrollBehavior().copyWith(
-            scrollbars: false,
-            physics: const BouncingScrollPhysics(),
-          ),
-          child: ColoredBox(
-            color: AppColors.neutralGrey12,
-            child: ListView.builder(
-              primary: false,
-              padding: EdgeInsets.only(bottom: 106.w),
-              // padding: EdgeInsets.all(0.w),
-              itemCount: chatItems.length,
-              shrinkWrap: true,
-              // controller: _customScrollController,
-              scrollDirection: Axis.vertical,
-              itemBuilder: (context, index) {
-                return chatItems[index];
-              },
+          return Scaffold(
+            primary: false,
+            appBar: VigaAppBar(
+              title: l10n.viewPhoneContacts,
             ),
-          ),
-        ),
-      );
-    });
+            body: ScrollConfiguration(
+              behavior: CustomScrollBehavior().copyWith(
+                scrollbars: false,
+                physics: const BouncingScrollPhysics(),
+              ),
+              child: ColoredBox(
+                color: AppColors.neutralGrey12,
+                child: ListView.builder(
+                  primary: false,
+                  padding: EdgeInsets.only(bottom: 106.w),
+                  // padding: EdgeInsets.all(0.w),
+                  itemCount: chatItems.length,
+                  shrinkWrap: true,
+                  // controller: _customScrollController,
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (context, index) {
+                    return chatItems[index];
+                  },
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
   }
 }
 

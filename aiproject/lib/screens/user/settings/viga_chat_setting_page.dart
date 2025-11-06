@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
@@ -30,120 +31,128 @@ class _VigaChatSettingPage extends State<VigaChatSettingPage> {
     ThemeData theme = Theme.of(context);
     AppLocalizations l10n = AppLocalizations.of(context)!;
 
-    return BlocBuilder<VigaSystemCubit, SystemState>(
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+      ),
+      child: BlocBuilder<VigaSystemCubit, SystemState>(
         builder: (context, systemState) {
-      return Scaffold(
-        primary: false,
-        appBar: VigaAppBar(
-          title: l10n.chat,
-        ),
-        body: ScrollConfiguration(
-          behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-          child: Container(
-            constraints: BoxConstraints(
-                minHeight: MediaQuery.of(context).size.height -
-                    systemState.appbarHeight -
-                    systemState.statusHeight),
-            color: theme.colorScheme.surfaceContainer,
-            child: SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(
-                parent: BouncingScrollPhysics(),
-              ),
-              child: Column(children: [
-                VigaFunctionList(
-                  children: [
-                    // 使用听筒播放语音
-                    VigaFunctionItem(
-                      icon: null, title: l10n.useEarpieceToPlayVoice,
-                      // link: '',
-                      underline: true,
-                      tapEffect: false,
-                      showStyle: Expanded(
-                        flex: 0,
-                        child: Container(
-                          margin: const EdgeInsets.only(right: 32).w,
-                          child: VigaSwitch(
-                            initialValue: false,
-                            onChanged: (value) {
-                              logger.info(value);
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-
-                    // 使用独立发送按钮
-                    VigaSpecialFunctionItem(
-                      title: l10n.useIndependentSendButton,
-                      height: null,
-                      // link: '',
-                      subTitle: Text(
-                        l10n.sendButtonReplacedMessageFull,
-                        maxLines: 3,
-                        style: TextStyle(
-                          color: AppColors.neutralGrey35,
-                          fontSize: 24.w,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ),
-                      showStyle: Expanded(
-                        flex: 0,
-                        child: Container(
-                          margin: const EdgeInsets.only(right: 0).w,
-                          child: VigaSwitch(
-                            initialValue: false,
-                            onChanged: (value) {
-                              logger.info(value);
-                            },
-                          ),
-                        ),
-                      ),
-                      underline: true,
-                    ),
-
-                    // 聊天背景
-                    VigaFunctionItem(
-                      icon: null,
-                      title: l10n.chatBackground,
-                      link: '',
-                      underline: true,
-                    ),
-
-                    // 表情管理
-                    VigaFunctionItem(
-                      icon: null,
-                      title: l10n.stickerManagement,
-                      link: '',
-                      underline: false,
-                    ),
-                  ],
-                ),
-
-                // 聊天记录迁移备份
-                VigaFunctionList(
-                  title: VigaAlphabet(title: l10n.chatHistory),
-                  children: [
-                    VigaFunctionItem(
-                      icon: null,
-                      title: l10n.chatHistoryMigrationBackup,
-                      link: '',
-                      underline: true,
-                    ),
-                    VigaFunctionItem(
-                      icon: null,
-                      title: l10n.clearChatHistory,
-                      link: '',
-                      underline: false,
-                    ),
-                  ],
-                ),
-
-                SizedBox(height: 100.w)
-              ]),
+          return Scaffold(
+            primary: false,
+            appBar: VigaAppBar(
+              title: l10n.chat,
             ),
-          ),
-        ),
-      );
-    });
+            body: ScrollConfiguration(
+              behavior:
+                  ScrollConfiguration.of(context).copyWith(scrollbars: false),
+              child: Container(
+                constraints: BoxConstraints(
+                    minHeight: MediaQuery.of(context).size.height -
+                        systemState.appbarHeight -
+                        systemState.statusHeight),
+                color: theme.colorScheme.surfaceContainer,
+                child: SingleChildScrollView(
+                  physics: const AlwaysScrollableScrollPhysics(
+                    parent: BouncingScrollPhysics(),
+                  ),
+                  child: Column(children: [
+                    VigaFunctionList(
+                      children: [
+                        // 使用听筒播放语音
+                        VigaFunctionItem(
+                          icon: null, title: l10n.useEarpieceToPlayVoice,
+                          // link: '',
+                          underline: true,
+                          tapEffect: false,
+                          showStyle: Expanded(
+                            flex: 0,
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 32).w,
+                              child: VigaSwitch(
+                                initialValue: false,
+                                onChanged: (value) {
+                                  logger.info(value);
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+
+                        // 使用独立发送按钮
+                        VigaSpecialFunctionItem(
+                          title: l10n.useIndependentSendButton,
+                          height: null,
+                          // link: '',
+                          subTitle: Text(
+                            l10n.sendButtonReplacedMessageFull,
+                            maxLines: 3,
+                            style: TextStyle(
+                              color: AppColors.neutralGrey37,
+                              fontSize: 28.w,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          showStyle: Expanded(
+                            flex: 0,
+                            child: Container(
+                              margin: const EdgeInsets.only(right: 0).w,
+                              child: VigaSwitch(
+                                initialValue: false,
+                                onChanged: (value) {
+                                  logger.info(value);
+                                },
+                              ),
+                            ),
+                          ),
+                          underline: true,
+                        ),
+
+                        // 聊天背景
+                        VigaFunctionItem(
+                          icon: null,
+                          title: l10n.chatBackground,
+                          link: '',
+                          underline: true,
+                        ),
+
+                        // 表情管理
+                        VigaFunctionItem(
+                          icon: null,
+                          title: l10n.stickerManagement,
+                          link: '',
+                          underline: false,
+                        ),
+                      ],
+                    ),
+
+                    // 聊天记录迁移备份
+                    VigaFunctionList(
+                      title: VigaAlphabet(title: l10n.chatHistory),
+                      children: [
+                        VigaFunctionItem(
+                          icon: null,
+                          title: l10n.chatHistoryMigrationBackup,
+                          link: '',
+                          underline: true,
+                        ),
+                        VigaFunctionItem(
+                          icon: null,
+                          title: l10n.clearChatHistory,
+                          link: '',
+                          underline: false,
+                        ),
+                      ],
+                    ),
+
+                    SizedBox(height: 100.w)
+                  ]),
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
   }
 }

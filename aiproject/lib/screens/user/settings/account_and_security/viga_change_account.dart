@@ -50,13 +50,13 @@ class _VigaChangeAccountState extends State<VigaChangeAccount> {
           children: [
             Center(
               child: Text(
-                '填写新的Vigaviga号',
+                '填写新的Vigaviga Account',
                 style: TextStyle(fontSize: 48.w, fontWeight: FontWeight.bold),
               ),
             ),
             const SizedBox(height: 12),
             Text(
-              'Vigaviga号长度限 6-20 位, 建议避免包含姓名、生日等涉及个人隐私信息。',
+              'Vigaviga Account长度限 6-20 位, 建议避免包含姓名、生日等涉及个人隐私信息。',
               style: TextStyle(color: Colors.grey[600], fontSize: 30.w),
             ),
             SizedBox(height: 40.w),
@@ -70,7 +70,7 @@ class _VigaChangeAccountState extends State<VigaChangeAccount> {
                 FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9_]')),
               ],
               decoration: InputDecoration(
-                labelText: 'Vigaviga号',
+                labelText: 'Vigaviga Account',
                 labelStyle: TextStyle(color: Colors.grey[600], fontSize: 36.w),
                 suffixIcon: _controller.text.isNotEmpty
                     ? IconButton(
@@ -95,7 +95,7 @@ class _VigaChangeAccountState extends State<VigaChangeAccount> {
                     ? () {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                              content: Text('Vigaviga号 "${_controller.text}" 设置成功')),
+                              content: Text('Vigaviga Account "${_controller.text}" 设置成功')),
                         );
                       }
                     : null,
