@@ -78,13 +78,13 @@ class VigaMiniprogramButtonState extends State<VigaMiniprogramButton> {
           mainAxisAlignment: MainAxisAlignment.start, // 关键：使图标顶部对齐
           crossAxisAlignment: CrossAxisAlignment.center, // 水平居中
           children: [
-            SizedBox(height: 20.w), // 可以增加一个顶部的内边距，让图标和按钮顶部有一点距离
+            SizedBox(height: 15.w), // 可以增加一个顶部的内边距，让图标和按钮顶部有一点距离
             ClipRRect(
                 borderRadius: BorderRadius.circular(10).w,
                 child: VigaAppNetworkImage(
                   imageUrl: widget.icon,
-                  width: 80.w,
-                  height: 80.w,
+                  width: 85.w,
+                  height: 85.w,
                   fit: BoxFit.cover, // 让图片完全填满圆形区域
                 )),
             SizedBox(height: 15.w), // 图标和标题之间的间距

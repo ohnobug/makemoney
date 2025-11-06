@@ -151,7 +151,7 @@ class _VigaCustomTabbarState extends State<VigaCustomTabbar>
                           ),
                         ),
                         child: TabBar(
-                          padding: EdgeInsets.only(bottom: 5.w),
+                          padding: EdgeInsets.only(bottom: 0.w),
                           controller: _tabController,
                           dividerColor: Colors.transparent,
                           labelColor:

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:vigaviga/features/miniprogram/viga_miniprogram_page.dart';
 
 // --- 所有的页面 Import 语句 (已全部保留) ---
 import 'package:vigaviga/features/payment/screens/viga_merchant_success_page.dart';
@@ -15,7 +16,6 @@ import 'package:vigaviga/screens/contract/viga_phone_contact_page.dart';
 import 'package:vigaviga/screens/contract/viga_search_friend_page.dart';
 import 'package:vigaviga/screens/discovery/viga_discovery_page.dart';
 import 'package:vigaviga/screens/discovery/viga_ins_page.dart';
-import 'package:vigaviga/screens/discovery/viga_miniprogram_page.dart';
 import 'package:vigaviga/screens/discovery/viga_miniprogram_list_page.dart';
 import 'package:vigaviga/features/webview/viga_webview_page.dart';
 import 'package:vigaviga/screens/discovery/viga_post_detail_page.dart';
@@ -198,7 +198,8 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/open_miniprogram',
       pageBuilder: (context, state) {
-        final cid = state.uri.queryParameters['cid'] ?? "";
+        final args = state.extra as Map<String, String>? ?? {};
+        final cid = args['cid'] ?? "";
         logger.info("Navigating to miniprogram with cid: $cid");
         return buildPageWithAnimation(
           child: VigaMiniProgram(

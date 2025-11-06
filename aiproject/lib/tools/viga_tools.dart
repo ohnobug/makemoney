@@ -14,7 +14,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:vigaviga/tools/viga_logger.dart';
 
 void openMiniprogram(BuildContext context, String cid) {
-  context.pushNamed("/open_miniprogram?cid=$cid");
+  context.push("/open_miniprogram", extra: {'cid': cid});
 }
 
 // 字体缩放

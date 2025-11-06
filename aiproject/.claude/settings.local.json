@@ -57,7 +57,8 @@
       "Bash(flutter analyze lib/screens/user/photo_viewer/viga_photo_viewer_page.dart)",
       "Bash(flutter analyze lib/screens/user/photo_viewer/viga_photo_grid_page.dart)",
       "Bash(flutter build apk --debug --no-tree-shake-icons)",
-      "Bash(flutter analyze:*)"
+      "Bash(flutter analyze:*)",
+      "Bash(flutter build apk --debug --analyze-size)"
     ],
     "deny": [],
     "ask": []

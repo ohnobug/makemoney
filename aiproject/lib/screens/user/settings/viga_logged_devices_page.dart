@@ -99,23 +99,25 @@ class _VigaLoggedDevicesPageState extends State<VigaLoggedDevicesPage> {
             body: ScrollConfiguration(
               behavior:
                   ScrollConfiguration.of(context).copyWith(scrollbars: false),
-              child: Container(
-                constraints: BoxConstraints(
-                  minHeight: MediaQuery.of(context).size.height -
-                      systemState.appbarHeight -
-                      systemState.statusHeight,
+              child: SingleChildScrollView(
+                physics: const AlwaysScrollableScrollPhysics(
+                  parent: BouncingScrollPhysics(),
                 ),
-                color: theme.colorScheme.surfaceContainer,
-                child: SingleChildScrollView(
-                  physics: const AlwaysScrollableScrollPhysics(
-                    parent: BouncingScrollPhysics(),
+                child: Container(
+                  constraints: BoxConstraints(
+                    minHeight: MediaQuery.of(context).size.height -
+                        systemState.appbarHeight -
+                        systemState.statusHeight,
                   ),
+                  color: theme.colorScheme.surfaceContainer,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
                         padding: EdgeInsets.symmetric(
-                            horizontal: 30.w, vertical: 20.w),
+                          horizontal: 30.w,
+                          vertical: 20.w,
+                        ),
                         child: Text(
                           l10n.manageLoginDevicesDescriptionFull,
                           style: TextStyle(

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/store/viga_user_cubit.dart';
+import 'package:vigaviga/tools/viga_tools.dart';
 import 'package:vigaviga/widgets/viga_alphabet.dart';
 import 'package:vigaviga/widgets/viga_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -182,8 +183,11 @@ class _VigaSettingPage extends State<VigaSettingPage> {
                             iconBackgroundColor:
                                 const Color(0xFFFF7043), // 活泼的深橙色
                             title: l10n.thirdPartyInfoSharingList,
-                            link:
-                                "/open_miniprogram?cid=bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi",
+                            link: "",
+                            onPress: () {
+                              openMiniprogram(context,
+                                  "bafkreig45s42bvvnhtfnmmsspsqmqewoief3odcxykm2aio36h3y5cz7yi");
+                            },
                             underline: false,
                           ),
                         ],

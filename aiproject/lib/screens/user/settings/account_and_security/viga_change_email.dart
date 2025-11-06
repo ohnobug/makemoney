@@ -6,6 +6,8 @@ import 'package:vigaviga/widgets/viga_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/store/viga_user_cubit.dart';
 import 'package:vigaviga/tools/viga_logger.dart';
+import 'package:vigaviga/widgets/viga_function_list.dart';
+import 'package:vigaviga/widgets/viga_max_width_button.dart';
 
 class VigaChangeEmailPage extends StatefulWidget {
   const VigaChangeEmailPage({super.key});
@@ -59,7 +61,7 @@ class _VigaChangeEmailPageState extends State<VigaChangeEmailPage> {
     final textTheme = theme.textTheme;
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: theme.colorScheme.surfaceContainer,
       appBar: VigaAppBar(
         title: '更换邮箱',
         actions: [
@@ -78,8 +80,8 @@ class _VigaChangeEmailPageState extends State<VigaChangeEmailPage> {
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Container(
-          color: Colors.white,
-          padding: EdgeInsets.symmetric(horizontal: 48.w, vertical: 40.h),
+          // color: Colors.white,
+          padding: EdgeInsets.symmetric(horizontal: 48.w, vertical: 40.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -89,14 +91,14 @@ class _VigaChangeEmailPageState extends State<VigaChangeEmailPage> {
                   color: theme.colorScheme.onSurfaceVariant,
                 ),
               ),
-              SizedBox(height: 30.h),
+              SizedBox(height: 30.w),
 
               // 用户ID信息
               _InfoRow(
                 label: l10n.vigavigaID,
                 value: userState.userinfoAccount ?? '',
               ),
-              SizedBox(height: 20.h),
+              SizedBox(height: 20.w),
 
               // 邮箱输入框 - 使用浮动标签样式
               _FormInputRow(
@@ -106,39 +108,52 @@ class _VigaChangeEmailPageState extends State<VigaChangeEmailPage> {
                 keyboardType: TextInputType.emailAddress,
                 obscureText: false,
               ),
-              SizedBox(height: 30.h),
+              SizedBox(height: 30.w),
 
               // 按钮区域
-              SizedBox(
-                width: double.infinity,
-                height: 50.h,
-                child: ElevatedButton(
-                  onPressed: _isEmailValid
-                      ? () {
-                          logger.info('下一步，邮箱是: ${_emailController.text}');
-                          context.push('/settings/verify_email_screen');
-                        }
-                      : null,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: theme.colorScheme.primary,
-                    disabledBackgroundColor: const Color(0xFFF5F5F5),
-                    foregroundColor: Colors.white,
-                    disabledForegroundColor: Colors.grey,
-                    elevation: 0,
-                    padding: EdgeInsets.symmetric(vertical: 14.h),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8.r),
+              VigaFunctionList(
+                children: [
+                  VigaMaxWidthButton(
+                    title: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          width: 60.w,
+                          height: 60.w,
+                          // color: AppColors.accentRedPure,
+                          alignment: Alignment.center,
+                          child: Icon(
+                            const IconData(
+                              0xe7b3,
+                              fontFamily: 'Iconfont',
+                            ),
+                            color: theme.colorScheme.onSurface,
+                            size: 38.w,
+                          ),
+                        ),
+                        // SizedBox(width: 12.w),
+                        Text(
+                          l10n.nextStep,
+                          style: TextStyle(
+                            height: 1.08,
+                            fontSize: 30.w,
+                            color: theme.colorScheme.onSurface,
+                          ),
+                        )
+                      ],
                     ),
+                    underline: false,
+                    onPressed: () {
+                      if (_isEmailValid) {
+                        logger.info('下一步，邮箱是: ${_emailController.text}');
+                        context.push('/settings/verify_email_screen');
+                      }
+                    },
                   ),
-                  child: Text(
-                    l10n.nextStep,
-                    style: TextStyle(
-                      fontSize: 18.sp,
-                    ),
-                  ),
-                ),
+                ],
               ),
-              SizedBox(height: 40.h),
+              SizedBox(height: 40.w),
             ],
           ),
         ),

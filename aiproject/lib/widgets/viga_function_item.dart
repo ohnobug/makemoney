@@ -134,8 +134,8 @@ class _VigaFunctionItemState extends State<VigaFunctionItem> {
                 clipBehavior: Clip.antiAlias,
                 margin: widget.margin ??
                     const EdgeInsets.only(
-                      left: 25.0,
-                      right: 25.0,
+                      left: 20.0,
+                      right: 20.0,
                     ).w,
                 decoration: BoxDecoration(
                   color: widget.iconBackgroundColor,
@@ -220,7 +220,7 @@ class _VigaFunctionItemState extends State<VigaFunctionItem> {
                         height: widget.height ?? 105.0.w,
                         margin: const EdgeInsets.only(
                           left: 10,
-                          right: 32,
+                          right: 20,
                         ).w,
                         child: Icon(
                           const IconData(

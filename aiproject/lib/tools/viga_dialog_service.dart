@@ -104,7 +104,7 @@ class _PopupMenuDialog extends StatelessWidget {
                               VigaPopupMenuItem(
                                 title: l10n.addFriend,
                                 icon: const IconData(
-                                  0xe645,
+                                  0xe61f,
                                   fontFamily: "Iconfont",
                                 ),
                                 onTap: () {
