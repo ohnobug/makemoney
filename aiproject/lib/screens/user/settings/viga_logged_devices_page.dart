@@ -185,7 +185,6 @@ class _VigaLoggedDevicesPageState extends State<VigaLoggedDevicesPage> {
           ),
         Expanded(
           child: VigaSpecialFunctionItem(
-            // height: 130.w,
             title: device.name,
             link: _isEditing ? null : '/settings/device_detail',
             underline: true,
@@ -202,20 +201,18 @@ class _VigaLoggedDevicesPageState extends State<VigaLoggedDevicesPage> {
                   )
                 : null,
             showStyle: device.isCurrent
-                ? Expanded(
-                    flex: 0,
-                    child: Container(
-                      constraints: BoxConstraints(maxWidth: 375.w),
-                      child: Text(
-                        l10n.currentDevice,
-                        textAlign: TextAlign.end,
-                        maxLines: 1,
+                ? Container(
+                    constraints:
+                        BoxConstraints(maxWidth: 375.w, maxHeight: 140.w),
+                    child: Text(
+                      l10n.currentDevice,
+                      textAlign: TextAlign.end,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                        color: AppColors.neutralGrey37,
+                        fontSize: 28.w,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          color: AppColors.neutralGrey37,
-                          fontSize: 28.w,
-                          overflow: TextOverflow.ellipsis,
-                        ),
                       ),
                     ),
                   )

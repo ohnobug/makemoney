@@ -115,7 +115,7 @@ class _VigaServicesManagerPageState extends State<VigaServicesManagerPage> {
                                 VigaFunctionItem(
                                   title: l10n.creditCardRepayment,
                                   icon: "$cdnBase/icon/server_icon1.png",
-                                  link: '/discovery/qrcode_scanner',
+                                  link: '',
                                   // margin: EdgeInsets.symmetric(horizontal: 5.w),
                                   underline: true,
                                   showLinkIcon: false,
@@ -141,7 +141,7 @@ class _VigaServicesManagerPageState extends State<VigaServicesManagerPage> {
                                 VigaFunctionItem(
                                   title: l10n.weilidaiLoan,
                                   icon: "$cdnBase/icon/discovery_icon4.png",
-                                  link: '/discovery/qrcode_scanner',
+                                  link: '',
                                   // margin: const EdgeInsets.all(0),
                                   underline: true,
                                   showLinkIcon: false,
@@ -167,7 +167,7 @@ class _VigaServicesManagerPageState extends State<VigaServicesManagerPage> {
                                 VigaFunctionItem(
                                   title: l10n.licaitong,
                                   icon: "$cdnBase/icon/server_icon2.png",
-                                  link: '/discovery/qrcode_scanner',
+                                  link: '',
                                   // margin: const EdgeInsets.all(0),
                                   underline: true,
                                   showLinkIcon: false,
@@ -193,7 +193,7 @@ class _VigaServicesManagerPageState extends State<VigaServicesManagerPage> {
                                 VigaFunctionItem(
                                   title: l10n.insuranceService,
                                   icon: "$cdnBase/icon/server_icon3.png",
-                                  link: '/discovery/qrcode_scanner',
+                                  link: '',
                                   // margin: const EdgeInsets.all(0),
                                   underline: false,
                                   showLinkIcon: false,
@@ -224,7 +224,7 @@ class _VigaServicesManagerPageState extends State<VigaServicesManagerPage> {
                                 VigaFunctionItem(
                                   title: l10n.transportServices,
                                   icon: "$cdnBase/icon/server_icon10.png",
-                                  link: '/discovery/qrcode_scanner',
+                                  link: '',
                                   // margin: const EdgeInsets.all(0),
                                   underline: true,
                                   showLinkIcon: false,
@@ -250,7 +250,7 @@ class _VigaServicesManagerPageState extends State<VigaServicesManagerPage> {
                                 VigaFunctionItem(
                                   title: l10n.trainAndFlightTickets,
                                   icon: "$cdnBase/icon/server_icon11.png",
-                                  link: '/discovery/qrcode_scanner',
+                                  link: '',
                                   // margin: const EdgeInsets.all(0),
                                   underline: true,
                                   showLinkIcon: false,
@@ -276,7 +276,7 @@ class _VigaServicesManagerPageState extends State<VigaServicesManagerPage> {
                                 VigaFunctionItem(
                                   title: l10n.didiRideHailing,
                                   icon: "$cdnBase/icon/server_icon12.png",
-                                  link: '/discovery/qrcode_scanner',
+                                  link: '',
                                   // margin: const EdgeInsets.all(0),
                                   underline: true,
                                   showLinkIcon: false,
@@ -302,7 +302,7 @@ class _VigaServicesManagerPageState extends State<VigaServicesManagerPage> {
                                 VigaFunctionItem(
                                   title: l10n.hotelAndBAndB,
                                   icon: "$cdnBase/icon/server_icon122.png",
-                                  link: '/discovery/qrcode_scanner',
+                                  link: '',
                                   // margin: const EdgeInsets.all(0),
                                   underline: false,
                                   showLinkIcon: false,
@@ -334,7 +334,7 @@ class _VigaServicesManagerPageState extends State<VigaServicesManagerPage> {
                                   VigaFunctionItem(
                                     title: l10n.brandDiscovery,
                                     icon: "$cdnBase/icon/server_icon13.png",
-                                    link: '/discovery/qrcode_scanner',
+                                    link: '',
                                     // margin: const EdgeInsets.all(0),
                                     underline: true,
                                     showLinkIcon: false,
@@ -360,7 +360,7 @@ class _VigaServicesManagerPageState extends State<VigaServicesManagerPage> {
                                   VigaFunctionItem(
                                     title: l10n.jdShopping,
                                     icon: "$cdnBase/icon/server_icon14.png",
-                                    link: '/discovery/qrcode_scanner',
+                                    link: '',
                                     // margin: const EdgeInsets.all(0),
                                     underline: true,
                                     showLinkIcon: false,
@@ -386,7 +386,7 @@ class _VigaServicesManagerPageState extends State<VigaServicesManagerPage> {
                                   VigaFunctionItem(
                                     title: l10n.meituanWaimai,
                                     icon: "$cdnBase/icon/server_icon15.png",
-                                    link: '/discovery/qrcode_scanner',
+                                    link: '',
                                     // margin: const EdgeInsets.all(0),
                                     underline: true,
                                     showLinkIcon: false,
@@ -412,7 +412,7 @@ class _VigaServicesManagerPageState extends State<VigaServicesManagerPage> {
                                   VigaFunctionItem(
                                     title: l10n.movieTicketsAndEntertainment,
                                     icon: "$cdnBase/icon/server_icon16.png",
-                                    link: '/discovery/qrcode_scanner',
+                                    link: '',
                                     // margin: const EdgeInsets.all(0),
                                     underline: true,
                                     showLinkIcon: false,
@@ -438,7 +438,7 @@ class _VigaServicesManagerPageState extends State<VigaServicesManagerPage> {
                                   VigaFunctionItem(
                                     title: l10n.meituanSpecialOffers,
                                     icon: "$cdnBase/icon/server_icon15.png",
-                                    link: '/discovery/qrcode_scanner',
+                                    link: '',
                                     // margin: const EdgeInsets.all(0),
                                     underline: true,
                                     showLinkIcon: false,
@@ -464,7 +464,7 @@ class _VigaServicesManagerPageState extends State<VigaServicesManagerPage> {
                                   VigaFunctionItem(
                                     title: l10n.pinduoduo,
                                     icon: "$cdnBase/icon/server_icon18.png",
-                                    link: '/discovery/qrcode_scanner',
+                                    link: '',
                                     // margin: const EdgeInsets.all(0),
                                     underline: true,
                                     showLinkIcon: false,
@@ -490,7 +490,7 @@ class _VigaServicesManagerPageState extends State<VigaServicesManagerPage> {
                                   VigaFunctionItem(
                                     title: l10n.vipshop,
                                     icon: "$cdnBase/icon/server_icon19.png",
-                                    link: '/discovery/qrcode_scanner',
+                                    link: '',
                                     // margin: const EdgeInsets.all(0),
                                     underline: true,
                                     showLinkIcon: false,
@@ -516,7 +516,7 @@ class _VigaServicesManagerPageState extends State<VigaServicesManagerPage> {
                                   VigaFunctionItem(
                                     title: l10n.zhuanzhuanUsedGoods,
                                     icon: "$cdnBase/icon/server_icon20.png",
-                                    link: '/discovery/qrcode_scanner',
+                                    link: '',
                                     // margin: const EdgeInsets.all(0),
                                     underline: false,
                                     showLinkIcon: false,
