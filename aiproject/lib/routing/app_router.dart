@@ -12,6 +12,7 @@ import 'package:vigaviga/screens/contract/viga_friends_who_only_chat_page.dart';
 import 'package:vigaviga/screens/contract/viga_new_friends_page.dart';
 import 'package:vigaviga/screens/contract/viga_official_accounts_page.dart';
 import 'package:vigaviga/screens/contract/viga_search_friend_page.dart';
+import 'package:vigaviga/screens/discovery/viga_discovery_page.dart';
 import 'package:vigaviga/screens/discovery/viga_ins_page.dart';
 import 'package:vigaviga/screens/discovery/viga_miniprogram_page.dart';
 import 'package:vigaviga/screens/discovery/viga_miniprogram_list_page.dart';
@@ -554,9 +555,29 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
         path: '/discovery',
         pageBuilder: (c, s) => buildPageWithAnimation(
-              child: const VigaInsPage(),
+              child: const VigaDiscoveryPage(),
             ),
         routes: [
+          GoRoute(
+              path: 'ins',
+              pageBuilder: (context, state) {
+                return buildPageWithAnimation(
+                  child: VigaInsPage(),
+                );
+              },
+              routes: [
+                GoRoute(
+                  path: 'post_detail_page',
+                  pageBuilder: (context, state) {
+                    final args = state.extra as PostDetailData?;
+                    return buildPageWithAnimation(
+                      child: VigaPostDetailPage(
+                        postData: args ?? _createDefaultPostData(),
+                      ),
+                    );
+                  },
+                ),
+              ]),
           GoRoute(
             path: 'search',
             pageBuilder: (c, s) => buildPageWithoutAnimation(
@@ -581,24 +602,6 @@ final GoRouter appRouter = GoRouter(
               child: const VigaQRCodeScanner(),
             ),
           ),
-          GoRoute(
-              // 多层嵌套示例: /discovery/ins/post_detail_page
-              path: 'ins',
-              redirect: (context, state) => '/discovery',
-              builder: (context, state) => const SizedBox.shrink(),
-              routes: [
-                GoRoute(
-                  path: 'post_detail_page',
-                  pageBuilder: (context, state) {
-                    final args = state.extra as PostDetailData?;
-                    return buildPageWithAnimation(
-                      child: VigaPostDetailPage(
-                        postData: args ?? _createDefaultPostData(),
-                      ),
-                    );
-                  },
-                ),
-              ]),
         ]),
 
     // --- 搜索结果页面 ---

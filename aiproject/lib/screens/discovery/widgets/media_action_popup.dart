@@ -1,4 +1,5 @@
 // G:\t\detection\aiproject\lib\screens\discovery\widgets\media_action_popup.dart
+// 媒体操作弹出框 - 长按媒体项时显示的交互界面
 
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -9,13 +10,30 @@ import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:vigaviga/store/viga_system_cubit.dart';
 import 'package:vigaviga/widgets/viga_app_network_image.dart';
 
-// 枚举保持不变
-enum MediaAction { like, speed, favorite, download, share, viewHomepage, none }
+// =========================================================================
+// 枚举定义
+// =========================================================================
 
+/// 媒体操作类型枚举
+enum MediaAction {
+  like, // 点赞
+  speed, // 倍速播放
+  favorite, // 收藏
+  download, // 下载
+  share, // 分享
+  viewHomepage, // 查看主页
+  none // 无操作
+}
+
+// =========================================================================
+// 媒体操作弹出框组件
+// =========================================================================
+
+/// 媒体操作弹出框 - 显示媒体预览和操作按钮
 class MediaActionPopup extends StatefulWidget {
-  final bool isVideo;
-  final String mediaUrl;
-  final double aspectRatio;
+  final bool isVideo; // 是否为视频
+  final String mediaUrl; // 媒体URL
+  final double aspectRatio; // 媒体宽高比
 
   const MediaActionPopup({
     super.key,
@@ -169,7 +187,7 @@ class MediaActionPopupState extends State<MediaActionPopup> {
 
   @override
   Widget build(BuildContext context) {
-    final horizontalPadding = 32.0.w;
+    final horizontalPadding = 10.0.w;
     final popupWidth = 750.w - (horizontalPadding * 2);
     final imageDisplayHeight = popupWidth / widget.aspectRatio;
 
@@ -309,8 +327,8 @@ class MediaActionPopupState extends State<MediaActionPopup> {
         opacity: _showSpeedMenu ? 0.0 : 1.0,
         child: Container(
           key: _buttonKeys[action],
-          width: 70.w,
-          height: 70.w,
+          width: 80.w,
+          height: 80.w,
           decoration: BoxDecoration(
             color: Colors.grey[200],
             borderRadius: BorderRadius.circular(10.r),
@@ -318,7 +336,7 @@ class MediaActionPopupState extends State<MediaActionPopup> {
           child: Icon(
             icon,
             color: isActive ? Colors.red : Colors.grey[800],
-            size: 50.w,
+            size: 60.w,
           ),
         ),
       );
@@ -326,8 +344,8 @@ class MediaActionPopupState extends State<MediaActionPopup> {
 
     return Container(
       key: _buttonKeys[action],
-      width: 70.w,
-      height: 70.w,
+      width: 80.w,
+      height: 80.w,
       decoration: BoxDecoration(
         color: isActive ? Colors.red : Colors.grey[200],
         borderRadius: BorderRadius.circular(10.r),
@@ -335,7 +353,7 @@ class MediaActionPopupState extends State<MediaActionPopup> {
       child: Icon(
         icon,
         color: isActive ? Colors.white : Colors.grey[800],
-        size: 50.w,
+        size: 60.w,
       ),
     );
   }

@@ -37,6 +37,8 @@ class _VigaArtsPageState extends State<VigaArtsPage>
   // ############### 1. 新增状态标志 ###############
   // 用于记录用户离开前视频是否在播放
   bool _wasPlaying = false;
+  // 记录切换标签页前的播放状态
+  bool _wasPlayingBeforeTabSwitch = false;
   // #########################################
 
   bool _isPanelOpen = false;
@@ -82,11 +84,22 @@ class _VigaArtsPageState extends State<VigaArtsPage>
   @override
   bool get wantKeepAlive => true;
 
-  // ############### 2. 核心修改：deactivate 和 activate ###############
+  // ############### 2. 核心修改：监听Tab切换并控制视频播放 ###############
   @override
   void deactivate() {
     // 当页面变为不活动时（例如切换Tab）
     super.deactivate();
+    _handleTabInactive();
+  }
+
+  @override
+  void activate() {
+    // 当页面被重新激活时
+    super.activate();
+    _handleTabActive();
+  }
+
+  void _handleTabInactive() {
     // 1. 记录下当前视频是否正在播放
     if (_currentVideoController?.value.isInitialized ?? false) {
       _wasPlaying = _currentVideoController!.value.isPlaying;
@@ -95,10 +108,7 @@ class _VigaArtsPageState extends State<VigaArtsPage>
     _currentVideoController?.pause();
   }
 
-  @override
-  void activate() {
-    // 当页面被重新激活时
-    super.activate();
+  void _handleTabActive() {
     // 3. 重置状态栏样式，确保视觉正确
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
@@ -453,6 +463,20 @@ class _VigaArtsPageState extends State<VigaArtsPage>
         'build called - _hideVideoInfo: $_hideVideoInfo, _isPanelOpen: $_isPanelOpen, _isCommentPanel: $_isCommentPanel');
     return BlocBuilder<VigaSystemCubit, SystemState>(
       builder: (context, systemState) {
+        // 监听Tab切换，当不在arts标签页时暂停视频并记录状态
+        if (systemState.mainTabIndex != 0) {
+          if (_currentVideoController?.value.isPlaying ?? false) {
+            _wasPlayingBeforeTabSwitch = true;
+            _currentVideoController?.pause();
+          }
+        } else {
+          // 当切换回arts标签页时，如果之前是播放状态则恢复播放
+          if (_wasPlayingBeforeTabSwitch && !(_currentVideoController?.value.isPlaying ?? false)) {
+            _currentVideoController?.play();
+            _wasPlayingBeforeTabSwitch = false;
+          }
+        }
+
         final viewPadding = MediaQuery.of(context).padding;
         final screenHeight = systemState.screenSize.height;
         final screenWidth = systemState.screenSize.width;

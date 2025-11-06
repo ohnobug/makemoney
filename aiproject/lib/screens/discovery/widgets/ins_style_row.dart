@@ -9,11 +9,15 @@ import 'package:vigaviga/tools/viga_logger.dart';
 import 'package:vigaviga/widgets/viga_app_network_image.dart';
 import 'media_action_popup.dart';
 
-// 新的数据模型
+// =========================================================================
+// 数据模型和枚举定义
+// =========================================================================
+
+/// 媒体项数据模型
 class MediaItem {
-  final bool isVideo;
-  final String thumbnailUrl;
-  final String mediaUrl;
+  final bool isVideo; // 是否为视频
+  final String thumbnailUrl; // 缩略图URL
+  final String mediaUrl; // 媒体URL（视频或图片）
   MediaItem({
     required this.isVideo,
     required this.thumbnailUrl,
@@ -21,22 +25,31 @@ class MediaItem {
   });
 }
 
-// 定义布局类型
-enum RowLayoutType { videoFirst, videoMiddle, videoLast }
+/// 行布局类型枚举
+enum RowLayoutType {
+  videoFirst, // 视频在左侧
+  videoMiddle, // 视频在中间
+  videoLast // 视频在右侧
+}
 
+// =========================================================================
+// 行组件 - 瀑布流中的单行
+// =========================================================================
+
+/// 瀑布流行组件 - 每行包含5个媒体项，支持三种布局类型
 class InsStyleRow extends StatelessWidget {
-  final List<MediaItem> items;
-  final RowLayoutType layoutType;
-  final bool canPlay; // 【新增】
-  final ValueChanged<MediaItem>? onItemTap;
-  final ValueChanged<MediaItem>? onCommentTap;
-  final bool isCommentPanelOpen;
+  final List<MediaItem> items; // 媒体项列表（必须为5个）
+  final RowLayoutType layoutType; // 布局类型
+  final bool canPlay; // 是否允许播放视频
+  final ValueChanged<MediaItem>? onItemTap; // 媒体项点击回调
+  final ValueChanged<MediaItem>? onCommentTap; // 评论点击回调
+  final bool isCommentPanelOpen; // 评论面板是否打开
 
   const InsStyleRow({
     super.key,
     required this.items,
     required this.layoutType,
-    required this.canPlay, // 【新增】
+    required this.canPlay,
     this.onItemTap,
     this.onCommentTap,
     this.isCommentPanelOpen = false,
@@ -44,10 +57,12 @@ class InsStyleRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // 数据验证 - 必须包含5个媒体项
     if (items.length != 5) {
       return SizedBox(height: 250.w, child: const Center(child: Text("数据错误")));
     }
-    // 【修改】将 canPlay 传递给 _MediaTile
+
+    // 构建大媒体项（通常是视频）
     final bigItem = _MediaTile(
       item: items[0],
       isBig: true,
@@ -55,6 +70,8 @@ class InsStyleRow extends StatelessWidget {
       onTap: () => onItemTap?.call(items[0]),
       isCommentPanelOpen: isCommentPanelOpen,
     );
+
+    // 构建第一组小媒体项（垂直排列）
     final smallItems1 = Column(children: [
       Expanded(
           child: _MediaTile(
@@ -72,6 +89,8 @@ class InsStyleRow extends StatelessWidget {
         isCommentPanelOpen: isCommentPanelOpen,
       )),
     ]);
+
+    // 构建第二组小媒体项（垂直排列）
     final smallItems2 = Column(children: [
       Expanded(
           child: _MediaTile(
@@ -89,27 +108,31 @@ class InsStyleRow extends StatelessWidget {
         isCommentPanelOpen: isCommentPanelOpen,
       )),
     ]);
+
+    // 根据布局类型组合组件
     final List<Widget> widgets;
     switch (layoutType) {
       case RowLayoutType.videoFirst:
-        widgets = [bigItem, smallItems1, smallItems2];
+        widgets = [bigItem, smallItems1, smallItems2]; // 大项在左侧
         break;
       case RowLayoutType.videoMiddle:
-        widgets = [smallItems1, bigItem, smallItems2];
+        widgets = [smallItems1, bigItem, smallItems2]; // 大项在中间
         break;
       case RowLayoutType.videoLast:
-        widgets = [smallItems1, smallItems2, bigItem];
+        widgets = [smallItems1, smallItems2, bigItem]; // 大项在右侧
         break;
     }
+
+    // 返回固定高度的行容器
     return SizedBox(
       height: 500.w,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Expanded(child: widgets[0]),
-          SizedBox(width: 2.w),
+          SizedBox(width: 2.w), // 列间距
           Expanded(child: widgets[1]),
-          SizedBox(width: 2.w),
+          SizedBox(width: 2.w), // 列间距
           Expanded(child: widgets[2]),
         ],
       ),
@@ -117,13 +140,17 @@ class InsStyleRow extends StatelessWidget {
   }
 }
 
-class _MediaTile extends StatefulWidget {
-  final MediaItem item;
-  final bool isBig;
-  final bool canPlay;
-  final VoidCallback? onTap;
+// =========================================================================
+// 单个媒体项组件
+// =========================================================================
 
-  final bool isCommentPanelOpen;
+/// 单个媒体项组件 - 支持图片和视频，包含手势操作
+class _MediaTile extends StatefulWidget {
+  final MediaItem item; // 媒体数据
+  final bool isBig; // 是否为大尺寸
+  final bool canPlay; // 是否允许播放视频
+  final VoidCallback? onTap; // 点击回调
+  final bool isCommentPanelOpen; // 评论面板状态
 
   const _MediaTile({
     required this.item,
@@ -137,9 +164,12 @@ class _MediaTile extends StatefulWidget {
 }
 
 class _MediaTileState extends State<_MediaTile> {
-  OverlayEntry? _overlayEntry;
-  final GlobalKey<MediaActionPopupState> _popupKey = GlobalKey();
-  double? _realAspectRatio;
+  // 手势操作相关
+  OverlayEntry? _overlayEntry; // 弹出框覆盖层
+  final GlobalKey<MediaActionPopupState> _popupKey = GlobalKey(); // 弹出框状态管理
+
+  // 媒体信息
+  double? _realAspectRatio; // 实际媒体宽高比
 
   @override
   void initState() {
@@ -314,11 +344,16 @@ class _MediaTileState extends State<_MediaTile> {
   }
 }
 
+// =========================================================================
+// 视频预览组件
+// =========================================================================
+
+/// 视频预览组件 - 处理视频播放和显示
 class _VideoTilePreview extends StatefulWidget {
-  final String videoUrl;
-  final String thumbnailUrl;
-  final bool canPlay;
-  final bool isCommentPanelOpen;
+  final String videoUrl; // 视频URL
+  final String thumbnailUrl; // 缩略图URL
+  final bool canPlay; // 是否允许播放
+  final bool isCommentPanelOpen; // 评论面板状态
 
   const _VideoTilePreview({
     required this.videoUrl,

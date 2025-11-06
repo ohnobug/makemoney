@@ -151,7 +151,7 @@ class _VigaCustomTabbarState extends State<VigaCustomTabbar>
                           ),
                         ),
                         child: TabBar(
-                          padding: EdgeInsets.only(bottom: 10.w),
+                          padding: EdgeInsets.only(bottom: 5.w),
                           controller: _tabController,
                           dividerColor: Colors.transparent,
                           labelColor:
@@ -188,6 +188,7 @@ class _VigaCustomTabbarState extends State<VigaCustomTabbar>
                       ),
                     ),
                     appBar: null,
+                    
                     body: TabBarView(
                       controller: _tabController,
                       physics: const NeverScrollableScrollPhysics(),

@@ -531,26 +531,13 @@ class _VigaSearch extends State<VigaSearchPage> with TickerProviderStateMixin {
 
     return ListView.builder(
       physics: const NeverScrollableScrollPhysics(),
-      padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 20.w),
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 20.w),
       itemCount: itemsToShow + 1, // +1 for the button
       itemBuilder: (context, index) {
         if (index == itemsToShow) {
-          return GestureDetector(
+          return _ViewFullListButton(
             onTap: () {}, // Placeholder for future action
-            child: Container(
-              height: 80.w,
-              margin: EdgeInsets.only(top: 10.w),
-              decoration: BoxDecoration(
-                  color: Color(0xFFFDEEEE),
-                  borderRadius: BorderRadius.circular(8.w)),
-              child: Center(
-                child: Text(l10n.viewFullList,
-                    style: TextStyle(
-                        color: Color(0xFFEE7272),
-                        fontWeight: FontWeight.bold,
-                        fontSize: 28.w)),
-              ),
-            ),
+            text: l10n.viewFullList,
           );
         }
 
@@ -571,67 +558,87 @@ class _VigaSearch extends State<VigaSearchPage> with TickerProviderStateMixin {
           default:
             rankColor = Colors.grey.shade400;
         }
-        return GestureDetector(
+        return _HotListItem(
+          item: item,
+          rank: rank,
+          rankColor: rankColor,
+          number: number,
+          compactFormatter: compactFormatter,
           onTap: () => _executeSearch(item.text),
-          child: Container(
-            height: 90.w,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(10.w)),
-              gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [
-                  rank <= 3 ? Color(0xFFFDEEEE) : Colors.grey.shade50,
-                  Colors.white
-                ],
-              ),
-            ),
-            padding: EdgeInsets.symmetric(horizontal: 30.w),
-            margin: EdgeInsets.only(bottom: 2.w),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                    width: 60.w,
-                    alignment: Alignment.centerLeft,
-                    child: Text('$rank',
-                        style: TextStyle(
-                            fontSize: 34.w,
-                            fontWeight: FontWeight.bold,
-                            color: rankColor))),
-                Expanded(
-                  child: Text.rich(
-                    TextSpan(children: [
-                      TextSpan(
-                          text: item.text,
-                          style: TextStyle(
-                              fontSize: 30.w,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black87)),
-                      if (item.isHot)
-                        WidgetSpan(
-                          alignment: PlaceholderAlignment.middle,
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 8.w),
-                            child: Icon(
-                                const IconData(0xe71e, fontFamily: 'Iconfont'),
-                                color: AppColors.accentRedPure,
-                                size: 30.w),
-                          ),
-                        ),
-                    ]),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                  ),
-                ),
-                Text(compactFormatter.format(number),
-                    style:
-                        TextStyle(fontSize: 25.w, color: Colors.grey.shade400)),
-              ],
-            ),
-          ),
         );
       },
+    );
+  }
+}
+
+class _ViewFullListButton extends StatefulWidget {
+  final VoidCallback onTap;
+  final String text;
+
+  const _ViewFullListButton({
+    required this.onTap,
+    required this.text,
+  });
+
+  @override
+  State<_ViewFullListButton> createState() => __ViewFullListButtonState();
+}
+
+class __ViewFullListButtonState extends State<_ViewFullListButton> {
+  bool _isPressed = false;
+
+  @override
+  Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+    Color normalColor = Color(0xFFFDEEEE);
+    Color pressedColor = theme.listTileTheme.selectedTileColor ??
+        Color(0xFFFDEEEE).withAlpha(150);
+
+    Color currentColor = _isPressed ? pressedColor : normalColor;
+
+    return GestureDetector(
+      onTapDown: (_) {
+        setState(() {
+          _isPressed = true;
+        });
+      },
+      onTapCancel: () {
+        Future.delayed(const Duration(milliseconds: 50), () {
+          if (mounted) {
+            setState(() {
+              _isPressed = false;
+            });
+          }
+        });
+      },
+      onTapUp: (tapDownDetails) {
+        Future.delayed(const Duration(milliseconds: 50), () {
+          if (mounted) {
+            setState(() {
+              _isPressed = false;
+            });
+            widget.onTap();
+          }
+        });
+      },
+      child: Container(
+        height: 80.w,
+        margin: EdgeInsets.only(top: 10.w),
+        decoration: BoxDecoration(
+          color: currentColor,
+          borderRadius: BorderRadius.circular(8.w),
+        ),
+        child: Center(
+          child: Text(
+            widget.text,
+            style: TextStyle(
+              color: Color(0xFFEE7272),
+              fontWeight: FontWeight.bold,
+              fontSize: 28.w,
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -649,4 +656,134 @@ class _SliverTabBarDelegate extends SliverPersistentHeaderDelegate {
       Container(color: Colors.white, child: tabBar);
   @override
   bool shouldRebuild(_SliverTabBarDelegate oldDelegate) => false;
+}
+
+class _HotListItem extends StatefulWidget {
+  final _SearchItemData item;
+  final int rank;
+  final Color rankColor;
+  final double number;
+  final NumberFormat compactFormatter;
+  final VoidCallback onTap;
+
+  const _HotListItem({
+    required this.item,
+    required this.rank,
+    required this.rankColor,
+    required this.number,
+    required this.compactFormatter,
+    required this.onTap,
+  });
+
+  @override
+  State<_HotListItem> createState() => __HotListItemState();
+}
+
+class __HotListItemState extends State<_HotListItem> {
+  bool _isPressed = false;
+
+  @override
+  Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+
+    Color normalColor = theme.listTileTheme.tileColor!;
+    Color pressedColor = theme.listTileTheme.selectedTileColor!;
+    Color currentColor = _isPressed ? pressedColor : normalColor;
+
+    return GestureDetector(
+      onTapDown: (_) {
+        setState(() {
+          _isPressed = true;
+        });
+      },
+      onTapCancel: () {
+        Future.delayed(const Duration(milliseconds: 50), () {
+          if (mounted) {
+            setState(() {
+              _isPressed = false;
+            });
+          }
+        });
+      },
+      onTapUp: (tapDownDetails) {
+        Future.delayed(const Duration(milliseconds: 50), () {
+          if (mounted) {
+            setState(() {
+              _isPressed = false;
+            });
+            widget.onTap();
+          }
+        });
+      },
+      child: Container(
+        height: 90.w,
+        decoration: BoxDecoration(
+          color: currentColor,
+          borderRadius: BorderRadius.all(Radius.circular(10.w)),
+          gradient: _isPressed ? null : LinearGradient(
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            colors: [
+              widget.rank <= 3 ? Color(0xFFFDEEEE) : Colors.grey.shade50,
+              Colors.white
+            ],
+          ),
+        ),
+        padding: EdgeInsets.symmetric(horizontal: 5.w),
+        margin: EdgeInsets.only(bottom: 2.w),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Container(
+              width: 80.w,
+              alignment: Alignment.center,
+              child: Text(
+                '${widget.rank}',
+                style: TextStyle(
+                  fontSize: 34.w,
+                  fontWeight: FontWeight.bold,
+                  color: widget.rankColor,
+                ),
+              ),
+            ),
+            Expanded(
+              child: Text.rich(
+                TextSpan(children: [
+                  TextSpan(
+                    text: widget.item.text,
+                    style: TextStyle(
+                      fontSize: 30.w,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.black87,
+                    ),
+                  ),
+                  if (widget.item.isHot)
+                    WidgetSpan(
+                      alignment: PlaceholderAlignment.middle,
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 8.w),
+                        child: Icon(
+                          const IconData(0xe71e, fontFamily: 'Iconfont'),
+                          color: AppColors.accentRedPure,
+                          size: 30.w,
+                        ),
+                      ),
+                    ),
+                ]),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+              ),
+            ),
+            Text(
+              widget.compactFormatter.format(widget.number),
+              style: TextStyle(
+                fontSize: 25.w,
+                color: Colors.grey.shade400,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
