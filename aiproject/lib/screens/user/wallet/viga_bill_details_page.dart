@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/viga_appbar.dart';
@@ -82,7 +83,15 @@ class _VigaBillDetailsPage extends State<VigaBillDetailsPage>
               title: l10n.bill,
               actions: [
                 VigaAppBarActionTextButton(
-                  onTap: () {},
+                  onTap: () {
+                    context.push(
+                      '/webview',
+                      extra: {
+                        'url': 'https://help.vigaviga.com', // Vue开发服务器地址
+                        'title': l10n.helpAndFeedback,
+                      },
+                    );
+                  },
                   title: l10n.faq,
                 ),
               ],

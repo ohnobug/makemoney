@@ -106,7 +106,10 @@ class _VigaFriendsWhoOnlyChatState extends State<VigaFriendsWhoOnlyChatPage> {
             child: Column(
               children: [
                 // 搜索栏
-                VigaSearch(link: '/search', title: l10n.search), // 使用 l10n
+                VigaSearch(
+                  link: '/search',
+                  title: l10n.search,
+                ),
 
                 Expanded(
                   child: ColoredBox(

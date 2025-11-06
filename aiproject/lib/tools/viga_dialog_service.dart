@@ -96,7 +96,7 @@ class _PopupMenuDialog extends StatelessWidget {
                                 title: l10n.startGroupChat,
                                 icon: const IconData(
                                   0xe676,
-                                  fontFamily: "iconfont",
+                                  fontFamily: "Iconfont",
                                 ),
                                 onTap: () => context.pop(),
                               ),
@@ -105,7 +105,7 @@ class _PopupMenuDialog extends StatelessWidget {
                                 title: l10n.addFriend,
                                 icon: const IconData(
                                   0xe645,
-                                  fontFamily: "iconfont",
+                                  fontFamily: "Iconfont",
                                 ),
                                 onTap: () {
                                   context.pop();
@@ -119,7 +119,7 @@ class _PopupMenuDialog extends StatelessWidget {
                                 title: l10n.scan,
                                 icon: const IconData(
                                   0xe635,
-                                  fontFamily: "iconfont",
+                                  fontFamily: "Iconfont",
                                 ),
                                 onTap: () {
                                   context.pop();
@@ -133,7 +133,7 @@ class _PopupMenuDialog extends StatelessWidget {
                                 title: l10n.payment,
                                 icon: const IconData(
                                   0xe611,
-                                  fontFamily: "iconfont",
+                                  fontFamily: "Iconfont",
                                 ),
                                 onTap: () {
                                   context.pop();

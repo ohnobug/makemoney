@@ -9,9 +9,12 @@ class VigaStorageService {
   // 保存用户状态
   static Future<void> saveUserState(Map<String, dynamic> stateMap) async {
     try {
+      logger.info('VigaStorageService: 开始保存用户状态');
       final prefs = await SharedPreferences.getInstance();
       final stateJson = _encodeState(stateMap);
-      await prefs.setString(_userStateKey, stateJson);
+      logger.info('VigaStorageService: 编码后的状态JSON: $stateJson');
+      final result = await prefs.setString(_userStateKey, stateJson);
+      logger.info('VigaStorageService: 保存结果: $result');
     } catch (e) {
       logger.warning('保存用户状态失败: $e');
     }
@@ -20,11 +23,17 @@ class VigaStorageService {
   // 加载用户状态
   static Future<Map<String, dynamic>?> loadUserState() async {
     try {
+      logger.info('VigaStorageService: 开始加载用户状态');
       final prefs = await SharedPreferences.getInstance();
       final savedState = prefs.getString(_userStateKey);
+      logger.info('VigaStorageService: 从存储中读取的状态: $savedState');
 
       if (savedState != null) {
-        return _decodeState(savedState);
+        final decodedState = _decodeState(savedState);
+        logger.info('VigaStorageService: 解码后的状态: $decodedState');
+        return decodedState;
+      } else {
+        logger.info('VigaStorageService: 没有找到保存的状态');
       }
     } catch (e) {
       logger.warning('加载用户状态失败: $e');

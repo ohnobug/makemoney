@@ -198,14 +198,6 @@ class _VigaWalletPage extends State<VigaWalletPage> {
                         title: l10n.bankCards,
                         icon: "$cdnBase/icon/discovery_icon3.png",
                         link: '',
-                        underline: true,
-                      ),
-
-                      // 扫一扫、听一听
-                      VigaFunctionItem(
-                        title: l10n.familyCard,
-                        icon: "$cdnBase/icon/discovery_icon4.png",
-                        link: '',
                         underline: false,
                       ),
                     ],
@@ -217,18 +209,6 @@ class _VigaWalletPage extends State<VigaWalletPage> {
                       VigaFunctionItem(
                         title: l10n.paymentScore,
                         icon: "$cdnBase/icon/discovery_icon5.png",
-                        link: '',
-                        underline: false,
-                      ),
-                    ],
-                  ),
-
-                  // 消费者保护
-                  VigaFunctionList(
-                    children: [
-                      VigaFunctionItem(
-                        title: l10n.consumerProtection,
-                        icon: "$cdnBase/icon/discovery_icon6.png",
                         link: '',
                         underline: false,
                       ),

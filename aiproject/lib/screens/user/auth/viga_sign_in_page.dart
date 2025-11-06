@@ -58,8 +58,12 @@ class _VigaSignInPageState extends State<VigaSignInPage> {
     final userCubit = context.read<VigaUserCubit>();
     userCubit.login(
       userId: 'user_${_emailController.text}',
-      authToken: 'token_${DateTime.now().millisecondsSinceEpoch}',
+      account: 'TheMonsterClub',
       phone: _emailController.text,
+      avatar: "https://cdn.vigaviga.com/avatar/my.jpg",
+      walletBalance: 2056.98,
+      walletFoundationBalance: 100.85,
+      authToken: 'token_${DateTime.now().millisecondsSinceEpoch}',
       name: '用户${_emailController.text.trim()}',
     );
 

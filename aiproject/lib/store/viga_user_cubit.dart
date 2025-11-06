@@ -11,11 +11,16 @@ class VigaUserCubit extends Cubit<UserState> {
   // 加载保存的用户状态
   Future<void> _loadSavedUserState() async {
     try {
+      logger.info('开始加载用户状态...');
       final savedState = await VigaStorageService.loadUserState();
 
       if (savedState != null) {
+        logger.info('找到保存的用户状态: $savedState');
         final loadedState = UserState.fromJson(savedState);
         emit(loadedState);
+        logger.info('用户状态加载完成，登录状态: ${loadedState.isLoggedIn}');
+      } else {
+        logger.info('没有找到保存的用户状态');
       }
     } catch (e) {
       // 如果加载失败，保持默认状态
@@ -27,7 +32,9 @@ class VigaUserCubit extends Cubit<UserState> {
   Future<void> _saveUserState() async {
     try {
       final stateMap = state.toJson();
+      logger.info('保存用户状态: $stateMap');
       await VigaStorageService.saveUserState(stateMap);
+      logger.info('用户状态保存完成');
     } catch (e) {
       logger.warning('保存用户状态失败: $e');
     }
@@ -76,20 +83,24 @@ class VigaUserCubit extends Cubit<UserState> {
   }
 
   // 用户登录
-  void login({
-    required String userId,
-    required String authToken,
-    String? phone,
-    String? name,
-    String? account,
-    String? avatar,
-  }) {
+  void login(
+      {required String userId,
+      required String authToken,
+      String? phone,
+      String? name,
+      String? account,
+      String? avatar,
+      double? walletBalance,
+      double? walletFoundationBalance}) {
     final newState = state.copyWith(
       isLoggedIn: true,
       userId: userId,
       authToken: authToken,
       userinfoPhone: phone ?? state.userinfoPhone,
       userinfoName: name ?? state.userinfoName,
+      walletBalance: walletBalance ?? state.walletBalance,
+      walletFoundationBalance:
+          walletFoundationBalance ?? state.walletFoundationBalance,
       userinfoAccount: account ?? state.userinfoAccount,
       userinfoAvatar: avatar ?? state.userinfoAvatar,
     );
@@ -153,8 +164,8 @@ class UserState extends Equatable {
     this.walletFoundationBalance = 0.0, // 默认为 0.0
     this.userinfoAvatar = '', // 默认为空字符串
     this.isLoggedIn = false, // 默认未登录
-    this.userId, // 用户ID默认为空
-    this.authToken, // 认证令牌默认为空
+    this.userId = '', // 用户ID默认为空字符串
+    this.authToken = '', // 认证令牌默认为空字符串
   });
 
   @override
@@ -203,11 +214,12 @@ class UserState extends Equatable {
       userinfoAccount: json['userinfoAccount'] ?? '',
       userinfoPhone: json['userinfoPhone'] ?? '',
       walletBalance: json['walletBalance']?.toDouble() ?? 0.0,
-      walletFoundationBalance: json['walletFoundationBalance']?.toDouble() ?? 0.0,
+      walletFoundationBalance:
+          json['walletFoundationBalance']?.toDouble() ?? 0.0,
       userinfoAvatar: json['userinfoAvatar'] ?? '',
       isLoggedIn: json['isLoggedIn'] ?? false,
-      userId: json['userId'],
-      authToken: json['authToken'],
+      userId: json['userId'] ?? '',
+      authToken: json['authToken'] ?? '',
     );
   }
 

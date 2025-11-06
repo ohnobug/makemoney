@@ -8,6 +8,7 @@ class VigaSearch extends StatefulWidget {
   final Function? onTap;
   final String? link;
   final String title;
+  final Color? backgroundColor;
   final Map<String, dynamic>? extra;
 
   const VigaSearch({
@@ -15,6 +16,7 @@ class VigaSearch extends StatefulWidget {
     this.onTap,
     required this.link,
     required this.title,
+    this.backgroundColor,
     this.extra,
   });
 
@@ -51,9 +53,9 @@ class _VigaSearch extends State<VigaSearch> {
               padding:
                   EdgeInsets.symmetric(vertical: 8.0.w, horizontal: 20.0.w),
               decoration: BoxDecoration(
-                color: theme.colorScheme.surfaceContainer,
+                color: widget.backgroundColor ??
+                    theme.colorScheme.surface,
                 borderRadius: BorderRadius.circular(15).w,
-                // border: Border.all(color: Color.fromRGBO(158, 158, 158, 0.3),),
               ),
               child: Center(
                 // 保证整体内容居中

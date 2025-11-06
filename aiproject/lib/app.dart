@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:vigaviga/store/viga_user_cubit.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/viga_image_draggable_box.dart';
@@ -35,14 +34,6 @@ class _AppState extends State<App> {
         systemCubit.updateScreenSize(size);
       }
     });
-
-    var userCubit = context.read<VigaUserCubit>();
-    userCubit.updateName('李俊杰');
-    userCubit.updateAccount('TheMonsterClub');
-    userCubit.updatePhone('+8618825130917');
-    userCubit.updateWalletBalance(2056.98);
-    userCubit.updateWalletFoundationBalance(100.85);
-    userCubit.updateAvatar("https://cdn.vigaviga.com/avatar/my.jpg");
   }
 
   @override

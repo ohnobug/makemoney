@@ -50,7 +50,13 @@ class VigaServicesPage extends StatelessWidget {
                       // 传入一个操作列表
                       actions: [
                         VigaActionSheetAction(
-                          text: Text(l10n.serviceManagement),
+                          text: Text(
+                            l10n.serviceManagement,
+                            style: TextStyle(
+                              fontSize: 30.w,
+                              color: theme.colorScheme.onSurface,
+                            ),
+                          ),
                           onPressed: () {
                             context.push('/user/services_manager');
                           },

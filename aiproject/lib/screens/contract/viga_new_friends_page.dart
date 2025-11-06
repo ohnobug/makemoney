@@ -9,7 +9,6 @@ import 'package:vigaviga/widgets/viga_search.dart';
 import 'package:vigaviga/tools/viga_tools.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:vigaviga/widgets/viga_appbar.dart';
-import 'package:vigaviga/widgets/viga_function_item.dart';
 import 'package:vigaviga/store/viga_system_cubit.dart';
 
 // 关键改动 1: 创建数据模型来存储静态数据
@@ -264,8 +263,6 @@ class _VigaNewFriendsState extends State<VigaNewFriendsPage> {
     AppLocalizations l10n = AppLocalizations.of(context)!;
     ThemeData theme = Theme.of(context);
 
-    String cdnBase = systemState.cdnBase;
-
     return Scaffold(
       primary: false,
       appBar: VigaAppBar(
@@ -284,7 +281,10 @@ class _VigaNewFriendsState extends State<VigaNewFriendsPage> {
         height: MediaQuery.of(context).size.height,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            colors: [theme.colorScheme.surface, AppColors.neutralWhite],
+            colors: [
+              theme.colorScheme.surfaceContainer,
+              AppColors.neutralWhite
+            ],
             stops: [0.3, 0.5],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
@@ -292,9 +292,13 @@ class _VigaNewFriendsState extends State<VigaNewFriendsPage> {
         ),
         child: Column(
           children: [
+            SizedBox(
+              height: 20.w,
+            ),
             VigaSearch(
               link: '/contact/search_friend',
               title: l10n.searchHintAccountOrPhone,
+              backgroundColor: theme.colorScheme.surface,
             ),
             Expanded(
               child: ScrollConfiguration(
@@ -307,18 +311,19 @@ class _VigaNewFriendsState extends State<VigaNewFriendsPage> {
                     parent: BouncingScrollPhysics(),
                   ),
                   // +2 for header and footer
-                  itemCount: staticDataList.length + 2,
+                  itemCount: staticDataList.length + 1,
                   itemBuilder: (context, index) {
                     // 关键改动 5: 在 itemBuilder 中动态构建 UI
                     // Header Item
-                    if (index == 0) {
-                      return VigaFunctionItem(
-                        title: l10n.addPhoneContacts,
-                        icon: "$cdnBase/icon/phone.png",
-                        link: '/contact/phone_contact',
-                        underline: false,
-                      );
-                    }
+                    // if (index == 0) {
+                    //   return SizedBox();
+                    //   // return VigaFunctionItem(
+                    //   //   title: l10n.addPhoneContacts,
+                    //   //   icon: "$cdnBase/icon/phone.png",
+                    //   //   link: '/contact/phone_contact',
+                    //   //   underline: false,
+                    //   // );
+                    // }
 
                     // Footer Item
                     if (index == staticDataList.length + 1) {
@@ -326,7 +331,7 @@ class _VigaNewFriendsState extends State<VigaNewFriendsPage> {
                         width: 750.w,
                         height: 105.0.w,
                         color: AppColors
-                            .neutralWhite, // Assuming a white background for the footer
+                            .neutralWhite,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -348,7 +353,7 @@ class _VigaNewFriendsState extends State<VigaNewFriendsPage> {
 
                     // Data List Items
                     final itemData =
-                        staticDataList[index - 1]; // Adjust index for data list
+                        staticDataList[index]; // Adjust index for data list
 
                     if (itemData is _TimeSeparatorData) {
                       return VigaAlphabet(

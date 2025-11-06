@@ -46,7 +46,8 @@ class _VigaArtsPageState extends State<VigaArtsPage>
   bool _hideVideoInfo = false;
 
   // 滑动透明度相关
-  double _pageScrollOpacity = 1.0;
+  double _currentPageOpacity = 1.0;
+  double _nextPageOpacity = 1.0;
 
   final List<CommentData> _comments = [
     CommentData(
@@ -146,14 +147,21 @@ class _VigaArtsPageState extends State<VigaArtsPage>
       // 计算滑动透明度
       final currentPage = _pageController.page!;
       final pageFraction = currentPage - currentPage.floor();
-      final opacity = 1.0 - pageFraction.abs();
+
+      // 计算当前页面和下一个页面的透明度
+      // 当前页面：从1.0渐变到0.3（白色到半透明）
+      // 下一个页面：保持1.0（白色）
+      final currentOpacity = 1.0 - pageFraction.abs();
+      final nextOpacity = 1.0;
 
       // 确保透明度在0.3到1.0之间（不完全透明）
-      final clampedOpacity = opacity.clamp(0.3, 1.0);
+      final clampedCurrentOpacity = currentOpacity.clamp(0.3, 1.0);
+      final clampedNextOpacity = nextOpacity.clamp(0.3, 1.0);
 
-      if (_pageScrollOpacity != clampedOpacity) {
+      if (_currentPageOpacity != clampedCurrentOpacity || _nextPageOpacity != clampedNextOpacity) {
         setState(() {
-          _pageScrollOpacity = clampedOpacity;
+          _currentPageOpacity = clampedCurrentOpacity;
+          _nextPageOpacity = clampedNextOpacity;
         });
       }
 
@@ -612,7 +620,7 @@ class _VigaArtsPageState extends State<VigaArtsPage>
                           ),
                         if (!_hideVideoInfo)
                           Opacity(
-                            opacity: _pageScrollOpacity,
+                            opacity: index == _currentPage ? _currentPageOpacity : _nextPageOpacity,
                             child: Stack(
                               children: [
                                 Positioned(

@@ -1,6 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:vigaviga/themes.dart';
 import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/viga_appbar.dart';
@@ -77,38 +78,43 @@ class _VigaAddFriends extends State<VigaAddFriendsPage> {
                 ),
 
                 // 我的Vigaviga号
-                Container(
-                  height: 37.w,
-                  width: 750.w,
-                  alignment: Alignment.center,
-                  // color: AppColors.neutralGrey13,
-                  child: Text.rich(
-                    TextSpan(
-                      children: [
-                        TextSpan(
-                          text: l10n.myVigavigaIdDisplay(context
-                              .read<VigaUserCubit>()
-                              .state
-                              .userinfoAccount!),
-                          style: TextStyle(
-                            height: 1.08,
-                            fontSize: 25.w,
-                            color: AppColors.neutralGrey75,
+                GestureDetector(
+                  onTap: () {
+                    context.push('/user/user_card');
+                  },
+                  child: Container(
+                    height: 37.w,
+                    width: 750.w,
+                    alignment: Alignment.center,
+                    // color: AppColors.neutralGrey13,
+                    child: Text.rich(
+                      TextSpan(
+                        children: [
+                          TextSpan(
+                            text: l10n.myVigavigaIdDisplay(context
+                                .read<VigaUserCubit>()
+                                .state
+                                .userinfoAccount!),
+                            style: TextStyle(
+                              height: 1.08,
+                              fontSize: 25.w,
+                              color: AppColors.neutralGrey75,
+                            ),
                           ),
-                        ),
-                        WidgetSpan(
-                          child: SizedBox(width: 14.w),
-                        ),
-                        WidgetSpan(
-                          alignment: PlaceholderAlignment.middle,
-                          style: const TextStyle(height: 1.08),
-                          child: Icon(
-                            const IconData(0xe74b, fontFamily: 'Iconfont'),
-                            color: AppColors.neutralGrey75,
-                            size: 32.w,
+                          WidgetSpan(
+                            child: SizedBox(width: 14.w),
                           ),
-                        ),
-                      ],
+                          WidgetSpan(
+                            alignment: PlaceholderAlignment.middle,
+                            style: const TextStyle(height: 1.08),
+                            child: Icon(
+                              const IconData(0xe74b, fontFamily: 'Iconfont'),
+                              color: AppColors.neutralGrey75,
+                              size: 32.w,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -117,21 +123,21 @@ class _VigaAddFriends extends State<VigaAddFriendsPage> {
                   height: 70.w,
                 ),
 
-                VigaIconFunctionItem(
-                  title: l10n.radarAddFriends,
-                  link: '',
-                  underline: true,
-                  avatar: "$cdnBase/icon/add_friend_icon1.png",
-                  message: l10n.addNearbyFriends,
-                ),
+                // VigaIconFunctionItem(
+                //   title: l10n.radarAddFriends,
+                //   link: '',
+                //   underline: true,
+                //   avatar: "$cdnBase/icon/add_friend_icon1.png",
+                //   message: l10n.addNearbyFriends,
+                // ),
 
-                VigaIconFunctionItem(
-                  title: l10n.faceToFaceGroup,
-                  link: '',
-                  underline: true,
-                  avatar: "$cdnBase/icon/add_friend_icon2.png",
-                  message: l10n.joinGroupWithNearbyFriends,
-                ),
+                // VigaIconFunctionItem(
+                //   title: l10n.faceToFaceGroup,
+                //   link: '',
+                //   underline: true,
+                //   avatar: "$cdnBase/icon/add_friend_icon2.png",
+                //   message: l10n.joinGroupWithNearbyFriends,
+                // ),
 
                 VigaIconFunctionItem(
                   title: l10n.scan,
@@ -147,14 +153,6 @@ class _VigaAddFriends extends State<VigaAddFriendsPage> {
                   underline: true,
                   avatar: "$cdnBase/icon/add_friend_icon4.png",
                   message: l10n.addOrInviteContacts,
-                ),
-
-                VigaIconFunctionItem(
-                  title: l10n.officialAccounts,
-                  link: '',
-                  underline: true,
-                  avatar: "$cdnBase/icon/add_friend_icon5.png",
-                  message: l10n.getMoreInfoAndServices,
                 ),
               ],
             ),
