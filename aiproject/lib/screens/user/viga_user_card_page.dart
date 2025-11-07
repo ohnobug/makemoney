@@ -17,11 +17,6 @@ import 'package:vigaviga/widgets/viga_app_network_image.dart';
 import 'package:vigaviga/widgets/viga_appbar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-// 关键改动 1：使用条件导入
-// 如果环境支持 'dart:html' (即 Web)，则导入 'web_saver.dart'。
-// 否则，导入 'mobile_saver.dart'。
-import 'mobile_saver.dart' if (dart.library.html) 'web_saver.dart';
-
 class UserCardPage extends StatefulWidget {
   const UserCardPage({super.key});
 
@@ -51,9 +46,6 @@ class _UserCardPageState extends State<UserCardPage> {
         final Uint8List list = byteData.buffer.asUint8List();
 
         if (kIsWeb) {
-          // 关键改动 2：直接调用条件导入的函数
-          saveImageForWeb(list);
-
           // 在异步操作完成后，再次检查组件是否还在树上
           if (!mounted) return;
           ScaffoldMessenger.of(context).showSnackBar(

@@ -69,9 +69,9 @@ flutter:
     - assets/sounds/
     - assets/lotties/
   fonts:
-    - family: NotoColorEmoji-Regular
-      fonts:
-        - asset: ./assets/fonts/NotoColorEmoji-Regular.woff2
+    # - family: NotoColorEmoji-Regular
+    #   fonts:
+    #     - asset: ./assets/fonts/NotoColorEmoji-Regular.woff2
     - family: Iconfont
       fonts:
         - asset: ./assets/fonts/iconfont/iconfont.ttf

@@ -58,7 +58,10 @@
       "Bash(flutter analyze lib/screens/user/photo_viewer/viga_photo_grid_page.dart)",
       "Bash(flutter build apk --debug --no-tree-shake-icons)",
       "Bash(flutter analyze:*)",
-      "Bash(flutter build apk --debug --analyze-size)"
+      "Bash(flutter build apk --debug --analyze-size)",
+      "Bash(flutter doctor:*)",
+      "Bash(flutter build:*)",
+      "WebFetch(domain:cdn.vigaviga.com)"
     ],
     "deny": [],
     "ask": []

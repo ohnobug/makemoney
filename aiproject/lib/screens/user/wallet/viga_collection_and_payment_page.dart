@@ -9,7 +9,6 @@ import 'package:vigaviga/l10n/app_localizations.dart';
 import 'package:vigaviga/widgets/viga_appbar.dart';
 import 'package:vigaviga/store/viga_system_cubit.dart';
 import 'package:vigaviga/tools/viga_tools.dart';
-import 'package:vigaviga/widgets/viga_app_network_image.dart';
 
 class VigaCollectionAndPaymentPage extends StatefulWidget {
   const VigaCollectionAndPaymentPage({super.key});

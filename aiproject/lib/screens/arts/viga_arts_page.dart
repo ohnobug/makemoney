@@ -158,7 +158,8 @@ class _VigaArtsPageState extends State<VigaArtsPage>
       final clampedCurrentOpacity = currentOpacity.clamp(0.3, 1.0);
       final clampedNextOpacity = nextOpacity.clamp(0.3, 1.0);
 
-      if (_currentPageOpacity != clampedCurrentOpacity || _nextPageOpacity != clampedNextOpacity) {
+      if (_currentPageOpacity != clampedCurrentOpacity ||
+          _nextPageOpacity != clampedNextOpacity) {
         setState(() {
           _currentPageOpacity = clampedCurrentOpacity;
           _nextPageOpacity = clampedNextOpacity;
@@ -224,11 +225,11 @@ class _VigaArtsPageState extends State<VigaArtsPage>
   List<VideoData> _createMockVideoData() {
     return [
       VideoData(
-        videoPath: '${_systemCubit.state.cdnBase}/ins/video2.mp4',
+        videoPath: '${_systemCubit.state.cdnBase}/ins/test.mp4',
         avatarPath: '${_systemCubit.state.cdnBase}/avatar/chat_10.jpg',
         userName: '牛马的home',
         description:
-            '我真的太爱我的游戏房了！😭😭😭 这一刻仿佛被钉在了客厅 #懒人救星 #居家办公 #电竞 #游戏 #男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间男生房间 #INGREM #治愈 #生活...',
+            '我真的太爱我的游戏房了！😭😭😭 这一刻仿佛被钉在了客厅我真的太爱我的游戏房了！😭😭😭 这一刻仿佛被钉在了客厅我真的太爱我的游戏房了！😭😭😭 这一刻仿佛被钉在了客厅我真的太爱我的游戏房了！😭😭😭 这一刻仿佛被钉在了客厅 #懒人救星 #居家办公 #电竞 #游戏 #男生房间 #INGREM #治愈 #生活',
         likeCount: 1050,
         commentCount: 241,
         collectionCount: 421,
@@ -236,9 +237,8 @@ class _VigaArtsPageState extends State<VigaArtsPage>
         shareCount: 934,
       ),
       VideoData(
-        videoPath:
-            'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
-        avatarPath: '${_systemCubit.state.cdnBase}/avatar/chat_11.jpg',
+        videoPath: '${_systemCubit.state.cdnBase}/ins/butterfly.mp4',
+        avatarPath: '${_systemCubit.state.cdnBase}/avatar/chat_2.jpg',
         userName: 'Flutter开发者',
         description: '用Flutter做出的短视频流，性能和体验都非常棒！#Flutter #App开发 #编程',
         likeCount: 2048,
@@ -246,6 +246,78 @@ class _VigaArtsPageState extends State<VigaArtsPage>
         collectionCount: 1024,
         viewCount: 1000,
         shareCount: 128,
+        isLiked: true,
+      ),
+      VideoData(
+        videoPath: '${_systemCubit.state.cdnBase}/ins/video.mp4',
+        avatarPath: '${_systemCubit.state.cdnBase}/avatar/chat_21.jpg',
+        userName: '美食探索家',
+        description: '今天发现了一家超好吃的火锅店！汤底浓郁，食材新鲜，强烈推荐给大家！🔥 #美食探店 #火锅 #吃货日常 #美食分享',
+        likeCount: 3250,
+        commentCount: 689,
+        collectionCount: 1250,
+        viewCount: 1000,
+        shareCount: 256,
+        isLiked: false,
+      ),
+      VideoData(
+        videoPath: '${_systemCubit.state.cdnBase}/ins/video2.mp4',
+        avatarPath: '${_systemCubit.state.cdnBase}/avatar/chat_33.jpg',
+        userName: '旅行日记',
+        description: '大理的洱海真的太美了！蓝天白云，微风拂面，感觉整个人都被治愈了～🌊 #大理旅行 #洱海 #旅行日记 #治愈系风景',
+        likeCount: 4280,
+        commentCount: 892,
+        collectionCount: 1560,
+        viewCount: 1000,
+        shareCount: 312,
+        isLiked: true,
+      ),
+      VideoData(
+        videoPath: '${_systemCubit.state.cdnBase}/ins/video3.mp4',
+        avatarPath: '${_systemCubit.state.cdnBase}/avatar/chat_15.jpg',
+        userName: '健身达人',
+        description: '坚持健身的第365天！从胖子到肌肉男，感谢那个没有放弃的自己💪 #健身 #坚持 #蜕变 #健身日记',
+        likeCount: 5120,
+        commentCount: 1024,
+        collectionCount: 2048,
+        viewCount: 1000,
+        shareCount: 512,
+        isLiked: false,
+      ),
+      VideoData(
+        videoPath: '${_systemCubit.state.cdnBase}/ins/video4.mp4',
+        avatarPath: '${_systemCubit.state.cdnBase}/avatar/chat_7.jpg',
+        userName: '萌宠日常',
+        description: '我家猫咪今天又解锁了新睡姿，太可爱了！🐱 #猫咪 #萌宠 #宠物日常 #可爱猫咪',
+        likeCount: 2890,
+        commentCount: 456,
+        collectionCount: 890,
+        viewCount: 1000,
+        shareCount: 189,
+        isLiked: true,
+      ),
+      VideoData(
+        videoPath: '${_systemCubit.state.cdnBase}/ins/video5.mp4',
+        avatarPath: '${_systemCubit.state.cdnBase}/avatar/chat_25.jpg',
+        userName: '美妆博主',
+        description: '秋冬必备的温柔奶茶妆教程来啦！新手也能轻松上手～💄 #美妆教程 #奶茶妆 #化妆技巧 #美妆分享',
+        likeCount: 3750,
+        commentCount: 678,
+        collectionCount: 1120,
+        viewCount: 1000,
+        shareCount: 245,
+        isLiked: false,
+      ),
+      VideoData(
+        videoPath: '${_systemCubit.state.cdnBase}/ins/video6.mp4',
+        avatarPath: '${_systemCubit.state.cdnBase}/avatar/chat_18.jpg',
+        userName: '音乐爱好者',
+        description: '深夜弹唱一首《成都》，有没有人也在听这首歌？🎸 #音乐 #弹唱 #成都 #深夜音乐',
+        likeCount: 2980,
+        commentCount: 512,
+        collectionCount: 980,
+        viewCount: 1000,
+        shareCount: 156,
         isLiked: true,
       ),
     ];
@@ -620,7 +692,9 @@ class _VigaArtsPageState extends State<VigaArtsPage>
                           ),
                         if (!_hideVideoInfo)
                           Opacity(
-                            opacity: index == _currentPage ? _currentPageOpacity : _nextPageOpacity,
+                            opacity: index == _currentPage
+                                ? _currentPageOpacity
+                                : _nextPageOpacity,
                             child: Stack(
                               children: [
                                 Positioned(
