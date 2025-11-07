@@ -93,17 +93,11 @@ class _VigaChatSettingPage extends State<VigaChatSettingPage> {
                               overflow: TextOverflow.ellipsis,
                             ),
                           ),
-                          showStyle: Expanded(
-                            flex: 0,
-                            child: Container(
-                              margin: const EdgeInsets.only(right: 0).w,
-                              child: VigaSwitch(
-                                initialValue: false,
-                                onChanged: (value) {
-                                  logger.info(value);
-                                },
-                              ),
-                            ),
+                          showStyle: VigaSwitch(
+                            initialValue: false,
+                            onChanged: (value) {
+                              logger.info(value);
+                            },
                           ),
                           underline: true,
                         ),

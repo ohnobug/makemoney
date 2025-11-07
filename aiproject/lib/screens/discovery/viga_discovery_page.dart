@@ -251,13 +251,6 @@ class _VigaDiscoveryPageState extends State<VigaDiscoveryPage>
               size: 42,
             ),
             VigaFunctionItem(
-              title: "图片墙",
-              icon: "$cdnBase/icon/discovery_icon2.png",
-              link: '/discovery/ins',
-              underline: true,
-              size: 42,
-            ),
-            VigaFunctionItem(
               title: "小程序",
               icon: "$cdnBase/icon/discovery_icon5.png",
               link: '/discovery/miniprogram_list',

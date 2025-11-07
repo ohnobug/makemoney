@@ -190,25 +190,17 @@ class _VigaWalletPage extends State<VigaWalletPage> {
                             ],
                           ),
                         ),
-                        underline: true,
-                      ),
-
-                      // 银行卡
-                      VigaFunctionItem(
-                        title: l10n.bankCards,
-                        icon: "$cdnBase/icon/discovery_icon3.png",
-                        link: '',
                         underline: false,
                       ),
                     ],
                   ),
 
-                  // 支付分
                   VigaFunctionList(
                     children: [
+                      // 银行卡
                       VigaFunctionItem(
-                        title: l10n.paymentScore,
-                        icon: "$cdnBase/icon/discovery_icon5.png",
+                        title: l10n.bankCards,
+                        icon: "$cdnBase/icon/discovery_icon3.png",
                         link: '',
                         underline: false,
                       ),

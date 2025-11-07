@@ -105,10 +105,10 @@ class VigaServicesPage extends StatelessWidget {
                             icon: "$cdnBase/icon/server_icon2.png",
                             title: l10n.moments,
                             onPressed: () => logger.info('点击了理财通按钮~~')),
-                        VigaFunctionButton(
-                            icon: "$cdnBase/icon/server_icon3.png",
-                            title: l10n.settings,
-                            onPressed: () => logger.info('点击了保险服务按钮~~')),
+                        // VigaFunctionButton(
+                        //     icon: "$cdnBase/icon/server_icon3.png",
+                        //     title: l10n.settings,
+                        //     onPressed: () => logger.info('点击了保险服务按钮~~')),
                       ],
                     ),
                     VigaFunctionButtonsSection(
@@ -122,18 +122,18 @@ class VigaServicesPage extends StatelessWidget {
                             icon: "$cdnBase/icon/server_icon5.png",
                             title: l10n.utilityPayments,
                             onPressed: () => logger.info('点击了生活缴费按钮~~')),
-                        VigaFunctionButton(
-                            icon: "$cdnBase/icon/server_icon6.png",
-                            title: l10n.qCoinTopUp,
-                            onPressed: () => logger.info('点击了Q币充值按钮~~')),
-                        VigaFunctionButton(
-                            icon: "$cdnBase/icon/server_icon7.png",
-                            title: l10n.cityServices,
-                            onPressed: () => logger.info('点击了城市服务按钮~~')),
-                        VigaFunctionButton(
-                            icon: "$cdnBase/icon/server_icon8.png",
-                            title: l10n.tencentCharity,
-                            onPressed: () => logger.info('点击了腾讯公益按钮~~')),
+                        // VigaFunctionButton(
+                        //     icon: "$cdnBase/icon/server_icon6.png",
+                        //     title: l10n.qCoinTopUp,
+                        //     onPressed: () => logger.info('点击了Q币充值按钮~~')),
+                        // VigaFunctionButton(
+                        //     icon: "$cdnBase/icon/server_icon7.png",
+                        //     title: l10n.cityServices,
+                        //     onPressed: () => logger.info('点击了城市服务按钮~~')),
+                        // VigaFunctionButton(
+                        //     icon: "$cdnBase/icon/server_icon8.png",
+                        //     title: l10n.tencentCharity,
+                        //     onPressed: () => logger.info('点击了腾讯公益按钮~~')),
                         VigaFunctionButton(
                             icon: "$cdnBase/icon/server_icon9.png",
                             title: l10n.healthCare,

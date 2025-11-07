@@ -274,40 +274,44 @@ class _VigaUserPageState extends State<VigaUserPage>
                 ),
               ];
             },
-            body: PageView(
-              controller: _pageController,
-              physics: const ClampingScrollPhysics(),
-              onPageChanged: (index) {
-                if (_tabController.index != index) {
-                  _tabController.animateTo(index);
-                }
-              },
-              children: [
-                _UserWorksGrid(
-                  key: const PageStorageKey('works_grid'),
-                  items: _works,
-                  emptyMessage: '用作品表达自己吧！',
-                  buttonText: '发布作品',
-                  onButtonPressed: () => logger.info("发布作品按钮被点击"),
-                  isActive: _tabController.index == 0,
-                ),
-                _UserWorksGrid(
-                  key: const PageStorageKey('collections_grid'),
-                  items: _collections,
-                  emptyMessage: '还没有收藏',
-                  buttonText: '去看看',
-                  onButtonPressed: () {},
-                  isActive: _tabController.index == 1,
-                ),
-                _UserWorksGrid(
-                  key: const PageStorageKey('praised_grid'),
-                  items: _praised,
-                  emptyMessage: '还没有赞过',
-                  buttonText: '去看看',
-                  onButtonPressed: () {},
-                  isActive: _tabController.index == 2,
-                ),
-              ],
+            body: Padding(
+              padding: EdgeInsetsGeometry.only(
+                  bottom: 0),
+              child: PageView(
+                controller: _pageController,
+                physics: const ClampingScrollPhysics(),
+                onPageChanged: (index) {
+                  if (_tabController.index != index) {
+                    _tabController.animateTo(index);
+                  }
+                },
+                children: [
+                  _UserWorksGrid(
+                    key: const PageStorageKey('works_grid'),
+                    items: _works,
+                    emptyMessage: '用作品表达自己吧！',
+                    buttonText: '发布作品',
+                    onButtonPressed: () => logger.info("发布作品按钮被点击"),
+                    isActive: _tabController.index == 0,
+                  ),
+                  _UserWorksGrid(
+                    key: const PageStorageKey('collections_grid'),
+                    items: _collections,
+                    emptyMessage: '还没有收藏',
+                    buttonText: '去看看',
+                    onButtonPressed: () {},
+                    isActive: _tabController.index == 1,
+                  ),
+                  _UserWorksGrid(
+                    key: const PageStorageKey('praised_grid'),
+                    items: _praised,
+                    emptyMessage: '还没有赞过',
+                    buttonText: '去看看',
+                    onButtonPressed: () {},
+                    isActive: _tabController.index == 2,
+                  ),
+                ],
+              ),
             ),
           ),
         ));
@@ -717,68 +721,25 @@ class __UserWorksGridState extends State<_UserWorksGrid> {
   Widget _buildEmptyState(BuildContext context, SystemState systemState) {
     if (widget.buttonText == '发布作品') {
       return Container(
-          color: Theme.of(context).colorScheme.surfaceContainer,
-          alignment: Alignment.topCenter,
-          child: SingleChildScrollView(
-              primary: widget.isActive,
-              physics: widget.isActive
-                  ? const ClampingScrollPhysics()
-                  : const NeverScrollableScrollPhysics(),
-              child:
-                  Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-                SizedBox(height: 120.w),
-                Icon(Icons.camera_roll_outlined,
-                    size: 150.w, color: Colors.grey.shade400),
-                SizedBox(height: 30.w),
-                Text(
-                  "你还没有发布过作品",
-                  style: TextStyle(
-                    fontSize: 28.w,
-                    color: Colors.grey.shade600,
-                  ),
-                ),
-                SizedBox(height: 40.w),
-                ElevatedButton(
-                  onPressed: widget.onButtonPressed,
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.accentRedVibrant1,
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40.w),
-                      ),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 60.w,
-                        vertical: 20.w,
-                      ),
-                      elevation: 0),
-                  child: Text(
-                    widget.buttonText,
-                    style:
-                        TextStyle(fontSize: 28.w, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                SizedBox(height: 40.w)
-              ])));
-    }
-    return Container(
         color: Theme.of(context).colorScheme.surfaceContainer,
         alignment: Alignment.topCenter,
         child: SingleChildScrollView(
-            primary: widget.isActive,
-            physics: widget.isActive
-                ? const ClampingScrollPhysics()
-                : const NeverScrollableScrollPhysics(),
-            child:
-                Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+          primary: widget.isActive,
+          physics: widget.isActive
+              ? const ClampingScrollPhysics()
+              : const NeverScrollableScrollPhysics(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
               SizedBox(height: 120.w),
-              VigaAppNetworkImage(
-                imageUrl: '${systemState.cdnBase}/imgs/no-content.webp',
-                width: 200.w,
-                height: 200.w,
+              Icon(
+                Icons.camera_roll_outlined,
+                size: 150.w,
+                color: Colors.grey.shade400,
               ),
               SizedBox(height: 30.w),
               Text(
-                widget.emptyMessage,
+                "你还没有发布过作品",
                 style: TextStyle(
                   fontSize: 28.w,
                   color: Colors.grey.shade600,
@@ -791,7 +752,8 @@ class __UserWorksGridState extends State<_UserWorksGrid> {
                     backgroundColor: AppColors.accentRedVibrant1,
                     foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40.w)),
+                      borderRadius: BorderRadius.circular(40.w),
+                    ),
                     padding: EdgeInsets.symmetric(
                       horizontal: 60.w,
                       vertical: 20.w,
@@ -799,14 +761,68 @@ class __UserWorksGridState extends State<_UserWorksGrid> {
                     elevation: 0),
                 child: Text(
                   widget.buttonText,
-                  style: TextStyle(
-                    fontSize: 28.w,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: TextStyle(fontSize: 28.w, fontWeight: FontWeight.bold),
                 ),
               ),
               SizedBox(height: 40.w)
-            ])));
+            ],
+          ),
+        ),
+      );
+    }
+    return Container(
+      color: Theme.of(context).colorScheme.surfaceContainer,
+      alignment: Alignment.topCenter,
+      child: SingleChildScrollView(
+        primary: widget.isActive,
+        physics: widget.isActive
+            ? const ClampingScrollPhysics()
+            : const NeverScrollableScrollPhysics(),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(height: 120.w),
+            VigaAppNetworkImage(
+              imageUrl: '${systemState.cdnBase}/imgs/no-content.webp',
+              width: 200.w,
+              height: 200.w,
+            ),
+            SizedBox(height: 30.w),
+            Text(
+              widget.emptyMessage,
+              style: TextStyle(
+                fontSize: 28.w,
+                color: Colors.grey.shade600,
+              ),
+            ),
+            SizedBox(height: 40.w),
+            ElevatedButton(
+              onPressed: widget.onButtonPressed,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.accentRedVibrant1,
+                foregroundColor: Colors.white,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(40.w),
+                ),
+                padding: EdgeInsets.symmetric(
+                  horizontal: 60.w,
+                  vertical: 20.w,
+                ),
+                elevation: 0,
+              ),
+              child: Text(
+                widget.buttonText,
+                style: TextStyle(
+                  fontSize: 28.w,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            SizedBox(height: 40.w)
+          ],
+        ),
+      ),
+    );
   }
 
   Widget _buildGridContent(BuildContext context, SystemState systemState) {

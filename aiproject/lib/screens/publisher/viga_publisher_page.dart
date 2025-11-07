@@ -57,6 +57,7 @@ class _VigaPublisherState extends State<VigaPublisherPage>
         statusBarIconBrightness: Brightness.dark,
       ),
       child: Scaffold(
+        primary: true,
         backgroundColor: theme.colorScheme.surface,
         appBar: VigaAppBar(
             systemOverlayStyle: SystemUiOverlayStyle(
@@ -80,11 +81,8 @@ class _VigaPublisherState extends State<VigaPublisherPage>
               behavior:
                   ScrollConfiguration.of(context).copyWith(scrollbars: false),
               child: Container(
-                constraints: BoxConstraints(
-                  minHeight: systemState.screenSize.height -
-                      systemState.appbarHeight -
-                      systemState.statusHeight,
-                ),
+                constraints:
+                    BoxConstraints(minHeight: systemState.screenSize.height),
                 decoration: BoxDecoration(
                   color: theme.colorScheme.surfaceContainer,
                 ),
@@ -92,54 +90,56 @@ class _VigaPublisherState extends State<VigaPublisherPage>
                   physics: const AlwaysScrollableScrollPhysics(
                     parent: BouncingScrollPhysics(),
                   ),
-                  child: SafeArea(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 48.w), // 24 * 2
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          Expanded(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                // 上半部分: AI 创作入口
-                                _buildFlatOption(
-                                  context: context,
-                                  icon: Icons.auto_awesome, // 建议替换为你的 Iconfont
-                                  title: 'AI 创作 (花费 5 钻石)',
-                                  description:
-                                      'AI将为你生成独特的NFT艺术品。费用包含AI生成服务及链上铸造，发布后即可赚取打赏。',
-                                  onTap: () {
-                                    context.push('/ai_publisher');
-                                  },
-                                ),
-                                SizedBox(height: 20.w), // 20 * 2
-                                // 下半部分: 用户上传入口
-                                _buildFlatOption(
-                                  context: context,
-                                  icon: Icons.upload_file, // 建议替换为你的 Iconfont
-                                  title: '上传原创作品 (仅需 2 钻石)',
-                                  description:
-                                      '将你的原创作品铸为NFT。仅需支付链上铸造费用，发布后即可通过社区打赏获得回报。',
-                                  onTap: () async {
-                                    final ImagePicker picker = ImagePicker();
-                                    final XFile? image = await picker.pickImage(
-                                        source: ImageSource.gallery);
-                                    if (image != null) {
-                                      if (context.mounted) {
-                                        context.push('/publish_work');
-                                      }
-                                    }
-                                  },
-                                ),
-                              ],
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 48.w), // 24 * 2
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        SizedBox(
+                          height: 100.w,
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            // 上半部分: AI 创作入口
+                            _buildFlatOption(
+                              context: context,
+                              icon: Icons.auto_awesome, // 建议替换为你的 Iconfont
+                              title: 'AI 创作 (花费 5 钻石)',
+                              description:
+                                  'AI将为你生成独特的NFT艺术品。费用包含AI生成服务及链上铸造，发布后即可赚取打赏。',
+                              onTap: () {
+                                context.push('/ai_publisher');
+                              },
                             ),
-                          ),
-                          // 底部成本说明
-                          _buildCostDisclaimer(context),
-                          SizedBox(height: 100.w), // 50 * 2
-                        ],
-                      ),
+                            SizedBox(height: 20.w), // 20 * 2
+                            // 下半部分: 用户上传入口
+                            _buildFlatOption(
+                              context: context,
+                              icon: Icons.upload_file, // 建议替换为你的 Iconfont
+                              title: '上传原创作品 (仅需 2 钻石)',
+                              description:
+                                  '将你的原创作品铸为NFT。仅需支付链上铸造费用，发布后即可通过社区打赏获得回报。',
+                              onTap: () async {
+                                final ImagePicker picker = ImagePicker();
+                                final XFile? image = await picker.pickImage(
+                                    source: ImageSource.gallery);
+                                if (image != null) {
+                                  if (context.mounted) {
+                                    context.push('/publish_work');
+                                  }
+                                }
+                              },
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 100.w,
+                        ),
+                        // 底部成本说明
+                        _buildCostDisclaimer(context),
+                        SizedBox(height: 100.w), // 50 * 2
+                      ],
                     ),
                   ),
                 ),
