@@ -11,6 +11,7 @@ class VigaCustomVideoPlayer extends StatefulWidget {
   final double? videoHeight; // 改为可选参数
   final bool enableTapToPlay; // 新增：是否启用点击播放/暂停
   final bool isPanelOpen; // 新增：评论面板是否打开
+  final BoxFit? fit; // 新增：视频适配方式
 
   const VigaCustomVideoPlayer({
     super.key,
@@ -19,6 +20,7 @@ class VigaCustomVideoPlayer extends StatefulWidget {
     this.videoHeight, // 改为可选参数
     this.enableTapToPlay = true, // 默认启用点击播放/暂停
     this.isPanelOpen = false, // 默认面板关闭
+    this.fit, // 新增：视频适配方式
   });
 
   @override
@@ -26,16 +28,6 @@ class VigaCustomVideoPlayer extends StatefulWidget {
 }
 
 class _VigaCustomVideoPlayerState extends State<VigaCustomVideoPlayer> {
-  // 我们直接控制这个状态，不再依赖监听器
-  bool _showPlayIcon = false;
-
-  @override
-  void initState() {
-    super.initState();
-    // 初始状态下，不显示任何图标
-    _showPlayIcon = false;
-  }
-
   @override
   void didUpdateWidget(VigaCustomVideoPlayer oldWidget) {
     super.didUpdateWidget(oldWidget);
@@ -53,31 +45,8 @@ class _VigaCustomVideoPlayerState extends State<VigaCustomVideoPlayer> {
             widget.controller.pause();
           }
         }
-        // [核心逻辑] 无论滑入还是滑出，都确保图标是隐藏的，因为这不是用户主动暂停
-        setState(() {
-          _showPlayIcon = false;
-        });
       }
     }
-  }
-
-  // [关键改动] 移除了 _onControllerUpdate 监听器，这是解决问题的关键
-
-  // _togglePlaying 现在是唯一能改变 _showPlayIcon 状态的地方
-  void _togglePlaying() {
-    if (!mounted || !widget.controller.value.isInitialized || !widget.enableTapToPlay) return;
-
-    setState(() {
-      if (widget.controller.value.isPlaying) {
-        // 如果正在播放，用户点击了 -> 暂停，并显示播放图标
-        widget.controller.pause();
-        _showPlayIcon = true;
-      } else {
-        // 如果已暂停，用户点击了 -> 播放，并隐藏播放图标
-        widget.controller.play();
-        _showPlayIcon = false;
-      }
-    });
   }
 
   // dispose 中不再需要移除监听器
@@ -95,7 +64,7 @@ class _VigaCustomVideoPlayerState extends State<VigaCustomVideoPlayer> {
             children: [
               SizedBox.expand(
                 child: FittedBox(
-                  fit: BoxFit.contain,
+                  fit: widget.fit ?? BoxFit.contain,
                   clipBehavior: Clip.hardEdge,
                   child: SizedBox(
                     width: widget.controller.value.size.width,
@@ -104,37 +73,6 @@ class _VigaCustomVideoPlayerState extends State<VigaCustomVideoPlayer> {
                   ),
                 ),
               ),
-              if (widget.enableTapToPlay) ...[
-                GestureDetector(
-                  onTap: _togglePlaying,
-                  behavior: HitTestBehavior.opaque,
-                  child: Container(color: Colors.transparent),
-                ),
-                GestureDetector(
-                  onTap: _togglePlaying,
-                  child: AnimatedOpacity(
-                    opacity: _showPlayIcon ? 1.0 : 0.0,
-                    duration: const Duration(milliseconds: 250),
-                    child: SizedBox.expand(
-                      child: Center(
-                        child: Container(
-                          width: 140.w,
-                          height: 140.w,
-                          decoration: BoxDecoration(
-                            color: const Color.fromRGBO(0, 0, 0, 0.5),
-                            shape: BoxShape.circle,
-                          ),
-                          child: Icon(
-                            Icons.play_arrow_rounded,
-                            color: Colors.white,
-                            size: 80.w,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
             ],
           )
         : Container(

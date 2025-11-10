@@ -34,12 +34,15 @@ class _VigaArtsPageState extends State<VigaArtsPage>
   late final VigaSystemCubit _systemCubit;
   late final List<VideoData> _videoDataList;
 
-  // ############### 1. 新增状态标志 ###############
-  // 用于记录用户离开前视频是否在播放
+  // ############### 1. 状态标志 ###############
   bool _wasPlaying = false;
-  // 记录切换标签页前的播放状态
   bool _wasPlayingBeforeTabSwitch = false;
   // #########################################
+
+  // ===================== 1. 静音状态管理 =====================
+  // 初始状态为静音，以符合浏览器自动播放策略
+  bool _isMuted = true;
+  // ==========================================================
 
   bool _isPanelOpen = false;
   bool _isCommentPanel = false;
@@ -48,6 +51,9 @@ class _VigaArtsPageState extends State<VigaArtsPage>
   // 滑动透明度相关
   double _currentPageOpacity = 1.0;
   double _nextPageOpacity = 1.0;
+
+  // 播放按钮状态
+  bool _showPlayIcon = false;
 
   final List<CommentData> _comments = [
     CommentData(
@@ -85,44 +91,38 @@ class _VigaArtsPageState extends State<VigaArtsPage>
   @override
   bool get wantKeepAlive => true;
 
-  // ############### 2. 核心修改：监听Tab切换并控制视频播放 ###############
   @override
   void deactivate() {
-    // 当页面变为不活动时（例如切换Tab）
     super.deactivate();
     _handleTabInactive();
   }
 
   @override
   void activate() {
-    // 当页面被重新激活时
     super.activate();
     _handleTabActive();
   }
 
   void _handleTabInactive() {
-    // 1. 记录下当前视频是否正在播放
     if (_currentVideoController?.value.isInitialized ?? false) {
       _wasPlaying = _currentVideoController!.value.isPlaying;
     }
-    // 2. 强制暂停视频，防止后台播放
     _currentVideoController?.pause();
   }
 
   void _handleTabActive() {
-    // 3. 重置状态栏样式，确保视觉正确
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
         statusBarIconBrightness: Brightness.light,
       ),
     );
-    // 4. 如果离开前视频是在播放状态，则恢复播放
-    if (_wasPlaying) {
-      _currentVideoController?.play();
+    if (_wasPlaying && _currentVideoController?.value.isInitialized == true) {
+      _currentVideoController?.play().catchError((error) {
+        logger.warning("恢复播放失败: $error");
+      });
     }
   }
-  // ###############################################################
 
   @override
   void initState() {
@@ -144,17 +144,12 @@ class _VigaArtsPageState extends State<VigaArtsPage>
     _pageController.addListener(() {
       if (!_pageController.hasClients || _pageController.page == null) return;
 
-      // 计算滑动透明度
       final currentPage = _pageController.page!;
       final pageFraction = currentPage - currentPage.floor();
 
-      // 计算当前页面和下一个页面的透明度
-      // 当前页面：从1.0渐变到0.3（白色到半透明）
-      // 下一个页面：保持1.0（白色）
       final currentOpacity = 1.0 - pageFraction.abs();
       final nextOpacity = 1.0;
 
-      // 确保透明度在0.3到1.0之间（不完全透明）
       final clampedCurrentOpacity = currentOpacity.clamp(0.3, 1.0);
       final clampedNextOpacity = nextOpacity.clamp(0.3, 1.0);
 
@@ -168,19 +163,23 @@ class _VigaArtsPageState extends State<VigaArtsPage>
 
       final newPage = currentPage.round();
       if (_currentPage != newPage) {
-        // 暂停旧视频
         _videoControllers[_currentPage]?.pause();
         _videoControllers[_currentPage]?.removeListener(_onVideoChange);
 
         setState(() {
           _currentPage = newPage;
 
-          // 播放新视频
-          _currentVideoController?.play();
+          if (_currentVideoController?.value.isInitialized == true) {
+            // 切换视频时，保持当前的静音/有声状态
+            _currentVideoController?.setVolume(_isMuted ? 0.0 : 1.0);
+            _currentVideoController?.play().catchError((error) {
+              logger.warning("切换视频播放失败: $error");
+            });
+          }
           _currentVideoController?.addListener(_onVideoChange);
 
-          // 更新wasPlaying状态
           _wasPlaying = _currentVideoController?.value.isPlaying ?? false;
+          _showPlayIcon = false;
           _onVideoChange();
         });
       }
@@ -189,36 +188,32 @@ class _VigaArtsPageState extends State<VigaArtsPage>
 
   @override
   Future<bool> didPopRoute() async {
-    // 当系统返回按钮被按下时，确保评论面板状态正确重置
     if (_isPanelOpen) {
       _hideCommentsPanel();
-      return false; // 允许默认返回行为继续处理
+      return false;
     }
-    // 当从其他路由返回时，恢复视频播放
     _handleRouteActive();
-    return false; // 允许默认返回行为
+    return false;
   }
 
   @override
   Future<bool> didPushRoute(String route) async {
-    // 当切换到其他路由时，暂停视频播放
     _handleRouteInactive();
-    return false; // 允许默认路由行为
+    return false;
   }
 
   void _handleRouteInactive() {
-    // 记录当前视频是否正在播放
     if (_currentVideoController?.value.isInitialized ?? false) {
       _wasPlaying = _currentVideoController!.value.isPlaying;
     }
-    // 暂停视频播放
     _currentVideoController?.pause();
   }
 
   void _handleRouteActive() {
-    // 如果离开前视频是在播放状态，则恢复播放
-    if (_wasPlaying) {
-      _currentVideoController?.play();
+    if (_wasPlaying && _currentVideoController?.value.isInitialized == true) {
+      _currentVideoController?.play().catchError((error) {
+        logger.warning("路由恢复播放失败: $error");
+      });
     }
   }
 
@@ -252,7 +247,8 @@ class _VigaArtsPageState extends State<VigaArtsPage>
         videoPath: '${_systemCubit.state.cdnBase}/ins/video.mp4',
         avatarPath: '${_systemCubit.state.cdnBase}/avatar/chat_21.jpg',
         userName: '美食探索家',
-        description: '今天发现了一家超好吃的火锅店！汤底浓郁，食材新鲜，强烈推荐给大家！🔥 #美食探店 #火锅 #吃货日常 #美食分享',
+        description:
+            '今天发现了一家超好吃的火锅店！汤底浓郁，食材新鲜，强烈推荐给大家！🔥 #美食探店 #火锅 #吃货日常 #美食分享',
         likeCount: 3250,
         commentCount: 689,
         collectionCount: 1250,
@@ -264,7 +260,8 @@ class _VigaArtsPageState extends State<VigaArtsPage>
         videoPath: '${_systemCubit.state.cdnBase}/ins/video2.mp4',
         avatarPath: '${_systemCubit.state.cdnBase}/avatar/chat_33.jpg',
         userName: '旅行日记',
-        description: '大理的洱海真的太美了！蓝天白云，微风拂面，感觉整个人都被治愈了～🌊 #大理旅行 #洱海 #旅行日记 #治愈系风景',
+        description:
+            '大理的洱海真的太美了！蓝天白云，微风拂面，感觉整个人都被治愈了～🌊 #大理旅行 #洱海 #旅行日记 #治愈系风景',
         likeCount: 4280,
         commentCount: 892,
         collectionCount: 1560,
@@ -338,6 +335,39 @@ class _VigaArtsPageState extends State<VigaArtsPage>
     _systemCubit.updateVideoProgress(progress: progressValue);
   }
 
+  // ===================== 2. 新增：独立的静音切换方法 =====================
+  void _toggleMute() {
+    if (!mounted || !_currentVideoController!.value.isInitialized) return;
+    setState(() {
+      _isMuted = !_isMuted;
+      _currentVideoController!.setVolume(_isMuted ? 0.0 : 1.0);
+    });
+  }
+  // ===================================================================
+
+  // ===================== 3. 修改：点击屏幕中央只负责播放/暂停 =====================
+  void _togglePlaying() {
+    if (!mounted ||
+        !_currentVideoController!.value.isInitialized ||
+        _isPanelOpen) {
+      return;
+    }
+
+    setState(() {
+      if (_currentVideoController!.value.isPlaying) {
+        _currentVideoController!.pause();
+        _showPlayIcon = true;
+      } else {
+        _currentVideoController!.play().catchError((error) {
+          logger.warning("用户点击播放失败: $error");
+          _showPlayIcon = true;
+        });
+        _showPlayIcon = false;
+      }
+    });
+  }
+  // ========================================================================
+
   VideoPlayerController _createVideoControllerForIndex(int index) {
     if (_videoControllers.containsKey(index)) {
       return _videoControllers[index]!;
@@ -349,11 +379,30 @@ class _VigaArtsPageState extends State<VigaArtsPage>
     controller.initialize().then((_) {
       if (mounted) {
         controller.setLooping(true);
-        controller.setVolume(1.0);
+        // 初始化时，根据全局静音状态设置音量
+        controller.setVolume(_isMuted ? 0.0 : 1.0);
         if (index == _currentPage) {
-          controller.play();
-          // 首次播放时，更新wasPlaying状态
-          _wasPlaying = true;
+          if (controller.value.isInitialized &&
+              controller.value.duration != Duration.zero) {
+            controller.play().catchError((playError) {
+              logger
+                  .warning("视频播放失败 (URL: ${videoData.videoPath}): $playError");
+              if (mounted) {
+                setState(() {
+                  _showPlayIcon = true;
+                });
+              }
+            });
+            _wasPlaying = true;
+            _showPlayIcon = false;
+          } else {
+            logger.warning("视频无法播放 (URL: ${videoData.videoPath}): 视频未初始化或时长为0");
+            if (mounted) {
+              setState(() {
+                _showPlayIcon = true;
+              });
+            }
+          }
           controller.addListener(_onVideoChange);
           _onVideoChange();
         }
@@ -361,6 +410,11 @@ class _VigaArtsPageState extends State<VigaArtsPage>
       }
     }).catchError((error) {
       logger.warning("视频初始化失败 (URL: ${videoData.videoPath}): $error");
+      if (mounted && index == _currentPage) {
+        setState(() {
+          _showPlayIcon = true;
+        });
+      }
     });
     _videoControllers[index] = controller;
     return controller;
@@ -393,7 +447,6 @@ class _VigaArtsPageState extends State<VigaArtsPage>
     _systemCubit.updateVideoProgress(show: false);
     _systemCubit.updateShowHomeTabbar(false);
 
-    // 打开评论面板前暂停视频
     if (_currentVideoController?.value.isInitialized ?? false) {
       _wasPlaying = _currentVideoController!.value.isPlaying;
       _currentVideoController!.pause();
@@ -406,7 +459,6 @@ class _VigaArtsPageState extends State<VigaArtsPage>
     });
 
     late Animation<double> transitionAnimation;
-    // 入场动画监听
     void entryAnimationListener() {
       _videoAnimationController.value = 1.0 - transitionAnimation.value;
     }
@@ -477,9 +529,10 @@ class _VigaArtsPageState extends State<VigaArtsPage>
     _systemCubit.updateShowHomeTabbar(true);
     _systemCubit.updateVideoProgress(show: true);
 
-    // 关闭评论面板后，如果之前在播放，则恢复播放
-    if (_wasPlaying) {
-      _currentVideoController?.play();
+    if (_wasPlaying && _currentVideoController?.value.isInitialized == true) {
+      _currentVideoController?.play().catchError((error) {
+        logger.warning("评论面板关闭后恢复播放失败: $error");
+      });
     }
 
     if (mounted) {
@@ -568,17 +621,18 @@ class _VigaArtsPageState extends State<VigaArtsPage>
         'build called - _hideVideoInfo: $_hideVideoInfo, _isPanelOpen: $_isPanelOpen, _isCommentPanel: $_isCommentPanel');
     return BlocBuilder<VigaSystemCubit, SystemState>(
       builder: (context, systemState) {
-        // 监听Tab切换，当不在arts标签页时暂停视频并记录状态
         if (systemState.mainTabIndex != 0) {
           if (_currentVideoController?.value.isPlaying ?? false) {
             _wasPlayingBeforeTabSwitch = true;
             _currentVideoController?.pause();
           }
         } else {
-          // 当切换回arts标签页时，如果之前是播放状态则恢复播放
           if (_wasPlayingBeforeTabSwitch &&
-              !(_currentVideoController?.value.isPlaying ?? false)) {
-            _currentVideoController?.play();
+              !(_currentVideoController?.value.isPlaying ?? false) &&
+              _currentVideoController?.value.isInitialized == true) {
+            _currentVideoController?.play().catchError((error) {
+              logger.warning("标签页切换后恢复播放失败: $error");
+            });
             _wasPlayingBeforeTabSwitch = false;
           }
         }
@@ -668,28 +722,55 @@ class _VigaArtsPageState extends State<VigaArtsPage>
                     ),
                     clipBehavior: Clip.hardEdge,
                     child: Stack(
-                      fit: StackFit.expand,
                       alignment: Alignment.center,
                       children: [
                         if (controller.value.isInitialized)
-                          FittedBox(
-                            fit: controller.value.aspectRatio < 1.0
-                                ? BoxFit.cover
-                                : BoxFit.contain,
-                            clipBehavior: Clip.hardEdge,
-                            child: SizedBox(
-                              width: controller.value.size.width,
-                              height: controller.value.size.height,
-                              child: VigaCustomVideoPlayer(
-                                key: ValueKey('video_$index'),
-                                canPlay: index == _currentPage,
-                                controller: controller,
-                                videoHeight: normalVideoHeight,
-                                enableTapToPlay: !_isPanelOpen,
-                                isPanelOpen: _isPanelOpen,
-                              ),
+                          SizedBox(
+                            width: controller.value.size.width,
+                            height: controller.value.size.height,
+                            child: VigaCustomVideoPlayer(
+                              key: ValueKey('video_$index'),
+                              canPlay: index == _currentPage,
+                              controller: controller,
+                              videoHeight: normalVideoHeight,
+                              enableTapToPlay: !_isPanelOpen,
+                              isPanelOpen: _isPanelOpen,
+                              fit: controller.value.aspectRatio < 1.0
+                                  ? BoxFit.cover
+                                  : BoxFit.contain,
                             ),
                           ),
+
+                        // 播放按钮 - 只在当前页面且视频暂停时显示
+                        if (index == _currentPage &&
+                            _showPlayIcon &&
+                            !_isPanelOpen)
+                          Container(
+                            width: 100.w,
+                            height: 100.w,
+                            decoration: BoxDecoration(
+                              color: const Color.fromRGBO(0, 0, 0, 0.6),
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(
+                              Icons.play_arrow_rounded,
+                              color: Colors.white,
+                              size: 80.w,
+                            ),
+                          ),
+
+                        // 主点击区域 - 覆盖整个视频区域
+                        if (index == _currentPage && !_isPanelOpen)
+                          GestureDetector(
+                            onTap: _togglePlaying,
+                            behavior: HitTestBehavior.opaque,
+                            child: Container(
+                              color: Colors.transparent,
+                              width: double.infinity,
+                              height: double.infinity,
+                            ),
+                          ),
+
                         if (!_hideVideoInfo)
                           Opacity(
                             opacity: index == _currentPage
@@ -712,27 +793,50 @@ class _VigaArtsPageState extends State<VigaArtsPage>
                                   width: 100.w,
                                   child: _buildActionButtons(videoData),
                                 ),
+                                // ===================== 4. 修改：右上角按钮区域 =====================
                                 Positioned(
                                   top: 15.w + systemState.statusHeight,
-                                  right: 28.w,
-                                  child: GestureDetector(
-                                    onTap: () => context.push(
-                                      '/search',
-                                    ),
-                                    child: Container(
-                                      color: Colors.transparent,
-                                      height: 58.w,
-                                      child: Icon(
-                                        const IconData(
-                                          0xe612,
-                                          fontFamily: 'Iconfont',
+                                  right: 15.w, // 调整右边距
+                                  child: Row(
+                                    children: [
+                                      // 静音/有声 切换按钮
+                                      GestureDetector(
+                                        onTap: _toggleMute,
+                                        child: Container(
+                                          color: Colors.transparent,
+                                          padding: EdgeInsets.all(12.w),
+                                          child: Icon(
+                                            _isMuted
+                                                ? Icons.volume_off_rounded
+                                                : Icons.volume_up_rounded,
+                                            color: AppColors.neutralWhite,
+                                            size: 48.w,
+                                          ),
                                         ),
-                                        color: AppColors.neutralWhite,
-                                        size: 48.w,
                                       ),
-                                    ),
+                                      SizedBox(width: 15.w),
+                                      // 搜索按钮
+                                      GestureDetector(
+                                        onTap: () => context.push(
+                                          '/search',
+                                        ),
+                                        child: Container(
+                                          color: Colors.transparent,
+                                          padding: EdgeInsets.all(12.w),
+                                          child: Icon(
+                                            const IconData(
+                                              0xe612,
+                                              fontFamily: 'Iconfont',
+                                            ),
+                                            color: AppColors.neutralWhite,
+                                            size: 48.w,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
+                                // =================================================================
                               ],
                             ),
                           ),
